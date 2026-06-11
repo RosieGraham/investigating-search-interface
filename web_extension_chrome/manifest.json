@@ -1,0 +1,54 @@
+{
+    "manifest_version": 3,
+    "name": "Investigating Search Interface",
+    "version": "2.0.0",
+    "description": "Surfaces short, expert-authored reflection prompts alongside Google search results. A University of Birmingham research project (formerly the Ethical Interface).",
+    "permissions": ["storage"],
+    "host_permissions": [
+        "http://localhost:8000/*",
+        "https://*.onrender.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.google.com/search*",
+                "https://www.google.co.uk/search*",
+                "https://www.google.de/search*",
+                "https://www.google.fr/search*",
+                "https://www.google.nl/search*",
+                "https://www.google.se/search*",
+                "https://www.google.dk/search*",
+                "https://www.google.no/search*",
+                "https://www.google.fi/search*",
+                "https://www.google.es/search*",
+                "https://www.google.it/search*",
+                "https://www.google.ie/search*",
+                "https://www.google.at/search*",
+                "https://www.google.ch/search*",
+                "https://www.google.be/search*",
+                "https://www.google.pl/search*",
+                "https://www.google.pt/search*"
+            ],
+            "js": ["config.js", "content.js"],
+            "css": ["content.css"],
+            "run_at": "document_idle"
+        }
+    ],
+    "action": {
+        "default_icon": {
+            "16": "icon.png",
+            "24": "icon.png",
+            "32": "icon.png"
+        },
+        "default_title": "Investigating Search Interface",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    }
+}

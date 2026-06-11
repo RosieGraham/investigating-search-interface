@@ -1,0 +1,15 @@
+# Production dependencies for the Investigating Search Interface backend.
+# Versions follow PEP 440 compatible-release specifiers (~=) so patch and
+# minor updates arrive without breaking pinned majors.
+
+Django~=5.2.0
+gunicorn~=23.0
+whitenoise~=6.7
+dj-database-url~=2.2
+psycopg[binary]~=3.2
+
+# Vector classification (no PyTorch: ONNX runtime + tokenizer + numpy)
+onnxruntime~=1.20
+tokenizers~=0.20
+numpy~=2.1
+huggingface_hub~=0.26

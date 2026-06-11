@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <header>
+        <h1>Investigating Search Interface</h1>
+        <p class="subtitle">Reflection prompts for your searches · University of Birmingham</p>
+    </header>
+
+    <main>
+        <label class="row toggle-row">
+            <span>Show prompts on Google searches</span>
+            <input type="checkbox" id="enabled-toggle">
+        </label>
+
+        <label class="row toggle-row">
+            <span>Contribute anonymous engagement data to the research</span>
+            <input type="checkbox" id="events-toggle">
+        </label>
+
+        <section id="topics-section">
+            <h2>Topic areas</h2>
+            <p class="hint">Untick any areas you'd rather not see prompts for.</p>
+            <div id="topics-list" aria-live="polite">Loading…</div>
+        </section>
+    </main>
+
+    <footer>
+        <span id="api-status" class="status">checking…</span>
+        <a id="project-link" href="#" target="_blank" rel="noopener noreferrer">About the project</a>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

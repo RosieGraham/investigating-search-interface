@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Django
+*.sqlite3
+*.sqlite3-journal
+django/static/
+django/media/
+django/django.log
+
+# Classifier model + index cache (downloaded at build/deploy time)
+django/model_cache/
+
+# Research data exports: contains project content, keep out of the public repo
+data/
+
+# Local environment
+.env
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Extension packaging
+web_extension_chrome/*.zip

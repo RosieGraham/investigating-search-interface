@@ -1,0 +1,41 @@
+# Render Blueprint for the Investigating Search Interface.
+# With this file in the repo root, Render's "New +" -> "Blueprint" flow
+# creates the service automatically; every git push to main then deploys.
+#
+# The database is NOT defined here: it lives on Neon (free tier, persistent).
+# Paste the Neon connection string into the DATABASE_URL variable when Render
+# prompts for it.
+
+services:
+  - type: web
+    name: investigating-search-interface
+    runtime: python
+    plan: free
+    region: frankfurt  # closest Render region to the UK
+    branch: main
+    buildCommand: |
+      pip install -r requirements.txt
+      python django/manage.py collectstatic --noinput
+      python django/manage.py download_model
+    startCommand: bash render-start.sh
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "false"
+      - key: DATABASE_URL
+        sync: false  # paste the Neon postgres:// URL in the Render dashboard
+      - key: WEB_CONCURRENCY
+        value: "1"   # single worker: fits the 512MB instance with the ONNX model
+      - key: CLASSIFIER_ENABLED
+        value: "true"
+      - key: CLASSIFIER_THRESHOLD
+        value: "0.40"  # calibrated 2026-06-11 on live triggers (79.6% coverage, 14% FP);
+                       # re-run scripts/calibrate_threshold.py after writing topic
+                       # descriptions - expect to lower toward 0.35
+
+      - key: ADMIN_EMAIL
+        value: ""    # set in dashboard if wanted
