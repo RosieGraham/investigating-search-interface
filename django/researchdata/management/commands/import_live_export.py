@@ -40,38 +40,59 @@ class Command(BaseCommand):
                 raise CommandError(f'Export file is missing the "{key}" key.')
 
         # 1. Topic groups
-        for row in data['topic_groups']:
-            models.TopicGroup.objects.update_or_create(id=row['id'], defaults={'name': row['name']})
+        models.TopicGroup.objects.bulk_create(
+            [models.TopicGroup(id=row['id'], name=row['name']) for row in data['topic_groups']],
+            update_conflicts=True, update_fields=['name'], unique_fields=['id'],
+        )
 
         # 2. Topics
-        for row in data['topics']:
-            models.Topic.objects.update_or_create(
+        models.Topic.objects.bulk_create(
+            [models.Topic(
                 id=row['id'],
-                defaults={
-                    'name': row['name'],
-                    'topic_group_id': row['topic_group_id'],
-                    'admin_notes': row.get('admin_notes') or None,
-                },
+                name=row['name'],
+                topic_group_id=row['topic_group_id'],
+                admin_notes=row.get('admin_notes') or None,
+            ) for row in data['topics']],
+            update_conflicts=True, update_fields=['name', 'topic_group_id', 'admin_notes'], unique_fields=['id'],
+        )
+
+        # 3. Triggers — bulk insert in batches of 1000
+        trigger_objs = [
+            models.Trigger(id=row['id'], trigger_text=row['text']) for row in data['triggers']
+        ]
+        for i in range(0, len(trigger_objs), 1000):
+            models.Trigger.objects.bulk_create(
+                trigger_objs[i:i+1000],
+                update_conflicts=True, update_fields=['trigger_text'], unique_fields=['id'],
             )
 
-        # 3. Triggers
-        for row in data['triggers']:
-            models.Trigger.objects.update_or_create(id=row['id'], defaults={'trigger_text': row['text']})
-
-        # 4. Prompts + trigger links
+        # 4. Prompts — bulk insert, then set M2M trigger links in batches
+        prompt_objs = [
+            models.Prompt(
+                id=row['id'],
+                topic_id=row['topic_id'],
+                prompt_content=row['prompt_content'],
+                response_required=bool(row.get('response_required')),
+                priority=row.get('priority'),
+                admin_approved=bool(row.get('admin_approved')),
+                admin_notes=row.get('admin_notes') or None,
+            ) for row in data['prompts']
+        ]
+        models.Prompt.objects.bulk_create(
+            prompt_objs,
+            update_conflicts=True,
+            update_fields=['topic_id', 'prompt_content', 'response_required', 'priority', 'admin_approved', 'admin_notes'],
+            unique_fields=['id'],
+        )
+        # M2M trigger links — clear and re-add using the through table directly
+        ThroughModel = models.Prompt.triggers.through
+        prompt_trigger_rows = []
         for row in data['prompts']:
-            prompt, _ = models.Prompt.objects.update_or_create(
-                id=row['id'],
-                defaults={
-                    'topic_id': row['topic_id'],
-                    'prompt_content': row['prompt_content'],
-                    'response_required': bool(row.get('response_required')),
-                    'priority': row.get('priority'),
-                    'admin_approved': bool(row.get('admin_approved')),
-                    'admin_notes': row.get('admin_notes') or None,
-                },
-            )
-            prompt.triggers.set(row.get('trigger_ids', []))
+            for tid in row.get('trigger_ids', []):
+                prompt_trigger_rows.append(ThroughModel(prompt_id=row['id'], trigger_id=tid))
+        ThroughModel.objects.all().delete()
+        for i in range(0, len(prompt_trigger_rows), 1000):
+            ThroughModel.objects.bulk_create(prompt_trigger_rows[i:i+1000], ignore_conflicts=True)
 
         # 5. Reset Postgres sequences after explicit-PK inserts so future
         #    admin-created rows don't collide with imported ids.

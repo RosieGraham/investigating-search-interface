@@ -78,8 +78,7 @@ class Trigger(models.Model):
     primary, and as a labelled vocabulary for threshold calibration.
     """
 
-    trigger_text = models.CharField(
-        max_length=255,
+    trigger_text = models.TextField(
         help_text="A word or phrase that will trigger a prompt to the user. Must match exactly to user's search term.",
         unique=True
     )
