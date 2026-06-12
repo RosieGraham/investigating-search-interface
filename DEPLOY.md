@@ -42,20 +42,29 @@ That's it: the code is now yours, under your account.
 2. Click **New + → Blueprint**, choose your
    `investigating-search-interface` repository. Render reads `render.yaml`
    and proposes the service. Region Frankfurt, plan Free.
-3. When prompted for environment variables:
-   - `DATABASE_URL`: paste the Neon connection string
-   - For the first deploy only, also add:
-     - `DJANGO_SUPERUSER_USERNAME`: your admin username
-     - `DJANGO_SUPERUSER_EMAIL`: your email
-     - `DJANGO_SUPERUSER_PASSWORD`: a strong password (you'll change it)
-4. Deploy. The first build takes a few minutes (it downloads the 22MB
-   model). Watch the logs; success ends with gunicorn workers booting.
+3. When prompted for environment variables, paste the Neon connection
+   string into `DATABASE_URL`. (The blueprint prompt only asks for
+   variables declared in render.yaml - the admin-user ones come next.)
+4. After the service is created, open it from the dashboard, go to the
+   **Environment** tab, click **Edit / Add Environment Variable**, and add
+   three variables for the first deploy only:
+   - `DJANGO_SUPERUSER_USERNAME`: your admin username
+   - `DJANGO_SUPERUSER_EMAIL`: your email
+   - `DJANGO_SUPERUSER_PASSWORD`: a strong password (you'll change it)
+   Save - Render redeploys automatically when environment variables change.
+5. The first build takes a few minutes (it downloads the 22MB model).
+   Watch the logs; success ends with gunicorn workers booting.
 5. Your service URL appears at the top, e.g.
    `https://investigating-search-interface.onrender.com`. Open
    `https://<your-url>/healthz` - you should see `{"status": "ok"}`.
-6. Log in at `https://<your-url>/dashboard/` with the superuser details,
-   **change the password** (top right → Change password), then delete the
-   three `DJANGO_SUPERUSER_*` variables in Render → Environment.
+6. Log in at `https://<your-url>/dashboard/` - **the username is your
+   EMAIL ADDRESS, all lowercase** (this project's user model forces
+   username = email so people log in with email; whatever you put in
+   DJANGO_SUPERUSER_USERNAME gets replaced). Then **change the password**
+   (top right → Change password) and delete the three `DJANGO_SUPERUSER_*`
+   variables in Render → Environment. Note: while those variables exist,
+   every deploy resets the account password back to the variable's value -
+   another reason to delete them promptly.
 
 ## Stage 4 - Data
 
@@ -129,6 +138,21 @@ still). Two options:
 
 ## Troubleshooting
 
+- **First deploy sits "Queued" for 10-20 minutes**: normal on the free
+  build pool - the June 2026 first deploy took 18 minutes. While no deploy
+  has ever gone live, the public URL shows a plain "Not Found" page; that's
+  Render's placeholder, not an app error.
+- **A second deploy waits behind the first**: changing environment
+  variables or clicking Manual Deploy queues a deploy that starts only
+  after the current one finishes. Expected behaviour.
+- **Environment variable changes only apply through a deploy.** Each
+  deploy snapshots the environment when it is created; "Restart service"
+  re-uses the old snapshot. If you add variables, make sure a NEW deploy
+  runs afterwards (saving usually triggers one - check the deploys list).
+- **A deploy stuck "in progress" for 30+ minutes**: cancel it (the "..."
+  menu on its row in the Deploys tab - the live service is unaffected),
+  then Manual Deploy -> "Deploy latest commit". Rebuilds after the first
+  are much faster thanks to the build cache.
 - **Deploy failed at download_model**: transient HuggingFace issue - retry
   the deploy. The model is cached between successful builds.
 - **Admin login loops / CSRF error**: confirm the service URL appears in

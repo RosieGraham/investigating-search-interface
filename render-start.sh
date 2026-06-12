@@ -4,13 +4,11 @@ set -e
 
 python django/manage.py migrate --noinput
 
-# First-boot convenience: create the admin user from env vars if provided.
-# (Render's free tier has no shell, so this replaces "manage.py createsuperuser".
-# Set DJANGO_SUPERUSER_USERNAME / _EMAIL / _PASSWORD in the dashboard for the
-# first deploy; remove them once you've logged in and changed the password.)
-if [ -n "${DJANGO_SUPERUSER_USERNAME:-}" ]; then
-  python django/manage.py createsuperuser --noinput || true
-fi
+# Bootstrap the admin account from DJANGO_SUPERUSER_* env vars (idempotent:
+# creates the account, or resets its password to the current env value).
+# Render's free tier has no shell, so this replaces "manage.py createsuperuser".
+# Delete the variables once you've logged in and set your own password.
+python django/manage.py ensure_superuser || true
 
 # Build the classifier topic index before workers accept traffic, so the
 # first real query doesn't pay the embedding cost. Failure is non-fatal:
