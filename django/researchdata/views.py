@@ -144,6 +144,50 @@ def prompt_get(request):
     })
 
 
+def classifier_debug(request):
+    """
+    Read-only diagnostic for editorial spot checks and intern query testing.
+
+    Unlike prompt_get, this reports the classifier's top matches even when the
+    matched topics carry no approved prompt, so description quality can be
+    checked for every topic. Returns topic names, groups, raw confidences,
+    and the active threshold. Stores nothing; returns no prompt text.
+
+        /data/classifier/debug/?user_search_query=...
+    """
+    user_search_query = request.GET.get('user_search_query', '').strip()
+    base = {'threshold': settings.CLASSIFIER_THRESHOLD, 'matches': []}
+    if not user_search_query:
+        return JsonResponse({**base, 'classifier': 'no_query'})
+    if not settings.CLASSIFIER_ENABLED:
+        return JsonResponse({**base, 'classifier': 'disabled'})
+    try:
+        raw = classify_query(user_search_query, threshold=0.0, top_k=5)
+    except ClassifierUnavailable:
+        return JsonResponse({**base, 'classifier': 'unavailable'})
+
+    topic_map = {
+        topic.id: topic
+        for topic in models.Topic.objects.filter(
+            id__in=[topic_id for topic_id, _ in raw]
+        ).select_related('topic_group')
+    }
+    matches = []
+    for topic_id, confidence in raw:
+        topic = topic_map.get(topic_id)
+        if topic is None:
+            continue
+        matches.append({
+            'topic_id': topic_id,
+            'topic': topic.name,
+            'group': topic.topic_group.name if topic.topic_group_id else None,
+            'confidence': round(confidence, 4),
+            'above_threshold': confidence >= settings.CLASSIFIER_THRESHOLD,
+            'has_description': bool(topic.description),
+        })
+    return JsonResponse({**base, 'matches': matches, 'classifier': 'ok'})
+
+
 @csrf_exempt
 def response_post(request):
     """

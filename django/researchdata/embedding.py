@@ -103,26 +103,40 @@ def _load_runtime():
     logger.info('Classifier loaded: %s (inputs: %s)', model_path.name, _input_names)
 
 
-def encode(texts):
+def encode(texts, batch_size=16):
     """
     Embed a list of strings -> np.ndarray (n, 384), L2-normalised float32.
     Mean pooling over token embeddings, masked by attention.
+
+    Encoded in small batches so peak memory stays flat as the corpus grows.
+    Embedding every topic in a single batch pads all rows to the longest
+    description and allocates one large activation tensor; on the free 512MB
+    instance that spikes over the limit and the warm-up build OOMs (it did at
+    214 topics once enough carried long descriptions). Per-item embeddings are
+    independent (attention is within-sequence, padding is masked), so chunking
+    is numerically identical to one batch, just with a bounded memory peak.
     """
     _load_runtime()
-    encodings = _tokenizer.encode_batch([t if t else ' ' for t in texts])
-    input_ids = np.array([e.ids for e in encodings], dtype=np.int64)
-    attention_mask = np.array([e.attention_mask for e in encodings], dtype=np.int64)
-    feeds = {'input_ids': input_ids, 'attention_mask': attention_mask}
-    if 'token_type_ids' in _input_names:
-        feeds['token_type_ids'] = np.zeros_like(input_ids)
-    # First output: last_hidden_state (n, seq, 384)
-    last_hidden = _session.run(None, feeds)[0]
-    mask = attention_mask[:, :, None].astype(np.float32)
-    summed = (last_hidden * mask).sum(axis=1)
-    counts = np.clip(mask.sum(axis=1), 1e-9, None)
-    pooled = summed / counts
-    norms = np.clip(np.linalg.norm(pooled, axis=1, keepdims=True), 1e-12, None)
-    return (pooled / norms).astype(np.float32)
+    chunks = []
+    for start in range(0, len(texts), batch_size):
+        batch = texts[start:start + batch_size]
+        encodings = _tokenizer.encode_batch([t if t else ' ' for t in batch])
+        input_ids = np.array([e.ids for e in encodings], dtype=np.int64)
+        attention_mask = np.array([e.attention_mask for e in encodings], dtype=np.int64)
+        feeds = {'input_ids': input_ids, 'attention_mask': attention_mask}
+        if 'token_type_ids' in _input_names:
+            feeds['token_type_ids'] = np.zeros_like(input_ids)
+        # First output: last_hidden_state (n, seq, 384)
+        last_hidden = _session.run(None, feeds)[0]
+        mask = attention_mask[:, :, None].astype(np.float32)
+        summed = (last_hidden * mask).sum(axis=1)
+        counts = np.clip(mask.sum(axis=1), 1e-9, None)
+        pooled = summed / counts
+        norms = np.clip(np.linalg.norm(pooled, axis=1, keepdims=True), 1e-12, None)
+        chunks.append((pooled / norms).astype(np.float32))
+    if not chunks:
+        return np.zeros((0, 384), dtype=np.float32)
+    return np.vstack(chunks)
 
 
 def _topics_fingerprint(rows, model_id):

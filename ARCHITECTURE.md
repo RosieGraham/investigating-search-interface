@@ -32,6 +32,40 @@ The narrow `classify_query` interface also allows a remote classifier
 (e.g. a PeARS API, per Aurelie Herbelot's collaboration offer) without
 touching the views.
 
+## Standing consideration: commercialisation lens (added 2026-06-15)
+
+Added as a project strand at Rosie's direction. Alongside the research goals, the
+extension is now being developed with a view to eventual commercial distribution:
+a paid app on the Chrome Web Store, potentially the iOS App Store, and
+institutional licensing to schools, businesses, civil servants, politicians, and
+other institutions. This does not displace the research-instrument purpose; it
+sits beside it.
+
+Practical implication for this document: weigh architectural, technical, and
+scoping decisions against the commercial path as well as the research path.
+Concretely that means keeping questions like these in view, none of them scoped
+yet:
+
+- Licensing and code ownership for a commercial release: the project's current
+  licence (LICENSE.md), the bear-rsg/ethical-interface lineage, and the licence
+  of the bundled ONNX embedding model.
+- Separating research-data collection from a paying deployment, so an institution
+  can opt out of telemetry or run a no-logging build while the tool still works.
+- An entitlement or activation model (per seat or per institution) that does not
+  require heavy new backend machinery.
+- Multi-tenant content: institution-specific prompt sets, distinct from the
+  research content.
+- Cross-browser and multi-engine reach as a market-size decision, not only a
+  research-reach one (see the options analysis in
+  `Outputs/Technical/Cross-browser and multi-engine options.docx`).
+- App-store billing, pricing tiers, and review constraints (Chrome Web Store
+  paid items, Apple's in-app purchase rules).
+
+This is a lens to apply to future decisions, not a plan. The daily digest now
+also watches for commercialisation-relevant signals (pricing models,
+distribution channels, what comparable tools charge, institutional versus
+consumer markets).
+
 ## Query matching
 
 Primary: SBERT vector classification (`researchdata/embedding.py`).
