@@ -10,7 +10,7 @@ const ISI_CONFIG = {
   API_BASE: 'https://investigating-search-interface.onrender.com',
   PROJECT_URL: 'https://github.com/bear-rsg/ethical-interface',
   ATTRIBUTION: 'Investigating Search Interface · SEEED',
-  MAX_PROMPTS: 3,
+  MAX_PROMPTS: 4,
   // How long (ms) to keep watching for the results container on dynamic pages
   OBSERVER_TIMEOUT: 12000,
 };
