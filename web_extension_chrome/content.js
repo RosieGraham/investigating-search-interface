@@ -166,7 +166,10 @@ when Google shifts its markup.
     mono.appendChild(document.createTextNode('iS'));
     mono.appendChild(el('span', 'isi-mono-dot', '.'));
     brand.appendChild(mono);
-    brand.appendChild(el('span', 'isi-wordmark', 'Investigating Search'));
+    brand.appendChild(el('span', 'isi-wordmark', 'Investigating'));
+    const qLabel = el('span', 'isi-query-label',
+      ' ' + (query.length > 32 ? query.slice(0, 30) + '…' : query));
+    brand.appendChild(qLabel);
     brand.appendChild(el('span', 'isi-caret'));
     header.appendChild(brand);
     const dismiss = el('button', 'isi-dismiss', '×');

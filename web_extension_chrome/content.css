@@ -10,21 +10,45 @@
   --ink: #1C1B33;
   --paper: #FAF6EC;
   --amber: #FFC24B;
-  --plum: #6E5A86;
-  --line: #ECE4D2;
+  --amber-dark: #C98F00;
+  --plum: #5B4A7A;
+  --line: #E0D5EF;
   --muted: #9B91AB;
   max-width: 600px;
-  margin: 0 0 20px 0;
+  margin: 0 0 28px 0;  /* extra bottom margin to clear the isometric overhang */
   padding: 18px 22px 16px 26px;
   position: relative;
   border: 1px solid var(--line);
-  border-left: 5px solid var(--amber);
+  border-left: none;   /* handled by ::before pseudo-element */
   border-radius: 14px;
   background: var(--paper);
   color: var(--ink);
   font-family: 'Space Grotesk', 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
   box-shadow: 0 6px 22px rgba(28, 27, 51, 0.13);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+/* Isometric left strip: amber face extends 8px below the card bottom */
+#isi-prompts::before {
+  content: '';
+  position: absolute;
+  top: -1px;          /* align with card border */
+  left: -5px;
+  width: 5px;
+  bottom: -9px;       /* extends below the card face */
+  background: var(--amber);
+  border-radius: 3px 0 0 3px;
+}
+/* Isometric bottom cap: dark amber strip across the bottom of the overhang */
+#isi-prompts::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  bottom: -9px;
+  right: -1px;
+  height: 8px;
+  background: var(--amber-dark);
+  border-radius: 0 0 10px 3px;
+  opacity: 0.85;
 }
 #isi-prompts:hover {
   box-shadow: 0 16px 42px rgba(28, 27, 51, 0.22);
@@ -51,6 +75,8 @@
   align-items: center;
   gap: 10px;
   margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--plum);
 }
 #isi-prompts .isi-brand { display: flex; align-items: center; gap: 8px; }
 #isi-prompts .isi-mono {
@@ -76,6 +102,12 @@
   font-size: 14px;
   letter-spacing: -0.01em;
   color: var(--ink);
+}
+#isi-prompts .isi-query-label {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--plum);
 }
 #isi-prompts .isi-caret {
   display: inline-block;
