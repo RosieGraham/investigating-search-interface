@@ -10,10 +10,10 @@ python django/manage.py migrate --noinput
 # Delete the variables once you've logged in and set your own password.
 python django/manage.py ensure_superuser || true
 
-# Build the classifier topic index before workers accept traffic, so the
-# first real query doesn't pay the embedding cost. Failure is non-fatal:
-# the API falls back to trigger matching and logs a warning.
+# Build classifier indexes before workers accept traffic so the first real
+# query doesn't pay the embedding cost. Failures are non-fatal.
 python django/manage.py build_topic_index || echo "Topic index build failed; API will use trigger fallback."
+python django/manage.py build_prompt_index || echo "Prompt index build failed; semantic ranking will rebuild on first query."
 
 cd django
 exec gunicorn core.wsgi:application \

@@ -6,11 +6,11 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from . import models
-from .embedding import ClassifierUnavailable, classify_query
+from .embedding import ClassifierUnavailable, classify_query, embed_query, rank_prompts
 
 logger = logging.getLogger('researchdata')
 
-MAX_PROMPTS_RETURNED = 3
+MAX_PROMPTS_RETURNED = 4
 
 
 def _approved_prompts():
@@ -112,19 +112,30 @@ def prompt_get(request):
     # --- Primary path: vector classification ---
     if settings.CLASSIFIER_ENABLED:
         try:
-            matches = classify_query(user_search_query)
+            # Embed once; reuse for both topic classification and prompt ranking.
+            query_vec = embed_query(user_search_query)
+            matches = classify_query(user_search_query, _query_vec=query_vec)
             classifier_state = 'matched' if matches else 'no_match'
             for topic_id, confidence in matches:
                 if len(prompts_payload) >= MAX_PROMPTS_RETURNED:
                     break
-                topic_prompts = (
-                    _approved_prompts()
+                # Fetch all candidates for this topic in one query.
+                candidate_map = {
+                    p.id: p
+                    for p in _approved_prompts()
                     .filter(topic_id=topic_id)
                     .exclude(topic__topic_group__id__in=topics_exclude)
-                    .order_by('-priority')
-                )
-                for prompt in topic_prompts[:MAX_PROMPTS_RETURNED - len(prompts_payload)]:
-                    prompts_payload.append(_prompt_payload(prompt, confidence, matched_by='classifier'))
+                }
+                if not candidate_map:
+                    continue
+                # Rank by cosine similarity to the query; fall back to
+                # priority order for any prompt absent from the index.
+                ranked = rank_prompts(query_vec, list(candidate_map.keys()))
+                n_take = MAX_PROMPTS_RETURNED - len(prompts_payload)
+                for prompt_id, _score in ranked[:n_take]:
+                    prompt = candidate_map.get(prompt_id)
+                    if prompt:
+                        prompts_payload.append(_prompt_payload(prompt, confidence, matched_by='classifier'))
         except ClassifierUnavailable:
             classifier_state = 'unavailable'
         except Exception:

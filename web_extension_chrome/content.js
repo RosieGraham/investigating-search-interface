@@ -161,7 +161,14 @@ when Google shifts its markup.
     card.id = 'isi-prompts';
 
     const header = el('div', 'isi-header');
-    header.appendChild(el('span', 'isi-title', 'Reflection prompts for this search'));
+    const brand = el('div', 'isi-brand');
+    const mono = el('span', 'isi-mono');
+    mono.appendChild(document.createTextNode('iS'));
+    mono.appendChild(el('span', 'isi-mono-dot', '.'));
+    brand.appendChild(mono);
+    brand.appendChild(el('span', 'isi-wordmark', 'Investigating Search'));
+    brand.appendChild(el('span', 'isi-caret'));
+    header.appendChild(brand);
     const dismiss = el('button', 'isi-dismiss', '×');
     dismiss.type = 'button';
     dismiss.title = 'Hide for this search';

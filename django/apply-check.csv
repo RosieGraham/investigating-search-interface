@@ -1,106 +1,106 @@
 query,top_match,confidence,above_threshold,runners_up
-what is Google AI overview,Technology - Artificial Intelligence and Search Engines,0.541,yes,
-is the AI summary at the top accurate,Politics - U.S. Election 2024,,yes,
-why is there an AI answer above my results,How search shapes us - Dark patterns and the design of consent,,yes,
-can AI overviews be wrong,Politics - General,,yes,
-AI overview versus the normal results,Technology - Artificial Intelligence and Search Engines,,yes,
-is Google accessible for screen readers,Politics - U.S. Election 2024,,yes,
-how do blind people use search,How search shapes us - Accessibility of search,,yes,
-search engine accessibility,Technology - Artificial Intelligence and Search Engines,0.439,yes,
-is search usable with low vision,Politics - U.S. Election 2024,,yes,
-accessible search for disabled users,How search shapes us - Accessibility of search,,yes,
-is Google tracking my searches,Politics - U.S. Election 2024,,yes,
-why do ads follow me after I search for something,How search shapes us - Dark patterns and the design of consent,,yes,
-what data does search collect about me,Technology - Artificial Intelligence General,,yes,
-are my searches used for advertising,Technology - Artificial Intelligence and Search Engines,0.407,yes,
-how do I stop search tracking me,How search shapes us - Accessibility of search,,yes,
-are the top Google results ads,How search shapes us - Dark patterns and the design of consent,,yes,
-what does sponsored mean in search,Technology - Artificial Intelligence General,,yes,
-why are there ads at the top of search,How search shapes us - Dark patterns and the design of consent,,yes,
-how do I tell ads from real results,How search shapes us - Accessibility of search,,yes,
-are search ads clearly labelled,How search shapes us - Dark patterns and the design of consent,,yes,
-should I use ChatGPT instead of Google,How search shapes us - Children and search,,yes,
-is it better to ask a chatbot or search,Technology - Artificial Intelligence and Search Engines,0.400,yes,
-can I trust what ChatGPT tells me,Politics - General,,yes,
-why does the chatbot give different answers each time,How search shapes us - Dark patterns and the design of consent,,yes,
-do chatbots make things up,Politics - Donald Trump's 2016 presidential campaign,,yes,
-how does Google autocomplete work,How search shapes us - Accessibility of search,,yes,
-why does search suggest these questions,How search shapes us - Dark patterns and the design of consent,,yes,
-where do search predictions come from,Technology - Artificial Intelligence and Search Engines,0.426,yes,
-can autocomplete be biased,Politics - General,,yes,
-why does it finish my search for me,How search shapes us - Dark patterns and the design of consent,,yes,
-is Google safe for kids,Politics - U.S. Election 2024,,yes,
-how do children use search engines,Technology - Artificial Intelligence and Search Engines,0.525,yes,
-safe search for children,How search shapes us - Children and search,,yes,
-do kids understand search results,Technology - Artificial Intelligence and Search Engines,0.410,yes,
-should children use Google,How search shapes us - Children and search,,yes,
-why does everyone use Google,How search shapes us - Dark patterns and the design of consent,,yes,
-how much of search does Google control,Technology - Artificial Intelligence and Search Engines,0.409,yes,
-why is Google the default search engine,Technology - Artificial Intelligence and Search Engines,0.471,yes,
-are a few companies controlling how we search,Technology - Artificial Intelligence and Search Engines,0.492,yes,
-what are the alternatives to the big tech defaults,Technology - Artificial Intelligence General,,yes,
-what are dark patterns,Technology - Artificial Intelligence General,,yes,
-why is reject all so hard to find,How search shapes us - Dark patterns and the design of consent,,yes,
-are cookie banners designed to trick you,How search shapes us - Dark patterns and the design of consent,,yes,
-what is a dark pattern in web design,Technology - Artificial Intelligence General,,yes,
-how do websites manipulate your choices,How search shapes us - Accessibility of search,,yes,
-are filter bubbles real,How search shapes us - Dark patterns and the design of consent,,yes,
-do filter bubbles actually exist,Politics - Donald Trump's 2016 presidential campaign,,yes,
-is the echo chamber idea a myth,Politics - U.S. Election 2024,,yes,
-does personalisation trap me in a bubble,"How search shapes us - Filter bubbles, the evidence and the myth",,yes,
-what does the evidence say about filter bubbles,Technology - Artificial Intelligence General,,yes,
-what is generative engine optimisation,Technology - Artificial Intelligence General,,yes,
-how do brands get mentioned in AI answers,How search shapes us - Accessibility of search,,yes,
-can you optimise content for ChatGPT,Politics - General,,yes,
-why does the same brand keep appearing in AI results,How search shapes us - Dark patterns and the design of consent,,yes,
-GEO versus SEO,More search and answer mechanics - Generative engine optimisation,,yes,
-how does Google rank pages,How search shapes us - Accessibility of search,,yes,
-why is this result first,How search shapes us - Dark patterns and the design of consent,,yes,
-how does search decide what to show,How search shapes us - Accessibility of search,,yes,
-what are ranking signals,Technology - Artificial Intelligence General,,yes,
-why does the top result win,How search shapes us - Dark patterns and the design of consent,,yes,
-how does reverse image search work,How search shapes us - Accessibility of search,,yes,
-how to find where an image came from,How search shapes us - Accessibility of search,,yes,
-how to check if a photo is real,How search shapes us - Accessibility of search,,yes,
-find the original of a picture,How search shapes us - Dark patterns and the design of consent,,yes,
-is this image old or out of context,Politics - U.S. Election 2024,,yes,
-why does Google Maps show different borders,How search shapes us - Dark patterns and the design of consent,,yes,
-is Crimea shown as part of Russia on maps,Politics - U.S. Election 2024,,yes,
-why are map results different by country,How search shapes us - Dark patterns and the design of consent,,yes,
-are the pins on maps paid for,How search shapes us - Dark patterns and the design of consent,,yes,
-do maps take sides on disputed borders,Politics - Donald Trump's 2016 presidential campaign,,yes,
-why are my search results different from someone else's,How search shapes us - Dark patterns and the design of consent,,yes,
-does Google personalise my results,"How search shapes us - Filter bubbles, the evidence and the myth",,yes,
-why do I see different results to my friend,How search shapes us - Dark patterns and the design of consent,,yes,
-how does search use my history,How search shapes us - Accessibility of search,,yes,
-are my results based on me,How search shapes us - Dark patterns and the design of consent,,yes,
-how do recommendation algorithms work,How search shapes us - Accessibility of search,,yes,
-why does YouTube recommend these videos,How search shapes us - Dark patterns and the design of consent,,yes,
-how does Netflix know what I like,How search shapes us - Accessibility of search,,yes,
-why does autoplay keep going,How search shapes us - Dark patterns and the design of consent,,yes,
-how do recommended feeds decide what to show,How search shapes us - Accessibility of search,,yes,
-does Google make us forget things,"How search shapes us - Filter bubbles, the evidence and the myth",,yes,
-what is the Google effect on memory,Technology - Artificial Intelligence General,,yes,
-does searching weaken memory,"How search shapes us - Filter bubbles, the evidence and the myth",,yes,
-do we remember less because of the internet,Politics - Donald Trump's 2016 presidential campaign,,yes,
-digital amnesia explained,How search shapes us - The Google effect on memory,,yes,
-where do AI models get their training data,How search works - Autocomplete and query suggestions,,yes,
-did AI scrape my website,Technology - Artificial Intelligence and Search Engines,0.437,yes,
-do AI answers reduce website traffic,Politics - Donald Trump's 2016 presidential campaign,,yes,
-is AI trained on copyrighted content,Politics - U.S. Election 2024,,yes,
-what happens to the open web when AI answers everything,Technology - Artificial Intelligence and Search Engines,0.446,yes,
-how does Twitter decide what is trending,How search shapes us - Accessibility of search,,yes,
-what does trending actually mean,Technology - Artificial Intelligence General,,yes,
-can trending topics be faked,Politics - General,,yes,
-how do hashtags start trending,How search shapes us - Accessibility of search,,yes,
-why is this trending right now,How search shapes us - Dark patterns and the design of consent,,yes,
-how does Alexa choose its answer,How search shapes us - Accessibility of search,,yes,
-where does Siri get its answers from,How search works - Autocomplete and query suggestions,,yes,
-why does the voice assistant give only one answer,How search shapes us - Dark patterns and the design of consent,,yes,
-can I trust what Google Assistant tells me,Politics - General,,yes,
-does voice search show its sources,"How search shapes us - Filter bubbles, the evidence and the myth",,yes,
-how reliable is Wikipedia,How search shapes us - Accessibility of search,,yes,
-who actually writes Wikipedia,The web behind the results - Wikipedia and how online knowledge is made,,yes,
-what is a Wikipedia talk page,Technology - Artificial Intelligence General,,yes,
-can I trust Wikipedia for facts,Politics - General,,yes,
-how do Wikipedia edit wars work,How search shapes us - Accessibility of search,,yes,
+what is Google AI overview,AI Overviews and generative search,0.672,yes,Generative engine optimisation 0.612; AI in medicine 0.576
+is the AI summary at the top accurate,AI Overviews and generative search,0.681,yes,Generative engine optimisation 0.536; AI disinformation 0.502
+why is there an AI answer above my results,AI Overviews and generative search,0.621,yes,AI disinformation 0.572; Training data and the open web 0.548
+can AI overviews be wrong,AI Overviews and generative search,0.754,yes,AI disinformation 0.567; AI in medicine 0.527
+AI overview versus the normal results,AI Overviews and generative search,0.748,yes,Generative engine optimisation 0.597; Training data and the open web 0.565
+is Google accessible for screen readers,Accessibility of search,0.515,yes,Children and search 0.352; The Google effect on memory 0.329
+how do blind people use search,Accessibility of search,0.588,yes,Personalisation and why your results differ 0.443; The Google effect on memory 0.431
+search engine accessibility,Accessibility of search,0.778,yes,Artificial Intelligence and Search Engines 0.449; Children and search 0.439
+is search usable with low vision,Accessibility of search,0.496,yes,Artificial Intelligence and Search Engines 0.371; The Google effect on memory 0.340
+accessible search for disabled users,Accessibility of search,0.570,yes,Children and search 0.332; Facial recognition bans 0.231
+is Google tracking my searches,Ad tracking and what you reveal by searching,0.585,yes,Personalisation and why your results differ 0.437; The Google effect on memory 0.420
+why do ads follow me after I search for something,Ad tracking and what you reveal by searching,0.571,yes,Advertising and sponsored results 0.553; Personalisation and why your results differ 0.373
+what data does search collect about me,Personalisation and why your results differ,0.537,yes,Ad tracking and what you reveal by searching 0.461; Data harvesting 0.410
+are my searches used for advertising,Advertising and sponsored results,0.596,yes,Ad tracking and what you reveal by searching 0.575; Personalisation and why your results differ 0.429
+how do I stop search tracking me,Ad tracking and what you reveal by searching,0.497,yes,Personalisation and why your results differ 0.292; Artificial Intelligence and Search Engines 0.281
+are the top Google results ads,Advertising and sponsored results,0.613,yes,How results are ranked 0.403; Ad tracking and what you reveal by searching 0.374
+what does sponsored mean in search,Advertising and sponsored results,0.631,yes,Ad tracking and what you reveal by searching 0.375; Personalisation and why your results differ 0.287
+why are there ads at the top of search,Advertising and sponsored results,0.642,yes,Ad tracking and what you reveal by searching 0.511; How results are ranked 0.429
+how do I tell ads from real results,Advertising and sponsored results,0.609,yes,Ad tracking and what you reveal by searching 0.417; Real estate market bubbles 0.329
+are search ads clearly labelled,Advertising and sponsored results,0.566,yes,Ad tracking and what you reveal by searching 0.469; Ad tracking ethics 0.332
+should I use ChatGPT instead of Google,Asking a chatbot instead of searching,0.405,yes,Social media 0.281; Social media algorithms 0.233
+is it better to ask a chatbot or search,Asking a chatbot instead of searching,0.666,yes,Artificial Intelligence and Search Engines 0.408; Voice assistants and the single spoken answer 0.308
+can I trust what ChatGPT tells me,Asking a chatbot instead of searching,0.410,yes,Social media echo chambers 0.343; Whistleblower risks privacy 0.296
+why does the chatbot give different answers each time,Asking a chatbot instead of searching,0.578,yes,Voice assistants and the single spoken answer 0.370; Training data and the open web 0.256
+do chatbots make things up,Asking a chatbot instead of searching,0.565,yes,Training data and the open web 0.299; Artificial Intelligence and Search Engines 0.279
+how does Google autocomplete work,Autocomplete and query suggestions,0.558,yes,The Google effect on memory 0.265; Concentration and defaults 0.236
+why does search suggest these questions,Autocomplete and query suggestions,0.586,yes,Children and search 0.486; Accessibility of search 0.467
+where do search predictions come from,Autocomplete and query suggestions,0.575,yes,How results are ranked 0.473; Artificial Intelligence and Search Engines 0.437
+can autocomplete be biased,Autocomplete and query suggestions,0.558,yes,Election fraud claims 0.216; AI bias in hiring 0.194
+why does it finish my search for me,Personalisation and why your results differ,0.435,yes,Advertising and sponsored results 0.408; Autocomplete and query suggestions 0.398
+is Google safe for kids,Children and search,0.598,yes,Social media data exploitation 0.331; Spyware 0.318
+how do children use search engines,Children and search,0.672,yes,Artificial Intelligence and Search Engines 0.527; Accessibility of search 0.427
+safe search for children,Children and search,0.650,yes,Accessibility of search 0.365; Artificial Intelligence and Search Engines 0.310
+do kids understand search results,Children and search,0.681,yes,Accessibility of search 0.489; Personalisation and why your results differ 0.474
+should children use Google,Children and search,0.640,yes,The Google effect on memory 0.366; Accessibility of search 0.332
+why does everyone use Google,The Google effect on memory,0.444,yes,Children and search 0.413; Concentration and defaults 0.407
+how much of search does Google control,The Google effect on memory,0.495,yes,Artificial Intelligence and Search Engines 0.424; Concentration and defaults 0.416
+why is Google the default search engine,Concentration and defaults,0.580,yes,Artificial Intelligence and Search Engines 0.458; How results are ranked 0.405
+are a few companies controlling how we search,Artificial Intelligence and Search Engines,0.515,yes,Ad tracking and what you reveal by searching 0.472; Personalisation and why your results differ 0.452
+what are the alternatives to the big tech defaults,Concentration and defaults,0.585,yes,Big data 0.471; Wearable tech 0.446
+what are dark patterns,Dark patterns and the design of consent,0.561,yes,Dark Web anonymity 0.324; Dark Web finance 0.262
+why is reject all so hard to find,Book bans,0.295,no,Misinformation vs. censorship 0.254; Accessibility of search 0.249
+are cookie banners designed to trick you,Dark patterns and the design of consent,0.497,yes,Ad tracking ethics 0.266; Personal branding 0.260
+what is a dark pattern in web design,Dark patterns and the design of consent,0.651,yes,Dark Web anonymity 0.408; Dark Web finance 0.378
+how do websites manipulate your choices,Dark patterns and the design of consent,0.407,yes,Autocomplete and query suggestions 0.402; Concentration and defaults 0.378
+are filter bubbles real,"Filter bubbles, the evidence and the myth",0.595,yes,Real estate market bubbles 0.570; Fake news 0.322
+do filter bubbles actually exist,"Filter bubbles, the evidence and the myth",0.567,yes,Real estate market bubbles 0.505; Personalisation and why your results differ 0.245
+is the echo chamber idea a myth,Social media echo chambers,0.474,yes,"Filter bubbles, the evidence and the myth 0.391; Supernatural government experiments 0.263"
+does personalisation trap me in a bubble,"Filter bubbles, the evidence and the myth",0.563,yes,Personalisation and why your results differ 0.449; Personal branding 0.362
+what does the evidence say about filter bubbles,"Filter bubbles, the evidence and the myth",0.639,yes,Real estate market bubbles 0.468; HAARP weather manipulation 0.250
+what is generative engine optimisation,Generative engine optimisation,0.521,yes,Gene editing 0.259; How results are ranked 0.255
+how do brands get mentioned in AI answers,Generative engine optimisation,0.545,yes,Training data and the open web 0.536; AI Overviews and generative search 0.515
+can you optimise content for ChatGPT,Asking a chatbot instead of searching,0.329,no,Generative engine optimisation 0.290; Social media algorithms 0.271
+why does the same brand keep appearing in AI results,AI disinformation,0.499,yes,Unregulated AI 0.457; Generative engine optimisation 0.453
+GEO versus SEO,Maps as search,0.361,no,How results are ranked 0.343; Generative engine optimisation 0.337
+how does Google rank pages,How results are ranked,0.598,yes,Generative engine optimisation 0.391; Children and search 0.326
+why is this result first,How results are ranked,0.250,no,COVID-19 misinformation 0.222; Advertising and sponsored results 0.220
+how does search decide what to show,Advertising and sponsored results,0.562,yes,Personalisation and why your results differ 0.558; How results are ranked 0.541
+what are ranking signals,How results are ranked,0.630,yes,Generative engine optimisation 0.303; Advertising and sponsored results 0.296
+why does the top result win,How results are ranked,0.440,yes,Advertising and sponsored results 0.298; Generative engine optimisation 0.228
+how does reverse image search work,Image search and reverse image search,0.676,yes,Artificial Intelligence and Search Engines 0.368; Personalisation and why your results differ 0.342
+how to find where an image came from,Image search and reverse image search,0.577,yes,Maps as search 0.238; Social media and self-image 0.218
+how to check if a photo is real,Image search and reverse image search,0.528,yes,Social media and self-image 0.291; Fake news 0.281
+find the original of a picture,Image search and reverse image search,0.468,yes,Social media and self-image 0.188; Personalisation and why your results differ 0.168
+is this image old or out of context,Image search and reverse image search,0.412,yes,Modern media propaganda 0.260; Misinformation identification 0.258
+why does Google Maps show different borders,Maps as search,0.582,yes,Personalisation and why your results differ 0.281; Dark patterns and the design of consent 0.221
+is Crimea shown as part of Russia on maps,Maps as search,0.491,yes,Ukraine war 0.366; Foreign election interference 0.162
+why are map results different by country,Maps as search,0.648,yes,Globalism vs. nationalism 0.282; Personalisation and why your results differ 0.261
+are the pins on maps paid for,Maps as search,0.378,no,Facial recognition regulation 0.210; Smart cities 0.191
+do maps take sides on disputed borders,Maps as search,0.636,yes,Gerrymandering 0.274; Political polarization 0.273
+why are my search results different from someone else's,Personalisation and why your results differ,0.636,yes,Advertising and sponsored results 0.450; Asking a chatbot instead of searching 0.396
+does Google personalise my results,Personalisation and why your results differ,0.596,yes,The Google effect on memory 0.399; Advertising and sponsored results 0.342
+why do I see different results to my friend,Personalisation and why your results differ,0.506,yes,Psychology of misinformation 0.282; Advertising and sponsored results 0.241
+how does search use my history,Personalisation and why your results differ,0.502,yes,The Google effect on memory 0.453; Autocomplete and query suggestions 0.386
+are my results based on me,Personalisation and why your results differ,0.463,yes,Advertising and sponsored results 0.309; Autocomplete and query suggestions 0.250
+how do recommendation algorithms work,Recommendation systems,0.658,yes,Autocomplete and query suggestions 0.405; Children and search 0.368
+why does YouTube recommend these videos,Recommendation systems,0.328,no,Children and search 0.268; Social media algorithms 0.256
+how does Netflix know what I like,Recommendation systems,0.368,no,Personalisation and why your results differ 0.298; Autocomplete and query suggestions 0.240
+why does autoplay keep going,Autocomplete and query suggestions,0.229,no,Automation in warfare 0.197; Concentration and defaults 0.197
+how do recommended feeds decide what to show,Recommendation systems,0.560,yes,Algorithmic bias in news feeds 0.371; Children and search 0.353
+does Google make us forget things,The Google effect on memory,0.663,yes,Personalisation and why your results differ 0.364; Artificial Intelligence and Search Engines 0.329
+what is the Google effect on memory,The Google effect on memory,0.746,yes,Microplastics 0.314; Personalisation and why your results differ 0.296
+does searching weaken memory,The Google effect on memory,0.658,yes,Artificial Intelligence and Search Engines 0.318; Personalisation and why your results differ 0.312
+do we remember less because of the internet,The Google effect on memory,0.545,yes,Internet censorship 0.314; Government control of the internet 0.280
+digital amnesia explained,The Google effect on memory,0.414,yes,Digital detox 0.346; Digital ID programs 0.335
+where do AI models get their training data,Training data and the open web,0.636,yes,AI data privacy 0.502; AI in medicine 0.470
+did AI scrape my website,Training data and the open web,0.502,yes,AI data privacy 0.479; AI Overviews and generative search 0.437
+do AI answers reduce website traffic,Training data and the open web,0.678,yes,AI policing 0.553; Generative engine optimisation 0.546
+is AI trained on copyrighted content,AI data privacy,0.604,yes,Training data and the open web 0.603; AI policing 0.553
+what happens to the open web when AI answers everything,Training data and the open web,0.762,yes,AI data privacy 0.482; AI Overviews and generative search 0.471
+how does Twitter decide what is trending,Trending and what counts as trending,0.579,yes,Social media 0.460; Social media algorithms 0.455
+what does trending actually mean,Trending and what counts as trending,0.661,yes,How results are ranked 0.278; Algorithmic bias in news feeds 0.250
+can trending topics be faked,Trending and what counts as trending,0.576,yes,Fake news 0.462; Fake historical events 0.430
+how do hashtags start trending,Trending and what counts as trending,0.464,yes,Social media algorithms 0.213; Concentration and defaults 0.184
+why is this trending right now,Trending and what counts as trending,0.496,yes,Algorithmic bias in news feeds 0.372; Modern media propaganda 0.299
+how does Alexa choose its answer,Voice assistants and the single spoken answer,0.535,yes,Training data and the open web 0.346; Asking a chatbot instead of searching 0.322
+where does Siri get its answers from,Voice assistants and the single spoken answer,0.411,yes,Training data and the open web 0.356; AI Overviews and generative search 0.349
+why does the voice assistant give only one answer,Voice assistants and the single spoken answer,0.666,yes,Asking a chatbot instead of searching 0.305; AI Overviews and generative search 0.221
+can I trust what Google Assistant tells me,Voice assistants and the single spoken answer,0.451,yes,AI data privacy 0.384; Ad tracking ethics 0.382
+does voice search show its sources,Voice assistants and the single spoken answer,0.616,yes,Autocomplete and query suggestions 0.395; Artificial Intelligence and Search Engines 0.375
+how reliable is Wikipedia,Wikipedia and how online knowledge is made,0.632,yes,Fact-checking 0.337; Children and search 0.289
+who actually writes Wikipedia,Wikipedia and how online knowledge is made,0.576,yes,Modern media propaganda 0.312; Algorithmic bias in news feeds 0.304
+what is a Wikipedia talk page,Wikipedia and how online knowledge is made,0.535,yes,Asking a chatbot instead of searching 0.309; Social media algorithms 0.301
+can I trust Wikipedia for facts,Wikipedia and how online knowledge is made,0.654,yes,Fact-checking 0.462; Fake historical events 0.370
+how do Wikipedia edit wars work,Wikipedia and how online knowledge is made,0.534,yes,Gene editing 0.295; New World Order 0.255
