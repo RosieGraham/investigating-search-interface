@@ -1,3 +1,4 @@
+import hashlib
 import json
 from pathlib import Path
 
@@ -26,19 +27,31 @@ def _default_spot_check_queries() -> str:
     return ""
 
 
+def _package_digest(package: dict) -> str:
+    """Stable fingerprint so Apply can only run against the previewed bytes."""
+    canonical = json.dumps(package, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def _parse_spot_check_line(line: str) -> tuple[str, bool]:
     stripped = line.strip()
-    if not stripped or stripped.startswith("#") and not stripped.lower().startswith("#neg"):
-        if stripped.startswith("#"):
+    if not stripped:
+        return "", False
+
+    lower = stripped.lower()
+    if lower.startswith("#neg ") or lower.startswith("#negative "):
+        if lower.startswith("#neg "):
+            query = stripped[5:].strip()
+        else:
+            query = stripped[10:].strip()
+        if not query:
             return "", False
-    negative = False
-    if stripped.lower().startswith("#neg "):
-        negative = True
-        stripped = stripped[5:].strip()
-    elif stripped.lower().startswith("#negative "):
-        negative = True
-        stripped = stripped[10:].strip()
-    return stripped, negative
+        return query, True
+
+    # Bare "#neg" / "#negative" (no query) and all other #-lines are comments.
+    if stripped.startswith("#"):
+        return "", False
+    return stripped, False
 
 
 def _spot_check_rows(query_text: str):
@@ -205,7 +218,13 @@ def _handle_upload_preview(request):
     result = apply_package(package, dry_run=True, actor=request.user)
     _record_apply(request, upload.name, dry_run=True, result=result)
 
-    request.session["content_tools_package"] = package
+    digest = _package_digest(package)
+    # Store canonical JSON (not a Python dict) so Apply re-parses the same bytes
+    # the dry run saw. Digest is also echoed in the Apply form to catch two-tab races.
+    request.session["content_tools_package_json"] = json.dumps(
+        package, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    )
+    request.session["content_tools_package_digest"] = digest
     request.session["content_tools_filename"] = upload.name
     request.session["content_tools_unapprove_count"] = count_unapproves(package)
     request.session["content_tools_preview"] = {
@@ -213,18 +232,40 @@ def _handle_upload_preview(request):
         "updated": result.updated,
         "prompt_changes": _preview_prompt_changes(result.changes),
         "change_count": len(result.changes),
+        "digest": digest,
     }
+    # Drop any legacy key from earlier builds.
+    request.session.pop("content_tools_package", None)
     messages.info(request, "Dry run complete. Review the diff below, then click Apply.")
     return redirect("content-tools")
 
 
 def _handle_apply(request):
-    package = request.session.get("content_tools_package")
+    package_json = request.session.get("content_tools_package_json")
     filename = request.session.get("content_tools_filename", "package.json")
-    if not package:
+    session_digest = request.session.get("content_tools_package_digest")
+    form_digest = request.POST.get("package_digest", "").strip()
+    if not package_json or not session_digest:
         messages.error(request, "Upload a package and review the dry run before applying.")
         return redirect("content-tools")
+    if form_digest != session_digest:
+        messages.error(
+            request,
+            "The previewed package no longer matches this Apply form "
+            "(another upload may have replaced it). Upload and preview again.",
+        )
+        return redirect("content-tools")
 
+    try:
+        package = json.loads(package_json)
+    except json.JSONDecodeError:
+        messages.error(request, "Stored package is corrupt. Upload and preview again.")
+        return redirect("content-tools")
+    if _package_digest(package) != session_digest:
+        messages.error(request, "Stored package digest mismatch. Upload and preview again.")
+        return redirect("content-tools")
+
+    # Recompute against live DB at apply time (not the preview-time count).
     unapprove_count = count_unapproves(package)
     if unapprove_count > 5:
         if request.POST.get("confirm_text", "").strip() != UNAPPROVE_CONFIRM_TEXT:
@@ -238,22 +279,45 @@ def _handle_apply(request):
     result = apply_package(package, dry_run=False, actor=request.user)
     _record_apply(request, filename, dry_run=False, result=result)
 
-    for key in ("content_tools_package", "content_tools_filename", "content_tools_preview", "content_tools_unapprove_count"):
+    for key in (
+        "content_tools_package",
+        "content_tools_package_json",
+        "content_tools_package_digest",
+        "content_tools_filename",
+        "content_tools_preview",
+        "content_tools_unapprove_count",
+    ):
         request.session.pop(key, None)
+
+    # Rebuild eagerly so a research participant does not pay the first-query
+    # cost. Topic saves already marked the indexes dirty; this clears them
+    # before the response returns. Failures are non-fatal: lazy rebuild remains.
+    rebuild_note = ""
+    try:
+        _rebuild_indexes_locked()
+        rebuild_note = " Classifier indexes rebuilt."
+    except ClassifierUnavailable:
+        rebuild_note = " Classifier model unavailable; indexes will rebuild on the next query."
 
     messages.success(
         request,
-        f"Applied {filename}: created {result.created}, updated {result.updated}.",
+        f"Applied {filename}: created {result.created}, updated {result.updated}.{rebuild_note}",
     )
     return redirect("content-tools")
 
 
-def _handle_rebuild_index(request):
-    try:
-        from .embedding import build_prompt_index, build_topic_index
+def _rebuild_indexes_locked():
+    """Force-rebuild under the same lock as lazy _ensure_* paths."""
+    from .embedding import _lock, build_prompt_index, build_topic_index
 
+    with _lock:
         build_topic_index(force=True)
         build_prompt_index(force=True)
+
+
+def _handle_rebuild_index(request):
+    try:
+        _rebuild_indexes_locked()
         messages.success(request, "Classifier indexes rebuilt. This can take up to a minute.")
     except ClassifierUnavailable:
         messages.error(request, "Classifier model is not available on this instance.")

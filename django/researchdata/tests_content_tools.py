@@ -1,18 +1,23 @@
 """Tests for content package apply and the content tools admin page."""
 
 import json
+from pathlib import Path
 from unittest import mock
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
 from . import models
+from .classifier_config import get_classifier_threshold, set_classifier_threshold
+from .content_tools_views import _package_digest, _parse_spot_check_line
 from .services.content_apply import apply_package, count_unapproves, validate_package
 
 User = get_user_model()
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 MINIMAL_PACKAGE = {
     "groups": [{"name": "Tools", "admin_notes": "test group"}],
@@ -48,6 +53,56 @@ def make_staff_client():
     client = Client()
     client.force_login(user)
     return client
+
+
+class ClassifierThresholdCacheTests(TestCase):
+    def setUp(self):
+        cache.clear()
+
+    def test_repeated_gets_hit_database_once(self):
+        set_classifier_threshold(0.41)
+        cache.clear()
+        # First call reads Setting; subsequent calls within TTL must not.
+        with self.assertNumQueries(1):
+            first = get_classifier_threshold()
+            second = get_classifier_threshold()
+            third = get_classifier_threshold()
+        self.assertEqual(first, 0.41)
+        self.assertEqual(second, 0.41)
+        self.assertEqual(third, 0.41)
+
+    def test_set_invalidates_cache_immediately(self):
+        set_classifier_threshold(0.41)
+        self.assertEqual(get_classifier_threshold(), 0.41)
+        set_classifier_threshold(0.55)
+        self.assertEqual(get_classifier_threshold(), 0.55)
+
+
+class SpotCheckParseTests(TestCase):
+    def test_blank_and_hash_only_are_skipped(self):
+        self.assertEqual(_parse_spot_check_line(""), ("", False))
+        self.assertEqual(_parse_spot_check_line("   "), ("", False))
+        self.assertEqual(_parse_spot_check_line("#"), ("", False))
+        self.assertEqual(_parse_spot_check_line("#neg"), ("", False))
+        self.assertEqual(_parse_spot_check_line("#neg "), ("", False))
+
+    def test_neg_with_query(self):
+        self.assertEqual(_parse_spot_check_line("#neg weather tomorrow"), ("weather tomorrow", True))
+
+    def test_fixture_parses_to_fifty_one_with_five_negatives(self):
+        # The review brief claimed 50; the checked-in file has 51 query lines
+        # (46 ordinary + 5 #neg). Assert the real count so a silent drop is caught.
+        path = REPO_ROOT / "data" / "spot-check-queries-2026-07-09.txt"
+        if not path.exists():
+            path = Path(__file__).resolve().parent / "fixtures" / "spot-check-queries-2026-07-09.txt"
+        text = path.read_text(encoding="utf-8")
+        rows = []
+        for line in text.splitlines():
+            query, negative = _parse_spot_check_line(line)
+            if query:
+                rows.append((query, negative))
+        self.assertEqual(len(rows), 51)
+        self.assertEqual(sum(1 for _, negative in rows if negative), 5)
 
 
 class ApplyPackageTests(TestCase):
@@ -103,6 +158,71 @@ class ApplyPackageTests(TestCase):
             apply_package(bad, dry_run=True)
         self.assertEqual(models.Topic.objects.count(), before)
 
+    def test_orphan_topic_group_rejected_before_write(self):
+        bad = {
+            "groups": [{"name": "OnlyGroup"}],
+            "topics": [
+                {
+                    "name": "Orphan topic",
+                    "group": "MissingGroup",
+                    "description": "desc",
+                    "example_queries": [],
+                }
+            ],
+            "prompts": [],
+        }
+        with self.assertRaises(ValidationError) as ctx:
+            validate_package(bad)
+        self.assertIn("unknown group", str(ctx.exception))
+        before = models.TopicGroup.objects.count()
+        with self.assertRaises(ValidationError):
+            apply_package(bad, dry_run=False)
+        self.assertEqual(models.TopicGroup.objects.count(), before)
+
+    def test_orphan_prompt_topic_rejected_before_write(self):
+        bad = {
+            "groups": [{"name": "Tools"}],
+            "topics": [
+                {
+                    "name": "Surveillance capitalism",
+                    "group": "Tools",
+                    "description": "desc",
+                    "example_queries": [],
+                }
+            ],
+            "prompts": [
+                {
+                    "ref": "ISI-X-001",
+                    "topic": "Not In Package",
+                    "style": "reflective",
+                    "prompt_content": "x",
+                    "admin_approved": True,
+                }
+            ],
+        }
+        with self.assertRaises(ValidationError) as ctx:
+            validate_package(bad)
+        self.assertIn("unknown topic", str(ctx.exception))
+        before_prompts = models.Prompt.objects.count()
+        with self.assertRaises(ValidationError):
+            apply_package(bad, dry_run=False)
+        self.assertEqual(models.Prompt.objects.count(), before_prompts)
+
+    def test_count_unapproves_uses_database_state(self):
+        apply_package(MINIMAL_PACKAGE, dry_run=False)
+        models.Prompt.objects.filter(admin_notes__icontains="ref:ISI-T-001 ").update(
+            admin_approved=True
+        )
+        unapproved = dict(MINIMAL_PACKAGE)
+        unapproved["prompts"] = [dict(MINIMAL_PACKAGE["prompts"][0])]
+        unapproved["prompts"][0]["admin_approved"] = False
+        self.assertEqual(count_unapproves(unapproved), 1)
+        models.Prompt.objects.filter(admin_notes__icontains="ref:ISI-T-001 ").update(
+            admin_approved=False
+        )
+        # Already unapproved in DB: package alone says False, but no transition.
+        self.assertEqual(count_unapproves(unapproved), 0)
+
 
 class ContentToolsViewTests(TestCase):
     def test_non_staff_gets_403(self):
@@ -144,11 +264,37 @@ class ContentToolsViewTests(TestCase):
         )
         self.assertEqual(resp.status_code, 302)
         self.assertTrue(models.ContentApply.objects.filter(dry_run=True).exists())
-        resp = client.post(reverse("content-tools"), {"action": "apply"})
+        digest = client.session["content_tools_package_digest"]
+        self.assertEqual(digest, _package_digest(MINIMAL_PACKAGE))
+        resp = client.post(
+            reverse("content-tools"),
+            {"action": "apply", "package_digest": digest},
+        )
         self.assertEqual(resp.status_code, 302)
         self.assertTrue(models.Topic.objects.filter(name="Surveillance capitalism").exists())
         self.assertTrue(models.ContentApply.objects.filter(dry_run=False).exists())
 
+    def test_apply_rejects_stale_digest(self):
+        client = make_staff_client()
+        payload = json.dumps(MINIMAL_PACKAGE).encode("utf-8")
+        client.post(
+            reverse("content-tools"),
+            {
+                "action": "upload_preview",
+                "package": SimpleUploadedFile(
+                    "pkg.json", payload, content_type="application/json"
+                ),
+            },
+        )
+        before = models.Topic.objects.filter(name="Surveillance capitalism").count()
+        resp = client.post(
+            reverse("content-tools"),
+            {"action": "apply", "package_digest": "0" * 64},
+        )
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(
+            models.Topic.objects.filter(name="Surveillance capitalism").count(), before
+        )
     @override_settings(CLASSIFIER_ENABLED=True)
     def test_set_threshold_persists(self):
         client = make_staff_client()
