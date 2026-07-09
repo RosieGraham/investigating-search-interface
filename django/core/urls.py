@@ -4,6 +4,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.http import JsonResponse
 
+from researchdata.content_tools_views import content_tools
+
 
 def healthz(request):
     """Health check endpoint (used by Render and by keep-alive pingers)."""
@@ -15,7 +17,8 @@ urlpatterns = [
     path('', include('general.urls')),
     path('data/', include('researchdata.urls')),
 
-    # Django admin
+    # Django admin (custom tools registered before the admin catch-all)
+    path('dashboard/content-tools/', content_tools, name='content-tools'),
     path('dashboard/', admin.site.urls),
 
     # Health check

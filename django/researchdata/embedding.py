@@ -53,6 +53,9 @@ _input_names = None      # model input names, detected from the session
 _index_matrix = None     # np.ndarray (n_topics, 384), L2-normalised
 _index_topic_ids = None  # list[int], row-aligned with _index_matrix
 _index_dirty = True
+# If WEB_CONCURRENCY is ever raised above 1, this process-global dirty flag
+# will not propagate across gunicorn workers. Replace it with shared state
+# (e.g. a Setting row holding a timestamp or fingerprint, compared per request).
 _prompt_matrix = None    # np.ndarray (n_prompts, 384), L2-normalised
 _prompt_index_ids = None # list[int], row-aligned with _prompt_matrix
 _prompt_index_dirty = True
@@ -238,7 +241,8 @@ def classify_query(query_text, threshold=None, top_k=None, _query_vec=None):
     Pass the result of embed_query() to avoid re-encoding the same text.
     """
     if threshold is None:
-        threshold = settings.CLASSIFIER_THRESHOLD
+        from .classifier_config import get_classifier_threshold
+        threshold = get_classifier_threshold()
     if top_k is None:
         top_k = settings.CLASSIFIER_TOP_K
 
@@ -350,6 +354,8 @@ def rank_prompts(query_vec, candidate_ids):
 
 def classifier_status():
     """Lightweight status dict for health checks and the admin."""
+    from .classifier_config import get_classifier_threshold
+
     model_present = (_model_dir() / MODEL_FILENAME).exists()
     return {
         'enabled': settings.CLASSIFIER_ENABLED,
@@ -358,5 +364,5 @@ def classifier_status():
         'loaded': _session is not None,
         'index_topics': len(_index_topic_ids) if _index_topic_ids else 0,
         'index_dirty': _index_dirty,
-        'threshold': settings.CLASSIFIER_THRESHOLD,
+        'threshold': get_classifier_threshold(),
     }

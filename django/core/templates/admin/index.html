@@ -1,0 +1,15 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="module" style="margin-bottom: 1.5rem;">
+  <table>
+    <caption><a href="{% url 'content-tools' %}" class="section">Content operations</a></caption>
+    <tr>
+      <th scope="row"><a href="{% url 'content-tools' %}">Content tools</a></th>
+      <td>Upload content packages, spot-check the classifier, rebuild indexes, change threshold.</td>
+    </tr>
+  </table>
+</div>
+{{ block.super }}
+{% endblock %}

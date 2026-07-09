@@ -1,0 +1,135 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+  &rsaquo; {{ title }}
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<section class="module" id="status-panel">
+  <h2>Status</h2>
+  <table>
+    <tbody>
+      <tr><th>Topics</th><td>{{ topic_count }}</td></tr>
+      <tr><th>With descriptions</th><td>{{ described_count }}</td></tr>
+      <tr><th>Approved prompts</th><td>{{ approved_prompt_count }}</td></tr>
+      <tr><th>Classifier threshold</th><td>{{ classifier_threshold }}</td></tr>
+      <tr><th>Last apply</th><td>{% if last_apply_at %}{{ last_apply_at }}{% else %}Never{% endif %}</td></tr>
+    </tbody>
+  </table>
+
+  <form method="post" style="margin-top: 1rem;">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="set_threshold">
+    <label for="classifier_threshold">Change threshold (0–1):</label>
+    <input type="number" step="0.01" min="0" max="1" name="classifier_threshold"
+           id="classifier_threshold" value="{{ classifier_threshold }}" required>
+    <input type="submit" value="Save threshold" class="default">
+  </form>
+</section>
+
+<section class="module" id="upload-panel">
+  <h2>Upload and apply</h2>
+  <p>Upload a content package JSON. A dry run runs first; nothing is written until you click Apply.</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="upload_preview">
+    <input type="file" name="package" accept=".json,application/json" required>
+    <input type="submit" value="Upload and preview" class="default">
+  </form>
+
+  {% if preview %}
+  <h3>Preview: {{ package_filename }}</h3>
+  <p>Would create: {{ preview.created }}. Would update: {{ preview.updated }}.
+     {{ preview.change_count }} field change(s) recorded.</p>
+
+  {% if preview.prompt_changes %}
+  <h4>Prompt changes</h4>
+  {% for change in preview.prompt_changes %}
+  <div style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 0.75rem;">
+    <strong>{{ change.ref }} — {{ change.field }}</strong>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem;">
+      <div>
+        <em>Before</em>
+        <pre style="white-space: pre-wrap;">{{ change.before|default:"(new)" }}</pre>
+      </div>
+      <div>
+        <em>After</em>
+        <pre style="white-space: pre-wrap;">{{ change.after }}</pre>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <form method="post" style="margin-top: 1rem;">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="apply">
+    {% if unapprove_count > 5 %}
+    <p><strong>This package would unapprove {{ unapprove_count }} prompts.</strong>
+       Type UNAPPROVE to confirm:</p>
+    <input type="text" name="confirm_text" autocomplete="off" required>
+    {% endif %}
+    <input type="submit" value="Apply for real" class="default">
+  </form>
+  {% endif %}
+</section>
+
+<section class="module" id="rebuild-panel">
+  <h2>Rebuild the classifier index</h2>
+  <p>Force a full rebuild of the topic and prompt embedding indexes. This can take up to a minute.
+     Normally unnecessary when apply runs in this web process.</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="rebuild_index">
+    <input type="submit" value="Rebuild indexes">
+  </form>
+</section>
+
+<section class="module" id="spot-check-panel">
+  <h2>Spot check</h2>
+  <p>One query per line. Prefix with <code>#neg </code> for negative controls that should not match.</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="spot_check">
+    <textarea name="spot_check_queries" rows="12" style="width: 100%; font-family: monospace;">{{ spot_check_queries }}</textarea>
+    <p><input type="submit" value="Run spot check" class="default"></p>
+  </form>
+
+  {% if spot_check_results %}
+  <table>
+    <thead>
+      <tr>
+        <th>Query</th>
+        <th>Top topic</th>
+        <th>Confidence</th>
+        <th>Above threshold</th>
+        <th>Prompts returned</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in spot_check_results %}
+      <tr{% if row.highlight %} style="background: #fdd;"{% endif %}>
+        <td>{% if row.negative_control %}<span title="Negative control">[neg]</span> {% endif %}{{ row.query }}</td>
+        <td>{{ row.top_topic|default:"—" }}{% if row.error %} ({{ row.error }}){% endif %}</td>
+        <td>{% if row.confidence is not None %}{{ row.confidence }}{% else %}—{% endif %}</td>
+        <td>{% if row.above_threshold %}yes{% else %}no{% endif %}</td>
+        <td>
+          {% if row.prompts %}
+            <ul>{% for p in row.prompts %}<li>{{ p }}</li>{% endfor %}</ul>
+          {% else %}—{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</section>
+{% endblock %}

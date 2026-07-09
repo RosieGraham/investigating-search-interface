@@ -238,6 +238,47 @@ class EngagementEvent(models.Model):
         ordering = ['-meta_created_datetime']
 
 
+class Setting(models.Model):
+    """Key/value store for runtime configuration (e.g. classifier threshold)."""
+
+    key = models.CharField(max_length=64, unique=True)
+    value = models.TextField()
+    meta_lastupdated_datetime = models.DateTimeField(auto_now=True, verbose_name="last updated")
+
+    def __str__(self):
+        return self.key
+
+    class Meta:
+        ordering = ('key',)
+
+
+class ContentApply(models.Model):
+    """Audit trail for content package uploads and applies."""
+
+    actor = models.ForeignKey(
+        'account.User',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='content_applies',
+    )
+    filename = models.CharField(max_length=255, blank=True)
+    dry_run = models.BooleanField(default=True)
+    created_counts = models.JSONField(default=dict)
+    updated_counts = models.JSONField(default=dict)
+    changes = models.JSONField(default=list)
+    created_datetime = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        tag = "dry run" if self.dry_run else "apply"
+        return f"{self.filename or 'package'} ({tag}) @ {self.created_datetime:%Y-%m-%d %H:%M}"
+
+    class Meta:
+        ordering = ('-created_datetime',)
+        verbose_name = "content apply"
+        verbose_name_plural = "content applies"
+
+
 class DataInsert(models.Model):
     """
     A model that allows data to be easily inserted into other models in this project
