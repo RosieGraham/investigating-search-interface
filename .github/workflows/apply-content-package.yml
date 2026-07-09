@@ -1,0 +1,84 @@
+name: Apply content package
+
+# Applies a content package to the live Neon database from a button in the
+# GitHub web UI, so no terminal is needed. Defaults to a dry run.
+#
+# One-time setup, both done in a browser:
+#   Settings > Secrets and variables > Actions > New repository secret
+#     DATABASE_URL        the Neon connection string (same one Render uses)
+#     RENDER_DEPLOY_HOOK  Render > the service > Settings > Deploy Hook (a URL)
+#
+# The deploy hook is what makes this fully hands-off: after a real apply it
+# triggers a Render deploy, which runs render-start.sh, which rebuilds the
+# topic and prompt indexes before gunicorn takes traffic. Without it you would
+# have to click Manual Deploy > Restart yourself, because a write from outside
+# the web process cannot invalidate that process's in-memory index.
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Package filename inside data/"
+        required: true
+        default: "content-package-2026-07-09.json"
+      dry_run:
+        description: "Dry run: report what would change, write nothing"
+        type: boolean
+        required: true
+        default: true
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.7"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check the package exists
+        run: |
+          test -f "data/${{ inputs.package }}" \
+            || { echo "No such file: data/${{ inputs.package }}"; exit 1; }
+          python -c "import json,sys; d=json.load(open('data/${{ inputs.package }}')); \
+            print('groups', len(d['groups']), 'topics', len(d['topics']), 'prompts', len(d['prompts']))"
+
+      - name: Dry run
+        if: ${{ inputs.dry_run }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DEBUG: "true"
+        run: python scripts/apply_content_package.py "data/${{ inputs.package }}" --dry-run
+
+      - name: Apply for real
+        if: ${{ !inputs.dry_run }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DEBUG: "true"
+        run: python scripts/apply_content_package.py "data/${{ inputs.package }}"
+
+      - name: Trigger a Render deploy so the classifier index rebuilds
+        if: ${{ !inputs.dry_run }}
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::warning::RENDER_DEPLOY_HOOK is not set."
+            echo "The database is updated, but the live classifier still holds a stale index."
+            echo "Go to Render and click Manual Deploy > Restart service."
+          else
+            curl -fsSL "$HOOK" > /dev/null && echo "Render deploy triggered; the index rebuilds on boot."
+          fi
+
+      - name: What to do next
+        run: |
+          echo "Dry run: ${{ inputs.dry_run }}"
+          echo "If this was a dry run and the counts look right, run it again with dry_run unticked."
+          echo "After a real apply, wait for the Render deploy to finish, then check /healthz."
