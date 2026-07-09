@@ -1,0 +1,69 @@
+# Spot-check set, 9 July 2026. Lines beginning # are comments.
+# Lines beginning "#neg " are negative controls: a card should NOT appear.
+
+# --- Collision 1: the two defaults topics must not steal each other's queries
+why is Google the default search engine on my phone
+how much does Google pay Apple
+how to change my default search engine
+why does everyone use Google
+how much of search does Google control
+
+# --- Collision 2: SEO against generative engine optimisation (0.4044 today, razor thin)
+what is SEO
+how to rank higher on Google
+why are product review sites all the same
+what is generative engine optimisation
+GEO versus SEO
+
+# --- Attractor regressions: these previously returned Accessibility or Children
+who regulates Google
+EU Digital Markets Act
+data void search
+what is a data void
+why are search results bad for breaking news
+how do I know if a website is reliable
+teaching search literacy
+lateral reading
+right to be forgotten
+how to remove my name from Google
+
+# --- The two former attractors must still match their own topics
+is Google accessible for screen readers
+does the results page work with a screen reader
+is Google safe for kids
+safe search for children
+
+# --- One query per new Set 3 topic
+algorithmic bias examples
+do search results discriminate
+non-English search results
+English dominance on the internet
+can Google influence an election
+search results and elections
+western bias in search results
+whose perspective does Google show
+DuckDuckGo versus Google
+best private search engine
+what is a featured snippet
+why does one answer appear at the top
+what are cookies
+why does every site ask about cookies
+why does the algorithm show me this
+how do apps keep you scrolling
+
+# --- Topics whose prompts we edited
+is the AI summary at the top accurate
+why is reject all so hard to find
+how does reverse image search work
+are filter bubbles real
+
+# --- Ordinary searches: the shape the tool has never been tested on
+are vaccines safe
+best multivitamin reddit
+
+# --- Negative controls: a card here is a false positive
+#neg weather tomorrow
+#neg pizza near me
+#neg gmail login
+#neg bbc news
+#neg train times to london

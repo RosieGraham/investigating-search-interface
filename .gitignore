@@ -15,7 +15,9 @@ django/django.log
 django/model_cache/
 
 # Research data exports: contains project content, keep out of the public repo
-data/
+data/*
+!data/content-package-*.json
+!data/spot-check-queries-*.txt
 
 # Local environment
 .env
@@ -27,3 +29,6 @@ data/
 
 # Extension packaging
 web_extension_chrome/*.zip
+
+# Stray nested clone (gitlink removed; folder may remain on disk)
+investigating-search-interface/

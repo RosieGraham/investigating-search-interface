@@ -117,6 +117,28 @@ class EngagementEventAdminView(admin.ModelAdmin):
         return False
 
 
+@admin.register(models.ContentApply)
+class ContentApplyAdminView(admin.ModelAdmin):
+    list_display = ('id', 'filename', 'dry_run', 'actor', 'created_datetime')
+    list_filter = ('dry_run',)
+    date_hierarchy = 'created_datetime'
+    readonly_fields = (
+        'actor', 'filename', 'dry_run', 'created_counts', 'updated_counts', 'changes', 'created_datetime',
+    )
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(models.Setting)
+class SettingAdminView(admin.ModelAdmin):
+    list_display = ('key', 'value', 'meta_lastupdated_datetime')
+    readonly_fields = ('meta_lastupdated_datetime',)
+
+
 @admin.register(models.DataInsert)
 class DataInsertAdminView(admin.ModelAdmin):
     """

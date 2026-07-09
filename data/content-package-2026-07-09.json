@@ -1,0 +1,3375 @@
+{
+  "_meta": {
+    "generated": "2026-07-09",
+    "purpose": "Apply Set 3 (14 topics, 56 prompts) plus corrected descriptions for the two over-matching topics, three approved text fixes, one cut, and the new editorial priority ladder.",
+    "data_model": "researchdata/models.py (TopicGroup, Topic.description, Prompt.admin_approved/priority/seeed_url, Trigger M2M).",
+    "notes": "Priority ladder: Mechanism 40, Critical question 30, Things to watch out for 20, Activity 10. Overrides: Children and search + Voice assistants take Activity 50. The ladder only affects display order once the views.py patch lands; before then it orders the trigger fallback."
+  },
+  "groups": [
+    {
+      "name": "More search and answer mechanics",
+      "admin_notes": "Added June 2026 for the search, tools and ethics direction."
+    },
+    {
+      "name": "The web behind the results",
+      "admin_notes": "Added June 2026 for the search, tools and ethics direction."
+    },
+    {
+      "name": "How search shapes us",
+      "admin_notes": "Added June 2026 for the search, tools and ethics direction."
+    },
+    {
+      "name": "How search works",
+      "admin_notes": "Added June 2026 for the search, tools and ethics direction."
+    },
+    {
+      "name": "The business of search",
+      "admin_notes": "Added June 2026 for the search, tools and ethics direction."
+    },
+    {
+      "name": "Bias, power and representation",
+      "admin_notes": "Added July 2026 for the Set 3 governance and representation direction."
+    },
+    {
+      "name": "Governance and alternatives",
+      "admin_notes": "Added July 2026 for the Set 3 governance and representation direction."
+    }
+  ],
+  "topics": [
+    {
+      "name": "AI Overviews and generative search",
+      "group": "How search works",
+      "description": "This content covers topics related to AI overviews and generative search: the AI-written summary that now sits above the links, how it summarises and blends other pages, how it can miss context or cite sources that do not support the claim, and what is lost when ten links become one answer. Example queries: what is Google AI overview, is the AI summary at the top accurate, why is there an AI answer above my results, can AI overviews be wrong, AI overview versus the normal results. Distinct from asking a chatbot directly instead of searching, from voice assistants reading one answer aloud, and from AI generated disinformation.",
+      "admin_notes": "New search/tools/ethics topic, June 2026. Provisional (Set 1, pending Rosie's marks).",
+      "example_queries": [
+        "what is Google AI overview",
+        "is the AI summary at the top accurate",
+        "why is there an AI answer above my results",
+        "can AI overviews be wrong",
+        "AI overview versus the normal results"
+      ]
+    },
+    {
+      "name": "Accessibility of search",
+      "group": "How search shapes us",
+      "description": "This content covers topics related to the accessibility of search for disabled people: a screen reader announcing a results page aloud, low vision and high contrast modes, keyboard-only navigation through results, missing alt text on image results, and the cognitive load of a dense page of links. Example queries: is Google accessible for screen readers, how do blind people use search, does the results page work with a screen reader, keyboard only navigation search results, alt text on image search, search engine accessibility. Distinct from web accessibility law and compliance, from how to change the accessibility settings on your device, from general disability topics, and from how search works for users in general.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "is Google accessible for screen readers",
+        "how do blind people use search",
+        "does the results page work with a screen reader",
+        "keyboard only navigation search results",
+        "alt text on image search",
+        "search engine accessibility"
+      ]
+    },
+    {
+      "name": "Ad tracking and what you reveal by searching",
+      "group": "The business of search",
+      "description": "This content covers topics related to ad tracking and what a search reveals about you: how a search that feels free is paid for with data, how what you look for can be logged and used to target adverts later, and the trackers that follow a query across sites. Example queries: is Google tracking my searches, why do ads follow me after I search for something, what data does search collect about me, are my searches used for advertising, how do I stop search tracking me. Distinct from mass government surveillance as policy, from the conspiracy idea that phones secretly listen to everyone, and from advert labelling on the results page.",
+      "admin_notes": "New search/tools/ethics topic, June 2026. Provisional (Set 1, pending Rosie's marks).",
+      "example_queries": [
+        "is Google tracking my searches",
+        "why do ads follow me after I search for something",
+        "what data does search collect about me",
+        "are my searches used for advertising",
+        "how do I stop search tracking me"
+      ]
+    },
+    {
+      "name": "Advertising and sponsored results",
+      "group": "The business of search",
+      "description": "This content covers topics related to advertising and sponsored results in search: results marked sponsored or ad that sit at the top because someone paid for placement, how they can look almost the same as unpaid results, and how to tell adverts apart from the rest of the page. Example queries: are the top Google results ads, what does sponsored mean in search, why are there ads at the top of search, how do I tell ads from real results, are search ads clearly labelled. Distinct from ad tracking and the data you reveal by searching, from cookies and consent banners, and from how unpaid results are ranked.",
+      "admin_notes": "New search/tools/ethics topic, June 2026. Provisional (Set 1, pending Rosie's marks).",
+      "example_queries": [
+        "are the top Google results ads",
+        "what does sponsored mean in search",
+        "why are there ads at the top of search",
+        "how do I tell ads from real results",
+        "are search ads clearly labelled"
+      ]
+    },
+    {
+      "name": "Asking a chatbot instead of searching",
+      "group": "More search and answer mechanics",
+      "description": "This content covers topics related to asking a chatbot instead of searching: how a chatbot writes an answer from patterns in its training rather than pointing you to pages, how it can be fluent and wrong at once, may invent sources, and may give a different answer when asked again. Example queries: should I use ChatGPT instead of Google, is it better to ask a chatbot or search, can I trust what ChatGPT tells me, why does the chatbot give different answers each time, do chatbots make things up. Distinct from AI overviews inside a search page, from voice assistants, and from debates about AI replacing human judgement in high-stakes decisions.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "should I use ChatGPT instead of Google",
+        "is it better to ask a chatbot or search",
+        "can I trust what ChatGPT tells me",
+        "why does the chatbot give different answers each time",
+        "do chatbots make things up"
+      ]
+    },
+    {
+      "name": "Autocomplete and query suggestions",
+      "group": "How search works",
+      "description": "This content covers topics related to autocomplete and query suggestions: where the predictions under the search box come from, that they reflect what many people have typed rather than what is true, and how a suggestion can steer or reframe the question you were about to ask. Example queries: how does Google autocomplete work, why does search suggest these questions, where do search predictions come from, can autocomplete be biased, why does it finish my search for me. Distinct from how results are ranked once you press enter, from organised manipulation of search results, and from spelling correction.",
+      "admin_notes": "New search/tools/ethics topic, June 2026. Provisional (Set 1, pending Rosie's marks).",
+      "example_queries": [
+        "how does Google autocomplete work",
+        "why does search suggest these questions",
+        "where do search predictions come from",
+        "can autocomplete be biased",
+        "why does it finish my search for me"
+      ]
+    },
+    {
+      "name": "Children and search",
+      "group": "How search shapes us",
+      "description": "This content covers topics related to children using search engines: SafeSearch and filtering, autocomplete finishing a child's innocent query in an adult direction, how a ten-year-old reads a results page far more literally than an adult does, and adverts aimed at adult buyers sitting beside a child's search. Example queries: is Google safe for kids, safe search for children, do children understand search results, autocomplete inappropriate suggestions for kids, should children use Google, parental controls on search. Distinct from social media and teenagers, from children's mental health, from parental control setup guides, and from how search works for adult users.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "is Google safe for kids",
+        "safe search for children",
+        "do children understand search results",
+        "autocomplete inappropriate suggestions for kids",
+        "should children use Google",
+        "parental controls on search"
+      ]
+    },
+    {
+      "name": "Concentration and defaults",
+      "group": "The web behind the results",
+      "description": "This content covers topics related to concentration and defaults in the tools we use to find things: how, for two decades, a few companies have set the defaults for how most people search, navigate, watch and email, how those defaults became the normal way of knowing, and how that grip is shifting as AI assistants from several firms arrive. Example queries: why does everyone use Google, how much of search does Google control, why is Google the default search engine, are a few companies controlling how we search, what are the alternatives to the big tech defaults. Distinct from tech monopolies and antitrust as legal cases, from choosing your own default search engine as a setting, and from who regulates search.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "why does everyone use Google",
+        "how much of search does Google control",
+        "why is Google the default search engine",
+        "are a few companies controlling how we search",
+        "what are the alternatives to the big tech defaults"
+      ]
+    },
+    {
+      "name": "Dark patterns and the design of consent",
+      "group": "How search shapes us",
+      "description": "This content covers topics related to dark patterns and the design of consent: how some interfaces are designed to nudge you toward the choice they prefer, making one button bright and the other buried, with the cookie banner as the everyday example but the pattern far wider. Example queries: what are dark patterns, why is reject all so hard to find, are cookie banners designed to trick you, what is a dark pattern in web design, how do websites manipulate your choices. Distinct from cookies and tracking as a data question, from the right to digital privacy as a legal topic, and from data harvesting.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "what are dark patterns",
+        "why is reject all so hard to find",
+        "are cookie banners designed to trick you",
+        "what is a dark pattern in web design",
+        "how do websites manipulate your choices"
+      ]
+    },
+    {
+      "name": "Filter bubbles, the evidence and the myth",
+      "group": "How search shapes us",
+      "description": "This content covers topics related to filter bubbles as both evidence and myth: the idea that personalisation seals each of us in our own world, which is real in part but often overstated, since studies find people meet more varied views online than the simple story suggests. Example queries: are filter bubbles real, do filter bubbles actually exist, is the echo chamber idea a myth, does personalisation trap me in a bubble, what does the evidence say about filter bubbles. Distinct from search personalisation as a mechanism, from social media echo chambers as a content topic, and from political polarisation.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "are filter bubbles real",
+        "do filter bubbles actually exist",
+        "is the echo chamber idea a myth",
+        "does personalisation trap me in a bubble",
+        "what does the evidence say about filter bubbles"
+      ]
+    },
+    {
+      "name": "Generative engine optimisation",
+      "group": "More search and answer mechanics",
+      "description": "This content covers topics related to generative engine optimisation: how, just as pages are written to rank in search, content is now shaped to be picked up and quoted by AI answers, so what an AI summary tells you can be influenced by whoever optimised for it. Example queries: what is generative engine optimisation, how do brands get mentioned in AI answers, can you optimise content for ChatGPT, why does the same brand keep appearing in AI results, GEO versus SEO. Distinct from classic search engine optimisation for ranking links, from how AI overviews are generated, and from paid advertising.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "what is generative engine optimisation",
+        "how do brands get mentioned in AI answers",
+        "can you optimise content for ChatGPT",
+        "why does the same brand keep appearing in AI results",
+        "GEO versus SEO"
+      ]
+    },
+    {
+      "name": "How results are ranked",
+      "group": "How search works",
+      "description": "This content covers topics related to how search results are ranked: why one page sits above another, the signals search engines use such as the words on a page, links from other sites, freshness and what people click, and why ranking estimates relevance rather than truth or completeness. Example queries: how does Google rank pages, why is this result first, how does search decide what to show, what are ranking signals, why does the top result win. Distinct from search engine optimisation as the craft of making pages rank, from algorithmic bias in news feeds, and from how to spot misinformation in a single result.",
+      "admin_notes": "New search/tools/ethics topic, June 2026. Provisional (Set 1, pending Rosie's marks).",
+      "example_queries": [
+        "how does Google rank pages",
+        "why is this result first",
+        "how does search decide what to show",
+        "what are ranking signals",
+        "why does the top result win"
+      ]
+    },
+    {
+      "name": "Image search and reverse image search",
+      "group": "More search and answer mechanics",
+      "description": "This content covers topics related to image search and reverse image search: how pictures are matched by their visible features and the words around them rather than by where they truly came from, and how a real photo can mislead when it is old, staged, or from somewhere else. Example queries: how does reverse image search work, how to find where an image came from, how to check if a photo is real, find the original of a picture, is this image old or out of context. Distinct from deepfakes as synthetic video and audio, from spotting misinformation in general, and from how AI generates images.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "how does reverse image search work",
+        "how to find where an image came from",
+        "how to check if a photo is real",
+        "find the original of a picture",
+        "is this image old or out of context"
+      ]
+    },
+    {
+      "name": "Maps as search",
+      "group": "More search and answer mechanics",
+      "description": "This content covers topics related to maps as a kind of search result: how a digital map is not the same for everyone, how providers run different versions by country and follow local laws, and how a contested border or a sponsored place can be presented as simple fact. Example queries: why does Google Maps show different borders, is Crimea shown as part of Russia on maps, why are map results different by country, are the pins on maps paid for, do maps take sides on disputed borders. Distinct from how to navigate or get directions, from general geography questions, and from satellite imagery how-to.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "why does Google Maps show different borders",
+        "is Crimea shown as part of Russia on maps",
+        "why are map results different by country",
+        "are the pins on maps paid for",
+        "do maps take sides on disputed borders"
+      ]
+    },
+    {
+      "name": "Personalisation and why your results differ",
+      "group": "How search works",
+      "description": "This content covers topics related to search personalisation: how results are adjusted to signals like your location, language, device and past activity, so two people searching the same words can see different things, and why your results are partly a picture of you. Example queries: why are my search results different from someone else's, does Google personalise my results, why do I see different results to my friend, how does search use my history, are my results based on me. Distinct from filter bubbles as a debated social effect, from recommendation feeds on video and social apps, and from social media echo chambers.",
+      "admin_notes": "New search/tools/ethics topic, June 2026. Provisional (Set 1, pending Rosie's marks).",
+      "example_queries": [
+        "why are my search results different from someone else's",
+        "does Google personalise my results",
+        "why do I see different results to my friend",
+        "how does search use my history",
+        "are my results based on me"
+      ]
+    },
+    {
+      "name": "Recommendation systems",
+      "group": "More search and answer mechanics",
+      "description": "This content covers topics related to recommendation systems: how 'recommended for you' and 'up next' on video, music, shopping and social platforms predict what will keep you engaged from patterns in what people like you did before, and how being kept engaged differs from being served well. Example queries: how do recommendation algorithms work, why does YouTube recommend these videos, how does Netflix know what I like, why does autoplay keep going, how do recommended feeds decide what to show. Distinct from search personalisation on a results page, from the attention economy as a business model, and from news-feed ranking bias.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "how do recommendation algorithms work",
+        "why does YouTube recommend these videos",
+        "how does Netflix know what I like",
+        "why does autoplay keep going",
+        "how do recommended feeds decide what to show"
+      ]
+    },
+    {
+      "name": "The Google effect on memory",
+      "group": "How search shapes us",
+      "description": "This content covers topics related to the Google effect on memory: research suggesting that when we know we can look something up, we remember it less well but remember where to find it instead, so search becomes a kind of external, shared memory, treated here as a neutral fact about how we adapt. Example queries: does Google make us forget things, what is the Google effect on memory, does searching weaken memory, do we remember less because of the internet, digital amnesia explained. Distinct from social media and mental health, from general screen-time and wellbeing worries, and from how search ranks results.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "does Google make us forget things",
+        "what is the Google effect on memory",
+        "does searching weaken memory",
+        "do we remember less because of the internet",
+        "digital amnesia explained"
+      ]
+    },
+    {
+      "name": "Training data and the open web",
+      "group": "The web behind the results",
+      "description": "This content covers topics related to training data and the open web: how AI answers are built from large amounts of web content, often gathered without asking and without paying, and what happens to the sites that made that content when an AI answer replaces a visit to them. Example queries: where do AI models get their training data, did AI scrape my website, do AI answers reduce website traffic, is AI trained on copyrighted content, what happens to the open web when AI answers everything. Distinct from asking a chatbot as a user, from how AI overviews appear in search, and from data harvesting for advertising.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "where do AI models get their training data",
+        "did AI scrape my website",
+        "do AI answers reduce website traffic",
+        "is AI trained on copyrighted content",
+        "what happens to the open web when AI answers everything"
+      ]
+    },
+    {
+      "name": "Trending and what counts as trending",
+      "group": "More search and answer mechanics",
+      "description": "This content covers topics related to trending and what counts as trending: how trending lists are calculated rather than simply counted, weighing speed, novelty and engagement, how they can be gamed, and why trending means moving fast right now rather than important or true. Example queries: how does Twitter decide what is trending, what does trending actually mean, can trending topics be faked, how do hashtags start trending, why is this trending right now. Distinct from organised propaganda and influence campaigns, from news-feed ranking bias, and from how search ranks web pages.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "how does Twitter decide what is trending",
+        "what does trending actually mean",
+        "can trending topics be faked",
+        "how do hashtags start trending",
+        "why is this trending right now"
+      ]
+    },
+    {
+      "name": "Voice assistants and the single spoken answer",
+      "group": "More search and answer mechanics",
+      "description": "This content covers topics related to voice assistants and the single spoken answer: how asking a device by voice usually returns one answer read aloud rather than a list, so one source is chosen for you and the others stay invisible, with no sources to glance at. Example queries: how does Alexa choose its answer, where does Siri get its answers from, why does the voice assistant give only one answer, can I trust what Google Assistant tells me, does voice search show its sources. Distinct from AI overviews shown on a screen, from asking a chatbot in text, and from smart-speaker setup questions.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "how does Alexa choose its answer",
+        "where does Siri get its answers from",
+        "why does the voice assistant give only one answer",
+        "can I trust what Google Assistant tells me",
+        "does voice search show its sources"
+      ]
+    },
+    {
+      "name": "Wikipedia and how online knowledge is made",
+      "group": "The web behind the results",
+      "description": "This content covers topics related to Wikipedia and how online knowledge is made: how an article has a tidy public face and, behind it, a talk page where editors argue over the disputed lines, how search usually shows the tidy front, and how generative AI tends to ingest that flattened version rather than the debate. Example queries: how reliable is Wikipedia, who actually writes Wikipedia, what is a Wikipedia talk page, can I trust Wikipedia for facts, how do Wikipedia edit wars work. Distinct from fact-checking a specific claim, from spotting misinformation, and from how search ranks pages.",
+      "admin_notes": "New search/tools/ethics topic, June 2026.",
+      "example_queries": [
+        "how reliable is Wikipedia",
+        "who actually writes Wikipedia",
+        "what is a Wikipedia talk page",
+        "can I trust Wikipedia for facts",
+        "how do Wikipedia edit wars work"
+      ]
+    },
+    {
+      "name": "Algorithmic bias and how audits find it",
+      "group": "Bias, power and representation",
+      "description": "This content covers topics related to algorithmic bias in search and how researchers find it: results that differ systematically for different groups of people without anyone having written a rule that says so, bias emerging from training data that reflects existing inequalities, and audit methods that run identical queries with different demographic signals and compare what comes back. Example queries: algorithmic bias examples, is Google biased, AI discrimination in search, how do researchers audit search engines, biased image search results, do search results discriminate. Distinct from whose world the results represent (geography, language and whose sources dominate), from personalisation (your own history shaping your results), and from the search engine manipulation effect (ranking order shifting political opinion).",
+      "admin_notes": "Set 3, July 2026. Lit review 4.2 and 4.3 (bias and representation; algorithm audits)",
+      "example_queries": [
+        "algorithmic bias examples",
+        "is Google biased",
+        "AI discrimination in search",
+        "how do researchers audit search engines",
+        "biased image search results",
+        "do search results discriminate"
+      ]
+    },
+    {
+      "name": "Language inequality in search",
+      "group": "Bias, power and representation",
+      "description": "This content covers topics related to language inequality in search: how search engines index far more content in English than in any other language, how people searching in minority languages work with a much thinner set of results, how much of what they find is automatically translated, and how the language you search in shapes the pool of sources you can reach at all. Example queries: non-English search results, does Google work well in other languages, English dominance on the internet, searching in a minority language, why are there fewer results in my language, machine translated search results. Distinct from whose world the results represent (whose perspectives dominate, regardless of language), from accessibility of search (disability rather than language), and from how to change your search language setting.",
+      "admin_notes": "Set 3, July 2026. Lit review 4.23 (language inequality)",
+      "example_queries": [
+        "non-English search results",
+        "does Google work well in other languages",
+        "English dominance on the internet",
+        "searching in a minority language",
+        "why are there fewer results in my language",
+        "machine translated search results"
+      ]
+    },
+    {
+      "name": "The search engine manipulation effect",
+      "group": "Bias, power and representation",
+      "description": "This content covers topics related to the search engine manipulation effect: research finding that shifting the ranking of search results on political topics can shift voting preferences by a measurable amount, with larger effects on undecided voters, because people trust higher-ranked results and do not realise the ranking can be changed. Example queries: can Google influence an election, search engine manipulation effect, do search results affect how people vote, search results and elections, can search rankings change opinions, is Google politically biased. Distinct from politics and misinformation as subject matter, from algorithmic bias (systematic difference by group rather than by ranking order), and from who governs search (regulation rather than effect).",
+      "admin_notes": "Set 3, July 2026. Lit review 4.6; Epstein and Robertson",
+      "example_queries": [
+        "can Google influence an election",
+        "search engine manipulation effect",
+        "do search results affect how people vote",
+        "search results and elections",
+        "can search rankings change opinions",
+        "is Google politically biased"
+      ]
+    },
+    {
+      "name": "Whose world the results represent",
+      "group": "Bias, power and representation",
+      "description": "This content covers topics related to whose world search results represent: how results are weighted toward English-language sources, toward North American and European perspectives, and toward content well funded enough to be optimised for search, so the same question returns very different depth depending on where and how it is asked. Example queries: whose perspective does Google show, western bias in search results, who decides what counts as information, are search results biased toward America, why are local sources missing from my search, global south search results. Distinct from language inequality (the language you type in), from algorithmic bias (systematic difference by demographic group), and from filter bubbles (your own history narrowing what you see).",
+      "admin_notes": "Set 3, July 2026. Lit review 4.2 and 4.16 (bias; geographies beyond Google)",
+      "example_queries": [
+        "whose perspective does Google show",
+        "western bias in search results",
+        "who decides what counts as information",
+        "are search results biased toward America",
+        "why are local sources missing from my search",
+        "global south search results"
+      ]
+    },
+    {
+      "name": "Privacy-focused and alternative engines",
+      "group": "Governance and alternatives",
+      "description": "This content covers topics related to privacy-focused and alternative search engines: engines such as DuckDuckGo and Startpage that return results without building a profile of you, either by not logging your queries or by fetching results from another engine without passing on your identity, and the trade-off that results are then less personalised. Example queries: DuckDuckGo versus Google, best private search engine, alternatives to Google search, does DuckDuckGo really not track you, Startpage privacy, a search engine that does not track me. Distinct from ad tracking and what you reveal by searching (what a mainstream engine records about your queries), from concentration and defaults (market share and preinstalled choices), and from using a VPN or a private browsing window.",
+      "admin_notes": "Set 3, July 2026. Lit review 4.12 and 4.22 (alternative engines; privacy-focused search)",
+      "example_queries": [
+        "DuckDuckGo versus Google",
+        "best private search engine",
+        "alternatives to Google search",
+        "does DuckDuckGo really not track you",
+        "Startpage privacy",
+        "a search engine that does not track me"
+      ]
+    },
+    {
+      "name": "Search literacy",
+      "group": "Governance and alternatives",
+      "description": "This content covers topics related to search literacy as a skill: knowing how a results page is assembled, what can influence the order of what you see, and how to judge a source once you have found it, so that search becomes one step in a process rather than the first result being taken as the answer. Example queries: how do I know if a website is reliable, how to evaluate search results, how to check if a source is trustworthy, teaching search literacy, lateral reading, should I trust the first result. Distinct from how results are ranked (the mechanism itself), from advanced search operators and tips, from data voids (when good information is simply thin), and from accessibility of search.",
+      "admin_notes": "Set 3, July 2026. Lit review 4.8 (search literacy)",
+      "example_queries": [
+        "how do I know if a website is reliable",
+        "how to evaluate search results",
+        "how to check if a source is trustworthy",
+        "teaching search literacy",
+        "lateral reading",
+        "should I trust the first result"
+      ]
+    },
+    {
+      "name": "The right to be forgotten",
+      "group": "Governance and alternatives",
+      "description": "This content covers topics related to the right to be forgotten in search: how, under European and UK data protection law, a person can ask a search engine to stop linking to information about them in results for searches of their name, how the right applies to information that is outdated, irrelevant or excessive, and how delisting a link never removes the page from the web. Example queries: right to be forgotten, how to remove my name from Google, GDPR removal request search, delete yourself from Google, can I get an article delisted, why do some results say they may have been removed. Distinct from content moderation (what a platform takes down under its own rules), from who governs search (regulation of ranking and competition), and from deleting your own account or clearing your search history.",
+      "admin_notes": "Set 3, July 2026. Lit review 4.10; CJEU 2014",
+      "example_queries": [
+        "right to be forgotten",
+        "how to remove my name from Google",
+        "GDPR removal request search",
+        "delete yourself from Google",
+        "can I get an article delisted",
+        "why do some results say they may have been removed"
+      ]
+    },
+    {
+      "name": "Who governs search",
+      "group": "Governance and alternatives",
+      "description": "This content covers topics related to who governs search engines: private companies operating under the laws of their home countries, whose decisions about what to rank, what to remove and what to surface affect people globally, and the main tools of oversight, which are competition law, content regulation and transparency requirements, and which vary widely between countries. Example queries: who regulates Google, EU Digital Markets Act, antitrust case against Google, who decides how search engines work, is search regulated, United States v Google. Distinct from concentration and defaults (market share and preinstalled defaults), from the right to be forgotten (individual removal requests), and from content moderation (day-to-day decisions about specific content).",
+      "admin_notes": "Set 3, July 2026. Lit review 4.10 (ethics, law and governance)",
+      "example_queries": [
+        "who regulates Google",
+        "EU Digital Markets Act",
+        "antitrust case against Google",
+        "who decides how search engines work",
+        "is search regulated",
+        "United States v Google"
+      ]
+    },
+    {
+      "name": "Data voids",
+      "group": "How search works",
+      "description": "This content covers topics related to data voids: a topic where reliable information is thin or absent on the web, so weaker sources fill the gap, which is common for rare conditions, newly emerging claims and niche events, where the search engine simply had very little to choose from. Example queries: what is a data void, why are search results bad for breaking news, no good results for my search, why do fringe sites rank for this topic, information gaps online, searching something obscure. Distinct from trending (what is spreading right now), from virality (why things spread quickly), and from misinformation as subject matter.",
+      "admin_notes": "Set 3, July 2026. Golebiewski and boyd, data voids",
+      "example_queries": [
+        "what is a data void",
+        "why are search results bad for breaking news",
+        "no good results for my search",
+        "why do fringe sites rank for this topic",
+        "information gaps online",
+        "searching something obscure"
+      ]
+    },
+    {
+      "name": "Knowledge panels and featured snippets",
+      "group": "How search works",
+      "description": "This content covers topics related to knowledge panels and featured snippets: the boxed answer that sits at the top of a results page, extracted by the search engine from a source it trusts rather than voted on by experts, placed there because the system is confident, and confidence is not the same as correctness. Example queries: what is a featured snippet, who controls the Google knowledge panel, why does one answer appear at the top, is the box at the top of Google accurate, where does the knowledge panel get its information, how do I get a featured snippet. Distinct from AI Overviews and generative search (an AI-written summary rather than an extracted passage), from how results are ranked, and from Wikipedia as a source of knowledge.",
+      "admin_notes": "Set 3, July 2026. Lit review 4.13 (answer-bearing SERP)",
+      "example_queries": [
+        "what is a featured snippet",
+        "who controls the Google knowledge panel",
+        "why does one answer appear at the top",
+        "is the box at the top of Google accurate",
+        "where does the knowledge panel get its information",
+        "how do I get a featured snippet"
+      ]
+    },
+    {
+      "name": "Search engine optimisation",
+      "group": "How search works",
+      "description": "This content covers topics related to search engine optimisation: the practice of writing and structuring a page so that a search engine ranks it higher, and how a well-optimised page reaches more people without being, for that reason, a more accurate or a more useful page. Example queries: what is SEO, how to rank higher on Google, why do some websites appear first, why are product review sites all the same, SEO spam, is Google getting worse. Distinct from generative engine optimisation (shaping content to be quoted inside AI answers rather than to rank as a link), from advertising and sponsored results (paid placement rather than optimisation), and from how results are ranked (the engine's side rather than the publisher's).",
+      "admin_notes": "Set 3, July 2026. Lit review 4.1; Bevendorff et al., ECIR 2024",
+      "example_queries": [
+        "what is SEO",
+        "how to rank higher on Google",
+        "why do some websites appear first",
+        "why are product review sites all the same",
+        "SEO spam",
+        "is Google getting worse"
+      ]
+    },
+    {
+      "name": "Cookies and consent",
+      "group": "The business of search",
+      "description": "This content covers topics related to cookies and consent banners: the small files a website places in your browser to remember you between visits, how most of them exist for advertising, how a tracker follows what you do across many sites, and what a consent banner is legally required to offer you. Example queries: what are cookies, why does every site ask about cookies, cookie consent pop-up, are cookies bad, what happens if I accept all cookies, how many trackers are on this site. Distinct from dark patterns and the design of consent (the visual design of the choice rather than the cookie itself), from ad tracking and what you reveal by searching (what the search engine records about your queries), and from clearing your browser history.",
+      "admin_notes": "Set 3, July 2026. Lit review 4.22; design ethics",
+      "example_queries": [
+        "what are cookies",
+        "why does every site ask about cookies",
+        "cookie consent pop-up",
+        "are cookies bad",
+        "what happens if I accept all cookies",
+        "how many trackers are on this site"
+      ]
+    },
+    {
+      "name": "Defaults and choice",
+      "group": "The business of search",
+      "description": "This content covers topics related to the default search engine on the device in your hand: how most people simply use whichever engine came preinstalled on their phone or browser, how much is paid for that placement, how a choice screen changes what people pick, and how a default is a commercial arrangement rather than a recommendation. Example queries: why is Google the default search engine on my phone, how to change my default search engine, who decides which search engine my device uses, how much does Google pay Apple, default browser search settings, search engine choice screen. Distinct from concentration and defaults (the broader question of a few companies shaping how we know), from privacy-focused and alternative engines (what the alternatives actually do differently), and from who governs search.",
+      "admin_notes": "Set 3, July 2026. Lit review 4.10; US v. Google trial evidence; DMA choice screens",
+      "example_queries": [
+        "why is Google the default search engine on my phone",
+        "how to change my default search engine",
+        "who decides which search engine my device uses",
+        "how much does Google pay Apple",
+        "default browser search settings",
+        "search engine choice screen"
+      ]
+    },
+    {
+      "name": "The attention economy and engagement ranking",
+      "group": "The business of search",
+      "description": "This content covers topics related to the attention economy and engagement ranking: how platforms tune their feeds for engagement, showing whatever draws the strongest reaction, whether joy, outrage or curiosity, and how content that keeps you on the platform earns more reach than content that informs you and lets you leave. Example queries: attention economy, why does the algorithm show me this, how do apps keep you scrolling, why is my feed so angry, engagement based ranking, doomscrolling. Distinct from recommendation systems (how a you might also like row is computed), from trending (what a platform counts as trending right now), and from dark patterns (the design of a single choice on screen).",
+      "admin_notes": "Set 3, July 2026. Lit review 4.5; platform studies",
+      "example_queries": [
+        "attention economy",
+        "why does the algorithm show me this",
+        "how do apps keep you scrolling",
+        "why is my feed so angry",
+        "engagement based ranking",
+        "doomscrolling"
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "ref": "ISI-S2-054",
+      "topic": "Accessibility of search",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Search and the pages it returns are far easier to use for some people than others. Screen readers, low vision, and motor or cognitive differences can all change what is actually reachable.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-054 | Set 2 revised | style:Mechanism | grounding:Field gap",
+      "triggers": [
+        "is Google accessible for screen readers",
+        "how do blind people use search",
+        "does the results page work with a screen reader",
+        "keyboard only navigation search results",
+        "alt text on image search",
+        "search engine accessibility"
+      ]
+    },
+    {
+      "ref": "ISI-S2-055",
+      "topic": "Accessibility of search",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a results page that works for you may be a barrier for someone else. Who might struggle to use what you find easily?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-055 | Set 2 revised | style:Critical question | grounding:Field gap",
+      "triggers": [
+        "is Google accessible for screen readers",
+        "how do blind people use search",
+        "does the results page work with a screen reader",
+        "keyboard only navigation search results",
+        "alt text on image search",
+        "search engine accessibility"
+      ]
+    },
+    {
+      "ref": "ISI-S2-056",
+      "topic": "Accessibility of search",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: turn on a built-in accessibility setting on your device, larger text, high contrast, or the screen reader, and run a normal search. What gets harder, and what does that tell you about who the page was built for?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-056 | Set 2 revised | style:Activity | grounding:Field gap",
+      "triggers": [
+        "is Google accessible for screen readers",
+        "how do blind people use search",
+        "does the results page work with a screen reader",
+        "keyboard only navigation search results",
+        "alt text on image search",
+        "search engine accessibility"
+      ]
+    },
+    {
+      "ref": "ISI-S2-050",
+      "topic": "Children and search",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Search and its suggestions were built mostly for and by adults, yet children use them constantly. What gets suggested, ranked or summarised is not designed with a child's reading of it in mind.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-050 | Set 2 revised | style:Mechanism | grounding:Lit review 4.14",
+      "triggers": [
+        "is Google safe for kids",
+        "safe search for children",
+        "do children understand search results",
+        "autocomplete inappropriate suggestions for kids",
+        "should children use Google",
+        "parental controls on search"
+      ]
+    },
+    {
+      "ref": "ISI-S2-051",
+      "topic": "Children and search",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a child reads a results page more literally than an adult does. What might they take from this page that was never meant for them?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-051 | Set 2 revised | style:Critical question | grounding:Lit review 4.14",
+      "triggers": [
+        "is Google safe for kids",
+        "safe search for children",
+        "do children understand search results",
+        "autocomplete inappropriate suggestions for kids",
+        "should children use Google",
+        "parental controls on search"
+      ]
+    },
+    {
+      "ref": "ISI-S2-053",
+      "topic": "Children and search",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: search something a child might ask, and read the results as a ten-year-old would. What lands differently?",
+      "priority": 50,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-053 | Set 2 revised | style:Activity | grounding:Lit review 4.14",
+      "triggers": [
+        "is Google safe for kids",
+        "safe search for children",
+        "do children understand search results",
+        "autocomplete inappropriate suggestions for kids",
+        "should children use Google",
+        "parental controls on search"
+      ]
+    },
+    {
+      "ref": "ISI-S2-057",
+      "topic": "Dark patterns and the design of consent",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Some interfaces are designed to nudge you toward the choice they prefer, by making one button bright and the other buried. The cookie banner is the everyday example, but the pattern is everywhere.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-057 | Set 2 revised | style:Mechanism | grounding:Design ethics",
+      "triggers": [
+        "what are dark patterns",
+        "why is reject all so hard to find",
+        "are cookie banners designed to trick you",
+        "what is a dark pattern in web design",
+        "how do websites manipulate your choices"
+      ]
+    },
+    {
+      "ref": "ISI-S2-058",
+      "topic": "Dark patterns and the design of consent",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: on a cookie banner, accept all is one bright click while rejecting takes several buried ones. When the easy path is the one they want, did you choose, or did the design choose for you?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-058 | Set 2 revised | style:Critical question | grounding:Design ethics",
+      "triggers": [
+        "what are dark patterns",
+        "why is reject all so hard to find",
+        "are cookie banners designed to trick you",
+        "what is a dark pattern in web design",
+        "how do websites manipulate your choices"
+      ]
+    },
+    {
+      "ref": "ISI-S2-059",
+      "topic": "Dark patterns and the design of consent",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A bright accept-all next to a greyed-out or hidden reject\n- Boxes already ticked to opt you in\n- A countdown or 'you will lose your place' warning rushing your choice",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-059 | Set 2 revised | style:Things to watch out for | grounding:Design ethics",
+      "triggers": [
+        "what are dark patterns",
+        "why is reject all so hard to find",
+        "are cookie banners designed to trick you",
+        "what is a dark pattern in web design",
+        "how do websites manipulate your choices"
+      ]
+    },
+    {
+      "ref": "ISI-S2-060",
+      "topic": "Dark patterns and the design of consent",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: open a news site you have not visited recently and look at its cookie banner. Find the option the design is steering you away from, and count how many clicks refusing takes.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-060 | Set 2 revised | style:Activity | grounding:Design ethics",
+      "triggers": [
+        "what are dark patterns",
+        "why is reject all so hard to find",
+        "are cookie banners designed to trick you",
+        "what is a dark pattern in web design",
+        "how do websites manipulate your choices"
+      ]
+    },
+    {
+      "ref": "ISI-S2-046",
+      "topic": "Filter bubbles, the evidence and the myth",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "The filter bubble idea, that personalisation seals each of us in our own world, is real in part but often overstated. Studies find people meet more varied views online than the simple story suggests.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-046 | Set 2 revised | style:Mechanism | grounding:Lit review 4.5",
+      "triggers": [
+        "are filter bubbles real",
+        "do filter bubbles actually exist",
+        "is the echo chamber idea a myth",
+        "does personalisation trap me in a bubble",
+        "what does the evidence say about filter bubbles"
+      ]
+    },
+    {
+      "ref": "ISI-S2-047",
+      "topic": "Filter bubbles, the evidence and the myth",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: it is comforting to blame a filter bubble for disagreement, and easy to overstate it. How much of what you see is the system, and how much is your own choices?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-047 | Set 2 revised | style:Critical question | grounding:Lit review 4.5",
+      "triggers": [
+        "are filter bubbles real",
+        "do filter bubbles actually exist",
+        "is the echo chamber idea a myth",
+        "does personalisation trap me in a bubble",
+        "what does the evidence say about filter bubbles"
+      ]
+    },
+    {
+      "ref": "ISI-S2-048",
+      "topic": "Filter bubbles, the evidence and the myth",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Treating 'filter bubble' as the whole explanation for why people disagree\n- Your own habit of skipping results from outlets you expect to dislike\n- Assuming everyone else are the ones trapped in a bubble, not you",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-048 | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.5",
+      "triggers": [
+        "are filter bubbles real",
+        "do filter bubbles actually exist",
+        "is the echo chamber idea a myth",
+        "does personalisation trap me in a bubble",
+        "what does the evidence say about filter bubbles"
+      ]
+    },
+    {
+      "ref": "ISI-S2-049",
+      "topic": "Filter bubbles, the evidence and the myth",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: scroll back through your own clicks and searches this week. How much of your so-called filter bubble did your own choices build, rather than the algorithm?",
+      "priority": 10,
+      "admin_approved": false,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-049 | Set 2 revised | style:Activity | grounding:Lit review 4.5",
+      "triggers": [
+        "are filter bubbles real",
+        "do filter bubbles actually exist",
+        "is the echo chamber idea a myth",
+        "does personalisation trap me in a bubble",
+        "what does the evidence say about filter bubbles"
+      ]
+    },
+    {
+      "ref": "ISI-S2-043",
+      "topic": "The Google effect on memory",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Research suggests that when we know we can look something up, we remember it less well, but remember where to find it instead. Search becomes a kind of external, shared memory.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-043 | Set 2 revised | style:Mechanism | grounding:Sparrow et al.",
+      "triggers": [
+        "does Google make us forget things",
+        "what is the Google effect on memory",
+        "does searching weaken memory",
+        "do we remember less because of the internet",
+        "digital amnesia explained"
+      ]
+    },
+    {
+      "ref": "ISI-S2-044",
+      "topic": "The Google effect on memory",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: search acting as a shared external memory is a genuine shift in how knowing works, not simply good or bad. What feels right to keep in your own head, and what is fine to look up?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-044 | Set 2 revised | style:Critical question | grounding:Sparrow et al.",
+      "triggers": [
+        "does Google make us forget things",
+        "what is the Google effect on memory",
+        "does searching weaken memory",
+        "do we remember less because of the internet",
+        "digital amnesia explained"
+      ]
+    },
+    {
+      "ref": "ISI-S2-045",
+      "topic": "The Google effect on memory",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: pick something you looked up today and ask whether you would rather remember it or keep looking it up. Both are reasonable; the point is to choose on purpose.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-045 | Set 2 revised | style:Activity | grounding:Sparrow et al.",
+      "triggers": [
+        "does Google make us forget things",
+        "what is the Google effect on memory",
+        "does searching weaken memory",
+        "do we remember less because of the internet",
+        "digital amnesia explained"
+      ]
+    },
+    {
+      "ref": "ISI-S1-017",
+      "topic": "AI Overviews and generative search",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "An AI overview writes a fresh answer by summarising other pages. It can blend sources and miss context, and studies have found it sometimes names sources that do not support the claim.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-017 | Set 1 tool/ethics, provisional | style:Mechanism | grounding:Lit review 4.18",
+      "triggers": [
+        "what is Google AI overview",
+        "is the AI summary at the top accurate",
+        "why is there an AI answer above my results",
+        "can AI overviews be wrong",
+        "AI overview versus the normal results"
+      ]
+    },
+    {
+      "ref": "ISI-S1-018",
+      "topic": "AI Overviews and generative search",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the overview gives you one answer where there used to be ten links. What might you lose when ten links become one paragraph?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-018 | Set 1 tool/ethics, provisional | style:Critical question | grounding:Lit review 4.18",
+      "triggers": [
+        "what is Google AI overview",
+        "is the AI summary at the top accurate",
+        "why is there an AI answer above my results",
+        "can AI overviews be wrong",
+        "AI overview versus the normal results"
+      ]
+    },
+    {
+      "ref": "ISI-S1-019",
+      "topic": "AI Overviews and generative search",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Confident wording with vague or missing sources\n- A summary that flattens a real disagreement into one answer\n- Citations that do not back the sentence beside them",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-019 | Set 1 tool/ethics, provisional | style:Things to watch out for | grounding:Lit review 4.18",
+      "triggers": [
+        "what is Google AI overview",
+        "is the AI summary at the top accurate",
+        "why is there an AI answer above my results",
+        "can AI overviews be wrong",
+        "AI overview versus the normal results"
+      ]
+    },
+    {
+      "ref": "ISI-S1-020",
+      "topic": "AI Overviews and generative search",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: read an AI summary, then open one or two of its sources. Does the summary accurately reflect what they say?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-020 | Set 1 tool/ethics, provisional | style:Activity | grounding:Lit review 4.18",
+      "triggers": [
+        "what is Google AI overview",
+        "is the AI summary at the top accurate",
+        "why is there an AI answer above my results",
+        "can AI overviews be wrong",
+        "AI overview versus the normal results"
+      ]
+    },
+    {
+      "ref": "ISI-S1-005",
+      "topic": "Autocomplete and query suggestions",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Autocomplete suggestions come from what many people have typed before, with some filtering. They reflect what is commonly searched, which is not the same as what is true or what you meant.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-005 | Set 1 tool/ethics, provisional | style:Mechanism | grounding:Lit review 4.4",
+      "triggers": [
+        "how does Google autocomplete work",
+        "why does search suggest these questions",
+        "where do search predictions come from",
+        "can autocomplete be biased",
+        "why does it finish my search for me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-006",
+      "topic": "Autocomplete and query suggestions",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: autocomplete offers to finish your question for you. Is the suggestion you picked the question you actually had?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-006 | Set 1 tool/ethics, provisional | style:Critical question | grounding:Lit review 4.4",
+      "triggers": [
+        "how does Google autocomplete work",
+        "why does search suggest these questions",
+        "where do search predictions come from",
+        "can autocomplete be biased",
+        "why does it finish my search for me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-007",
+      "topic": "Autocomplete and query suggestions",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Suggestions that add a slant your original words did not have\n- A leading phrase that assumes an answer\n- Sensitive topics where the suggestions can be sparse or strange",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-007 | Set 1 tool/ethics, provisional | style:Things to watch out for | grounding:Lit review 4.4",
+      "triggers": [
+        "how does Google autocomplete work",
+        "why does search suggest these questions",
+        "where do search predictions come from",
+        "can autocomplete be biased",
+        "why does it finish my search for me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-008",
+      "topic": "Autocomplete and query suggestions",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: start typing a question and read the suggestions before you finish. Did any nudge you toward a particular version of the question? Try finishing it your own way instead.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-008 | Set 1 tool/ethics, provisional | style:Activity | grounding:Lit review 4.4",
+      "triggers": [
+        "how does Google autocomplete work",
+        "why does search suggest these questions",
+        "where do search predictions come from",
+        "can autocomplete be biased",
+        "why does it finish my search for me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-001",
+      "topic": "How results are ranked",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "The order of results is a guess about relevance, built from signals like the words on a page, how many other sites link to it, and what people click. It is not a ranking of how true or how complete each page is.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-001 | Set 1 tool/ethics, provisional | style:Mechanism | grounding:Lit review 4.1",
+      "triggers": [
+        "how does Google rank pages",
+        "why is this result first",
+        "how does search decide what to show",
+        "what are ranking signals",
+        "why does the top result win"
+      ]
+    },
+    {
+      "ref": "ISI-S1-002",
+      "topic": "How results are ranked",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the top result is the one the system judged most relevant to you, not the most accurate or the most complete. What would you want to check before trusting it?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-002 | Set 1 tool/ethics, provisional | style:Critical question | grounding:Lit review 4.7",
+      "triggers": [
+        "how does Google rank pages",
+        "why is this result first",
+        "how does search decide what to show",
+        "what are ranking signals",
+        "why does the top result win"
+      ]
+    },
+    {
+      "ref": "ISI-S1-003",
+      "topic": "How results are ranked",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Pages that are well made for search but thin on substance\n- A first result that answers a slightly different question than yours\n- A confident page with no named author or date",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-003 | Set 1 tool/ethics, provisional | style:Things to watch out for | grounding:Lit review 4.1",
+      "triggers": [
+        "how does Google rank pages",
+        "why is this result first",
+        "how does search decide what to show",
+        "what are ranking signals",
+        "why does the top result win"
+      ]
+    },
+    {
+      "ref": "ISI-S1-004",
+      "topic": "How results are ranked",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: scroll past the first three results and read the fifth or sixth. Notice whether the lower ones are worse, or just less optimised to rank.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-004 | Set 1 tool/ethics, provisional | style:Activity | grounding:Lit review 4.3",
+      "triggers": [
+        "how does Google rank pages",
+        "why is this result first",
+        "how does search decide what to show",
+        "what are ranking signals",
+        "why does the top result win"
+      ]
+    },
+    {
+      "ref": "ISI-S1-009",
+      "topic": "Personalisation and why your results differ",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Search adjusts results to signals like your location and past activity, so two people searching the same words can see different things. Your results are partly a picture of you.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-009 | Set 1 tool/ethics, provisional | style:Mechanism | grounding:Lit review 4.5",
+      "triggers": [
+        "why are my search results different from someone else's",
+        "does Google personalise my results",
+        "why do I see different results to my friend",
+        "how does search use my history",
+        "are my results based on me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-010",
+      "topic": "Personalisation and why your results differ",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: if your results are shaped by what you have searched before, they may show you more of what you already think. What might you be missing?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-010 | Set 1 tool/ethics, provisional | style:Critical question | grounding:Lit review 4.5",
+      "triggers": [
+        "why are my search results different from someone else's",
+        "does Google personalise my results",
+        "why do I see different results to my friend",
+        "how does search use my history",
+        "are my results based on me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-011",
+      "topic": "Personalisation and why your results differ",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A sense that everyone must be seeing what you see\n- Results that flatter the view you already hold\n- Local results standing in for the whole picture",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-011 | Set 1 tool/ethics, provisional | style:Things to watch out for | grounding:Lit review 4.5",
+      "triggers": [
+        "why are my search results different from someone else's",
+        "does Google personalise my results",
+        "why do I see different results to my friend",
+        "how does search use my history",
+        "are my results based on me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-012",
+      "topic": "Personalisation and why your results differ",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: run a search you care about, then run it again signed out or in a private window. Compare the two. What changed?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-012 | Set 1 tool/ethics, provisional | style:Activity | grounding:Lit review 4.5",
+      "triggers": [
+        "why are my search results different from someone else's",
+        "does Google personalise my results",
+        "why do I see different results to my friend",
+        "how does search use my history",
+        "are my results based on me"
+      ]
+    },
+    {
+      "ref": "ISI-S2-021",
+      "topic": "Asking a chatbot instead of searching",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "A chatbot writes you an answer from patterns in its training, rather than pointing you to pages. It can be fluent and wrong at once, and it may not show you where its answer came from.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-021 | Set 2 revised | style:Mechanism | grounding:Lit review 4.17",
+      "triggers": [
+        "should I use ChatGPT instead of Google",
+        "is it better to ask a chatbot or search",
+        "can I trust what ChatGPT tells me",
+        "why does the chatbot give different answers each time",
+        "do chatbots make things up"
+      ]
+    },
+    {
+      "ref": "ISI-S2-022",
+      "topic": "Asking a chatbot instead of searching",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a chatbot gives you an answer, not a set of sources to weigh. For this question, do you want an answer, or the materials to judge one?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-022 | Set 2 revised | style:Critical question | grounding:Lit review 4.18",
+      "triggers": [
+        "should I use ChatGPT instead of Google",
+        "is it better to ask a chatbot or search",
+        "can I trust what ChatGPT tells me",
+        "why does the chatbot give different answers each time",
+        "do chatbots make things up"
+      ]
+    },
+    {
+      "ref": "ISI-S2-023",
+      "topic": "Asking a chatbot instead of searching",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- An answer with no sources, or sources that turn out not to exist\n- Confidence that does not waver even on genuinely uncertain questions\n- A different answer when you ask the same thing again",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-023 | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.18",
+      "triggers": [
+        "should I use ChatGPT instead of Google",
+        "is it better to ask a chatbot or search",
+        "can I trust what ChatGPT tells me",
+        "why does the chatbot give different answers each time",
+        "do chatbots make things up"
+      ]
+    },
+    {
+      "ref": "ISI-S2-024",
+      "topic": "Asking a chatbot instead of searching",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: when a chatbot answers, push back and ask it to justify or reconsider. If it changes its answer easily, the evidence underneath may be thin.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-024 | Set 2 revised | style:Activity | grounding:Lit review 4.18",
+      "triggers": [
+        "should I use ChatGPT instead of Google",
+        "is it better to ask a chatbot or search",
+        "can I trust what ChatGPT tells me",
+        "why does the chatbot give different answers each time",
+        "do chatbots make things up"
+      ]
+    },
+    {
+      "ref": "ISI-S2-025",
+      "topic": "Asking a chatbot instead of searching",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: ask a chatbot something you know well. Where is it right, where is it vague, and where is it confidently wrong?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-025 | Set 2 revised | style:Activity | grounding:Lit review 4.18",
+      "triggers": [
+        "should I use ChatGPT instead of Google",
+        "is it better to ask a chatbot or search",
+        "can I trust what ChatGPT tells me",
+        "why does the chatbot give different answers each time",
+        "do chatbots make things up"
+      ]
+    },
+    {
+      "ref": "ISI-S2-026",
+      "topic": "Generative engine optimisation",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Just as pages are written to rank in search, content is now being shaped to be picked up and quoted by AI answers. What an AI summary tells you can be influenced by whoever optimised for it.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-026 | Set 2 revised | style:Mechanism | grounding:Gap analysis s2",
+      "triggers": [
+        "what is generative engine optimisation",
+        "how do brands get mentioned in AI answers",
+        "can you optimise content for ChatGPT",
+        "why does the same brand keep appearing in AI results",
+        "GEO versus SEO"
+      ]
+    },
+    {
+      "ref": "ISI-S2-027",
+      "topic": "Generative engine optimisation",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: if pages can be written to be chosen by an AI answer, the answer is not a neutral read of the web. Whose content is this summary likely built from?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-027 | Set 2 revised | style:Critical question | grounding:Gap analysis s2",
+      "triggers": [
+        "what is generative engine optimisation",
+        "how do brands get mentioned in AI answers",
+        "can you optimise content for ChatGPT",
+        "why does the same brand keep appearing in AI results",
+        "GEO versus SEO"
+      ]
+    },
+    {
+      "ref": "ISI-S2-028",
+      "topic": "Generative engine optimisation",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A brand name appearing inside an AI answer a little too smoothly\n- A summary that reads like marketing copy\n- The same few sources quoted across many answers, which can signal GEO, the AI-era version of search engine optimisation where content is written specifically to be picked up by generative systems",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-028 | Set 2 revised | style:Things to watch out for | grounding:Gap analysis s2",
+      "triggers": [
+        "what is generative engine optimisation",
+        "how do brands get mentioned in AI answers",
+        "can you optimise content for ChatGPT",
+        "why does the same brand keep appearing in AI results",
+        "GEO versus SEO"
+      ]
+    },
+    {
+      "ref": "ISI-S2-029",
+      "topic": "Generative engine optimisation",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: ask an AI tool to recommend a product or service, then search who is behind the names it gives. Are they there on merit, or by optimisation?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-029 | Set 2 revised | style:Activity | grounding:Gap analysis s2",
+      "triggers": [
+        "what is generative engine optimisation",
+        "how do brands get mentioned in AI answers",
+        "can you optimise content for ChatGPT",
+        "why does the same brand keep appearing in AI results",
+        "GEO versus SEO"
+      ]
+    },
+    {
+      "ref": "ISI-S2-005",
+      "topic": "Image search and reverse image search",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Image search matches pictures by their visible features and the words around them, not by where they truly came from. A photo can be old, staged, or from somewhere else entirely.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-005 | Set 2 revised | style:Mechanism | grounding:Lit review 4.13",
+      "triggers": [
+        "how does reverse image search work",
+        "how to find where an image came from",
+        "how to check if a photo is real",
+        "find the original of a picture",
+        "is this image old or out of context"
+      ]
+    },
+    {
+      "ref": "ISI-S2-006",
+      "topic": "Image search and reverse image search",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: an image can be real and still mislead, if it is from another time or place. What would you want to know about where this picture came from?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-006 | Set 2 revised | style:Critical question | grounding:Lit review 4.13",
+      "triggers": [
+        "how does reverse image search work",
+        "how to find where an image came from",
+        "how to check if a photo is real",
+        "find the original of a picture",
+        "is this image old or out of context"
+      ]
+    },
+    {
+      "ref": "ISI-S2-007",
+      "topic": "Image search and reverse image search",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- An emotive photo attached to a breaking-news claim\n- The same image turning up on stock-photo sites\n- A reverse search showing an earlier date than the story it illustrates",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-007 | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.13",
+      "triggers": [
+        "how does reverse image search work",
+        "how to find where an image came from",
+        "how to check if a photo is real",
+        "find the original of a picture",
+        "is this image old or out of context"
+      ]
+    },
+    {
+      "ref": "ISI-S2-008",
+      "topic": "Image search and reverse image search",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: take a striking photo from a news story or a social post you saw this week, and run it through a reverse image search. Where does it actually first appear?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-008 | Set 2 revised | style:Activity | grounding:Lit review 4.13",
+      "triggers": [
+        "how does reverse image search work",
+        "how to find where an image came from",
+        "how to check if a photo is real",
+        "find the original of a picture",
+        "is this image old or out of context"
+      ]
+    },
+    {
+      "ref": "ISI-S2-009",
+      "topic": "Maps as search",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "A map is a search result too, and it is not the same map for everyone. Google runs different versions by country and follows local laws, so a contested border can be drawn differently depending on where you view from. Crimea shows as a solid part of Russia inside Russia but as a dashed, disputed line in the United States; Western Sahara is dashed for most of the world but simply part of Morocco when viewed from Morocco.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-009 | Set 2 revised | style:Mechanism | grounding:Maps reporting (WaPo 2020, NPR 2014)",
+      "triggers": [
+        "why does Google Maps show different borders",
+        "is Crimea shown as part of Russia on maps",
+        "why are map results different by country",
+        "are the pins on maps paid for",
+        "do maps take sides on disputed borders"
+      ]
+    },
+    {
+      "ref": "ISI-S2-010",
+      "topic": "Maps as search",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the same border can be drawn different ways depending on who is looking, as with Crimea, Western Sahara or Arunachal Pradesh. If a map can quietly take a side, what is it telling you when it looks certain?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-010 | Set 2 revised | style:Critical question | grounding:Maps reporting",
+      "triggers": [
+        "why does Google Maps show different borders",
+        "is Crimea shown as part of Russia on maps",
+        "why are map results different by country",
+        "are the pins on maps paid for",
+        "do maps take sides on disputed borders"
+      ]
+    },
+    {
+      "ref": "ISI-S2-011a",
+      "topic": "Maps as search",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A sponsored pin sitting above the nearest or best-rated place\n- A chain or advertiser shown before a closer independent option\n- Whole areas left thin where businesses have not been mapped or have opted out",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-011a | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.24",
+      "triggers": [
+        "why does Google Maps show different borders",
+        "is Crimea shown as part of Russia on maps",
+        "why are map results different by country",
+        "are the pins on maps paid for",
+        "do maps take sides on disputed borders"
+      ]
+    },
+    {
+      "ref": "ISI-S2-011b",
+      "topic": "Maps as search",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A disputed border drawn as a solid line, with no hint it is contested\n- A territory or place name shown differently depending on the country you view from\n- Areas left blank or blurred where mapping is restricted",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-011b | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.24",
+      "triggers": [
+        "why does Google Maps show different borders",
+        "is Crimea shown as part of Russia on maps",
+        "why are map results different by country",
+        "are the pins on maps paid for",
+        "do maps take sides on disputed borders"
+      ]
+    },
+    {
+      "ref": "ISI-S2-012",
+      "topic": "Maps as search",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: look up how Crimea or Western Sahara is drawn on Google Maps, and read who claims the territory. The line you see may not be the line someone in another country is shown.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-012 | Set 2 revised | style:Activity | grounding:Maps reporting",
+      "triggers": [
+        "why does Google Maps show different borders",
+        "is Crimea shown as part of Russia on maps",
+        "why are map results different by country",
+        "are the pins on maps paid for",
+        "do maps take sides on disputed borders"
+      ]
+    },
+    {
+      "ref": "ISI-S2-001",
+      "topic": "Recommendation systems",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "A recommendation system suggests what to watch, read or buy next by spotting patterns in what people like you did before. It is built to keep you engaged, which is not the same as serving you well.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-001 | Set 2 revised | style:Mechanism | grounding:Recommender literature",
+      "triggers": [
+        "how do recommendation algorithms work",
+        "why does YouTube recommend these videos",
+        "how does Netflix know what I like",
+        "why does autoplay keep going",
+        "how do recommended feeds decide what to show"
+      ]
+    },
+    {
+      "ref": "ISI-S2-002",
+      "topic": "Recommendation systems",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a recommendation is a prediction about you, made to keep you here longer. Is what it suggests what you came for, or what keeps you scrolling? And when a chatbot or an AI answer ends with a follow-up question, that prompt is often there to keep you engaged rather than because the question needed asking. Notice when your time is being captured by questions you did not think of yourself.",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-002 | Set 2 revised | style:Critical question | grounding:Lit review 4.5",
+      "triggers": [
+        "how do recommendation algorithms work",
+        "why does YouTube recommend these videos",
+        "how does Netflix know what I like",
+        "why does autoplay keep going",
+        "how do recommended feeds decide what to show"
+      ]
+    },
+    {
+      "ref": "ISI-S2-003",
+      "topic": "Recommendation systems",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Autoplay starting the next video before you have chosen it\n- A 'because you watched' row on YouTube or Netflix narrowing to one genre\n- Suggestions pulling toward more extreme versions of what you first opened",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-003 | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.5",
+      "triggers": [
+        "how do recommendation algorithms work",
+        "why does YouTube recommend these videos",
+        "how does Netflix know what I like",
+        "why does autoplay keep going",
+        "how do recommended feeds decide what to show"
+      ]
+    },
+    {
+      "ref": "ISI-S2-004",
+      "topic": "Recommendation systems",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: on YouTube or Netflix, look at a recommended-for-you row, then deliberately watch something well outside it. Check whether that row looks different next time.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-004 | Set 2 revised | style:Activity | grounding:Lit review 4.5",
+      "triggers": [
+        "how do recommendation algorithms work",
+        "why does YouTube recommend these videos",
+        "how does Netflix know what I like",
+        "why does autoplay keep going",
+        "how do recommended feeds decide what to show"
+      ]
+    },
+    {
+      "ref": "ISI-S2-013",
+      "topic": "Trending and what counts as trending",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Trending lists are calculated, not simply counted. They weigh speed, novelty and engagement, and they can be gamed, so trending means moving fast right now, not important or true.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-013 | Set 2 revised | style:Mechanism | grounding:Lit review 4.6",
+      "triggers": [
+        "how does Twitter decide what is trending",
+        "what does trending actually mean",
+        "can trending topics be faked",
+        "how do hashtags start trending",
+        "why is this trending right now"
+      ]
+    },
+    {
+      "ref": "ISI-S2-014",
+      "topic": "Trending and what counts as trending",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: something trending has caught a lot of attention quickly. Does that tell you it matters, or only that it spread?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-014 | Set 2 revised | style:Critical question | grounding:Lit review 4.6",
+      "triggers": [
+        "how does Twitter decide what is trending",
+        "what does trending actually mean",
+        "can trending topics be faked",
+        "how do hashtags start trending",
+        "why is this trending right now"
+      ]
+    },
+    {
+      "ref": "ISI-S2-015",
+      "topic": "Trending and what counts as trending",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A topic trending on only a few hundred near-identical posts, many posted within minutes of each other\n- The same wording repeated word for word across lots of accounts\n- A branded or campaign hashtag, sometimes with a sponsored tag, sitting in the trends\n- A trend showing only in your country or language while invisible elsewhere",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-015 | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.6",
+      "triggers": [
+        "how does Twitter decide what is trending",
+        "what does trending actually mean",
+        "can trending topics be faked",
+        "how do hashtags start trending",
+        "why is this trending right now"
+      ]
+    },
+    {
+      "ref": "ISI-S2-016",
+      "topic": "Trending and what counts as trending",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: pick a trending topic and try to find out who or what set it off. Was it organic or pushed, and can you even find that out through your search engine?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-016 | Set 2 revised | style:Activity | grounding:Lit review 4.6",
+      "triggers": [
+        "how does Twitter decide what is trending",
+        "what does trending actually mean",
+        "can trending topics be faked",
+        "how do hashtags start trending",
+        "why is this trending right now"
+      ]
+    },
+    {
+      "ref": "ISI-S2-017",
+      "topic": "Voice assistants and the single spoken answer",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "When you ask a voice assistant, it usually reads out one answer rather than offering a list. One source is chosen for you, and you cannot see the others it passed over.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-017 | Set 2 revised | style:Mechanism | grounding:Lit review 4.14",
+      "triggers": [
+        "how does Alexa choose its answer",
+        "where does Siri get its answers from",
+        "why does the voice assistant give only one answer",
+        "can I trust what Google Assistant tells me",
+        "does voice search show its sources"
+      ]
+    },
+    {
+      "ref": "ISI-S2-018",
+      "topic": "Voice assistants and the single spoken answer",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a spoken answer gives you no list to compare and no sources to glance at. Is this a question you are happy to settle on one voice?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-018 | Set 2 revised | style:Critical question | grounding:Lit review 4.14",
+      "triggers": [
+        "how does Alexa choose its answer",
+        "where does Siri get its answers from",
+        "why does the voice assistant give only one answer",
+        "can I trust what Google Assistant tells me",
+        "does voice search show its sources"
+      ]
+    },
+    {
+      "ref": "ISI-S2-019",
+      "topic": "Voice assistants and the single spoken answer",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- An answer read out with no source you can check\n- 'According to' followed by a single site\n- A follow-up that quietly answers a narrower question than you asked",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-019 | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.14",
+      "triggers": [
+        "how does Alexa choose its answer",
+        "where does Siri get its answers from",
+        "why does the voice assistant give only one answer",
+        "can I trust what Google Assistant tells me",
+        "does voice search show its sources"
+      ]
+    },
+    {
+      "ref": "ISI-S2-020",
+      "topic": "Voice assistants and the single spoken answer",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: ask a voice assistant a question with more than one reasonable answer, then search the same question and count how many different answers you find.",
+      "priority": 50,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-020 | Set 2 revised | style:Activity | grounding:Lit review 4.14",
+      "triggers": [
+        "how does Alexa choose its answer",
+        "where does Siri get its answers from",
+        "why does the voice assistant give only one answer",
+        "can I trust what Google Assistant tells me",
+        "does voice search show its sources"
+      ]
+    },
+    {
+      "ref": "ISI-S1-033",
+      "topic": "Ad tracking and what you reveal by searching",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "A search that feels free is usually paid for with data. What you look for, when, and from where can be recorded and used to target adverts at you later.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-033 | Set 1 tool/ethics, provisional | style:Mechanism | grounding:Lit review 4.22",
+      "triggers": [
+        "is Google tracking my searches",
+        "why do ads follow me after I search for something",
+        "what data does search collect about me",
+        "are my searches used for advertising",
+        "how do I stop search tracking me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-034",
+      "topic": "Ad tracking and what you reveal by searching",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the things you search can be as revealing as the things you say out loud. Is this something you would want logged against you?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-034 | Set 1 tool/ethics, provisional | style:Critical question | grounding:Lit review 4.22",
+      "triggers": [
+        "is Google tracking my searches",
+        "why do ads follow me after I search for something",
+        "what data does search collect about me",
+        "are my searches used for advertising",
+        "how do I stop search tracking me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-035",
+      "topic": "Ad tracking and what you reveal by searching",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Adverts that seem to echo something you only searched\n- Sites that load many third-party trackers\n- Personalised ads following you across sites after a single search",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-035 | Set 1 tool/ethics, provisional | style:Things to watch out for | grounding:Lit review 4.22",
+      "triggers": [
+        "is Google tracking my searches",
+        "why do ads follow me after I search for something",
+        "what data does search collect about me",
+        "are my searches used for advertising",
+        "how do I stop search tracking me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-036",
+      "topic": "Ad tracking and what you reveal by searching",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: open your browser or account ad settings and look at what has been inferred about you from your activity. Does it match how you see yourself?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-036 | Set 1 tool/ethics, provisional | style:Activity | grounding:Lit review 4.22",
+      "triggers": [
+        "is Google tracking my searches",
+        "why do ads follow me after I search for something",
+        "what data does search collect about me",
+        "are my searches used for advertising",
+        "how do I stop search tracking me"
+      ]
+    },
+    {
+      "ref": "ISI-S1-029",
+      "topic": "Advertising and sponsored results",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "The results marked sponsored are adverts. They sit at the top because someone paid for that place, not because the system judged them the most useful.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-029 | Set 1 tool/ethics, provisional | style:Mechanism | grounding:Lit review 4.1",
+      "triggers": [
+        "are the top Google results ads",
+        "what does sponsored mean in search",
+        "why are there ads at the top of search",
+        "how do I tell ads from real results",
+        "are search ads clearly labelled"
+      ]
+    },
+    {
+      "ref": "ISI-S1-030",
+      "topic": "Advertising and sponsored results",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the first thing you see may be an advert in the same style as everything else. Can you tell, at a glance, where the ads end and the results begin?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-030 | Set 1 tool/ethics, provisional | style:Critical question | grounding:Lit review 4.1",
+      "triggers": [
+        "are the top Google results ads",
+        "what does sponsored mean in search",
+        "why are there ads at the top of search",
+        "how do I tell ads from real results",
+        "are search ads clearly labelled"
+      ]
+    },
+    {
+      "ref": "ISI-S1-031",
+      "topic": "Advertising and sponsored results",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- The small sponsored or ad label near the top\n- Shopping results that look like neutral recommendations\n- A whole first screen of paid placements",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-031 | Set 1 tool/ethics, provisional | style:Things to watch out for | grounding:Lit review 4.1",
+      "triggers": [
+        "are the top Google results ads",
+        "what does sponsored mean in search",
+        "why are there ads at the top of search",
+        "how do I tell ads from real results",
+        "are search ads clearly labelled"
+      ]
+    },
+    {
+      "ref": "ISI-S1-032",
+      "topic": "Advertising and sponsored results",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: on your next search with ads, count how far you scroll before the first unpaid result. Was it where you expected?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": true,
+      "admin_notes": "ref:ISI-S1-032 | Set 1 tool/ethics, provisional | style:Activity | grounding:Lit review 4.1",
+      "triggers": [
+        "are the top Google results ads",
+        "what does sponsored mean in search",
+        "why are there ads at the top of search",
+        "how do I tell ads from real results",
+        "are search ads clearly labelled"
+      ]
+    },
+    {
+      "ref": "ISI-S2-039",
+      "topic": "Concentration and defaults",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "For two decades a few companies have set the defaults for how most people search, navigate, watch and email, and those defaults quietly became the normal way of knowing. That grip is loosening a little as AI assistants from several firms arrive, but the question stays: when a handful of companies set the defaults, who decides what normal looks like?",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-039 | Set 2 revised | style:Mechanism | grounding:Our framing; cf. Vaidhyanathan",
+      "triggers": [
+        "why does everyone use Google",
+        "how much of search does Google control",
+        "why is Google the default search engine",
+        "are a few companies controlling how we search",
+        "what are the alternatives to the big tech defaults"
+      ]
+    },
+    {
+      "ref": "ISI-S2-040",
+      "topic": "Concentration and defaults",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a great deal of what you find, watch and map may run through a few companies' systems. How would you notice if that shaped what you think?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-040 | Set 2 revised | style:Critical question | grounding:Lit review 4.10",
+      "triggers": [
+        "why does everyone use Google",
+        "how much of search does Google control",
+        "why is Google the default search engine",
+        "are a few companies controlling how we search",
+        "what are the alternatives to the big tech defaults"
+      ]
+    },
+    {
+      "ref": "ISI-S2-041",
+      "topic": "Concentration and defaults",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Google offering a 'did you mean' that changes your word into a different meaning\n- The result types reordering themselves, news first one day, shopping or images first another\n- Being carried from search to video to maps without leaving one company's services",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-041 | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.10",
+      "triggers": [
+        "why does everyone use Google",
+        "how much of search does Google control",
+        "why is Google the default search engine",
+        "are a few companies controlling how we search",
+        "what are the alternatives to the big tech defaults"
+      ]
+    },
+    {
+      "ref": "ISI-S2-042",
+      "topic": "Concentration and defaults",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: list the everyday tools you used today, search, maps, email, video, browser. How many belong to the same company?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-042 | Set 2 revised | style:Activity | grounding:Lit review 4.10",
+      "triggers": [
+        "why does everyone use Google",
+        "how much of search does Google control",
+        "why is Google the default search engine",
+        "are a few companies controlling how we search",
+        "what are the alternatives to the big tech defaults"
+      ]
+    },
+    {
+      "ref": "ISI-S2-030",
+      "topic": "Training data and the open web",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "AI answers are built from huge amounts of web content, often gathered without asking and without paying. When an answer replaces a visit to a site, the people who made that content get nothing back.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-030 | Set 2 revised | style:Mechanism | grounding:Gap analysis rupture 2",
+      "triggers": [
+        "where do AI models get their training data",
+        "did AI scrape my website",
+        "do AI answers reduce website traffic",
+        "is AI trained on copyrighted content",
+        "what happens to the open web when AI answers everything"
+      ]
+    },
+    {
+      "ref": "ISI-S2-031",
+      "topic": "Training data and the open web",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the open web runs largely on the hope that people will visit and support what they read. What happens to it if AI answers stop them needing to?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-031 | Set 2 revised | style:Critical question | grounding:Gap analysis s3",
+      "triggers": [
+        "where do AI models get their training data",
+        "did AI scrape my website",
+        "do AI answers reduce website traffic",
+        "is AI trained on copyrighted content",
+        "what happens to the open web when AI answers everything"
+      ]
+    },
+    {
+      "ref": "ISI-S2-032",
+      "topic": "Training data and the open web",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- An AI answer so complete you never click a source\n- Sites adding notices about whether AI may use their content\n- Fewer new independent pages on topics an AI already answers well",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-032 | Set 2 revised | style:Things to watch out for | grounding:Gap analysis rupture 2",
+      "triggers": [
+        "where do AI models get their training data",
+        "did AI scrape my website",
+        "do AI answers reduce website traffic",
+        "is AI trained on copyrighted content",
+        "what happens to the open web when AI answers everything"
+      ]
+    },
+    {
+      "ref": "ISI-S2-033",
+      "topic": "Training data and the open web",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: when an AI answer satisfies you, notice whether you visited any of the sites it drew from. If not, who carried the cost of making it?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-033 | Set 2 revised | style:Activity | grounding:Gap analysis s3",
+      "triggers": [
+        "where do AI models get their training data",
+        "did AI scrape my website",
+        "do AI answers reduce website traffic",
+        "is AI trained on copyrighted content",
+        "what happens to the open web when AI answers everything"
+      ]
+    },
+    {
+      "ref": "ISI-S2-034",
+      "topic": "Wikipedia and how online knowledge is made",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "A Wikipedia article has two faces: the tidy page you read, and behind it a talk page where editors argue over the disputed lines. Search usually shows you the tidy front, and generative AI tends to ingest that flattened version rather than the debate behind it.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-034 | Set 2 revised | style:Mechanism | grounding:Lit review 4.13",
+      "triggers": [
+        "how reliable is Wikipedia",
+        "who actually writes Wikipedia",
+        "what is a Wikipedia talk page",
+        "can I trust Wikipedia for facts",
+        "how do Wikipedia edit wars work"
+      ]
+    },
+    {
+      "ref": "ISI-S2-035",
+      "topic": "Wikipedia and how online knowledge is made",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a lot of the web's quick answers rest on Wikipedia, made by volunteers. Does knowing how it is made change how you read it?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-035 | Set 2 revised | style:Critical question | grounding:Lit review 4.13",
+      "triggers": [
+        "how reliable is Wikipedia",
+        "who actually writes Wikipedia",
+        "what is a Wikipedia talk page",
+        "can I trust Wikipedia for facts",
+        "how do Wikipedia edit wars work"
+      ]
+    },
+    {
+      "ref": "ISI-S2-036",
+      "topic": "Wikipedia and how online knowledge is made",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the talk page is where a topic's uncertainty lives, but an AI answer usually swallows only the smoothed-over article. What gets lost when the argument is edited out?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-036 | Set 2 revised | style:Critical question | grounding:Lit review 4.13",
+      "triggers": [
+        "how reliable is Wikipedia",
+        "who actually writes Wikipedia",
+        "what is a Wikipedia talk page",
+        "can I trust Wikipedia for facts",
+        "how do Wikipedia edit wars work"
+      ]
+    },
+    {
+      "ref": "ISI-S2-037",
+      "topic": "Wikipedia and how online knowledge is made",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A confident summary drawn from a section marked 'citation needed'\n- A topic whose talk page shows an active edit war\n- An AI answer that reproduces Wikipedia without the article's own caveats",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-037 | Set 2 revised | style:Things to watch out for | grounding:Lit review 4.13",
+      "triggers": [
+        "how reliable is Wikipedia",
+        "who actually writes Wikipedia",
+        "what is a Wikipedia talk page",
+        "can I trust Wikipedia for facts",
+        "how do Wikipedia edit wars work"
+      ]
+    },
+    {
+      "ref": "ISI-S2-038",
+      "topic": "Wikipedia and how online knowledge is made",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: open the talk page or history behind a Wikipedia article. See what was argued over and what changed.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S2-038 | Set 2 revised | style:Activity | grounding:Lit review 4.13",
+      "triggers": [
+        "how reliable is Wikipedia",
+        "who actually writes Wikipedia",
+        "what is a Wikipedia talk page",
+        "can I trust Wikipedia for facts",
+        "how do Wikipedia edit wars work"
+      ]
+    },
+    {
+      "ref": "ISI-S3-001",
+      "topic": "Knowledge panels and featured snippets",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "A knowledge panel or featured snippet is chosen by the search engine from a source it trusts, not voted on by experts. It sits at the top of the page because the system is confident, and confidence is not the same as correctness.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-001 | Set 3 | style:Mechanism | grounding:Lit review 4.13; SEO literature",
+      "triggers": [
+        "what is a featured snippet",
+        "who controls the Google knowledge panel",
+        "why does one answer appear at the top",
+        "is the box at the top of Google accurate",
+        "where does the knowledge panel get its information",
+        "how do I get a featured snippet"
+      ]
+    },
+    {
+      "ref": "ISI-S3-002",
+      "topic": "Knowledge panels and featured snippets",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the boxed answer at the top was chosen for you. What would change if it had been drawn from a different source, or a different part of the same page?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-002 | Set 3 | style:Critical question | grounding:Lit review 4.13",
+      "triggers": [
+        "what is a featured snippet",
+        "who controls the Google knowledge panel",
+        "why does one answer appear at the top",
+        "is the box at the top of Google accurate",
+        "where does the knowledge panel get its information",
+        "how do I get a featured snippet"
+      ]
+    },
+    {
+      "ref": "ISI-S3-003",
+      "topic": "Knowledge panels and featured snippets",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A one-box answer with no named or linked source\n- A date or number that differs from what the linked page actually says\n- A medical or legal answer presented as settled fact with no note that context matters",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-003 | Set 3 | style:Things to watch out for | grounding:Lit review 4.13",
+      "triggers": [
+        "what is a featured snippet",
+        "who controls the Google knowledge panel",
+        "why does one answer appear at the top",
+        "is the box at the top of Google accurate",
+        "where does the knowledge panel get its information",
+        "how do I get a featured snippet"
+      ]
+    },
+    {
+      "ref": "ISI-S3-004",
+      "topic": "Knowledge panels and featured snippets",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: find a knowledge panel or featured snippet on a topic you know well, then click through to the source. Does the answer match what the source actually says?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-004 | Set 3 | style:Activity | grounding:Lit review 4.13",
+      "triggers": [
+        "what is a featured snippet",
+        "who controls the Google knowledge panel",
+        "why does one answer appear at the top",
+        "is the box at the top of Google accurate",
+        "where does the knowledge panel get its information",
+        "how do I get a featured snippet"
+      ]
+    },
+    {
+      "ref": "ISI-S3-005",
+      "topic": "Search engine optimisation",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Search engine optimisation is the practice of writing and structuring a page so the search engine ranks it higher. A well-optimised page reaches more people; it is not necessarily a more accurate or useful page.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-005 | Set 3 | style:Mechanism | grounding:Lit review 4.1",
+      "triggers": [
+        "what is SEO",
+        "how to rank higher on Google",
+        "why do some websites appear first",
+        "why are product review sites all the same",
+        "SEO spam",
+        "is Google getting worse"
+      ]
+    },
+    {
+      "ref": "ISI-S3-006",
+      "topic": "Search engine optimisation",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a result that ranks highly may have been made to rank near the top, and the search engine optimisation industry shapes much of what you see first. What went into putting this result in front of you, and does that tell you anything about its quality?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-006 | Set 3 | style:Critical question | grounding:Lit review 4.1",
+      "triggers": [
+        "what is SEO",
+        "how to rank higher on Google",
+        "why do some websites appear first",
+        "why are product review sites all the same",
+        "SEO spam",
+        "is Google getting worse"
+      ]
+    },
+    {
+      "ref": "ISI-S3-007",
+      "topic": "Search engine optimisation",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A page that repeats your search phrase many times but says little\n- An article with no named author, no date, and heavy advertising\n- A site that appears in the top results for many unrelated questions",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-007 | Set 3 | style:Things to watch out for | grounding:Lit review 4.1",
+      "triggers": [
+        "what is SEO",
+        "how to rank higher on Google",
+        "why do some websites appear first",
+        "why are product review sites all the same",
+        "SEO spam",
+        "is Google getting worse"
+      ]
+    },
+    {
+      "ref": "ISI-S3-008",
+      "topic": "Search engine optimisation",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: search a health or financial question and look at the top five results. Are they from organisations that have a financial interest in the answer you find?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-008 | Set 3 | style:Activity | grounding:Lit review 4.1",
+      "triggers": [
+        "what is SEO",
+        "how to rank higher on Google",
+        "why do some websites appear first",
+        "why are product review sites all the same",
+        "SEO spam",
+        "is Google getting worse"
+      ]
+    },
+    {
+      "ref": "ISI-S3-009",
+      "topic": "Data voids",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "A data void is a topic where reliable information is thin or absent on the web, so weaker sources fill the gap. Searches about rare conditions, newly emerging claims, or niche events often return unreliable or low-quality results as the search engine had very little to choose from.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-009 | Set 3 | style:Mechanism | grounding:Lit review 4.6; Golebiewski and Boyd 2019",
+      "triggers": [
+        "what is a data void",
+        "why are search results bad for breaking news",
+        "no good results for my search",
+        "why do fringe sites rank for this topic",
+        "information gaps online",
+        "searching something obscure"
+      ]
+    },
+    {
+      "ref": "ISI-S3-010",
+      "topic": "Data voids",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: when a search returns only a few sources and they all agree, that can mean the answer is settled, or that they are all repeating one original report. Which is it here, and how would you check?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-010 | Set 3 | style:Critical question | grounding:Lit review 4.6",
+      "triggers": [
+        "what is a data void",
+        "why are search results bad for breaking news",
+        "no good results for my search",
+        "why do fringe sites rank for this topic",
+        "information gaps online",
+        "searching something obscure"
+      ]
+    },
+    {
+      "ref": "ISI-S3-011",
+      "topic": "Data voids",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for: - Only one or two distinct voices across all the results on a topic - Sites outside the established press ranking highly on a topic no major outlet has covered - A claim that appears often in search but has no major publication or study attached to it",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-011 | Set 3 | style:Things to watch out for | grounding:Lit review 4.6",
+      "triggers": [
+        "what is a data void",
+        "why are search results bad for breaking news",
+        "no good results for my search",
+        "why do fringe sites rank for this topic",
+        "information gaps online",
+        "searching something obscure"
+      ]
+    },
+    {
+      "ref": "ISI-S3-012",
+      "topic": "Data voids",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: search something obscure or newly in the news and count how many genuinely distinct sources appear in the first page of results. Do they all draw from the same original report?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-012 | Set 3 | style:Activity | grounding:Lit review 4.6",
+      "triggers": [
+        "what is a data void",
+        "why are search results bad for breaking news",
+        "no good results for my search",
+        "why do fringe sites rank for this topic",
+        "information gaps online",
+        "searching something obscure"
+      ]
+    },
+    {
+      "ref": "ISI-S3-013",
+      "topic": "Cookies and consent",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Cookies are small files websites place in your browser to remember you between visits. Most sites use them for advertising: a tracker follows what you do across multiple sites and helps advertisers target you later.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-013 | Set 3 | style:Mechanism | grounding:Lit review 4.22; GDPR consent literature",
+      "triggers": [
+        "what are cookies",
+        "why does every site ask about cookies",
+        "cookie consent pop-up",
+        "are cookies bad",
+        "what happens if I accept all cookies",
+        "how many trackers are on this site"
+      ]
+    },
+    {
+      "ref": "ISI-S3-014",
+      "topic": "Cookies and consent",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a consent banner is a legal requirement, but the design of the banner is a choice. Who made the options easy, and who made them hard?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-014 | Set 3 | style:Critical question | grounding:Dark patterns literature; Lit review 4.22",
+      "triggers": [
+        "what are cookies",
+        "why does every site ask about cookies",
+        "cookie consent pop-up",
+        "are cookies bad",
+        "what happens if I accept all cookies",
+        "how many trackers are on this site"
+      ]
+    },
+    {
+      "ref": "ISI-S3-015",
+      "topic": "Cookies and consent",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A banner where accept all is one click but reject all is buried in settings\n- A page that loads dozens of trackers before you have had a chance to decide\n- A cookie listed as strictly necessary that is used for advertising",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-015 | Set 3 | style:Things to watch out for | grounding:Lit review 4.22",
+      "triggers": [
+        "what are cookies",
+        "why does every site ask about cookies",
+        "cookie consent pop-up",
+        "are cookies bad",
+        "what happens if I accept all cookies",
+        "how many trackers are on this site"
+      ]
+    },
+    {
+      "ref": "ISI-S3-016",
+      "topic": "Cookies and consent",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: open your browser privacy report or install a tracker counter, and check how many trackers are running on a news site you visit regularly.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-016 | Set 3 | style:Activity | grounding:Lit review 4.22",
+      "triggers": [
+        "what are cookies",
+        "why does every site ask about cookies",
+        "cookie consent pop-up",
+        "are cookies bad",
+        "what happens if I accept all cookies",
+        "how many trackers are on this site"
+      ]
+    },
+    {
+      "ref": "ISI-S3-017",
+      "topic": "The attention economy and engagement ranking",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Platforms optimise their feeds for engagement, which means showing content that gets the strongest reactions, whether joy, outrage, or curiosity. Content that keeps you on the platform earns more reach than content that informs you and lets you go.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-017 | Set 3 | style:Mechanism | grounding:Lit review 4.5; Zuboff 2019; Lorenz-Spreen et al. 2020",
+      "triggers": [
+        "attention economy",
+        "why does the algorithm show me this",
+        "how do apps keep you scrolling",
+        "why is my feed so angry",
+        "engagement based ranking",
+        "doomscrolling"
+      ]
+    },
+    {
+      "ref": "ISI-S3-018",
+      "topic": "The attention economy and engagement ranking",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the content that gets the most engagement is often the most emotionally charged, not the most accurate. What do you think is missing from a feed built to hold your attention?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-018 | Set 3 | style:Critical question | grounding:Lit review 4.5",
+      "triggers": [
+        "attention economy",
+        "why does the algorithm show me this",
+        "how do apps keep you scrolling",
+        "why is my feed so angry",
+        "engagement based ranking",
+        "doomscrolling"
+      ]
+    },
+    {
+      "ref": "ISI-S3-019",
+      "topic": "The attention economy and engagement ranking",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A headline that provokes before it informs\n- A video that starts the next one automatically before you have chosen to watch it\n- Your own sense of having spent longer on a platform than you intended",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-019 | Set 3 | style:Things to watch out for | grounding:Lit review 4.5",
+      "triggers": [
+        "attention economy",
+        "why does the algorithm show me this",
+        "how do apps keep you scrolling",
+        "why is my feed so angry",
+        "engagement based ranking",
+        "doomscrolling"
+      ]
+    },
+    {
+      "ref": "ISI-S3-020",
+      "topic": "The attention economy and engagement ranking",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: the next time you feel a strong reaction to something in a feed, pause and name the emotion. Then ask whether the reaction is part of why the post was shown to you.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-020 | Set 3 | style:Activity | grounding:Lit review 4.5; Rieger et al. inoculation research",
+      "triggers": [
+        "attention economy",
+        "why does the algorithm show me this",
+        "how do apps keep you scrolling",
+        "why is my feed so angry",
+        "engagement based ranking",
+        "doomscrolling"
+      ]
+    },
+    {
+      "ref": "ISI-S3-021",
+      "topic": "Defaults and choice",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Most people use whichever search engine came preinstalled on their device or browser. Court evidence in the United States antitrust case showed Google paid Apple around twenty billion dollars in 2022 to be the default on iPhones, so the default is a commercial arrangement, not a recommendation.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-021 | Set 3 | style:Mechanism | grounding:US v Google 2023 ruling; Lit review 4.10",
+      "triggers": [
+        "why is Google the default search engine on my phone",
+        "how to change my default search engine",
+        "who decides which search engine my device uses",
+        "how much does Google pay Apple",
+        "default browser search settings",
+        "search engine choice screen"
+      ]
+    },
+    {
+      "ref": "ISI-S3-022",
+      "topic": "Defaults and choice",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: you probably use the search engine you use because it was already there. Do you know what the alternatives do differently, and whether any of them might suit some searches better?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-022 | Set 3 | style:Critical question | grounding:Lit review 4.10; 4.12",
+      "triggers": [
+        "why is Google the default search engine on my phone",
+        "how to change my default search engine",
+        "who decides which search engine my device uses",
+        "how much does Google pay Apple",
+        "default browser search settings",
+        "search engine choice screen"
+      ]
+    },
+    {
+      "ref": "ISI-S3-023",
+      "topic": "Defaults and choice",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- A browser or app offering to set a new search default in exchange for something\n- Settings that reset to the original default after an update\n- Assuming the preinstalled option is the best one for your needs",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-023 | Set 3 | style:Things to watch out for | grounding:Lit review 4.10",
+      "triggers": [
+        "why is Google the default search engine on my phone",
+        "how to change my default search engine",
+        "who decides which search engine my device uses",
+        "how much does Google pay Apple",
+        "default browser search settings",
+        "search engine choice screen"
+      ]
+    },
+    {
+      "ref": "ISI-S3-024",
+      "topic": "Defaults and choice",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: try the same search in two different engines, for instance DuckDuckGo or Bing alongside your usual one. Notice what appears in one that does not appear in the other.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-024 | Set 3 | style:Activity | grounding:Lit review 4.10; 4.12",
+      "triggers": [
+        "why is Google the default search engine on my phone",
+        "how to change my default search engine",
+        "who decides which search engine my device uses",
+        "how much does Google pay Apple",
+        "default browser search settings",
+        "search engine choice screen"
+      ]
+    },
+    {
+      "ref": "ISI-S3-025",
+      "topic": "Algorithmic bias and how audits find it",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "A search algorithm can produce systematically different results for different groups of people without anyone having written a rule that says so. The bias emerges from training data that reflects existing inequalities, and researchers find it by running identical queries with different demographic signals and comparing what comes back.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-025 | Set 3 | style:Mechanism | grounding:Lit review 4.2; 4.3; Noble 2018; Buolamwini and Gebru 2018",
+      "triggers": [
+        "algorithmic bias examples",
+        "is Google biased",
+        "AI discrimination in search",
+        "how do researchers audit search engines",
+        "biased image search results",
+        "do search results discriminate"
+      ]
+    },
+    {
+      "ref": "ISI-S3-026",
+      "topic": "Algorithmic bias and how audits find it",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: if results vary systematically by who is asking, the information landscape is not the same for everyone. Who might be getting worse results than you on this topic?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-026 | Set 3 | style:Critical question | grounding:Lit review 4.2",
+      "triggers": [
+        "algorithmic bias examples",
+        "is Google biased",
+        "AI discrimination in search",
+        "how do researchers audit search engines",
+        "biased image search results",
+        "do search results discriminate"
+      ]
+    },
+    {
+      "ref": "ISI-S3-027",
+      "topic": "Algorithmic bias and how audits find it",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Image results that cluster one group in professional roles and another in domestic ones\n- Health or legal results that appear to assume one kind of reader\n- A result set that reflects the world of one country and presents it as universal",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-027 | Set 3 | style:Things to watch out for | grounding:Lit review 4.2; 4.3; Noble 2018",
+      "triggers": [
+        "algorithmic bias examples",
+        "is Google biased",
+        "AI discrimination in search",
+        "how do researchers audit search engines",
+        "biased image search results",
+        "do search results discriminate"
+      ]
+    },
+    {
+      "ref": "ISI-S3-028",
+      "topic": "Algorithmic bias and how audits find it",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: image-search a profession you work in or are interested in. Does the result reflect the actual range of people who do that work, or a narrower version of it?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-028 | Set 3 | style:Activity | grounding:Lit review 4.2; Noble 2018",
+      "triggers": [
+        "algorithmic bias examples",
+        "is Google biased",
+        "AI discrimination in search",
+        "how do researchers audit search engines",
+        "biased image search results",
+        "do search results discriminate"
+      ]
+    },
+    {
+      "ref": "ISI-S3-029",
+      "topic": "Whose world the results represent",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Most search results are weighted toward English-language sources, US or European perspectives, and content that is well-funded enough to be optimised for search. A search on the same topic can return very different results, and very different levels of depth, depending on the language you search in.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-029 | Set 3 | style:Mechanism | grounding:Lit review 4.16; 4.23; language-inequality literature",
+      "triggers": [
+        "whose perspective does Google show",
+        "western bias in search results",
+        "who decides what counts as information",
+        "are search results biased toward America",
+        "why are local sources missing from my search",
+        "global south search results"
+      ]
+    },
+    {
+      "ref": "ISI-S3-030",
+      "topic": "Whose world the results represent",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the results you see are shaped partly by who has the resources to publish and optimise. Whose knowledge is not in those results, and would you know it was missing?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-030 | Set 3 | style:Critical question | grounding:Lit review 4.16",
+      "triggers": [
+        "whose perspective does Google show",
+        "western bias in search results",
+        "who decides what counts as information",
+        "are search results biased toward America",
+        "why are local sources missing from my search",
+        "global south search results"
+      ]
+    },
+    {
+      "ref": "ISI-S3-031",
+      "topic": "Whose world the results represent",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for: - A statistic from one country presented as if it applies everywhere - A page about a local community where none of the sources come from that community - A health or legal answer written as though every reader lives in North America or Europe",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-031 | Set 3 | style:Things to watch out for | grounding:Lit review 4.16; 4.23",
+      "triggers": [
+        "whose perspective does Google show",
+        "western bias in search results",
+        "who decides what counts as information",
+        "are search results biased toward America",
+        "why are local sources missing from my search",
+        "global south search results"
+      ]
+    },
+    {
+      "ref": "ISI-S3-032",
+      "topic": "Whose world the results represent",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: search a question about a country you have never visited, then check where the top three sources are based. Are any of them from that country?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-032 | Set 3 | style:Activity | grounding:Lit review 4.16; 4.23",
+      "triggers": [
+        "whose perspective does Google show",
+        "western bias in search results",
+        "who decides what counts as information",
+        "are search results biased toward America",
+        "why are local sources missing from my search",
+        "global south search results"
+      ]
+    },
+    {
+      "ref": "ISI-S3-033",
+      "topic": "Language inequality in search",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Search engines index far more content in English than in any other language. A 2022 analysis found English-language Wikipedia had roughly fifty times more articles than the next largest edition. Users searching in minority languages often work with a much thinner set of results, and more of it is automatically translated.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-033 | Set 3 | style:Mechanism | grounding:Lit review 4.23; Prado and Ochoa 2012; language-inequality literature",
+      "triggers": [
+        "non-English search results",
+        "does Google work well in other languages",
+        "English dominance on the internet",
+        "searching in a minority language",
+        "why are there fewer results in my language",
+        "machine translated search results"
+      ]
+    },
+    {
+      "ref": "ISI-S3-034",
+      "topic": "Language inequality in search",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: the language you search in shapes the pool of sources available to you. What topics (history, politics, local news) might you understand differently if you had grown up searching in another language?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-034 | Set 3 | style:Critical question | grounding:Lit review 4.23",
+      "triggers": [
+        "non-English search results",
+        "does Google work well in other languages",
+        "English dominance on the internet",
+        "searching in a minority language",
+        "why are there fewer results in my language",
+        "machine translated search results"
+      ]
+    },
+    {
+      "ref": "ISI-S3-035",
+      "topic": "Language inequality in search",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for: - Far fewer results for the same question asked in a language other than English - A 'Translate this page' link on a result, where the translated wording drifts from the original meaning - The same handful of English-language sources reappearing when you search in another language",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-035 | Set 3 | style:Things to watch out for | grounding:Lit review 4.23",
+      "triggers": [
+        "non-English search results",
+        "does Google work well in other languages",
+        "English dominance on the internet",
+        "searching in a minority language",
+        "why are there fewer results in my language",
+        "machine translated search results"
+      ]
+    },
+    {
+      "ref": "ISI-S3-036",
+      "topic": "Language inequality in search",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: pick a topic tied to a specific culture or country and search it in that country's main language. Does the result tell a different story from the English-language version?",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-036 | Set 3 | style:Activity | grounding:Lit review 4.23",
+      "triggers": [
+        "non-English search results",
+        "does Google work well in other languages",
+        "English dominance on the internet",
+        "searching in a minority language",
+        "why are there fewer results in my language",
+        "machine translated search results"
+      ]
+    },
+    {
+      "ref": "ISI-S3-037",
+      "topic": "The search engine manipulation effect",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Research by Epstein and Robertson found that shifting the ranking of search results on political topics can shift voting preferences by a measurable amount, with larger effects on undecided voters. The effect works in part because people trust higher-ranked results, and in part because they do not realise the ranking can be manipulated.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-037 | Set 3 | style:Mechanism | grounding:Epstein and Robertson 2015; SEME literature; Lit review 4.6",
+      "triggers": [
+        "can Google influence an election",
+        "search engine manipulation effect",
+        "do search results affect how people vote",
+        "search results and elections",
+        "can search rankings change opinions",
+        "is Google politically biased"
+      ]
+    },
+    {
+      "ref": "ISI-S3-038",
+      "topic": "The search engine manipulation effect",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: if the order of results on a political topic can influence how people vote, who should have authority to set that order, and who currently decides how those rankings are produced?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-038 | Set 3 | style:Critical question | grounding:Epstein and Robertson 2015; Lit review 4.6; 4.10",
+      "triggers": [
+        "can Google influence an election",
+        "search engine manipulation effect",
+        "do search results affect how people vote",
+        "search results and elections",
+        "can search rankings change opinions",
+        "is Google politically biased"
+      ]
+    },
+    {
+      "ref": "ISI-S3-039",
+      "topic": "The search engine manipulation effect",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Political search results that lean one direction without a clear reason\n- Candidate or party information ranked well below criticism, or criticism ranked below official pages\n- Sponsored content appearing among election-related search results",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-039 | Set 3 | style:Things to watch out for | grounding:SEME literature; Lit review 4.6",
+      "triggers": [
+        "can Google influence an election",
+        "search engine manipulation effect",
+        "do search results affect how people vote",
+        "search results and elections",
+        "can search rankings change opinions",
+        "is Google politically biased"
+      ]
+    },
+    {
+      "ref": "ISI-S3-040",
+      "topic": "The search engine manipulation effect",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: search the name of a political candidate or party and note which results appear first. Then search the same name with the word criticism added, and compare the two sets.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-040 | Set 3 | style:Activity | grounding:SEME literature; Epstein and Robertson 2015",
+      "triggers": [
+        "can Google influence an election",
+        "search engine manipulation effect",
+        "do search results affect how people vote",
+        "search results and elections",
+        "can search rankings change opinions",
+        "is Google politically biased"
+      ]
+    },
+    {
+      "ref": "ISI-S3-041",
+      "topic": "Privacy-focused and alternative engines",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Privacy-focused search engines such as DuckDuckGo and Startpage return results without building a profile of you. They do this by not logging your queries at all, or by fetching results from other engines without passing on your identity. The trade-off is often less personalised results.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-041 | Set 3 | style:Mechanism | grounding:Lit review 4.12; 4.22; privacy-search literature",
+      "triggers": [
+        "DuckDuckGo versus Google",
+        "best private search engine",
+        "alternatives to Google search",
+        "does DuckDuckGo really not track you",
+        "Startpage privacy",
+        "a search engine that does not track me"
+      ]
+    },
+    {
+      "ref": "ISI-S3-042",
+      "topic": "Privacy-focused and alternative engines",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a search engine that does not track you cannot personalise your results. Is that a disadvantage, or an advantage, depending on what you are searching for?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-042 | Set 3 | style:Critical question | grounding:Lit review 4.12",
+      "triggers": [
+        "DuckDuckGo versus Google",
+        "best private search engine",
+        "alternatives to Google search",
+        "does DuckDuckGo really not track you",
+        "Startpage privacy",
+        "a search engine that does not track me"
+      ]
+    },
+    {
+      "ref": "ISI-S3-043",
+      "topic": "Privacy-focused and alternative engines",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for: - A privacy claim that is true but vague, such as 'we do not sell your data', on an engine that still earns its money from advertising - The notice on your own private or incognito window, which says your activity can still be seen by the sites you visit and by your network - A VPN sold as search privacy, used while you are still signed in to your search account in the same window",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-043 | Set 3 | style:Things to watch out for | grounding:Lit review 4.12; 4.22",
+      "triggers": [
+        "DuckDuckGo versus Google",
+        "best private search engine",
+        "alternatives to Google search",
+        "does DuckDuckGo really not track you",
+        "Startpage privacy",
+        "a search engine that does not track me"
+      ]
+    },
+    {
+      "ref": "ISI-S3-044",
+      "topic": "Privacy-focused and alternative engines",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: run a personal or sensitive search in a privacy-focused engine, then in your usual one. Notice whether the results differ, and consider whether you would want a profile involved in that kind of search.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-044 | Set 3 | style:Activity | grounding:Lit review 4.12",
+      "triggers": [
+        "DuckDuckGo versus Google",
+        "best private search engine",
+        "alternatives to Google search",
+        "does DuckDuckGo really not track you",
+        "Startpage privacy",
+        "a search engine that does not track me"
+      ]
+    },
+    {
+      "ref": "ISI-S3-045",
+      "topic": "The right to be forgotten",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Under European data protection law, people can ask search engines to remove links to information about them from results. The right applies to information that is outdated, irrelevant, or disproportionate, but removing the link from search does not remove the original page from the web.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-045 | Set 3 | style:Mechanism | grounding:GDPR Art. 17; Google Spain case 2014; Lit review 4.10",
+      "triggers": [
+        "right to be forgotten",
+        "how to remove my name from Google",
+        "GDPR removal request search",
+        "delete yourself from Google",
+        "can I get an article delisted",
+        "why do some results say they may have been removed"
+      ]
+    },
+    {
+      "ref": "ISI-S3-046",
+      "topic": "The right to be forgotten",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: removing a result from search does not remove the information, it only makes it harder to find. Think about who that protects and who it leaves exposed, when the person searching that name might be an employer, a journalist, or someone affected by what they did.",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-046 | Set 3 | style:Critical question | grounding:Lit review 4.10; Google Spain 2014",
+      "triggers": [
+        "right to be forgotten",
+        "how to remove my name from Google",
+        "GDPR removal request search",
+        "delete yourself from Google",
+        "can I get an article delisted",
+        "why do some results say they may have been removed"
+      ]
+    },
+    {
+      "ref": "ISI-S3-047",
+      "topic": "The right to be forgotten",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Confusing a right-to-be-forgotten removal with the information being deleted\n- A result appearing in searches from outside Europe but not inside it, suggesting removal has been applied\n- A gap in what search returns about a public figure where you might expect information to be",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-047 | Set 3 | style:Things to watch out for | grounding:Lit review 4.10",
+      "triggers": [
+        "right to be forgotten",
+        "how to remove my name from Google",
+        "GDPR removal request search",
+        "delete yourself from Google",
+        "can I get an article delisted",
+        "why do some results say they may have been removed"
+      ]
+    },
+    {
+      "ref": "ISI-S3-048",
+      "topic": "The right to be forgotten",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: search the full name of someone involved in a well-known event years ago, then scroll to the foot of the results page. In Europe and the UK that notice about data protection law appears on most name searches whether or not anything was removed, so it tells you the system exists but never whether it was used here.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-048 | Set 3 | style:Activity | grounding:Google Spain 2014; Lit review 4.10",
+      "triggers": [
+        "right to be forgotten",
+        "how to remove my name from Google",
+        "GDPR removal request search",
+        "delete yourself from Google",
+        "can I get an article delisted",
+        "why do some results say they may have been removed"
+      ]
+    },
+    {
+      "ref": "ISI-S3-049",
+      "topic": "Who governs search",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Search engines are private companies operating under the laws of their home countries, but their decisions about what to rank, what to remove, and what to surface affect people globally. The main tools of oversight are competition law, content regulation, and transparency requirements, which vary widely across countries.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-049 | Set 3 | style:Mechanism | grounding:Lit review 4.10; EU Digital Markets Act; US antitrust rulings",
+      "triggers": [
+        "who regulates Google",
+        "EU Digital Markets Act",
+        "antitrust case against Google",
+        "who decides how search engines work",
+        "is search regulated",
+        "United States v Google"
+      ]
+    },
+    {
+      "ref": "ISI-S3-050",
+      "topic": "Who governs search",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: a private company decides the order in which the world's information appears for billions of people. What kind of accountability, if any, do you think that should carry?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-050 | Set 3 | style:Critical question | grounding:Lit review 4.10",
+      "triggers": [
+        "who regulates Google",
+        "EU Digital Markets Act",
+        "antitrust case against Google",
+        "who decides how search engines work",
+        "is search regulated",
+        "United States v Google"
+      ]
+    },
+    {
+      "ref": "ISI-S3-051",
+      "topic": "Who governs search",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for: - A result page that changes when you switch the country setting at the foot of the page - A notice that content was removed, without saying what - Coverage of a case against a search company sitting below that company's own explanation of it",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-051 | Set 3 | style:Things to watch out for | grounding:Lit review 4.10",
+      "triggers": [
+        "who regulates Google",
+        "EU Digital Markets Act",
+        "antitrust case against Google",
+        "who decides how search engines work",
+        "is search regulated",
+        "United States v Google"
+      ]
+    },
+    {
+      "ref": "ISI-S3-052",
+      "topic": "Who governs search",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: search \"United States v. Google\" or \"Google Shopping European Commission\", then look at who published the first few results. Notice whether the company at the centre of the case is also the one explaining it to you.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-052 | Set 3 | style:Activity | grounding:US v Google 2023; EU antitrust; Lit review 4.10",
+      "triggers": [
+        "who regulates Google",
+        "EU Digital Markets Act",
+        "antitrust case against Google",
+        "who decides how search engines work",
+        "is search regulated",
+        "United States v Google"
+      ]
+    },
+    {
+      "ref": "ISI-S3-053",
+      "topic": "Search literacy",
+      "style": "Mechanism",
+      "type": "mechanics",
+      "prompt_content": "Search literacy means knowing how results are assembled, what can influence their order, and how to evaluate what you find. It is not about doubting everything, but about using search as one step in a process rather than treating the first result as the answer.",
+      "priority": 40,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-053 | Set 3 | style:Mechanism | grounding:Lit review 4.8; Wineburg et al. 2022; search-literacy curriculum literature",
+      "triggers": [
+        "how do I know if a website is reliable",
+        "how to evaluate search results",
+        "how to check if a source is trustworthy",
+        "teaching search literacy",
+        "lateral reading",
+        "should I trust the first result"
+      ]
+    },
+    {
+      "ref": "ISI-S3-054",
+      "topic": "Search literacy",
+      "style": "Critical question",
+      "type": "criticality",
+      "prompt_content": "Critical question: checking a result does not have to mean spending an hour on every search. Which kinds of question would you want to verify before acting on, and which are fine to trust and move on?",
+      "priority": 30,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-054 | Set 3 | style:Critical question | grounding:Lit review 4.8",
+      "triggers": [
+        "how do I know if a website is reliable",
+        "how to evaluate search results",
+        "how to check if a source is trustworthy",
+        "teaching search literacy",
+        "lateral reading",
+        "should I trust the first result"
+      ]
+    },
+    {
+      "ref": "ISI-S3-055",
+      "topic": "Search literacy",
+      "style": "Things to watch out for",
+      "type": "criticality",
+      "prompt_content": "Things to watch out for:\n- Using only one source or one search engine for a high-stakes question\n- Treating the absence of a result as evidence that something is not true\n- Assuming the most-clicked or most-shared article is the most accurate",
+      "priority": 20,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-055 | Set 3 | style:Things to watch out for | grounding:Lit review 4.8; Wineburg et al.",
+      "triggers": [
+        "how do I know if a website is reliable",
+        "how to evaluate search results",
+        "how to check if a source is trustworthy",
+        "teaching search literacy",
+        "lateral reading",
+        "should I trust the first result"
+      ]
+    },
+    {
+      "ref": "ISI-S3-056",
+      "topic": "Search literacy",
+      "style": "Activity",
+      "type": "mechanics",
+      "prompt_content": "Activity: the next time a search result surprises you or confirms something you already believed, take thirty seconds to find one more source that either agrees or disagrees.",
+      "priority": 10,
+      "admin_approved": true,
+      "response_required": false,
+      "seeed_url": null,
+      "provisional": false,
+      "admin_notes": "ref:ISI-S3-056 | Set 3 | style:Activity | grounding:Lit review 4.8; lateral reading research",
+      "triggers": [
+        "how do I know if a website is reliable",
+        "how to evaluate search results",
+        "how to check if a source is trustworthy",
+        "teaching search literacy",
+        "lateral reading",
+        "should I trust the first result"
+      ]
+    }
+  ]
+}

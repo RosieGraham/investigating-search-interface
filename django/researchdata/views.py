@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import models
 from .embedding import ClassifierUnavailable, classify_query, embed_query, rank_prompts
+from .classifier_config import get_classifier_threshold
 
 logger = logging.getLogger('researchdata')
 
@@ -167,7 +168,8 @@ def classifier_debug(request):
         /data/classifier/debug/?user_search_query=...
     """
     user_search_query = request.GET.get('user_search_query', '').strip()
-    base = {'threshold': settings.CLASSIFIER_THRESHOLD, 'matches': []}
+    threshold = get_classifier_threshold()
+    base = {'threshold': threshold, 'matches': []}
     if not user_search_query:
         return JsonResponse({**base, 'classifier': 'no_query'})
     if not settings.CLASSIFIER_ENABLED:
@@ -193,7 +195,7 @@ def classifier_debug(request):
             'topic': topic.name,
             'group': topic.topic_group.name if topic.topic_group_id else None,
             'confidence': round(confidence, 4),
-            'above_threshold': confidence >= settings.CLASSIFIER_THRESHOLD,
+            'above_threshold': confidence >= threshold,
             'has_description': bool(topic.description),
         })
     return JsonResponse({**base, 'matches': matches, 'classifier': 'ok'})

@@ -95,12 +95,22 @@ class ClassifierFlowTests(TestCase):
             {'user_search_query': query, **params},
         ).json()
 
+    def _stub_classifier(self, classify_return, rank_side_effect=None):
+        if rank_side_effect is None:
+            rank_side_effect = lambda _qv, ids: [(pid, 0.9) for pid in ids]
+        return mock.patch.multiple(
+            'researchdata.views',
+            embed_query=mock.Mock(return_value=[0.0] * 384),
+            classify_query=mock.Mock(return_value=classify_return),
+            rank_prompts=mock.Mock(side_effect=rank_side_effect),
+        )
+
     @override_settings(CLASSIFIER_ENABLED=True)
     def test_classifier_match_returns_prompt_with_confidence(self):
         _, topic, prompt = make_content(triggers=())
         prompt.seeed_url = 'https://seeed.example.org/entries/election-information'
         prompt.save()
-        with mock.patch('researchdata.views.classify_query', return_value=[(topic.id, 0.82)]):
+        with self._stub_classifier([(topic.id, 0.82)]):
             data = self.get('who won the 2016 election')
         self.assertTrue(data['prompt'])
         self.assertEqual(data['prompt']['matched_by'], 'classifier')
@@ -111,7 +121,7 @@ class ClassifierFlowTests(TestCase):
     @override_settings(CLASSIFIER_ENABLED=True)
     def test_classifier_respects_topic_group_exclusion(self):
         group, topic, _ = make_content(triggers=())
-        with mock.patch('researchdata.views.classify_query', return_value=[(topic.id, 0.9)]):
+        with self._stub_classifier([(topic.id, 0.9)]):
             data = self.get('anything', topics_exclude=str(group.id))
         self.assertFalse(data['prompt'])
 
@@ -131,9 +141,9 @@ class ClassifierFlowTests(TestCase):
             models.Prompt.objects.create(
                 topic=topic, prompt_content=f'Extra prompt {i}', admin_approved=True, priority=i
             )
-        with mock.patch('researchdata.views.classify_query', return_value=[(topic.id, 0.7)]):
+        with self._stub_classifier([(topic.id, 0.7)]):
             data = self.get('query')
-        self.assertEqual(len(data['prompts']), 3)
+        self.assertEqual(len(data['prompts']), 4)
         self.assertTrue(all(p['matched_by'] == 'classifier' for p in data['prompts']))
 
 
