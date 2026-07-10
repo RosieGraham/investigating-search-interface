@@ -1,4 +1,5 @@
 import logging
+import os
 
 from django.conf import settings
 from django.forms.models import model_to_dict
@@ -7,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import models
 from .embedding import ClassifierUnavailable, classify_query, embed_query, rank_prompts
-from .classifier_config import get_classifier_threshold
+from .classifier_config import get_classifier_margin, get_classifier_threshold
 
 logger = logging.getLogger('researchdata')
 
@@ -129,14 +130,22 @@ def prompt_get(request):
                 }
                 if not candidate_map:
                     continue
-                # Rank by cosine similarity to the query; fall back to
-                # priority order for any prompt absent from the index.
+                # Similarity decides WHICH prompts are shown, which is the only
+                # thing it can usefully decide once the cap is smaller than the
+                # candidate set. Editorial priority decides the ORDER they are
+                # presented in, because within a matched topic every candidate
+                # is on-topic and similarity between the query and each prompt
+                # is close to noise. With a cap of one the sort is a no-op.
                 ranked = rank_prompts(query_vec, list(candidate_map.keys()))
                 n_take = MAX_PROMPTS_RETURNED - len(prompts_payload)
-                for prompt_id, _score in ranked[:n_take]:
-                    prompt = candidate_map.get(prompt_id)
-                    if prompt:
-                        prompts_payload.append(_prompt_payload(prompt, confidence, matched_by='classifier'))
+                chosen = [
+                    candidate_map[pid]
+                    for pid, _score in ranked[:n_take]
+                    if pid in candidate_map
+                ]
+                chosen.sort(key=lambda p: (-(p.priority or 0), p.id))
+                for prompt in chosen:
+                    prompts_payload.append(_prompt_payload(prompt, confidence, matched_by='classifier'))
         except ClassifierUnavailable:
             classifier_state = 'unavailable'
         except Exception:
@@ -169,13 +178,16 @@ def classifier_debug(request):
     """
     user_search_query = request.GET.get('user_search_query', '').strip()
     threshold = get_classifier_threshold()
-    base = {'threshold': threshold, 'matches': []}
+    configured_margin = get_classifier_margin()
+    base = {'threshold': threshold, 'margin': configured_margin, 'matches': []}
     if not user_search_query:
         return JsonResponse({**base, 'classifier': 'no_query'})
     if not settings.CLASSIFIER_ENABLED:
         return JsonResponse({**base, 'classifier': 'disabled'})
     try:
-        raw = classify_query(user_search_query, threshold=0.0, top_k=5)
+        # margin=0.0: the debug view always shows what the index thinks,
+        # including matches the production margin rule would abstain on.
+        raw = classify_query(user_search_query, threshold=0.0, top_k=5, margin=0.0)
     except ClassifierUnavailable:
         return JsonResponse({**base, 'classifier': 'unavailable'})
 
@@ -197,8 +209,120 @@ def classifier_debug(request):
             'confidence': round(confidence, 4),
             'above_threshold': confidence >= threshold,
             'has_description': bool(topic.description),
+            'example_query_count': len(topic.example_queries or []),
         })
-    return JsonResponse({**base, 'matches': matches, 'classifier': 'ok'})
+    top_gap = (round(raw[0][1] - raw[1][1], 4) if len(raw) > 1 else None)
+    return JsonResponse({
+        **base,
+        'matches': matches,
+        'top1_top2_gap': top_gap,
+        'margin_would_abstain': (top_gap is not None
+                                 and configured_margin > 0
+                                 and top_gap < configured_margin),
+        'classifier': 'ok',
+    })
+
+
+CANARY_QUERIES = [
+    # (query, expected_top1_topic_name or None for below-threshold)
+    # Small fixed probes whose correct behaviour is stable and known.
+    # If content or code changes what these return, the status endpoint
+    # says so before a human has to discover it in a spreadsheet.
+    ('what is SEO', 'Search engine optimisation'),
+    ('why does everyone use Google', 'Concentration and defaults'),
+    ('weather tomorrow', None),
+]
+
+
+def ops_status(request):
+    """
+    Machine-readable operational truth: is what an editor is looking at
+    what users are getting?
+
+    Public and read-only, like /healthz: exposes counts, hashes, config and
+    canary matching results. No participant data, no secrets, no prompt
+    text. Most of this project's costly debugging has been invisible state
+    (a stale index, a cached flag, an unapplied file); this endpoint makes
+    the invisible state a URL.
+    """
+    from django.conf import settings as dj_settings
+
+    from . import embedding
+    from .evaluation import model_artifact_fingerprint, runtime_descriptor
+
+    status = {'service': 'investigating-search-interface', 'time': None}
+    import datetime
+    status['time'] = datetime.datetime.utcnow().isoformat() + 'Z'
+    status['git_commit'] = os.environ.get('RENDER_GIT_COMMIT', 'unknown')[:12]
+
+    try:
+        classifier = embedding.classifier_status()
+    except Exception:
+        classifier = {'error': 'classifier status unavailable'}
+    classifier['model_artifact'] = model_artifact_fingerprint()
+    classifier['runtime'] = runtime_descriptor()
+    status['classifier'] = classifier
+
+    try:
+        last_apply = (models.ContentApply.objects.filter(dry_run=False)
+                      .order_by('-created_datetime').first())
+        last_eval = models.MatchingEvaluation.objects.first()
+        status['content'] = {
+            'topics': models.Topic.objects.count(),
+            'topics_with_description': models.Topic.objects
+                .exclude(description__isnull=True).exclude(description='').count(),
+            'topics_with_example_queries': models.Topic.objects
+                .exclude(example_queries=[]).count(),
+            'approved_prompts': models.Prompt.objects.filter(admin_approved=True).count(),
+            'last_apply': last_apply.created_datetime.isoformat() if last_apply else None,
+            'last_evaluation': {
+                'when': last_eval.created_datetime.isoformat(),
+                'accuracy_at_1': last_eval.metrics.get('accuracy_at_1'),
+                'coverage': last_eval.metrics.get('coverage'),
+                'labelled_file': last_eval.labelled_file,
+            } if last_eval else None,
+        }
+        status['database'] = 'ok'
+    except Exception:
+        status['database'] = 'error'
+
+    status['config'] = {
+        'classifier_enabled': dj_settings.CLASSIFIER_ENABLED,
+        'trigger_fallback_enabled': dj_settings.TRIGGER_FALLBACK_ENABLED,
+        'top_k': dj_settings.CLASSIFIER_TOP_K,
+    }
+
+    canaries = []
+    all_pass = True
+    for query, expected in CANARY_QUERIES:
+        row = {'query': query, 'expected_top1': expected}
+        try:
+            matches = classify_query(query, threshold=0.0, top_k=1, margin=0.0)
+            if matches:
+                topic = models.Topic.objects.filter(id=matches[0][0]).first()
+                row['top1'] = topic.name if topic else str(matches[0][0])
+                row['confidence'] = round(matches[0][1], 4)
+                threshold = get_classifier_threshold()
+                served = matches[0][1] >= threshold
+                if expected is None:
+                    row['pass'] = not served
+                else:
+                    row['pass'] = served and row['top1'] == expected
+            else:
+                row['top1'] = None
+                row['pass'] = expected is None
+        except ClassifierUnavailable:
+            row['pass'] = False
+            row['error'] = 'classifier unavailable'
+        except Exception:
+            row['pass'] = False
+            row['error'] = 'canary error'
+        all_pass = all_pass and row['pass']
+        canaries.append(row)
+    status['canaries'] = canaries
+    status['canaries_pass'] = all_pass
+
+    return JsonResponse(status)
 
 
 @csrf_exempt

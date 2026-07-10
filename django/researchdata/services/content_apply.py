@@ -20,9 +20,28 @@ from typing import Any
 from django.core.exceptions import ValidationError
 from django.db import transaction
 
+from researchdata.description_blob import split_blob
 from researchdata.models import Prompt, Topic, TopicGroup, Trigger
 
 Change = tuple[str, str, str, Any, Any]
+
+
+def _topic_fields_from_row(topic_row: dict) -> dict:
+    """Resolve a package topic row into the split Topic fields.
+
+    Packages carry `description` (historically the full blob) and
+    `example_queries` (now actually used: it was validated but ignored for
+    weeks, which is exactly the kind of silent contract gap this system
+    keeps growing). The blob is split; an explicit example_queries list
+    wins over queries parsed from the blob.
+    """
+    prose, parsed_queries, contrasts = split_blob(topic_row["description"])
+    explicit = [q.strip() for q in (topic_row.get("example_queries") or []) if q and q.strip()]
+    return {
+        "description": prose,
+        "example_queries": explicit or parsed_queries,
+        "contrasts": contrasts,
+    }
 
 
 @dataclass
@@ -126,24 +145,24 @@ def apply_package(package: dict, *, dry_run: bool, actor=None) -> ApplyResult:
                 result.updated["groups"] += 1
         group_by_name[group_row["name"]] = obj
 
-    # 2. Topics (by unique name) with description
+    # 2. Topics (by unique name), blob split into prose / examples / contrasts
     topic_by_name: dict[str, Topic] = {}
     for topic_row in package["topics"]:
         group = group_by_name.get(topic_row["group"]) or TopicGroup.objects.get(name=topic_row["group"])
+        split_fields = _topic_fields_from_row(topic_row)
         obj = Topic.objects.filter(name=topic_row["name"]).first()
         if obj is None:
             obj = Topic(
                 name=topic_row["name"],
                 topic_group=group,
-                description=topic_row["description"],
                 admin_notes=topic_row.get("admin_notes") or None,
+                **split_fields,
             )
             if not dry_run:
                 obj.save()
             result.created["topics"] += 1
-            _record_change(
-                result.changes, "topic", topic_row["name"], "description", None, topic_row["description"]
-            )
+            for field_name, after in split_fields.items():
+                _record_change(result.changes, "topic", topic_row["name"], field_name, None, after)
         else:
             changed_fields: list[str] = []
             if obj.topic_group_id != group.id:
@@ -157,17 +176,13 @@ def apply_package(package: dict, *, dry_run: bool, actor=None) -> ApplyResult:
                 )
                 obj.topic_group = group
                 changed_fields.append("topic_group")
-            if (obj.description or "") != topic_row["description"]:
-                _record_change(
-                    result.changes,
-                    "topic",
-                    obj.name,
-                    "description",
-                    obj.description,
-                    topic_row["description"],
-                )
-                obj.description = topic_row["description"]
-                changed_fields.append("description")
+            for field_name, after in split_fields.items():
+                before = getattr(obj, field_name)
+                normalised_before = before or ("" if field_name != "example_queries" else [])
+                if normalised_before != after:
+                    _record_change(result.changes, "topic", obj.name, field_name, before, after)
+                    setattr(obj, field_name, after)
+                    changed_fields.append(field_name)
             new_notes = topic_row.get("admin_notes") or None
             if (obj.admin_notes or None) != new_notes:
                 _record_change(

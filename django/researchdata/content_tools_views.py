@@ -9,8 +9,12 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
-from . import models
-from .classifier_config import get_classifier_threshold, set_classifier_threshold
+from . import evaluation, models
+from .classifier_config import (
+    get_classifier_margin,
+    get_classifier_threshold,
+    set_classifier_threshold,
+)
 from .embedding import ClassifierUnavailable, classify_query, embed_query, rank_prompts
 from .services.content_apply import apply_package, count_unapproves, validate_package
 
@@ -18,6 +22,12 @@ MAX_UPLOAD_BYTES = 5 * 1024 * 1024
 UNAPPROVE_CONFIRM_TEXT = "UNAPPROVE"
 SPOT_CHECK_FIXTURE = Path(__file__).resolve().parent / "fixtures" / "spot-check-queries-2026-07-09.txt"
 DATA_SPOT_CHECK = Path(__file__).resolve().parents[2] / "data" / "spot-check-queries-2026-07-09.txt"
+DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+
+
+def _latest_labelled_file():
+    candidates = sorted(DATA_DIR.glob("labelled-queries-*.csv"))
+    return candidates[-1] if candidates else None
 
 
 def _default_spot_check_queries() -> str:
@@ -148,6 +158,7 @@ def _preview_prompt_changes(changes):
 
 
 def _build_context(request, extra=None):
+    labelled = _latest_labelled_file()
     context = {
         "title": "Content operations",
         "spot_check_queries": request.session.get(
@@ -156,6 +167,9 @@ def _build_context(request, extra=None):
         "preview": request.session.get("content_tools_preview"),
         "package_filename": request.session.get("content_tools_filename", ""),
         "unapprove_count": request.session.get("content_tools_unapprove_count", 0),
+        "labelled_file_name": labelled.name if labelled else None,
+        "classifier_margin": get_classifier_margin(),
+        "recent_evaluations": models.MatchingEvaluation.objects.all()[:10],
         **_status_context(),
     }
     if extra:
@@ -185,8 +199,63 @@ def content_tools(request):
         return _handle_spot_check(request)
     if action == "set_threshold":
         return _handle_set_threshold(request)
+    if action == "run_evaluation":
+        return _handle_run_evaluation(request)
     messages.error(request, "Unknown action.")
     return redirect("content-tools")
+
+
+def _handle_run_evaluation(request):
+    """Run the matching evaluation harness against the committed labelled set.
+
+    Read-only with respect to content: the only write is the
+    MatchingEvaluation provenance row, which is the point (a time series).
+    Uses the live threshold and margin so the browser run measures exactly
+    what users are currently getting.
+    """
+    labelled = _latest_labelled_file()
+    if labelled is None:
+        messages.error(request, "No labelled query CSV found in data/.")
+        return redirect("content-tools")
+    try:
+        rows = evaluation.load_labelled_csv(labelled)
+        result = evaluation.evaluate(
+            rows,
+            threshold=get_classifier_threshold(),
+            margin=get_classifier_margin(),
+        )
+    except ClassifierUnavailable:
+        messages.error(request, "Classifier model is not available on this instance.")
+        return redirect("content-tools")
+    except Exception:
+        messages.error(request, "Evaluation failed; see the application log.")
+        return redirect("content-tools")
+
+    from django.conf import settings as django_settings
+
+    record = models.MatchingEvaluation.objects.create(
+        git_sha=evaluation.git_sha(),
+        model_id=django_settings.EMBEDDING_MODEL_ID,
+        model_artifact=evaluation.model_artifact_fingerprint(),
+        runtime=evaluation.runtime_descriptor(),
+        index_fingerprint=evaluation.current_index_fingerprint(),
+        labelled_file=labelled.name,
+        threshold=get_classifier_threshold(),
+        margin=get_classifier_margin(),
+        metrics=result["metrics"],
+        results=result["rows"],
+        notes=f"Browser run by {request.user}",
+    )
+    messages.success(request, f"Evaluation #{record.id} complete.")
+    return render(
+        request,
+        "researchdata/content_tools.html",
+        _build_context(request, {
+            "evaluation_metrics": result["metrics"],
+            "evaluation_confusion": result["confusion"],
+            "evaluation_record": record,
+        }),
+    )
 
 
 def _handle_upload_preview(request):
@@ -218,6 +287,42 @@ def _handle_upload_preview(request):
     result = apply_package(package, dry_run=True, actor=request.user)
     _record_apply(request, upload.name, dry_run=True, result=result)
 
+    # Pre-apply matching guard: score the candidate content against the
+    # EXISTING index before anything is written. A candidate whose example
+    # queries are already strongly captured by an unrelated topic will fight
+    # it after apply; a candidate whose queries all land on one existing
+    # topic probably duplicates it. Advisory, never blocking: content
+    # editors overrule machines here, but they do it knowingly.
+    guard_warnings = []
+    try:
+        from .classifier_config import get_classifier_threshold as _thr
+        from .diagnostics import probe_candidate_topics
+
+        existing_names = set(
+            models.Topic.objects.values_list("name", flat=True))
+        candidates = [t for t in package.get("topics", [])
+                      if t.get("name") not in existing_names]
+        threshold = _thr()
+        for report in probe_candidate_topics(candidates):
+            capturers = {}
+            for row in report["queries"]:
+                if row["current_score"] >= threshold:
+                    capturers.setdefault(row["current_top1"], []).append(
+                        f"{row['query']} ({row['current_score']:.2f})")
+            for topic_name, captured in capturers.items():
+                guard_warnings.append(
+                    f"New topic '{report['candidate']}': existing topic "
+                    f"'{topic_name}' already answers {len(captured)} of its "
+                    f"example queries above threshold: {'; '.join(captured[:3])}"
+                )
+    except ClassifierUnavailable:
+        guard_warnings.append(
+            "Classifier unavailable on this instance: the pre-apply matching "
+            "guard did not run.")
+    except Exception:
+        guard_warnings.append(
+            "Pre-apply matching guard failed; see the application log.")
+
     digest = _package_digest(package)
     # Store canonical JSON (not a Python dict) so Apply re-parses the same bytes
     # the dry run saw. Digest is also echoed in the Apply form to catch two-tab races.
@@ -233,6 +338,7 @@ def _handle_upload_preview(request):
         "prompt_changes": _preview_prompt_changes(result.changes),
         "change_count": len(result.changes),
         "digest": digest,
+        "guard_warnings": guard_warnings,
     }
     # Drop any legacy key from earlier builds.
     request.session.pop("content_tools_package", None)

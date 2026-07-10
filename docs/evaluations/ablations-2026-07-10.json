@@ -1,0 +1,4033 @@
+{
+ "threshold": 0.35,
+ "labelled_file": "labelled-queries-2026-07-09.csv",
+ "provenance": {
+  "model_artifact": "sha256:89779550529b9077:23026053",
+  "runtime": "onnxruntime 1.23.2; aarch64; python 3.10.12",
+  "git_sha": "ec4e1b6b0cae45486acd45c54068d6e9cac5dc54"
+ },
+ "parse_mismatches": [],
+ "results": {
+  "baseline": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 0.6591,
+    "accuracy_at_1_raw": 0.7045,
+    "coverage": 0.8636,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.2549,
+    "mrr": 0.7752,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 6,
+      "served": 8
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 12,
+      "served": 15
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 3,
+      "served": 3
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Artificial Intelligence and Search Engines",
+     "served": null,
+     "score": 0.2679,
+     "margin": 0.0586,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does everyone use Google": {
+     "top1": "The Google effect on memory",
+     "served": "The Google effect on memory",
+     "score": 0.4638,
+     "margin": 0.0152,
+     "outcome": "wrong-topic"
+    },
+    "why are product review sites all the same": {
+     "top1": "Fad diets vs. evidence-based diets",
+     "served": null,
+     "score": 0.2534,
+     "margin": 0.0004,
+     "outcome": "missed (below-threshold)"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Wikipedia and how online knowledge is made",
+     "served": "Wikipedia and how online knowledge is made",
+     "score": 0.452,
+     "margin": 0.0872,
+     "outcome": "wrong-topic"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": null,
+     "score": 0.2615,
+     "margin": 0.0369,
+     "outcome": "missed (below-threshold)"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": null,
+     "score": 0.3211,
+     "margin": 0.0946,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does the algorithm show me this": {
+     "top1": "Algorithmic bias in news feeds",
+     "served": null,
+     "score": 0.331,
+     "margin": 0.0892,
+     "outcome": "missed (below-threshold)"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Book bans",
+     "served": null,
+     "score": 0.2992,
+     "margin": 0.0182,
+     "outcome": "missed (below-threshold)"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.589,
+     "margin": 0.1515,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0648,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "how much does Google pay Apple",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Defaults and choice",
+     "expected_card": true,
+     "top1_topic": "Artificial Intelligence and Search Engines",
+     "top1_score": 0.2679,
+     "top2_topic": "Defaults and choice",
+     "top2_score": 0.2093,
+     "margin": 0.0586,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does everyone use Google",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.4638,
+     "top2_topic": "Children and search",
+     "top2_score": 0.4486,
+     "margin": 0.0152,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how much of search does Google control",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.4912,
+     "top2_topic": "Children and search",
+     "top2_score": 0.4777,
+     "margin": 0.0135,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 5,
+     "reciprocal_rank": 0.2,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how to rank higher on Google",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.481,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.4028,
+     "margin": 0.0782,
+     "served_topic": "How results are ranked",
+     "card_served": true,
+     "expected_rank": 3,
+     "reciprocal_rank": 0.3333,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why are product review sites all the same",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Fad diets vs. evidence-based diets",
+     "top1_score": 0.2534,
+     "top2_topic": "Food industry misinformation",
+     "top2_score": 0.253,
+     "margin": 0.0004,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 7,
+     "reciprocal_rank": 0.1429,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "GEO versus SEO",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Generative engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.467,
+     "top2_topic": "Search engine optimisation",
+     "top2_score": 0.4143,
+     "margin": 0.0527,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 10,
+     "reciprocal_rank": 0.1,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why are search results bad for breaking news",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Data voids",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.4993,
+     "top2_topic": "Whose world the results represent",
+     "top2_score": 0.4404,
+     "margin": 0.0589,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 5,
+     "reciprocal_rank": 0.2,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how do I know if a website is reliable",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Wikipedia and how online knowledge is made",
+     "top1_score": 0.452,
+     "top2_topic": "Health misinformation",
+     "top2_score": 0.3648,
+     "margin": 0.0872,
+     "served_topic": "Wikipedia and how online knowledge is made",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "lateral reading",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Search literacy",
+     "top1_score": 0.2615,
+     "top2_topic": "Personal finance literacy",
+     "top2_score": 0.2246,
+     "margin": 0.0369,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "how to remove my name from Google",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "The right to be forgotten",
+     "expected_card": true,
+     "top1_topic": "The right to be forgotten",
+     "top1_score": 0.3211,
+     "top2_topic": "Presidential impeachment",
+     "top2_score": 0.2265,
+     "margin": 0.0946,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "do search results discriminate",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Algorithmic bias and how audits find it",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.4479,
+     "top2_topic": "Search literacy",
+     "top2_score": 0.4459,
+     "margin": 0.002,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "whose perspective does Google show",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Whose world the results represent",
+     "expected_card": true,
+     "top1_topic": "Personalisation and why your results differ",
+     "top1_score": 0.4334,
+     "top2_topic": "The Google effect on memory",
+     "top2_score": 0.4204,
+     "margin": 0.013,
+     "served_topic": "Personalisation and why your results differ",
+     "card_served": true,
+     "expected_rank": 5,
+     "reciprocal_rank": 0.2,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "best private search engine",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Privacy-focused and alternative engines",
+     "expected_card": true,
+     "top1_topic": "Artificial Intelligence and Search Engines",
+     "top1_score": 0.5176,
+     "top2_topic": "Privacy-focused and alternative engines",
+     "top2_score": 0.5139,
+     "margin": 0.0037,
+     "served_topic": "Artificial Intelligence and Search Engines",
+     "card_served": true,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why does the algorithm show me this",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.331,
+     "top2_topic": "Social media algorithms",
+     "top2_score": 0.2418,
+     "margin": 0.0892,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 9,
+     "reciprocal_rank": 0.1111,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why is reject all so hard to find",
+     "category": "edited-prompt",
+     "query_shape": "",
+     "expected_topic": "Dark patterns and the design of consent",
+     "expected_card": true,
+     "top1_topic": "Book bans",
+     "top1_score": 0.2992,
+     "top2_topic": "Misinformation vs. censorship",
+     "top2_score": 0.281,
+     "margin": 0.0182,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 14,
+     "reciprocal_rank": 0.0714,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    }
+   ]
+  },
+  "clean_desc": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 0.5909,
+    "accuracy_at_1_raw": 0.5455,
+    "coverage": 0.7727,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.3333,
+    "mrr": 0.6587,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 5,
+      "served": 6
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 10,
+      "served": 13
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 3,
+      "served": 3
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Artificial Intelligence and Search Engines",
+     "served": null,
+     "score": 0.2679,
+     "margin": 0.0386,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does everyone use Google": {
+     "top1": "The Google effect on memory",
+     "served": "The Google effect on memory",
+     "score": 0.4613,
+     "margin": 0.06,
+     "outcome": "wrong-topic"
+    },
+    "why are product review sites all the same": {
+     "top1": "Fad diets vs. evidence-based diets",
+     "served": null,
+     "score": 0.2534,
+     "margin": 0.0004,
+     "outcome": "missed (below-threshold)"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Fact-checking",
+     "served": null,
+     "score": 0.3769,
+     "margin": 0.0598,
+     "outcome": "missed (no-approved-prompts)"
+    },
+    "lateral reading": {
+     "top1": "Personal finance literacy",
+     "served": null,
+     "score": 0.2246,
+     "margin": 0.0033,
+     "outcome": "missed (below-threshold)"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": null,
+     "score": 0.3213,
+     "margin": 0.0948,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does the algorithm show me this": {
+     "top1": "Algorithmic bias in news feeds",
+     "served": null,
+     "score": 0.331,
+     "margin": 0.081,
+     "outcome": "missed (below-threshold)"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Book bans",
+     "served": null,
+     "score": 0.2992,
+     "margin": 0.0182,
+     "outcome": "missed (below-threshold)"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.4427,
+     "margin": 0.0052,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0648,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "how much does Google pay Apple",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Defaults and choice",
+     "expected_card": true,
+     "top1_topic": "Artificial Intelligence and Search Engines",
+     "top1_score": 0.2679,
+     "top2_topic": "Defaults and choice",
+     "top2_score": 0.2293,
+     "margin": 0.0386,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does everyone use Google",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.4613,
+     "top2_topic": "Artificial Intelligence and Search Engines",
+     "top2_score": 0.4013,
+     "margin": 0.06,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 9,
+     "reciprocal_rank": 0.1111,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how much of search does Google control",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.4747,
+     "top2_topic": "Artificial Intelligence and Search Engines",
+     "top2_score": 0.4177,
+     "margin": 0.057,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 6,
+     "reciprocal_rank": 0.1667,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how to rank higher on Google",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.4301,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.378,
+     "margin": 0.0521,
+     "served_topic": "How results are ranked",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why are product review sites all the same",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Fad diets vs. evidence-based diets",
+     "top1_score": 0.2534,
+     "top2_topic": "Food industry misinformation",
+     "top2_score": 0.253,
+     "margin": 0.0004,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 52,
+     "reciprocal_rank": 0.0192,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "GEO versus SEO",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Generative engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.4264,
+     "top2_topic": "How results are ranked",
+     "top2_score": 0.3837,
+     "margin": 0.0427,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 16,
+     "reciprocal_rank": 0.0625,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "EU Digital Markets Act",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Who governs search",
+     "expected_card": true,
+     "top1_topic": "Digital banking volatility",
+     "top1_score": 0.318,
+     "top2_topic": "Maps as search",
+     "top2_score": 0.291,
+     "margin": 0.027,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 5,
+     "reciprocal_rank": 0.2,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why are search results bad for breaking news",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Data voids",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.4993,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.4797,
+     "margin": 0.0196,
+     "served_topic": "The search engine manipulation effect",
+     "card_served": true,
+     "expected_rank": 7,
+     "reciprocal_rank": 0.1429,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how do I know if a website is reliable",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Fact-checking",
+     "top1_score": 0.3769,
+     "top2_topic": "Health misinformation",
+     "top2_score": 0.3171,
+     "margin": 0.0598,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 36,
+     "reciprocal_rank": 0.0278,
+     "correct": false,
+     "outcome": "missed (no-approved-prompts)"
+    },
+    {
+     "query": "lateral reading",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Personal finance literacy",
+     "top1_score": 0.2246,
+     "top2_topic": "Search literacy",
+     "top2_score": 0.2213,
+     "margin": 0.0033,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "how to remove my name from Google",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "The right to be forgotten",
+     "expected_card": true,
+     "top1_topic": "The right to be forgotten",
+     "top1_score": 0.3213,
+     "top2_topic": "Presidential impeachment",
+     "top2_score": 0.2265,
+     "margin": 0.0948,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "do search results discriminate",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Algorithmic bias and how audits find it",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.4677,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.4461,
+     "margin": 0.0216,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 6,
+     "reciprocal_rank": 0.1667,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "non-English search results",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Language inequality in search",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.5481,
+     "top2_topic": "Language inequality in search",
+     "top2_score": 0.5102,
+     "margin": 0.0379,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "whose perspective does Google show",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Whose world the results represent",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.4129,
+     "top2_topic": "Personalisation and why your results differ",
+     "top2_score": 0.4071,
+     "margin": 0.0058,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 8,
+     "reciprocal_rank": 0.125,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "what is a featured snippet",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Knowledge panels and featured snippets",
+     "expected_card": true,
+     "top1_topic": "The attention economy and engagement ranking",
+     "top1_score": 0.287,
+     "top2_topic": "Image search and reverse image search",
+     "top2_score": 0.2203,
+     "margin": 0.0667,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 3,
+     "reciprocal_rank": 0.3333,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does the algorithm show me this",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.331,
+     "top2_topic": "Algorithmic bias and how audits find it",
+     "top2_score": 0.25,
+     "margin": 0.081,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 97,
+     "reciprocal_rank": 0.0103,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "how do apps keep you scrolling",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.2924,
+     "top2_topic": "Concentration and defaults",
+     "top2_score": 0.2885,
+     "margin": 0.0039,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 3,
+     "reciprocal_rank": 0.3333,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why is reject all so hard to find",
+     "category": "edited-prompt",
+     "query_shape": "",
+     "expected_topic": "Dark patterns and the design of consent",
+     "expected_card": true,
+     "top1_topic": "Book bans",
+     "top1_score": 0.2992,
+     "top2_topic": "Misinformation vs. censorship",
+     "top2_score": 0.281,
+     "margin": 0.0182,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 29,
+     "reciprocal_rank": 0.0345,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    }
+   ]
+  },
+  "max_pool": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 1.0,
+    "accuracy_at_1_raw": 1.0,
+    "coverage": 1.0,
+    "false_positive_negative_controls": 0.2,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1176,
+    "mrr": 1.0,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 16,
+      "served": 16
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 4,
+      "served": 1
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 1.0,
+     "margin": 0.477,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 1.0,
+     "margin": 0.2877,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 1.0,
+     "margin": 0.5503,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 1.0,
+     "margin": 0.3581,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 1.0,
+     "margin": 0.7319,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 1.0,
+     "margin": 0.5125,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "The attention economy and engagement ranking",
+     "served": "The attention economy and engagement ranking",
+     "score": 1.0,
+     "margin": 0.3884,
+     "outcome": "correct-card"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 1.0,
+     "margin": 0.5536,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 1.0,
+     "margin": 0.5353,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Detox diets",
+     "served": null,
+     "score": 0.4159,
+     "margin": 0.0175,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "gmail login",
+     "category": "negative-control",
+     "query_shape": "",
+     "expected_topic": "NONE",
+     "expected_card": false,
+     "top1_topic": "Right to digital privacy",
+     "top1_score": 0.365,
+     "top2_topic": "Cookies and consent",
+     "top2_score": 0.3585,
+     "margin": 0.0065,
+     "served_topic": "Cookies and consent",
+     "card_served": true,
+     "expected_rank": 0,
+     "reciprocal_rank": 0.0,
+     "correct": false,
+     "outcome": "false-positive"
+    }
+   ]
+  },
+  "mean_pool": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 0.6591,
+    "accuracy_at_1_raw": 0.75,
+    "coverage": 0.75,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.3529,
+    "mrr": 0.8425,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 4,
+      "served": 4
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 3,
+      "served": 4
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 4,
+      "served": 6
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 11,
+      "served": 12
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 3,
+      "served": 3
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": null,
+     "score": 0.3306,
+     "margin": 0.0374,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 0.5343,
+     "margin": 0.1311,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": null,
+     "score": 0.2809,
+     "margin": 0.0275,
+     "outcome": "missed (below-threshold)"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Fact-checking",
+     "served": null,
+     "score": 0.3949,
+     "margin": 0.0559,
+     "outcome": "missed (no-approved-prompts)"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": null,
+     "score": 0.2538,
+     "margin": 0.0292,
+     "outcome": "missed (below-threshold)"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.4337,
+     "margin": 0.1526,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "Algorithmic bias in news feeds",
+     "served": null,
+     "score": 0.331,
+     "margin": 0.0363,
+     "outcome": "missed (below-threshold)"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Book bans",
+     "served": null,
+     "score": 0.2992,
+     "margin": 0.0182,
+     "outcome": "missed (below-threshold)"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.5906,
+     "margin": 0.1531,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0648,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "how much does Google pay Apple",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Defaults and choice",
+     "expected_card": true,
+     "top1_topic": "Defaults and choice",
+     "top1_score": 0.3306,
+     "top2_topic": "Concentration and defaults",
+     "top2_score": 0.2932,
+     "margin": 0.0374,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why are product review sites all the same",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Search engine optimisation",
+     "top1_score": 0.2809,
+     "top2_topic": "Fad diets vs. evidence-based diets",
+     "top2_score": 0.2534,
+     "margin": 0.0275,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "GEO versus SEO",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Generative engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Search engine optimisation",
+     "top1_score": 0.3928,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.3468,
+     "margin": 0.046,
+     "served_topic": "Search engine optimisation",
+     "card_served": true,
+     "expected_rank": 5,
+     "reciprocal_rank": 0.2,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "what is a data void",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Data voids",
+     "expected_card": true,
+     "top1_topic": "Big data",
+     "top1_score": 0.3014,
+     "top2_topic": "Data voids",
+     "top2_score": 0.2818,
+     "margin": 0.0196,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why are search results bad for breaking news",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Data voids",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.4993,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.4237,
+     "margin": 0.0756,
+     "served_topic": "The search engine manipulation effect",
+     "card_served": true,
+     "expected_rank": 7,
+     "reciprocal_rank": 0.1429,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how do I know if a website is reliable",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Fact-checking",
+     "top1_score": 0.3949,
+     "top2_topic": "Search literacy",
+     "top2_score": 0.339,
+     "margin": 0.0559,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (no-approved-prompts)"
+    },
+    {
+     "query": "teaching search literacy",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Artificial Intelligence and Search Engines",
+     "top1_score": 0.4777,
+     "top2_topic": "Children and search",
+     "top2_score": 0.4229,
+     "margin": 0.0548,
+     "served_topic": "Artificial Intelligence and Search Engines",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "lateral reading",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Search literacy",
+     "top1_score": 0.2538,
+     "top2_topic": "Personal finance literacy",
+     "top2_score": 0.2246,
+     "margin": 0.0292,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "right to be forgotten",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "The right to be forgotten",
+     "expected_card": true,
+     "top1_topic": "The right to be forgotten",
+     "top1_score": 0.3195,
+     "top2_topic": "The Google effect on memory",
+     "top2_score": 0.2541,
+     "margin": 0.0654,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "whose perspective does Google show",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Whose world the results represent",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.3256,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.3217,
+     "margin": 0.0039,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "best private search engine",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Privacy-focused and alternative engines",
+     "expected_card": true,
+     "top1_topic": "Artificial Intelligence and Search Engines",
+     "top1_score": 0.5176,
+     "top2_topic": "Privacy-focused and alternative engines",
+     "top2_score": 0.4682,
+     "margin": 0.0494,
+     "served_topic": "Artificial Intelligence and Search Engines",
+     "card_served": true,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why does one answer appear at the top",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Knowledge panels and featured snippets",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.3488,
+     "top2_topic": "Knowledge panels and featured snippets",
+     "top2_score": 0.3193,
+     "margin": 0.0295,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does the algorithm show me this",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.331,
+     "top2_topic": "How results are ranked",
+     "top2_score": 0.2947,
+     "margin": 0.0363,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 7,
+     "reciprocal_rank": 0.1429,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "how do apps keep you scrolling",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "The attention economy and engagement ranking",
+     "top1_score": 0.2768,
+     "top2_topic": "Spyware",
+     "top2_score": 0.244,
+     "margin": 0.0328,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why is reject all so hard to find",
+     "category": "edited-prompt",
+     "query_shape": "",
+     "expected_topic": "Dark patterns and the design of consent",
+     "expected_card": true,
+     "top1_topic": "Book bans",
+     "top1_score": 0.2992,
+     "top2_topic": "Misinformation vs. censorship",
+     "top2_score": 0.281,
+     "margin": 0.0182,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 3,
+     "reciprocal_rank": 0.3333,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    }
+   ]
+  },
+  "examples_only": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 1.0,
+    "accuracy_at_1_raw": 1.0,
+    "coverage": 1.0,
+    "false_positive_negative_controls": 0.2,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1176,
+    "mrr": 1.0,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 16,
+      "served": 16
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 4,
+      "served": 1
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 1.0,
+     "margin": 0.477,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 1.0,
+     "margin": 0.2877,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 1.0,
+     "margin": 0.5503,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 1.0,
+     "margin": 0.3581,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 1.0,
+     "margin": 0.7319,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 1.0,
+     "margin": 0.5125,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "The attention economy and engagement ranking",
+     "served": "The attention economy and engagement ranking",
+     "score": 1.0,
+     "margin": 0.3884,
+     "outcome": "correct-card"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 1.0,
+     "margin": 0.5536,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 1.0,
+     "margin": 0.5353,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Detox diets",
+     "served": null,
+     "score": 0.4159,
+     "margin": 0.0175,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "gmail login",
+     "category": "negative-control",
+     "query_shape": "",
+     "expected_topic": "NONE",
+     "expected_card": false,
+     "top1_topic": "Right to digital privacy",
+     "top1_score": 0.365,
+     "top2_topic": "Cookies and consent",
+     "top2_score": 0.3585,
+     "margin": 0.0065,
+     "served_topic": "Cookies and consent",
+     "card_served": true,
+     "expected_rank": 0,
+     "reciprocal_rank": 0.0,
+     "correct": false,
+     "outcome": "false-positive"
+    }
+   ]
+  },
+  "blend_a0.3": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 1.0,
+    "accuracy_at_1_raw": 1.0,
+    "coverage": 1.0,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1373,
+    "mrr": 1.0,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 16,
+      "served": 16
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 0.7688,
+     "margin": 0.3695,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 0.7967,
+     "margin": 0.1938,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 0.735,
+     "margin": 0.3873,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.7511,
+     "margin": 0.2141,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.7664,
+     "margin": 0.5257,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.7964,
+     "margin": 0.4218,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "The attention economy and engagement ranking",
+     "served": "The attention economy and engagement ranking",
+     "score": 0.7051,
+     "margin": 0.2233,
+     "outcome": "correct-card"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 0.7509,
+     "margin": 0.3878,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.8328,
+     "margin": 0.3953,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.062,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": []
+  },
+  "blend_a0.5": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 1.0,
+    "accuracy_at_1_raw": 1.0,
+    "coverage": 1.0,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1373,
+    "mrr": 1.0,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 16,
+      "served": 16
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 0.6146,
+     "margin": 0.2978,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 0.6611,
+     "margin": 0.1227,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 0.5584,
+     "margin": 0.2786,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.5851,
+     "margin": 0.1019,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.6106,
+     "margin": 0.3824,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.6606,
+     "margin": 0.3613,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "The attention economy and engagement ranking",
+     "served": "The attention economy and engagement ranking",
+     "score": 0.5085,
+     "margin": 0.1133,
+     "outcome": "correct-card"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 0.5849,
+     "margin": 0.2674,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.7213,
+     "margin": 0.2838,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0648,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": []
+  },
+  "blend_a0.7": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 0.9545,
+    "accuracy_at_1_raw": 0.9318,
+    "coverage": 0.9773,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1569,
+    "mrr": 0.9659,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 4,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 15,
+      "served": 15
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 0.4605,
+     "margin": 0.1926,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 0.5256,
+     "margin": 0.0181,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 0.3817,
+     "margin": 0.1283,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Fact-checking",
+     "served": "Search literacy",
+     "score": 0.4407,
+     "margin": 0.0215,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.4549,
+     "margin": 0.2303,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.5249,
+     "margin": 0.292,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "Algorithmic bias in news feeds",
+     "served": null,
+     "score": 0.331,
+     "margin": 0.0191,
+     "outcome": "missed (below-threshold)"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 0.4189,
+     "margin": 0.1194,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.6099,
+     "margin": 0.1724,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0648,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "how to rank higher on Google",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.5264,
+     "top2_topic": "Search engine optimisation",
+     "top2_score": 0.5102,
+     "margin": 0.0162,
+     "served_topic": "How results are ranked",
+     "card_served": true,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why does the algorithm show me this",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.331,
+     "top2_topic": "The attention economy and engagement ranking",
+     "top2_score": 0.3119,
+     "margin": 0.0191,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    }
+   ]
+  },
+  "topk2": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 0.9545,
+    "accuracy_at_1_raw": 0.9545,
+    "coverage": 0.9773,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1569,
+    "mrr": 0.9735,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 4,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 15,
+      "served": 15
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 0.4616,
+     "margin": 0.152,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 0.5802,
+     "margin": 0.0704,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 0.3916,
+     "margin": 0.1382,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.4751,
+     "margin": 0.0204,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.4286,
+     "margin": 0.204,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.5927,
+     "margin": 0.3015,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "Algorithmic bias in news feeds",
+     "served": null,
+     "score": 0.331,
+     "margin": 0.0055,
+     "outcome": "missed (below-threshold)"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 0.4039,
+     "margin": 0.0956,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.619,
+     "margin": 0.1815,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0648,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "GEO versus SEO",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Generative engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Search engine optimisation",
+     "top1_score": 0.4674,
+     "top2_topic": "Generative engine optimisation",
+     "top2_score": 0.4324,
+     "margin": 0.035,
+     "served_topic": "Search engine optimisation",
+     "card_served": true,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why does the algorithm show me this",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.331,
+     "top2_topic": "How results are ranked",
+     "top2_score": 0.3255,
+     "margin": 0.0055,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 3,
+     "reciprocal_rank": 0.3333,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    }
+   ]
+  },
+  "discount_d0.85": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 1.0,
+    "accuracy_at_1_raw": 1.0,
+    "coverage": 1.0,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1373,
+    "mrr": 1.0,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 16,
+      "served": 16
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 0.85,
+     "margin": 0.4054,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 0.85,
+     "margin": 0.2445,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 0.85,
+     "margin": 0.4677,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.85,
+     "margin": 0.3044,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.85,
+     "margin": 0.6221,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.85,
+     "margin": 0.4356,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "The attention economy and engagement ranking",
+     "served": "The attention economy and engagement ranking",
+     "score": 0.85,
+     "margin": 0.3302,
+     "outcome": "correct-card"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 0.85,
+     "margin": 0.4705,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.85,
+     "margin": 0.4125,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0449,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": []
+  },
+  "discount_d0.90": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 1.0,
+    "accuracy_at_1_raw": 1.0,
+    "coverage": 1.0,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1373,
+    "mrr": 1.0,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 16,
+      "served": 16
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 0.9,
+     "margin": 0.4293,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 0.9,
+     "margin": 0.2589,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 0.9,
+     "margin": 0.4952,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.9,
+     "margin": 0.3223,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.9,
+     "margin": 0.6587,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.9,
+     "margin": 0.4612,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "The attention economy and engagement ranking",
+     "served": "The attention economy and engagement ranking",
+     "score": 0.9,
+     "margin": 0.3496,
+     "outcome": "correct-card"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 0.9,
+     "margin": 0.4982,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.9,
+     "margin": 0.4625,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0241,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": []
+  },
+  "discount_d0.95": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 1.0,
+    "accuracy_at_1_raw": 1.0,
+    "coverage": 1.0,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.1373,
+    "mrr": 1.0,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 16,
+      "served": 16
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 0.95,
+     "margin": 0.4531,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 0.95,
+     "margin": 0.2733,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 0.95,
+     "margin": 0.5227,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.95,
+     "margin": 0.3402,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 0.95,
+     "margin": 0.6953,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.95,
+     "margin": 0.4869,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "The attention economy and engagement ranking",
+     "served": "The attention economy and engagement ranking",
+     "score": 0.95,
+     "margin": 0.369,
+     "outcome": "correct-card"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 0.95,
+     "margin": 0.5259,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.95,
+     "margin": 0.5085,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0033,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": []
+  },
+  "cap_c0.05": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 0.6136,
+    "accuracy_at_1_raw": 0.6818,
+    "coverage": 0.7955,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.3137,
+    "mrr": 0.7443,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 6,
+      "served": 7
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 10,
+      "served": 13
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 3,
+      "served": 3
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": null,
+     "score": 0.2793,
+     "margin": 0.0114,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does everyone use Google": {
+     "top1": "The Google effect on memory",
+     "served": "The Google effect on memory",
+     "score": 0.5113,
+     "margin": 0.0644,
+     "outcome": "wrong-topic"
+    },
+    "why are product review sites all the same": {
+     "top1": "Fad diets vs. evidence-based diets",
+     "served": null,
+     "score": 0.2534,
+     "margin": 0.0004,
+     "outcome": "missed (below-threshold)"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Fact-checking",
+     "served": null,
+     "score": 0.4269,
+     "margin": 0.0598,
+     "outcome": "missed (no-approved-prompts)"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": null,
+     "score": 0.2713,
+     "margin": 0.0242,
+     "outcome": "missed (below-threshold)"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.3713,
+     "margin": 0.1163,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "Algorithmic bias in news feeds",
+     "served": null,
+     "score": 0.331,
+     "margin": 0.031,
+     "outcome": "missed (below-threshold)"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Algorithmic bias and how audits find it",
+     "served": null,
+     "score": 0.3293,
+     "margin": 0.0149,
+     "outcome": "missed (below-threshold)"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.4927,
+     "margin": 0.0552,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0648,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "how much does Google pay Apple",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Defaults and choice",
+     "expected_card": true,
+     "top1_topic": "Defaults and choice",
+     "top1_score": 0.2793,
+     "top2_topic": "Artificial Intelligence and Search Engines",
+     "top2_score": 0.2679,
+     "margin": 0.0114,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does everyone use Google",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.5113,
+     "top2_topic": "Defaults and choice",
+     "top2_score": 0.4469,
+     "margin": 0.0644,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 8,
+     "reciprocal_rank": 0.125,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how much of search does Google control",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.508,
+     "top2_topic": "Children and search",
+     "top2_score": 0.4433,
+     "margin": 0.0647,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 6,
+     "reciprocal_rank": 0.1667,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how to rank higher on Google",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.4801,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.428,
+     "margin": 0.0521,
+     "served_topic": "How results are ranked",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why are product review sites all the same",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Fad diets vs. evidence-based diets",
+     "top1_score": 0.2534,
+     "top2_topic": "Food industry misinformation",
+     "top2_score": 0.253,
+     "margin": 0.0004,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 30,
+     "reciprocal_rank": 0.0333,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "GEO versus SEO",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Generative engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Search engine optimisation",
+     "top1_score": 0.4329,
+     "top2_topic": "Whose world the results represent",
+     "top2_score": 0.4303,
+     "margin": 0.0026,
+     "served_topic": "Search engine optimisation",
+     "card_served": true,
+     "expected_rank": 12,
+     "reciprocal_rank": 0.0833,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "EU Digital Markets Act",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Who governs search",
+     "expected_card": true,
+     "top1_topic": "Who governs search",
+     "top1_score": 0.3255,
+     "top2_topic": "Digital banking volatility",
+     "top2_score": 0.318,
+     "margin": 0.0075,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why are search results bad for breaking news",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Data voids",
+     "expected_card": true,
+     "top1_topic": "The search engine manipulation effect",
+     "top1_score": 0.5297,
+     "top2_topic": "How results are ranked",
+     "top2_score": 0.5043,
+     "margin": 0.0254,
+     "served_topic": "The search engine manipulation effect",
+     "card_served": true,
+     "expected_rank": 6,
+     "reciprocal_rank": 0.1667,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how do I know if a website is reliable",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Fact-checking",
+     "top1_score": 0.4269,
+     "top2_topic": "Health misinformation",
+     "top2_score": 0.3671,
+     "margin": 0.0598,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 20,
+     "reciprocal_rank": 0.05,
+     "correct": false,
+     "outcome": "missed (no-approved-prompts)"
+    },
+    {
+     "query": "lateral reading",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Search literacy",
+     "top1_score": 0.2713,
+     "top2_topic": "Accessibility of search",
+     "top2_score": 0.2471,
+     "margin": 0.0242,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "do search results discriminate",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Algorithmic bias and how audits find it",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.5177,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.4961,
+     "margin": 0.0216,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 6,
+     "reciprocal_rank": 0.1667,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "non-English search results",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Language inequality in search",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.595,
+     "top2_topic": "Language inequality in search",
+     "top2_score": 0.5602,
+     "margin": 0.0348,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "whose perspective does Google show",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Whose world the results represent",
+     "expected_card": true,
+     "top1_topic": "Personalisation and why your results differ",
+     "top1_score": 0.4571,
+     "top2_topic": "The Google effect on memory",
+     "top2_score": 0.4546,
+     "margin": 0.0025,
+     "served_topic": "Personalisation and why your results differ",
+     "card_served": true,
+     "expected_rank": 7,
+     "reciprocal_rank": 0.1429,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "what is a featured snippet",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Knowledge panels and featured snippets",
+     "expected_card": true,
+     "top1_topic": "The attention economy and engagement ranking",
+     "top1_score": 0.287,
+     "top2_topic": "Knowledge panels and featured snippets",
+     "top2_score": 0.2607,
+     "margin": 0.0263,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does the algorithm show me this",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias in news feeds",
+     "top1_score": 0.331,
+     "top2_topic": "Algorithmic bias and how audits find it",
+     "top2_score": 0.3,
+     "margin": 0.031,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 61,
+     "reciprocal_rank": 0.0164,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "how do apps keep you scrolling",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "The attention economy and engagement ranking",
+     "top1_score": 0.3282,
+     "top2_topic": "How results are ranked",
+     "top2_score": 0.2924,
+     "margin": 0.0358,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why is reject all so hard to find",
+     "category": "edited-prompt",
+     "query_shape": "",
+     "expected_topic": "Dark patterns and the design of consent",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias and how audits find it",
+     "top1_score": 0.3293,
+     "top2_topic": "Data voids",
+     "top2_score": 0.3144,
+     "margin": 0.0149,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 20,
+     "reciprocal_rank": 0.05,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    }
+   ]
+  },
+  "cap_c0.10": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 0.6818,
+    "accuracy_at_1_raw": 0.75,
+    "coverage": 0.9091,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.2157,
+    "mrr": 0.7845,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 7,
+      "served": 9
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 12,
+      "served": 15
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 3,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": null,
+     "score": 0.3293,
+     "margin": 0.0542,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does everyone use Google": {
+     "top1": "The Google effect on memory",
+     "served": "The Google effect on memory",
+     "score": 0.5613,
+     "margin": 0.0644,
+     "outcome": "wrong-topic"
+    },
+    "why are product review sites all the same": {
+     "top1": "Personalisation and why your results differ",
+     "served": null,
+     "score": 0.2648,
+     "margin": 0.0007,
+     "outcome": "missed (below-threshold)"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Fact-checking",
+     "served": "Wikipedia and how online knowledge is made",
+     "score": 0.4769,
+     "margin": 0.0845,
+     "outcome": "wrong-topic"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": null,
+     "score": 0.3213,
+     "margin": 0.0619,
+     "outcome": "missed (below-threshold)"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 0.4213,
+     "margin": 0.1454,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "Algorithmic bias and how audits find it",
+     "served": "Algorithmic bias and how audits find it",
+     "score": 0.35,
+     "margin": 0.0005,
+     "outcome": "wrong-topic"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Data voids",
+     "served": "Data voids",
+     "score": 0.3644,
+     "margin": 0.0179,
+     "outcome": "wrong-topic"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.5427,
+     "margin": 0.1052,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Big Pharma",
+     "served": null,
+     "score": 0.3984,
+     "margin": 0.0648,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "how much does Google pay Apple",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Defaults and choice",
+     "expected_card": true,
+     "top1_topic": "Defaults and choice",
+     "top1_score": 0.3293,
+     "top2_topic": "The Google effect on memory",
+     "top2_score": 0.2751,
+     "margin": 0.0542,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does everyone use Google",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.5613,
+     "top2_topic": "Defaults and choice",
+     "top2_score": 0.4969,
+     "margin": 0.0644,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 7,
+     "reciprocal_rank": 0.1429,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how much of search does Google control",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.508,
+     "top2_topic": "Children and search",
+     "top2_score": 0.4933,
+     "margin": 0.0147,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 5,
+     "reciprocal_rank": 0.2,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how to rank higher on Google",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.5301,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.4438,
+     "margin": 0.0863,
+     "served_topic": "How results are ranked",
+     "card_served": true,
+     "expected_rank": 3,
+     "reciprocal_rank": 0.3333,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why are product review sites all the same",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Personalisation and why your results differ",
+     "top1_score": 0.2648,
+     "top2_topic": "Advertising and sponsored results",
+     "top2_score": 0.2641,
+     "margin": 0.0007,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 14,
+     "reciprocal_rank": 0.0714,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "GEO versus SEO",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Generative engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Search engine optimisation",
+     "top1_score": 0.4829,
+     "top2_topic": "Whose world the results represent",
+     "top2_score": 0.4303,
+     "margin": 0.0526,
+     "served_topic": "Search engine optimisation",
+     "card_served": true,
+     "expected_rank": 10,
+     "reciprocal_rank": 0.1,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why are search results bad for breaking news",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Data voids",
+     "expected_card": true,
+     "top1_topic": "The search engine manipulation effect",
+     "top1_score": 0.5532,
+     "top2_topic": "Whose world the results represent",
+     "top2_score": 0.5258,
+     "margin": 0.0274,
+     "served_topic": "The search engine manipulation effect",
+     "card_served": true,
+     "expected_rank": 6,
+     "reciprocal_rank": 0.1667,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how do I know if a website is reliable",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Fact-checking",
+     "top1_score": 0.4769,
+     "top2_topic": "Wikipedia and how online knowledge is made",
+     "top2_score": 0.3924,
+     "margin": 0.0845,
+     "served_topic": "Wikipedia and how online knowledge is made",
+     "card_served": true,
+     "expected_rank": 14,
+     "reciprocal_rank": 0.0714,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "lateral reading",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Search literacy",
+     "top1_score": 0.3213,
+     "top2_topic": "Accessibility of search",
+     "top2_score": 0.2594,
+     "margin": 0.0619,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "do search results discriminate",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Algorithmic bias and how audits find it",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.5677,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.5461,
+     "margin": 0.0216,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 6,
+     "reciprocal_rank": 0.1667,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "whose perspective does Google show",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Whose world the results represent",
+     "expected_card": true,
+     "top1_topic": "Personalisation and why your results differ",
+     "top1_score": 0.485,
+     "top2_topic": "The Google effect on memory",
+     "top2_score": 0.4546,
+     "margin": 0.0304,
+     "served_topic": "Personalisation and why your results differ",
+     "card_served": true,
+     "expected_rank": 6,
+     "reciprocal_rank": 0.1667,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "what is a featured snippet",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Knowledge panels and featured snippets",
+     "expected_card": true,
+     "top1_topic": "Knowledge panels and featured snippets",
+     "top1_score": 0.3107,
+     "top2_topic": "The attention economy and engagement ranking",
+     "top2_score": 0.287,
+     "margin": 0.0237,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does the algorithm show me this",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "Algorithmic bias and how audits find it",
+     "top1_score": 0.35,
+     "top2_topic": "Personalisation and why your results differ",
+     "top2_score": 0.3495,
+     "margin": 0.0005,
+     "served_topic": "Algorithmic bias and how audits find it",
+     "card_served": true,
+     "expected_rank": 48,
+     "reciprocal_rank": 0.0208,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why is reject all so hard to find",
+     "category": "edited-prompt",
+     "query_shape": "",
+     "expected_topic": "Dark patterns and the design of consent",
+     "expected_card": true,
+     "top1_topic": "Data voids",
+     "top1_score": 0.3644,
+     "top2_topic": "Algorithmic bias and how audits find it",
+     "top2_score": 0.3465,
+     "margin": 0.0179,
+     "served_topic": "Data voids",
+     "card_served": true,
+     "expected_rank": 13,
+     "reciprocal_rank": 0.0769,
+     "correct": false,
+     "outcome": "wrong-topic"
+    }
+   ]
+  },
+  "max_pool_noinherit": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 1.0,
+    "accuracy_at_1_raw": 1.0,
+    "coverage": 1.0,
+    "false_positive_negative_controls": 0.4,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.098,
+    "mrr": 1.0,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 5,
+      "served": 5
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 10,
+      "served": 10
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 16,
+      "served": 16
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 3,
+      "served": 2
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": "Defaults and choice",
+     "score": 1.0,
+     "margin": 0.477,
+     "outcome": "correct-card"
+    },
+    "why does everyone use Google": {
+     "top1": "Concentration and defaults",
+     "served": "Concentration and defaults",
+     "score": 1.0,
+     "margin": 0.2877,
+     "outcome": "correct-card"
+    },
+    "why are product review sites all the same": {
+     "top1": "Search engine optimisation",
+     "served": "Search engine optimisation",
+     "score": 1.0,
+     "margin": 0.5503,
+     "outcome": "correct-card"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 1.0,
+     "margin": 0.3581,
+     "outcome": "correct-card"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": "Search literacy",
+     "score": 1.0,
+     "margin": 0.7319,
+     "outcome": "correct-card"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": "The right to be forgotten",
+     "score": 1.0,
+     "margin": 0.5125,
+     "outcome": "correct-card"
+    },
+    "why does the algorithm show me this": {
+     "top1": "The attention economy and engagement ranking",
+     "served": "The attention economy and engagement ranking",
+     "score": 1.0,
+     "margin": 0.3884,
+     "outcome": "correct-card"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Dark patterns and the design of consent",
+     "served": "Dark patterns and the design of consent",
+     "score": 1.0,
+     "margin": 0.5536,
+     "outcome": "correct-card"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 1.0,
+     "margin": 0.5353,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Detox diets",
+     "served": null,
+     "score": 0.4159,
+     "margin": 0.1197,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "gmail login",
+     "category": "negative-control",
+     "query_shape": "",
+     "expected_topic": "NONE",
+     "expected_card": false,
+     "top1_topic": "Right to digital privacy",
+     "top1_score": 0.365,
+     "top2_topic": "Cookies and consent",
+     "top2_score": 0.3585,
+     "margin": 0.0065,
+     "served_topic": "Cookies and consent",
+     "card_served": true,
+     "expected_rank": 0,
+     "reciprocal_rank": 0.0,
+     "correct": false,
+     "outcome": "false-positive"
+    },
+    {
+     "query": "bbc news",
+     "category": "negative-control",
+     "query_shape": "",
+     "expected_topic": "NONE",
+     "expected_card": false,
+     "top1_topic": "Health misinformation",
+     "top1_score": 0.4458,
+     "top2_topic": "Data voids",
+     "top2_score": 0.3876,
+     "margin": 0.0582,
+     "served_topic": "Data voids",
+     "card_served": true,
+     "expected_rank": 0,
+     "reciprocal_rank": 0.0,
+     "correct": false,
+     "outcome": "false-positive"
+    }
+   ]
+  },
+  "baseline_noinherit": {
+   "metrics": {
+    "n_rows": 51,
+    "n_expected_card": 44,
+    "accuracy_at_1": 0.6818,
+    "accuracy_at_1_raw": 0.75,
+    "coverage": 0.8636,
+    "false_positive_negative_controls": 0.0,
+    "false_positive_ordinary_uncovered": 0.0,
+    "no_card_expected_correct": 1.0,
+    "abstention_rate": 0.2549,
+    "mrr": 0.8124,
+    "threshold": 0.35,
+    "margin": 0.0,
+    "top_k": 3,
+    "per_category": {
+     "collision-defaults": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "collision-seo": {
+      "n": 5,
+      "correct": 2,
+      "served": 4
+     },
+     "attractor-regression": {
+      "n": 10,
+      "correct": 6,
+      "served": 8
+     },
+     "former-attractor": {
+      "n": 4,
+      "correct": 4,
+      "served": 4
+     },
+     "set3-topic": {
+      "n": 16,
+      "correct": 13,
+      "served": 15
+     },
+     "edited-prompt": {
+      "n": 4,
+      "correct": 3,
+      "served": 3
+     },
+     "ordinary-no-prompts": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "ordinary-uncovered": {
+      "n": 1,
+      "correct": 1,
+      "served": 0
+     },
+     "negative-control": {
+      "n": 5,
+      "correct": 5,
+      "served": 0
+     }
+    }
+   },
+   "acceptance": {
+    "how much does Google pay Apple": {
+     "top1": "Defaults and choice",
+     "served": null,
+     "score": 0.2093,
+     "margin": 0.0002,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does everyone use Google": {
+     "top1": "The Google effect on memory",
+     "served": "The Google effect on memory",
+     "score": 0.4638,
+     "margin": 0.0152,
+     "outcome": "wrong-topic"
+    },
+    "why are product review sites all the same": {
+     "top1": "Whose world the results represent",
+     "served": null,
+     "score": 0.2424,
+     "margin": 0.0279,
+     "outcome": "missed (below-threshold)"
+    },
+    "how do I know if a website is reliable": {
+     "top1": "Wikipedia and how online knowledge is made",
+     "served": "Wikipedia and how online knowledge is made",
+     "score": 0.452,
+     "margin": 0.0872,
+     "outcome": "wrong-topic"
+    },
+    "lateral reading": {
+     "top1": "Search literacy",
+     "served": null,
+     "score": 0.2615,
+     "margin": 0.0652,
+     "outcome": "missed (below-threshold)"
+    },
+    "how to remove my name from Google": {
+     "top1": "The right to be forgotten",
+     "served": null,
+     "score": 0.3211,
+     "margin": 0.1572,
+     "outcome": "missed (below-threshold)"
+    },
+    "why does the algorithm show me this": {
+     "top1": "How results are ranked",
+     "served": null,
+     "score": 0.222,
+     "margin": 0.0356,
+     "outcome": "missed (below-threshold)"
+    },
+    "why is reject all so hard to find": {
+     "top1": "Asking a chatbot instead of searching",
+     "served": null,
+     "score": 0.2585,
+     "margin": 0.0037,
+     "outcome": "missed (below-threshold)"
+    },
+    "are vaccines safe": {
+     "top1": "Vaccination",
+     "served": null,
+     "score": 0.589,
+     "margin": 0.2225,
+     "outcome": "correct-silence"
+    },
+    "best multivitamin reddit": {
+     "top1": "Health misinformation",
+     "served": null,
+     "score": 0.2097,
+     "margin": 0.0739,
+     "outcome": "correct-silence"
+    }
+   },
+   "confusion": [
+    {
+     "query": "how much does Google pay Apple",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Defaults and choice",
+     "expected_card": true,
+     "top1_topic": "Defaults and choice",
+     "top1_score": 0.2093,
+     "top2_topic": "The Google effect on memory",
+     "top2_score": 0.2091,
+     "margin": 0.0002,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why does everyone use Google",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.4638,
+     "top2_topic": "Children and search",
+     "top2_score": 0.4486,
+     "margin": 0.0152,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how much of search does Google control",
+     "category": "collision-defaults",
+     "query_shape": "",
+     "expected_topic": "Concentration and defaults",
+     "expected_card": true,
+     "top1_topic": "The Google effect on memory",
+     "top1_score": 0.4912,
+     "top2_topic": "Children and search",
+     "top2_score": 0.4777,
+     "margin": 0.0135,
+     "served_topic": "The Google effect on memory",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how to rank higher on Google",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.481,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.4028,
+     "margin": 0.0782,
+     "served_topic": "How results are ranked",
+     "card_served": true,
+     "expected_rank": 3,
+     "reciprocal_rank": 0.3333,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why are product review sites all the same",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Search engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.2424,
+     "top2_topic": "Search engine optimisation",
+     "top2_score": 0.2145,
+     "margin": 0.0279,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 2,
+     "reciprocal_rank": 0.5,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "GEO versus SEO",
+     "category": "collision-seo",
+     "query_shape": "",
+     "expected_topic": "Generative engine optimisation",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.467,
+     "top2_topic": "Search engine optimisation",
+     "top2_score": 0.4143,
+     "margin": 0.0527,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 9,
+     "reciprocal_rank": 0.1111,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why are search results bad for breaking news",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Data voids",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.4404,
+     "top2_topic": "The search engine manipulation effect",
+     "top2_score": 0.4253,
+     "margin": 0.0151,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "how do I know if a website is reliable",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Wikipedia and how online knowledge is made",
+     "top1_score": 0.452,
+     "top2_topic": "Health misinformation",
+     "top2_score": 0.3648,
+     "margin": 0.0872,
+     "served_topic": "Wikipedia and how online knowledge is made",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "lateral reading",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "Search literacy",
+     "expected_card": true,
+     "top1_topic": "Search literacy",
+     "top1_score": 0.2615,
+     "top2_topic": "Accessibility of search",
+     "top2_score": 0.1963,
+     "margin": 0.0652,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "how to remove my name from Google",
+     "category": "attractor-regression",
+     "query_shape": "",
+     "expected_topic": "The right to be forgotten",
+     "expected_card": true,
+     "top1_topic": "The right to be forgotten",
+     "top1_score": 0.3211,
+     "top2_topic": "The Google effect on memory",
+     "top2_score": 0.1639,
+     "margin": 0.1572,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 1,
+     "reciprocal_rank": 1.0,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "do search results discriminate",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Algorithmic bias and how audits find it",
+     "expected_card": true,
+     "top1_topic": "Whose world the results represent",
+     "top1_score": 0.4479,
+     "top2_topic": "Search literacy",
+     "top2_score": 0.4459,
+     "margin": 0.002,
+     "served_topic": "Whose world the results represent",
+     "card_served": true,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "whose perspective does Google show",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "Whose world the results represent",
+     "expected_card": true,
+     "top1_topic": "Personalisation and why your results differ",
+     "top1_score": 0.4334,
+     "top2_topic": "The Google effect on memory",
+     "top2_score": 0.4204,
+     "margin": 0.013,
+     "served_topic": "Personalisation and why your results differ",
+     "card_served": true,
+     "expected_rank": 5,
+     "reciprocal_rank": 0.2,
+     "correct": false,
+     "outcome": "wrong-topic"
+    },
+    {
+     "query": "why does the algorithm show me this",
+     "category": "set3-topic",
+     "query_shape": "",
+     "expected_topic": "The attention economy and engagement ranking",
+     "expected_card": true,
+     "top1_topic": "How results are ranked",
+     "top1_score": 0.222,
+     "top2_topic": "Personalisation and why your results differ",
+     "top2_score": 0.1864,
+     "margin": 0.0356,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 4,
+     "reciprocal_rank": 0.25,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    },
+    {
+     "query": "why is reject all so hard to find",
+     "category": "edited-prompt",
+     "query_shape": "",
+     "expected_topic": "Dark patterns and the design of consent",
+     "expected_card": true,
+     "top1_topic": "Asking a chatbot instead of searching",
+     "top1_score": 0.2585,
+     "top2_topic": "Data voids",
+     "top2_score": 0.2548,
+     "margin": 0.0037,
+     "served_topic": "",
+     "card_served": false,
+     "expected_rank": 10,
+     "reciprocal_rank": 0.1,
+     "correct": false,
+     "outcome": "missed (below-threshold)"
+    }
+   ]
+  }
+ }
+}

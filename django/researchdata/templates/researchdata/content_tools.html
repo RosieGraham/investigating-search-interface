@@ -50,6 +50,17 @@
   <p>Would create: {{ preview.created }}. Would update: {{ preview.updated }}.
      {{ preview.change_count }} field change(s) recorded.</p>
 
+  {% if preview.guard_warnings %}
+  <div style="border: 2px solid #c60; background: #fff4e5; padding: 0.75rem; margin: 0.75rem 0;">
+    <strong>Matching guard warnings (advisory, apply is not blocked):</strong>
+    <ul>
+      {% for warning in preview.guard_warnings %}
+      <li>{{ warning }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   {% if preview.prompt_changes %}
   <h4>Prompt changes</h4>
   {% for change in preview.prompt_changes %}
@@ -127,6 +138,81 @@
             <ul>{% for p in row.prompts %}<li>{{ p }}</li>{% endfor %}</ul>
           {% else %}-{% endif %}
         </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</section>
+
+<section class="module" id="evaluation-panel">
+  <h2>Matching evaluation</h2>
+  <p>Runs the labelled query set ({{ labelled_file_name|default:"none found" }})
+     through the live classifier and decision rule, offline against this database.
+     Read-only for content; each run is stored with full provenance so results
+     form a time series. Current rule: threshold {{ classifier_threshold }},
+     margin {{ classifier_margin }}.</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="run_evaluation">
+    <input type="submit" value="Run evaluation" class="default"
+           {% if not labelled_file_name %}disabled{% endif %}>
+  </form>
+
+  {% if evaluation_metrics %}
+  <h3>Run #{{ evaluation_record.id }}</h3>
+  <table>
+    <tbody>
+      <tr><th>accuracy@1 (served)</th><td>{{ evaluation_metrics.accuracy_at_1 }}</td></tr>
+      <tr><th>accuracy@1 (raw top-1)</th><td>{{ evaluation_metrics.accuracy_at_1_raw }}</td></tr>
+      <tr><th>coverage</th><td>{{ evaluation_metrics.coverage }}</td></tr>
+      <tr><th>false positives (negative controls)</th><td>{{ evaluation_metrics.false_positive_negative_controls }}</td></tr>
+      <tr><th>false positives (ordinary uncovered)</th><td>{{ evaluation_metrics.false_positive_ordinary_uncovered }}</td></tr>
+      <tr><th>abstention rate</th><td>{{ evaluation_metrics.abstention_rate }}</td></tr>
+      <tr><th>mean reciprocal rank</th><td>{{ evaluation_metrics.mrr }}</td></tr>
+    </tbody>
+  </table>
+
+  {% if evaluation_confusion %}
+  <h4>Wrong or unexpected rows</h4>
+  <table>
+    <thead>
+      <tr><th>Query</th><th>Expected</th><th>Served</th><th>Top 1</th><th>Score</th><th>Margin</th><th>Outcome</th></tr>
+    </thead>
+    <tbody>
+      {% for row in evaluation_confusion %}
+      <tr>
+        <td>{{ row.query }}</td>
+        <td>{{ row.expected_topic }}</td>
+        <td>{{ row.served_topic|default:"(none)" }}</td>
+        <td>{{ row.top1_topic }}</td>
+        <td>{{ row.top1_score }}</td>
+        <td>{{ row.margin }}</td>
+        <td>{{ row.outcome }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  {% endif %}
+
+  {% if recent_evaluations %}
+  <h3>Recent runs</h3>
+  <table>
+    <thead>
+      <tr><th>When</th><th>acc@1</th><th>coverage</th><th>FP (neg)</th><th>threshold</th><th>margin</th><th>runtime</th><th>note</th></tr>
+    </thead>
+    <tbody>
+      {% for run in recent_evaluations %}
+      <tr>
+        <td>{{ run.created_datetime|date:"Y-m-d H:i" }}</td>
+        <td>{{ run.metrics.accuracy_at_1 }}</td>
+        <td>{{ run.metrics.coverage }}</td>
+        <td>{{ run.metrics.false_positive_negative_controls }}</td>
+        <td>{{ run.threshold }}</td>
+        <td>{{ run.margin }}</td>
+        <td>{{ run.runtime|truncatechars:36 }}</td>
+        <td>{{ run.notes|truncatechars:60 }}</td>
       </tr>
       {% endfor %}
     </tbody>

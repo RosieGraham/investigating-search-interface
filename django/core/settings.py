@@ -185,6 +185,10 @@ ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', '')
 CLASSIFIER_ENABLED = env_bool('CLASSIFIER_ENABLED', True)
 CLASSIFIER_THRESHOLD = float(os.environ.get('CLASSIFIER_THRESHOLD', '0.35'))
 CLASSIFIER_TOP_K = int(os.environ.get('CLASSIFIER_TOP_K', '3'))
+# Weight of the description score in blended topic scoring:
+# alpha * desc + (1 - alpha) * max(example query scores). The Setting row
+# CLASSIFIER_BLEND_ALPHA overrides this env default at runtime.
+CLASSIFIER_BLEND_ALPHA = float(os.environ.get('CLASSIFIER_BLEND_ALPHA', '0.35'))
 EMBEDDING_MODEL_DIR = Path(os.environ.get('EMBEDDING_MODEL_DIR', BASE_DIR / 'model_cache'))
 EMBEDDING_MODEL_ID = os.environ.get(
     'EMBEDDING_MODEL_ID', 'sentence-transformers/multi-qa-MiniLM-L6-cos-v1'

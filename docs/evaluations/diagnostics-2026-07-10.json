@@ -1,0 +1,2612 @@
+{
+ "attractor_pairs": [
+  {
+   "topic_a": "AI disinformation",
+   "topic_b": "Unregulated AI",
+   "similarity": 0.8874,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI policing",
+   "topic_b": "Unregulated AI",
+   "similarity": 0.8771,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Government control of the internet",
+   "topic_b": "Internet censorship",
+   "similarity": 0.8667,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI disinformation",
+   "topic_b": "AI policing",
+   "similarity": 0.8634,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Social media",
+   "topic_b": "Social media algorithms",
+   "similarity": 0.8536,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI disinformation",
+   "topic_b": "AI replacing  human judgement",
+   "similarity": 0.8382,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Freedom of the press",
+   "topic_b": "Censorship",
+   "similarity": 0.8175,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Mental health",
+   "topic_b": "Mental wellness",
+   "similarity": 0.7977,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI disinformation",
+   "topic_b": "Transparency in AI decisions",
+   "similarity": 0.7967,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI policing",
+   "topic_b": "Military AI",
+   "similarity": 0.7955,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI replacing  human judgement",
+   "topic_b": "Unregulated AI",
+   "similarity": 0.7912,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Healthcare",
+   "topic_b": "Universal healthcare",
+   "similarity": 0.7899,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI bias in hiring",
+   "topic_b": "AI policing",
+   "similarity": 0.7897,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Government control of the internet",
+   "topic_b": "Censorship",
+   "similarity": 0.7873,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI policing",
+   "topic_b": "AI replacing  human judgement",
+   "similarity": 0.7793,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Defaults and choice",
+   "topic_b": "Concentration and defaults",
+   "similarity": 0.7779,
+   "a_described": true,
+   "b_described": true
+  },
+  {
+   "topic_a": "Social media deplatforming",
+   "topic_b": "Censorship",
+   "similarity": 0.7773,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Cancer",
+   "topic_b": "Cure for cancer",
+   "similarity": 0.7762,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "How results are ranked",
+   "topic_b": "Search engine optimisation",
+   "similarity": 0.775,
+   "a_described": true,
+   "b_described": true
+  },
+  {
+   "topic_a": "AI bias in hiring",
+   "topic_b": "AI disinformation",
+   "similarity": 0.772,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Military AI",
+   "topic_b": "Unregulated AI",
+   "similarity": 0.7712,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Artificial Intelligence and Search Engines",
+   "topic_b": "Artificial Intelligence General",
+   "similarity": 0.771,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "AI disinformation",
+   "topic_b": "Military AI",
+   "similarity": 0.7706,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Freedom of the press",
+   "topic_b": "Government control of the internet",
+   "similarity": 0.77,
+   "a_described": false,
+   "b_described": false
+  },
+  {
+   "topic_a": "Freedom of the press",
+   "topic_b": "Social media deplatforming",
+   "similarity": 0.7689,
+   "a_described": false,
+   "b_described": false
+  }
+ ],
+ "self_retrieval": {
+  "rows": [
+   {
+    "topic": "Surveillance AI",
+    "query": "facial recognition legal",
+    "rank": 6,
+    "top1": "Facial recognition regulation",
+    "own_score": 0.3197,
+    "margin": -0.4707
+   },
+   {
+    "topic": "Surveillance AI",
+    "query": "ai cameras watching",
+    "rank": 1,
+    "top1": "Surveillance AI",
+    "own_score": 0.6638,
+    "margin": 0.1046
+   },
+   {
+    "topic": "Surveillance AI",
+    "query": "predictive policing problems",
+    "rank": 5,
+    "top1": "AI policing",
+    "own_score": 0.3504,
+    "margin": -0.1092
+   },
+   {
+    "topic": "Surveillance AI",
+    "query": "emotion detection ai accuracy",
+    "rank": 8,
+    "top1": "AI replacing  human judgement",
+    "own_score": 0.4094,
+    "margin": -0.0973
+   },
+   {
+    "topic": "Algorithmic bias and how audits find it",
+    "query": "algorithmic bias examples",
+    "rank": 1,
+    "top1": "Algorithmic bias and how audits find it",
+    "own_score": 0.6686,
+    "margin": 0.1721
+   },
+   {
+    "topic": "Algorithmic bias and how audits find it",
+    "query": "is Google biased",
+    "rank": 2,
+    "top1": "The search engine manipulation effect",
+    "own_score": 0.5196,
+    "margin": -0.0597
+   },
+   {
+    "topic": "Algorithmic bias and how audits find it",
+    "query": "AI discrimination in search",
+    "rank": 8,
+    "top1": "AI bias in hiring",
+    "own_score": 0.5108,
+    "margin": -0.1483
+   },
+   {
+    "topic": "Algorithmic bias and how audits find it",
+    "query": "how do researchers audit search engines",
+    "rank": 1,
+    "top1": "Algorithmic bias and how audits find it",
+    "own_score": 0.483,
+    "margin": 0.055
+   },
+   {
+    "topic": "Algorithmic bias and how audits find it",
+    "query": "biased image search results",
+    "rank": 1,
+    "top1": "Algorithmic bias and how audits find it",
+    "own_score": 0.4885,
+    "margin": 0.0189
+   },
+   {
+    "topic": "Algorithmic bias and how audits find it",
+    "query": "do search results discriminate",
+    "rank": 5,
+    "top1": "Search literacy",
+    "own_score": 0.4344,
+    "margin": -0.0216
+   },
+   {
+    "topic": "Language inequality in search",
+    "query": "non-English search results",
+    "rank": 2,
+    "top1": "Whose world the results represent",
+    "own_score": 0.5667,
+    "margin": -0.0024
+   },
+   {
+    "topic": "Language inequality in search",
+    "query": "does Google work well in other languages",
+    "rank": 1,
+    "top1": "Language inequality in search",
+    "own_score": 0.5174,
+    "margin": 0.0968
+   },
+   {
+    "topic": "Language inequality in search",
+    "query": "English dominance on the internet",
+    "rank": 1,
+    "top1": "Language inequality in search",
+    "own_score": 0.5323,
+    "margin": 0.0137
+   },
+   {
+    "topic": "Language inequality in search",
+    "query": "searching in a minority language",
+    "rank": 1,
+    "top1": "Language inequality in search",
+    "own_score": 0.6237,
+    "margin": 0.1425
+   },
+   {
+    "topic": "Language inequality in search",
+    "query": "why are there fewer results in my language",
+    "rank": 1,
+    "top1": "Language inequality in search",
+    "own_score": 0.5827,
+    "margin": 0.1108
+   },
+   {
+    "topic": "Language inequality in search",
+    "query": "machine translated search results",
+    "rank": 1,
+    "top1": "Language inequality in search",
+    "own_score": 0.5427,
+    "margin": 0.0709
+   },
+   {
+    "topic": "The search engine manipulation effect",
+    "query": "can Google influence an election",
+    "rank": 1,
+    "top1": "The search engine manipulation effect",
+    "own_score": 0.6345,
+    "margin": 0.0458
+   },
+   {
+    "topic": "The search engine manipulation effect",
+    "query": "search engine manipulation effect",
+    "rank": 1,
+    "top1": "The search engine manipulation effect",
+    "own_score": 0.5741,
+    "margin": 0.0837
+   },
+   {
+    "topic": "The search engine manipulation effect",
+    "query": "do search results affect how people vote",
+    "rank": 1,
+    "top1": "The search engine manipulation effect",
+    "own_score": 0.6085,
+    "margin": 0.0954
+   },
+   {
+    "topic": "The search engine manipulation effect",
+    "query": "search results and elections",
+    "rank": 1,
+    "top1": "The search engine manipulation effect",
+    "own_score": 0.5367,
+    "margin": 0.0313
+   },
+   {
+    "topic": "The search engine manipulation effect",
+    "query": "can search rankings change opinions",
+    "rank": 1,
+    "top1": "The search engine manipulation effect",
+    "own_score": 0.5835,
+    "margin": 0.148
+   },
+   {
+    "topic": "The search engine manipulation effect",
+    "query": "is Google politically biased",
+    "rank": 1,
+    "top1": "The search engine manipulation effect",
+    "own_score": 0.6441,
+    "margin": 0.0704
+   },
+   {
+    "topic": "Whose world the results represent",
+    "query": "whose perspective does Google show",
+    "rank": 4,
+    "top1": "The Google effect on memory",
+    "own_score": 0.3679,
+    "margin": -0.0526
+   },
+   {
+    "topic": "Whose world the results represent",
+    "query": "western bias in search results",
+    "rank": 1,
+    "top1": "Whose world the results represent",
+    "own_score": 0.6173,
+    "margin": 0.1456
+   },
+   {
+    "topic": "Whose world the results represent",
+    "query": "who decides what counts as information",
+    "rank": 28,
+    "top1": "Wikipedia and how online knowledge is made",
+    "own_score": 0.2676,
+    "margin": -0.1228
+   },
+   {
+    "topic": "Whose world the results represent",
+    "query": "are search results biased toward America",
+    "rank": 1,
+    "top1": "Whose world the results represent",
+    "own_score": 0.6566,
+    "margin": 0.1506
+   },
+   {
+    "topic": "Whose world the results represent",
+    "query": "why are local sources missing from my search",
+    "rank": 1,
+    "top1": "Whose world the results represent",
+    "own_score": 0.5456,
+    "margin": 0.2369
+   },
+   {
+    "topic": "Whose world the results represent",
+    "query": "global south search results",
+    "rank": 1,
+    "top1": "Whose world the results represent",
+    "own_score": 0.5904,
+    "margin": 0.2127
+   },
+   {
+    "topic": "5G and mind control",
+    "query": "does 5g control your mind",
+    "rank": 1,
+    "top1": "5G and mind control",
+    "own_score": 0.67,
+    "margin": 0.1816
+   },
+   {
+    "topic": "5G and mind control",
+    "query": "5g vaccine chip",
+    "rank": 1,
+    "top1": "5G and mind control",
+    "own_score": 0.5373,
+    "margin": 0.1492
+   },
+   {
+    "topic": "5G and mind control",
+    "query": "5g towers dangerous mind",
+    "rank": 2,
+    "top1": "Impact of 5G on health",
+    "own_score": 0.653,
+    "margin": -0.0287
+   },
+   {
+    "topic": "COVID-19",
+    "query": "was covid planned",
+    "rank": 2,
+    "top1": "COVID-19 misinformation",
+    "own_score": 0.5553,
+    "margin": -0.0227
+   },
+   {
+    "topic": "COVID-19",
+    "query": "plandemic truth",
+    "rank": 1,
+    "top1": "COVID-19",
+    "own_score": 0.4487,
+    "margin": 0.0948
+   },
+   {
+    "topic": "COVID-19",
+    "query": "covid hoax evidence",
+    "rank": 1,
+    "top1": "COVID-19",
+    "own_score": 0.655,
+    "margin": 0.0299
+   },
+   {
+    "topic": "COVID-19",
+    "query": "what are they hiding about covid",
+    "rank": 2,
+    "top1": "COVID-19 misinformation",
+    "own_score": 0.5325,
+    "margin": -0.0443
+   },
+   {
+    "topic": "Flat earth theories",
+    "query": "is the earth really round",
+    "rank": 1,
+    "top1": "Flat earth theories",
+    "own_score": 0.5629,
+    "margin": 0.3996
+   },
+   {
+    "topic": "Flat earth theories",
+    "query": "flat earth proof",
+    "rank": 1,
+    "top1": "Flat earth theories",
+    "own_score": 0.6664,
+    "margin": 0.4587
+   },
+   {
+    "topic": "Flat earth theories",
+    "query": "why does the horizon look flat",
+    "rank": 1,
+    "top1": "Flat earth theories",
+    "own_score": 0.4642,
+    "margin": 0.2202
+   },
+   {
+    "topic": "Flat earth theories",
+    "query": "nasa lies about earth shape",
+    "rank": 1,
+    "top1": "Flat earth theories",
+    "own_score": 0.5754,
+    "margin": 0.3098
+   },
+   {
+    "topic": "Moon landing",
+    "query": "was the moon landing fake",
+    "rank": 1,
+    "top1": "Moon landing",
+    "own_score": 0.6846,
+    "margin": 0.3105
+   },
+   {
+    "topic": "Moon landing",
+    "query": "moon landing hoax evidence",
+    "rank": 1,
+    "top1": "Moon landing",
+    "own_score": 0.6985,
+    "margin": 0.2421
+   },
+   {
+    "topic": "Moon landing",
+    "query": "did we really go to the moon",
+    "rank": 1,
+    "top1": "Moon landing",
+    "own_score": 0.4748,
+    "margin": 0.239
+   },
+   {
+    "topic": "Moon landing",
+    "query": "apollo 11 staged",
+    "rank": 1,
+    "top1": "Moon landing",
+    "own_score": 0.4417,
+    "margin": 0.1753
+   },
+   {
+    "topic": "Detox diets",
+    "query": "do detox diets work",
+    "rank": 1,
+    "top1": "Detox diets",
+    "own_score": 0.6985,
+    "margin": 0.0321
+   },
+   {
+    "topic": "Detox diets",
+    "query": "3 day cleanse results",
+    "rank": 1,
+    "top1": "Detox diets",
+    "own_score": 0.3459,
+    "margin": 0.014
+   },
+   {
+    "topic": "Detox diets",
+    "query": "best detox tea",
+    "rank": 2,
+    "top1": "Digital detox",
+    "own_score": 0.5825,
+    "margin": -0.0302
+   },
+   {
+    "topic": "Detox diets",
+    "query": "how to detox your body fast",
+    "rank": 2,
+    "top1": "Digital detox",
+    "own_score": 0.5051,
+    "margin": -0.1279
+   },
+   {
+    "topic": "Keto diet risks",
+    "query": "is keto safe long term",
+    "rank": 1,
+    "top1": "Keto diet risks",
+    "own_score": 0.6352,
+    "margin": 0.2413
+   },
+   {
+    "topic": "Keto diet risks",
+    "query": "keto diet dangers",
+    "rank": 1,
+    "top1": "Keto diet risks",
+    "own_score": 0.7102,
+    "margin": 0.2488
+   },
+   {
+    "topic": "Keto diet risks",
+    "query": "keto side effects",
+    "rank": 1,
+    "top1": "Keto diet risks",
+    "own_score": 0.5992,
+    "margin": 0.3427
+   },
+   {
+    "topic": "Keto diet risks",
+    "query": "ketosis bad for kidneys",
+    "rank": 1,
+    "top1": "Keto diet risks",
+    "own_score": 0.5577,
+    "margin": 0.3198
+   },
+   {
+    "topic": "Cryptocurrency regulation",
+    "query": "is crypto legal",
+    "rank": 1,
+    "top1": "Cryptocurrency regulation",
+    "own_score": 0.5302,
+    "margin": 0.018
+   },
+   {
+    "topic": "Cryptocurrency regulation",
+    "query": "do I pay tax on bitcoin",
+    "rank": 3,
+    "top1": "Corporate tax loopholes",
+    "own_score": 0.2944,
+    "margin": -0.0861
+   },
+   {
+    "topic": "Cryptocurrency regulation",
+    "query": "crypto regulation news",
+    "rank": 1,
+    "top1": "Cryptocurrency regulation",
+    "own_score": 0.6687,
+    "margin": 0.1055
+   },
+   {
+    "topic": "Cryptocurrency regulation",
+    "query": "is binance regulated",
+    "rank": 1,
+    "top1": "Cryptocurrency regulation",
+    "own_score": 0.5628,
+    "margin": 0.2123
+   },
+   {
+    "topic": "Privacy-focused and alternative engines",
+    "query": "DuckDuckGo versus Google",
+    "rank": 1,
+    "top1": "Privacy-focused and alternative engines",
+    "own_score": 0.5911,
+    "margin": 0.3448
+   },
+   {
+    "topic": "Privacy-focused and alternative engines",
+    "query": "best private search engine",
+    "rank": 2,
+    "top1": "Artificial Intelligence and Search Engines",
+    "own_score": 0.5143,
+    "margin": -0.0095
+   },
+   {
+    "topic": "Privacy-focused and alternative engines",
+    "query": "alternatives to Google search",
+    "rank": 5,
+    "top1": "Artificial Intelligence and Search Engines",
+    "own_score": 0.4208,
+    "margin": -0.1169
+   },
+   {
+    "topic": "Privacy-focused and alternative engines",
+    "query": "does DuckDuckGo really not track you",
+    "rank": 1,
+    "top1": "Privacy-focused and alternative engines",
+    "own_score": 0.5822,
+    "margin": 0.2753
+   },
+   {
+    "topic": "Privacy-focused and alternative engines",
+    "query": "Startpage privacy",
+    "rank": 1,
+    "top1": "Privacy-focused and alternative engines",
+    "own_score": 0.5405,
+    "margin": 0.0893
+   },
+   {
+    "topic": "Privacy-focused and alternative engines",
+    "query": "a search engine that does not track me",
+    "rank": 1,
+    "top1": "Privacy-focused and alternative engines",
+    "own_score": 0.5794,
+    "margin": 0.1408
+   },
+   {
+    "topic": "Search literacy",
+    "query": "how do I know if a website is reliable",
+    "rank": 4,
+    "top1": "Wikipedia and how online knowledge is made",
+    "own_score": 0.292,
+    "margin": -0.1523
+   },
+   {
+    "topic": "Search literacy",
+    "query": "how to evaluate search results",
+    "rank": 1,
+    "top1": "Search literacy",
+    "own_score": 0.5506,
+    "margin": 0.021
+   },
+   {
+    "topic": "Search literacy",
+    "query": "how to check if a source is trustworthy",
+    "rank": 9,
+    "top1": "Health misinformation",
+    "own_score": 0.2516,
+    "margin": -0.1367
+   },
+   {
+    "topic": "Search literacy",
+    "query": "teaching search literacy",
+    "rank": 1,
+    "top1": "Search literacy",
+    "own_score": 0.6871,
+    "margin": 0.2337
+   },
+   {
+    "topic": "Search literacy",
+    "query": "lateral reading",
+    "rank": 1,
+    "top1": "Search literacy",
+    "own_score": 0.2361,
+    "margin": 0.0224
+   },
+   {
+    "topic": "Search literacy",
+    "query": "should I trust the first result",
+    "rank": 1,
+    "top1": "Search literacy",
+    "own_score": 0.3098,
+    "margin": 0.0287
+   },
+   {
+    "topic": "The right to be forgotten",
+    "query": "right to be forgotten",
+    "rank": 1,
+    "top1": "The right to be forgotten",
+    "own_score": 0.5057,
+    "margin": 0.2748
+   },
+   {
+    "topic": "The right to be forgotten",
+    "query": "how to remove my name from Google",
+    "rank": 1,
+    "top1": "The right to be forgotten",
+    "own_score": 0.2967,
+    "margin": 0.0703
+   },
+   {
+    "topic": "The right to be forgotten",
+    "query": "GDPR removal request search",
+    "rank": 1,
+    "top1": "The right to be forgotten",
+    "own_score": 0.4566,
+    "margin": 0.1199
+   },
+   {
+    "topic": "The right to be forgotten",
+    "query": "delete yourself from Google",
+    "rank": 1,
+    "top1": "The right to be forgotten",
+    "own_score": 0.3976,
+    "margin": 0.116
+   },
+   {
+    "topic": "The right to be forgotten",
+    "query": "can I get an article delisted",
+    "rank": 1,
+    "top1": "The right to be forgotten",
+    "own_score": 0.5135,
+    "margin": 0.1258
+   },
+   {
+    "topic": "The right to be forgotten",
+    "query": "why do some results say they may have been removed",
+    "rank": 1,
+    "top1": "The right to be forgotten",
+    "own_score": 0.5109,
+    "margin": 0.2466
+   },
+   {
+    "topic": "Who governs search",
+    "query": "who regulates Google",
+    "rank": 1,
+    "top1": "Who governs search",
+    "own_score": 0.6534,
+    "margin": 0.1467
+   },
+   {
+    "topic": "Who governs search",
+    "query": "EU Digital Markets Act",
+    "rank": 1,
+    "top1": "Who governs search",
+    "own_score": 0.3495,
+    "margin": 0.0172
+   },
+   {
+    "topic": "Who governs search",
+    "query": "antitrust case against Google",
+    "rank": 2,
+    "top1": "Tech monopolies and antitrust",
+    "own_score": 0.3828,
+    "margin": -0.054
+   },
+   {
+    "topic": "Who governs search",
+    "query": "who decides how search engines work",
+    "rank": 3,
+    "top1": "Artificial Intelligence and Search Engines",
+    "own_score": 0.5303,
+    "margin": -0.0711
+   },
+   {
+    "topic": "Who governs search",
+    "query": "is search regulated",
+    "rank": 1,
+    "top1": "Who governs search",
+    "own_score": 0.5373,
+    "margin": 0.0929
+   },
+   {
+    "topic": "Who governs search",
+    "query": "United States v Google",
+    "rank": 1,
+    "top1": "Who governs search",
+    "own_score": 0.3496,
+    "margin": 0.0369
+   },
+   {
+    "topic": "Covid",
+    "query": "covid symptoms now",
+    "rank": 1,
+    "top1": "Covid",
+    "own_score": 0.5966,
+    "margin": 0.0369
+   },
+   {
+    "topic": "Covid",
+    "query": "how long does covid last",
+    "rank": 1,
+    "top1": "Covid",
+    "own_score": 0.5351,
+    "margin": 0.0008
+   },
+   {
+    "topic": "Covid",
+    "query": "long covid signs",
+    "rank": 2,
+    "top1": "COVID-19 misinformation",
+    "own_score": 0.433,
+    "margin": -0.0206
+   },
+   {
+    "topic": "Covid",
+    "query": "covid booster eligibility",
+    "rank": 1,
+    "top1": "Covid",
+    "own_score": 0.4473,
+    "margin": 0.0839
+   },
+   {
+    "topic": "Covid",
+    "query": "is covid still around",
+    "rank": 2,
+    "top1": "COVID-19 misinformation",
+    "own_score": 0.5504,
+    "margin": -0.0501
+   },
+   {
+    "topic": "Vaccination",
+    "query": "are vaccines safe",
+    "rank": 1,
+    "top1": "Vaccination",
+    "own_score": 0.5874,
+    "margin": 0.1812
+   },
+   {
+    "topic": "Vaccination",
+    "query": "do vaccines cause autism",
+    "rank": 1,
+    "top1": "Vaccination",
+    "own_score": 0.5504,
+    "margin": 0.2384
+   },
+   {
+    "topic": "Vaccination",
+    "query": "vaccine side effects list",
+    "rank": 1,
+    "top1": "Vaccination",
+    "own_score": 0.5477,
+    "margin": 0.1371
+   },
+   {
+    "topic": "Vaccination",
+    "query": "should I vaccinate my child",
+    "rank": 1,
+    "top1": "Vaccination",
+    "own_score": 0.5197,
+    "margin": 0.2016
+   },
+   {
+    "topic": "Vaccination",
+    "query": "mmr jab risks",
+    "rank": 1,
+    "top1": "Vaccination",
+    "own_score": 0.423,
+    "margin": 0.1
+   },
+   {
+    "topic": "Accessibility of search",
+    "query": "is Google accessible for screen readers",
+    "rank": 1,
+    "top1": "Accessibility of search",
+    "own_score": 0.5472,
+    "margin": 0.1907
+   },
+   {
+    "topic": "Accessibility of search",
+    "query": "how do blind people use search",
+    "rank": 1,
+    "top1": "Accessibility of search",
+    "own_score": 0.5713,
+    "margin": 0.0464
+   },
+   {
+    "topic": "Accessibility of search",
+    "query": "does the results page work with a screen reader",
+    "rank": 1,
+    "top1": "Accessibility of search",
+    "own_score": 0.4032,
+    "margin": 0.0661
+   },
+   {
+    "topic": "Accessibility of search",
+    "query": "keyboard only navigation search results",
+    "rank": 1,
+    "top1": "Accessibility of search",
+    "own_score": 0.4418,
+    "margin": 0.1026
+   },
+   {
+    "topic": "Accessibility of search",
+    "query": "alt text on image search",
+    "rank": 2,
+    "top1": "Image search and reverse image search",
+    "own_score": 0.3919,
+    "margin": -0.0098
+   },
+   {
+    "topic": "Accessibility of search",
+    "query": "search engine accessibility",
+    "rank": 1,
+    "top1": "Accessibility of search",
+    "own_score": 0.6969,
+    "margin": 0.1906
+   },
+   {
+    "topic": "Children and search",
+    "query": "is Google safe for kids",
+    "rank": 1,
+    "top1": "Children and search",
+    "own_score": 0.7059,
+    "margin": 0.3563
+   },
+   {
+    "topic": "Children and search",
+    "query": "safe search for children",
+    "rank": 1,
+    "top1": "Children and search",
+    "own_score": 0.7502,
+    "margin": 0.3784
+   },
+   {
+    "topic": "Children and search",
+    "query": "do children understand search results",
+    "rank": 1,
+    "top1": "Children and search",
+    "own_score": 0.6628,
+    "margin": 0.0878
+   },
+   {
+    "topic": "Children and search",
+    "query": "autocomplete inappropriate suggestions for kids",
+    "rank": 1,
+    "top1": "Children and search",
+    "own_score": 0.4921,
+    "margin": 0.0351
+   },
+   {
+    "topic": "Children and search",
+    "query": "should children use Google",
+    "rank": 1,
+    "top1": "Children and search",
+    "own_score": 0.6898,
+    "margin": 0.3047
+   },
+   {
+    "topic": "Children and search",
+    "query": "parental controls on search",
+    "rank": 1,
+    "top1": "Children and search",
+    "own_score": 0.6826,
+    "margin": 0.2318
+   },
+   {
+    "topic": "Dark patterns and the design of consent",
+    "query": "what are dark patterns",
+    "rank": 1,
+    "top1": "Dark patterns and the design of consent",
+    "own_score": 0.5622,
+    "margin": 0.2592
+   },
+   {
+    "topic": "Dark patterns and the design of consent",
+    "query": "why is reject all so hard to find",
+    "rank": 7,
+    "top1": "Book bans",
+    "own_score": 0.2308,
+    "margin": -0.0508
+   },
+   {
+    "topic": "Dark patterns and the design of consent",
+    "query": "are cookie banners designed to trick you",
+    "rank": 2,
+    "top1": "Cookies and consent",
+    "own_score": 0.4724,
+    "margin": -0.0305
+   },
+   {
+    "topic": "Dark patterns and the design of consent",
+    "query": "what is a dark pattern in web design",
+    "rank": 1,
+    "top1": "Dark patterns and the design of consent",
+    "own_score": 0.66,
+    "margin": 0.2362
+   },
+   {
+    "topic": "Dark patterns and the design of consent",
+    "query": "how do websites manipulate your choices",
+    "rank": 3,
+    "top1": "Defaults and choice",
+    "own_score": 0.386,
+    "margin": -0.0364
+   },
+   {
+    "topic": "Filter bubbles, the evidence and the myth",
+    "query": "are filter bubbles real",
+    "rank": 1,
+    "top1": "Filter bubbles, the evidence and the myth",
+    "own_score": 0.6082,
+    "margin": 0.0506
+   },
+   {
+    "topic": "Filter bubbles, the evidence and the myth",
+    "query": "do filter bubbles actually exist",
+    "rank": 1,
+    "top1": "Filter bubbles, the evidence and the myth",
+    "own_score": 0.5901,
+    "margin": 0.1134
+   },
+   {
+    "topic": "Filter bubbles, the evidence and the myth",
+    "query": "is the echo chamber idea a myth",
+    "rank": 2,
+    "top1": "Social media echo chambers",
+    "own_score": 0.4131,
+    "margin": -0.0732
+   },
+   {
+    "topic": "Filter bubbles, the evidence and the myth",
+    "query": "does personalisation trap me in a bubble",
+    "rank": 1,
+    "top1": "Filter bubbles, the evidence and the myth",
+    "own_score": 0.5597,
+    "margin": 0.0843
+   },
+   {
+    "topic": "Filter bubbles, the evidence and the myth",
+    "query": "what does the evidence say about filter bubbles",
+    "rank": 1,
+    "top1": "Filter bubbles, the evidence and the myth",
+    "own_score": 0.6751,
+    "margin": 0.2561
+   },
+   {
+    "topic": "The Google effect on memory",
+    "query": "does Google make us forget things",
+    "rank": 1,
+    "top1": "The Google effect on memory",
+    "own_score": 0.6859,
+    "margin": 0.2295
+   },
+   {
+    "topic": "The Google effect on memory",
+    "query": "what is the Google effect on memory",
+    "rank": 1,
+    "top1": "The Google effect on memory",
+    "own_score": 0.7565,
+    "margin": 0.4446
+   },
+   {
+    "topic": "The Google effect on memory",
+    "query": "does searching weaken memory",
+    "rank": 1,
+    "top1": "The Google effect on memory",
+    "own_score": 0.6486,
+    "margin": 0.2659
+   },
+   {
+    "topic": "The Google effect on memory",
+    "query": "do we remember less because of the internet",
+    "rank": 1,
+    "top1": "The Google effect on memory",
+    "own_score": 0.5534,
+    "margin": 0.2159
+   },
+   {
+    "topic": "The Google effect on memory",
+    "query": "digital amnesia explained",
+    "rank": 1,
+    "top1": "The Google effect on memory",
+    "own_score": 0.412,
+    "margin": 0.0847
+   },
+   {
+    "topic": "AI Overviews and generative search",
+    "query": "what is Google AI overview",
+    "rank": 1,
+    "top1": "AI Overviews and generative search",
+    "own_score": 0.6434,
+    "margin": 0.0648
+   },
+   {
+    "topic": "AI Overviews and generative search",
+    "query": "is the AI summary at the top accurate",
+    "rank": 1,
+    "top1": "AI Overviews and generative search",
+    "own_score": 0.6751,
+    "margin": 0.165
+   },
+   {
+    "topic": "AI Overviews and generative search",
+    "query": "why is there an AI answer above my results",
+    "rank": 1,
+    "top1": "AI Overviews and generative search",
+    "own_score": 0.6034,
+    "margin": 0.0266
+   },
+   {
+    "topic": "AI Overviews and generative search",
+    "query": "can AI overviews be wrong",
+    "rank": 1,
+    "top1": "AI Overviews and generative search",
+    "own_score": 0.7287,
+    "margin": 0.1399
+   },
+   {
+    "topic": "AI Overviews and generative search",
+    "query": "AI overview versus the normal results",
+    "rank": 1,
+    "top1": "AI Overviews and generative search",
+    "own_score": 0.7275,
+    "margin": 0.1668
+   },
+   {
+    "topic": "Autocomplete and query suggestions",
+    "query": "how does Google autocomplete work",
+    "rank": 1,
+    "top1": "Autocomplete and query suggestions",
+    "own_score": 0.5778,
+    "margin": 0.2304
+   },
+   {
+    "topic": "Autocomplete and query suggestions",
+    "query": "why does search suggest these questions",
+    "rank": 1,
+    "top1": "Autocomplete and query suggestions",
+    "own_score": 0.5677,
+    "margin": 0.1084
+   },
+   {
+    "topic": "Autocomplete and query suggestions",
+    "query": "where do search predictions come from",
+    "rank": 1,
+    "top1": "Autocomplete and query suggestions",
+    "own_score": 0.5488,
+    "margin": 0.051
+   },
+   {
+    "topic": "Autocomplete and query suggestions",
+    "query": "can autocomplete be biased",
+    "rank": 1,
+    "top1": "Autocomplete and query suggestions",
+    "own_score": 0.5683,
+    "margin": 0.3551
+   },
+   {
+    "topic": "Autocomplete and query suggestions",
+    "query": "why does it finish my search for me",
+    "rank": 2,
+    "top1": "Personalisation and why your results differ",
+    "own_score": 0.3865,
+    "margin": -0.0572
+   },
+   {
+    "topic": "Data voids",
+    "query": "what is a data void",
+    "rank": 1,
+    "top1": "Data voids",
+    "own_score": 0.5855,
+    "margin": 0.296
+   },
+   {
+    "topic": "Data voids",
+    "query": "why are search results bad for breaking news",
+    "rank": 7,
+    "top1": "Algorithmic bias in news feeds",
+    "own_score": 0.3875,
+    "margin": -0.1013
+   },
+   {
+    "topic": "Data voids",
+    "query": "no good results for my search",
+    "rank": 16,
+    "top1": "Advertising and sponsored results",
+    "own_score": 0.2848,
+    "margin": -0.1525
+   },
+   {
+    "topic": "Data voids",
+    "query": "why do fringe sites rank for this topic",
+    "rank": 1,
+    "top1": "Data voids",
+    "own_score": 0.4273,
+    "margin": 0.0222
+   },
+   {
+    "topic": "Data voids",
+    "query": "information gaps online",
+    "rank": 1,
+    "top1": "Data voids",
+    "own_score": 0.503,
+    "margin": 0.1342
+   },
+   {
+    "topic": "Data voids",
+    "query": "searching something obscure",
+    "rank": 1,
+    "top1": "Data voids",
+    "own_score": 0.4237,
+    "margin": 0.0124
+   },
+   {
+    "topic": "How results are ranked",
+    "query": "how does Google rank pages",
+    "rank": 1,
+    "top1": "How results are ranked",
+    "own_score": 0.5806,
+    "margin": 0.0642
+   },
+   {
+    "topic": "How results are ranked",
+    "query": "why is this result first",
+    "rank": 1,
+    "top1": "How results are ranked",
+    "own_score": 0.2587,
+    "margin": 0.0262
+   },
+   {
+    "topic": "How results are ranked",
+    "query": "how does search decide what to show",
+    "rank": 4,
+    "top1": "Search literacy",
+    "own_score": 0.5423,
+    "margin": -0.0582
+   },
+   {
+    "topic": "How results are ranked",
+    "query": "what are ranking signals",
+    "rank": 1,
+    "top1": "How results are ranked",
+    "own_score": 0.6009,
+    "margin": 0.1926
+   },
+   {
+    "topic": "How results are ranked",
+    "query": "why does the top result win",
+    "rank": 1,
+    "top1": "How results are ranked",
+    "own_score": 0.4122,
+    "margin": 0.1327
+   },
+   {
+    "topic": "Knowledge panels and featured snippets",
+    "query": "what is a featured snippet",
+    "rank": 1,
+    "top1": "Knowledge panels and featured snippets",
+    "own_score": 0.5858,
+    "margin": 0.2791
+   },
+   {
+    "topic": "Knowledge panels and featured snippets",
+    "query": "who controls the Google knowledge panel",
+    "rank": 1,
+    "top1": "Knowledge panels and featured snippets",
+    "own_score": 0.4148,
+    "margin": 0.0569
+   },
+   {
+    "topic": "Knowledge panels and featured snippets",
+    "query": "why does one answer appear at the top",
+    "rank": 1,
+    "top1": "Knowledge panels and featured snippets",
+    "own_score": 0.4136,
+    "margin": 0.0953
+   },
+   {
+    "topic": "Knowledge panels and featured snippets",
+    "query": "is the box at the top of Google accurate",
+    "rank": 1,
+    "top1": "Knowledge panels and featured snippets",
+    "own_score": 0.4536,
+    "margin": 0.1812
+   },
+   {
+    "topic": "Knowledge panels and featured snippets",
+    "query": "where does the knowledge panel get its information",
+    "rank": 1,
+    "top1": "Knowledge panels and featured snippets",
+    "own_score": 0.5065,
+    "margin": 0.1251
+   },
+   {
+    "topic": "Knowledge panels and featured snippets",
+    "query": "how do I get a featured snippet",
+    "rank": 1,
+    "top1": "Knowledge panels and featured snippets",
+    "own_score": 0.5621,
+    "margin": 0.3444
+   },
+   {
+    "topic": "Personalisation and why your results differ",
+    "query": "why are my search results different from someone else's",
+    "rank": 1,
+    "top1": "Personalisation and why your results differ",
+    "own_score": 0.6645,
+    "margin": 0.1904
+   },
+   {
+    "topic": "Personalisation and why your results differ",
+    "query": "does Google personalise my results",
+    "rank": 1,
+    "top1": "Personalisation and why your results differ",
+    "own_score": 0.6075,
+    "margin": 0.1499
+   },
+   {
+    "topic": "Personalisation and why your results differ",
+    "query": "why do I see different results to my friend",
+    "rank": 1,
+    "top1": "Personalisation and why your results differ",
+    "own_score": 0.5199,
+    "margin": 0.2141
+   },
+   {
+    "topic": "Personalisation and why your results differ",
+    "query": "how does search use my history",
+    "rank": 1,
+    "top1": "Personalisation and why your results differ",
+    "own_score": 0.5122,
+    "margin": 0.06
+   },
+   {
+    "topic": "Personalisation and why your results differ",
+    "query": "are my results based on me",
+    "rank": 1,
+    "top1": "Personalisation and why your results differ",
+    "own_score": 0.4776,
+    "margin": 0.1436
+   },
+   {
+    "topic": "Search engine optimisation",
+    "query": "what is SEO",
+    "rank": 1,
+    "top1": "Search engine optimisation",
+    "own_score": 0.5287,
+    "margin": 0.1087
+   },
+   {
+    "topic": "Search engine optimisation",
+    "query": "how to rank higher on Google",
+    "rank": 2,
+    "top1": "How results are ranked",
+    "own_score": 0.4165,
+    "margin": -0.0441
+   },
+   {
+    "topic": "Search engine optimisation",
+    "query": "why do some websites appear first",
+    "rank": 5,
+    "top1": "How results are ranked",
+    "own_score": 0.2686,
+    "margin": -0.0443
+   },
+   {
+    "topic": "Search engine optimisation",
+    "query": "why are product review sites all the same",
+    "rank": 10,
+    "top1": "Fad diets vs. evidence-based diets",
+    "own_score": 0.2073,
+    "margin": -0.0473
+   },
+   {
+    "topic": "Search engine optimisation",
+    "query": "SEO spam",
+    "rank": 9,
+    "top1": "Privacy-focused and alternative engines",
+    "own_score": 0.3168,
+    "margin": -0.0274
+   },
+   {
+    "topic": "Search engine optimisation",
+    "query": "is Google getting worse",
+    "rank": 3,
+    "top1": "The Google effect on memory",
+    "own_score": 0.3625,
+    "margin": -0.0995
+   },
+   {
+    "topic": "Fact-checking",
+    "query": "how to fact check",
+    "rank": 1,
+    "top1": "Fact-checking",
+    "own_score": 0.5409,
+    "margin": 0.1517
+   },
+   {
+    "topic": "Fact-checking",
+    "query": "is this story true",
+    "rank": 24,
+    "top1": "Fake historical events",
+    "own_score": 0.194,
+    "margin": -0.1876
+   },
+   {
+    "topic": "Fact-checking",
+    "query": "best fact checking sites",
+    "rank": 1,
+    "top1": "Fact-checking",
+    "own_score": 0.62,
+    "margin": 0.142
+   },
+   {
+    "topic": "Fact-checking",
+    "query": "verify a photo online",
+    "rank": 10,
+    "top1": "Image search and reverse image search",
+    "own_score": 0.2519,
+    "margin": -0.1267
+   },
+   {
+    "topic": "Health misinformation",
+    "query": "is this cure real",
+    "rank": 2,
+    "top1": "Cure for cancer",
+    "own_score": 0.3732,
+    "margin": -0.1303
+   },
+   {
+    "topic": "Health misinformation",
+    "query": "miracle cure shared on facebook",
+    "rank": 2,
+    "top1": "Cure for cancer",
+    "own_score": 0.4864,
+    "margin": -0.0571
+   },
+   {
+    "topic": "Health misinformation",
+    "query": "fake health news examples",
+    "rank": 1,
+    "top1": "Health misinformation",
+    "own_score": 0.6654,
+    "margin": 0.0117
+   },
+   {
+    "topic": "Health misinformation",
+    "query": "can I trust health advice online",
+    "rank": 1,
+    "top1": "Health misinformation",
+    "own_score": 0.6262,
+    "margin": 0.1597
+   },
+   {
+    "topic": "Asking a chatbot instead of searching",
+    "query": "should I use ChatGPT instead of Google",
+    "rank": 1,
+    "top1": "Asking a chatbot instead of searching",
+    "own_score": 0.389,
+    "margin": 0.0997
+   },
+   {
+    "topic": "Asking a chatbot instead of searching",
+    "query": "is it better to ask a chatbot or search",
+    "rank": 1,
+    "top1": "Asking a chatbot instead of searching",
+    "own_score": 0.6567,
+    "margin": 0.2411
+   },
+   {
+    "topic": "Asking a chatbot instead of searching",
+    "query": "can I trust what ChatGPT tells me",
+    "rank": 1,
+    "top1": "Asking a chatbot instead of searching",
+    "own_score": 0.3794,
+    "margin": 0.0274
+   },
+   {
+    "topic": "Asking a chatbot instead of searching",
+    "query": "why does the chatbot give different answers each time",
+    "rank": 1,
+    "top1": "Asking a chatbot instead of searching",
+    "own_score": 0.5505,
+    "margin": 0.1746
+   },
+   {
+    "topic": "Asking a chatbot instead of searching",
+    "query": "do chatbots make things up",
+    "rank": 1,
+    "top1": "Asking a chatbot instead of searching",
+    "own_score": 0.5157,
+    "margin": 0.2023
+   },
+   {
+    "topic": "Generative engine optimisation",
+    "query": "what is generative engine optimisation",
+    "rank": 1,
+    "top1": "Generative engine optimisation",
+    "own_score": 0.5709,
+    "margin": 0.0489
+   },
+   {
+    "topic": "Generative engine optimisation",
+    "query": "how do brands get mentioned in AI answers",
+    "rank": 1,
+    "top1": "Generative engine optimisation",
+    "own_score": 0.5355,
+    "margin": 0.0116
+   },
+   {
+    "topic": "Generative engine optimisation",
+    "query": "can you optimise content for ChatGPT",
+    "rank": 2,
+    "top1": "Asking a chatbot instead of searching",
+    "own_score": 0.2798,
+    "margin": -0.0201
+   },
+   {
+    "topic": "Generative engine optimisation",
+    "query": "why does the same brand keep appearing in AI results",
+    "rank": 3,
+    "top1": "AI disinformation",
+    "own_score": 0.4602,
+    "margin": -0.0587
+   },
+   {
+    "topic": "Generative engine optimisation",
+    "query": "GEO versus SEO",
+    "rank": 5,
+    "top1": "Whose world the results represent",
+    "own_score": 0.3652,
+    "margin": -0.0919
+   },
+   {
+    "topic": "Image search and reverse image search",
+    "query": "how does reverse image search work",
+    "rank": 1,
+    "top1": "Image search and reverse image search",
+    "own_score": 0.676,
+    "margin": 0.3283
+   },
+   {
+    "topic": "Image search and reverse image search",
+    "query": "how to find where an image came from",
+    "rank": 1,
+    "top1": "Image search and reverse image search",
+    "own_score": 0.5478,
+    "margin": 0.2894
+   },
+   {
+    "topic": "Image search and reverse image search",
+    "query": "how to check if a photo is real",
+    "rank": 1,
+    "top1": "Image search and reverse image search",
+    "own_score": 0.4983,
+    "margin": 0.2169
+   },
+   {
+    "topic": "Image search and reverse image search",
+    "query": "find the original of a picture",
+    "rank": 1,
+    "top1": "Image search and reverse image search",
+    "own_score": 0.4188,
+    "margin": 0.2469
+   },
+   {
+    "topic": "Image search and reverse image search",
+    "query": "is this image old or out of context",
+    "rank": 1,
+    "top1": "Image search and reverse image search",
+    "own_score": 0.3693,
+    "margin": 0.0861
+   },
+   {
+    "topic": "Maps as search",
+    "query": "why does Google Maps show different borders",
+    "rank": 1,
+    "top1": "Maps as search",
+    "own_score": 0.5687,
+    "margin": 0.2674
+   },
+   {
+    "topic": "Maps as search",
+    "query": "is Crimea shown as part of Russia on maps",
+    "rank": 1,
+    "top1": "Maps as search",
+    "own_score": 0.506,
+    "margin": 0.1459
+   },
+   {
+    "topic": "Maps as search",
+    "query": "why are map results different by country",
+    "rank": 1,
+    "top1": "Maps as search",
+    "own_score": 0.6265,
+    "margin": 0.1524
+   },
+   {
+    "topic": "Maps as search",
+    "query": "are the pins on maps paid for",
+    "rank": 1,
+    "top1": "Maps as search",
+    "own_score": 0.3869,
+    "margin": 0.1785
+   },
+   {
+    "topic": "Maps as search",
+    "query": "do maps take sides on disputed borders",
+    "rank": 1,
+    "top1": "Maps as search",
+    "own_score": 0.6301,
+    "margin": 0.3621
+   },
+   {
+    "topic": "Recommendation systems",
+    "query": "how do recommendation algorithms work",
+    "rank": 1,
+    "top1": "Recommendation systems",
+    "own_score": 0.6427,
+    "margin": 0.26
+   },
+   {
+    "topic": "Recommendation systems",
+    "query": "why does YouTube recommend these videos",
+    "rank": 1,
+    "top1": "Recommendation systems",
+    "own_score": 0.3352,
+    "margin": 0.0524
+   },
+   {
+    "topic": "Recommendation systems",
+    "query": "how does Netflix know what I like",
+    "rank": 1,
+    "top1": "Recommendation systems",
+    "own_score": 0.3756,
+    "margin": 0.0147
+   },
+   {
+    "topic": "Recommendation systems",
+    "query": "why does autoplay keep going",
+    "rank": 11,
+    "top1": "Autocomplete and query suggestions",
+    "own_score": 0.1388,
+    "margin": -0.1111
+   },
+   {
+    "topic": "Recommendation systems",
+    "query": "how do recommended feeds decide what to show",
+    "rank": 1,
+    "top1": "Recommendation systems",
+    "own_score": 0.5716,
+    "margin": 0.0534
+   },
+   {
+    "topic": "Trending and what counts as trending",
+    "query": "how does Twitter decide what is trending",
+    "rank": 1,
+    "top1": "Trending and what counts as trending",
+    "own_score": 0.5842,
+    "margin": 0.1132
+   },
+   {
+    "topic": "Trending and what counts as trending",
+    "query": "what does trending actually mean",
+    "rank": 1,
+    "top1": "Trending and what counts as trending",
+    "own_score": 0.635,
+    "margin": 0.2711
+   },
+   {
+    "topic": "Trending and what counts as trending",
+    "query": "can trending topics be faked",
+    "rank": 1,
+    "top1": "Trending and what counts as trending",
+    "own_score": 0.5582,
+    "margin": 0.1091
+   },
+   {
+    "topic": "Trending and what counts as trending",
+    "query": "how do hashtags start trending",
+    "rank": 1,
+    "top1": "Trending and what counts as trending",
+    "own_score": 0.431,
+    "margin": 0.2184
+   },
+   {
+    "topic": "Trending and what counts as trending",
+    "query": "why is this trending right now",
+    "rank": 1,
+    "top1": "Trending and what counts as trending",
+    "own_score": 0.4869,
+    "margin": 0.1237
+   },
+   {
+    "topic": "Voice assistants and the single spoken answer",
+    "query": "how does Alexa choose its answer",
+    "rank": 1,
+    "top1": "Voice assistants and the single spoken answer",
+    "own_score": 0.5427,
+    "margin": 0.1982
+   },
+   {
+    "topic": "Voice assistants and the single spoken answer",
+    "query": "where does Siri get its answers from",
+    "rank": 1,
+    "top1": "Voice assistants and the single spoken answer",
+    "own_score": 0.4265,
+    "margin": 0.0807
+   },
+   {
+    "topic": "Voice assistants and the single spoken answer",
+    "query": "why does the voice assistant give only one answer",
+    "rank": 1,
+    "top1": "Voice assistants and the single spoken answer",
+    "own_score": 0.6612,
+    "margin": 0.3496
+   },
+   {
+    "topic": "Voice assistants and the single spoken answer",
+    "query": "can I trust what Google Assistant tells me",
+    "rank": 1,
+    "top1": "Voice assistants and the single spoken answer",
+    "own_score": 0.4157,
+    "margin": 0.0457
+   },
+   {
+    "topic": "Voice assistants and the single spoken answer",
+    "query": "does voice search show its sources",
+    "rank": 1,
+    "top1": "Voice assistants and the single spoken answer",
+    "own_score": 0.6301,
+    "margin": 0.197
+   },
+   {
+    "topic": "Donald Trump's 2016 presidential campaign",
+    "query": "who won the 2016 election",
+    "rank": 1,
+    "top1": "Donald Trump's 2016 presidential campaign",
+    "own_score": 0.547,
+    "margin": 0.0468
+   },
+   {
+    "topic": "Donald Trump's 2016 presidential campaign",
+    "query": "why did trump win 2016",
+    "rank": 1,
+    "top1": "Donald Trump's 2016 presidential campaign",
+    "own_score": 0.6105,
+    "margin": 0.2778
+   },
+   {
+    "topic": "Donald Trump's 2016 presidential campaign",
+    "query": "trump hillary results",
+    "rank": 1,
+    "top1": "Donald Trump's 2016 presidential campaign",
+    "own_score": 0.5432,
+    "margin": 0.0841
+   },
+   {
+    "topic": "Donald Trump's 2016 presidential campaign",
+    "query": "2016 electoral map",
+    "rank": 2,
+    "top1": "U.S. Election 2024",
+    "own_score": 0.4465,
+    "margin": -0.0441
+   },
+   {
+    "topic": "Government surveillance",
+    "query": "is the government watching me",
+    "rank": 2,
+    "top1": "Mass government surveillance",
+    "own_score": 0.4322,
+    "margin": -0.0578
+   },
+   {
+    "topic": "Government surveillance",
+    "query": "can police read my texts",
+    "rank": 6,
+    "top1": "Encryption laws",
+    "own_score": 0.3567,
+    "margin": -0.1134
+   },
+   {
+    "topic": "Government surveillance",
+    "query": "nsa surveillance programs",
+    "rank": 2,
+    "top1": "Mass government surveillance",
+    "own_score": 0.6403,
+    "margin": -0.0272
+   },
+   {
+    "topic": "Government surveillance",
+    "query": "uk surveillance laws",
+    "rank": 4,
+    "top1": "Encryption laws",
+    "own_score": 0.494,
+    "margin": -0.1186
+   },
+   {
+    "topic": "U.S. Election 2024",
+    "query": "2024 election results",
+    "rank": 1,
+    "top1": "U.S. Election 2024",
+    "own_score": 0.7119,
+    "margin": 0.2789
+   },
+   {
+    "topic": "U.S. Election 2024",
+    "query": "who is winning 2024 polls",
+    "rank": 1,
+    "top1": "U.S. Election 2024",
+    "own_score": 0.62,
+    "margin": 0.2841
+   },
+   {
+    "topic": "U.S. Election 2024",
+    "query": "biden trump 2024",
+    "rank": 1,
+    "top1": "U.S. Election 2024",
+    "own_score": 0.5407,
+    "margin": 0.1599
+   },
+   {
+    "topic": "U.S. Election 2024",
+    "query": "where do I vote 2024",
+    "rank": 1,
+    "top1": "U.S. Election 2024",
+    "own_score": 0.6952,
+    "margin": 0.3359
+   },
+   {
+    "topic": "Right to digital privacy",
+    "query": "what does google know about me",
+    "rank": 4,
+    "top1": "The Google effect on memory",
+    "own_score": 0.411,
+    "margin": -0.0669
+   },
+   {
+    "topic": "Right to digital privacy",
+    "query": "how to delete my data",
+    "rank": 7,
+    "top1": "The right to be forgotten",
+    "own_score": 0.2104,
+    "margin": -0.1021
+   },
+   {
+    "topic": "Right to digital privacy",
+    "query": "gdpr rights explained",
+    "rank": 1,
+    "top1": "Right to digital privacy",
+    "own_score": 0.4623,
+    "margin": 0.1193
+   },
+   {
+    "topic": "Right to digital privacy",
+    "query": "stop websites tracking me",
+    "rank": 14,
+    "top1": "Privacy-focused and alternative engines",
+    "own_score": 0.2667,
+    "margin": -0.1954
+   },
+   {
+    "topic": "Impact of 5G on health",
+    "query": "is 5g safe",
+    "rank": 1,
+    "top1": "Impact of 5G on health",
+    "own_score": 0.7014,
+    "margin": 0.1377
+   },
+   {
+    "topic": "Impact of 5G on health",
+    "query": "5g health risks",
+    "rank": 1,
+    "top1": "Impact of 5G on health",
+    "own_score": 0.7974,
+    "margin": 0.1989
+   },
+   {
+    "topic": "Impact of 5G on health",
+    "query": "living near 5g tower",
+    "rank": 1,
+    "top1": "Impact of 5G on health",
+    "own_score": 0.6075,
+    "margin": 0.2084
+   },
+   {
+    "topic": "Impact of 5G on health",
+    "query": "does 5g cause cancer",
+    "rank": 1,
+    "top1": "Impact of 5G on health",
+    "own_score": 0.6882,
+    "margin": 0.1664
+   },
+   {
+    "topic": "Impact of 5G on health",
+    "query": "5g coronavirus link",
+    "rank": 1,
+    "top1": "Impact of 5G on health",
+    "own_score": 0.4612,
+    "margin": 0.1114
+   },
+   {
+    "topic": "Ad tracking and what you reveal by searching",
+    "query": "is Google tracking my searches",
+    "rank": 2,
+    "top1": "Privacy-focused and alternative engines",
+    "own_score": 0.5643,
+    "margin": -0.0097
+   },
+   {
+    "topic": "Ad tracking and what you reveal by searching",
+    "query": "why do ads follow me after I search for something",
+    "rank": 1,
+    "top1": "Ad tracking and what you reveal by searching",
+    "own_score": 0.5606,
+    "margin": 0.0308
+   },
+   {
+    "topic": "Ad tracking and what you reveal by searching",
+    "query": "what data does search collect about me",
+    "rank": 3,
+    "top1": "Personalisation and why your results differ",
+    "own_score": 0.4642,
+    "margin": -0.0773
+   },
+   {
+    "topic": "Ad tracking and what you reveal by searching",
+    "query": "are my searches used for advertising",
+    "rank": 2,
+    "top1": "Advertising and sponsored results",
+    "own_score": 0.5679,
+    "margin": -0.0109
+   },
+   {
+    "topic": "Ad tracking and what you reveal by searching",
+    "query": "how do I stop search tracking me",
+    "rank": 1,
+    "top1": "Ad tracking and what you reveal by searching",
+    "own_score": 0.5079,
+    "margin": 0.0819
+   },
+   {
+    "topic": "Advertising and sponsored results",
+    "query": "are the top Google results ads",
+    "rank": 1,
+    "top1": "Advertising and sponsored results",
+    "own_score": 0.5897,
+    "margin": 0.2019
+   },
+   {
+    "topic": "Advertising and sponsored results",
+    "query": "what does sponsored mean in search",
+    "rank": 1,
+    "top1": "Advertising and sponsored results",
+    "own_score": 0.606,
+    "margin": 0.2274
+   },
+   {
+    "topic": "Advertising and sponsored results",
+    "query": "why are there ads at the top of search",
+    "rank": 1,
+    "top1": "Advertising and sponsored results",
+    "own_score": 0.6402,
+    "margin": 0.1464
+   },
+   {
+    "topic": "Advertising and sponsored results",
+    "query": "how do I tell ads from real results",
+    "rank": 1,
+    "top1": "Advertising and sponsored results",
+    "own_score": 0.6339,
+    "margin": 0.2219
+   },
+   {
+    "topic": "Advertising and sponsored results",
+    "query": "are search ads clearly labelled",
+    "rank": 1,
+    "top1": "Advertising and sponsored results",
+    "own_score": 0.5694,
+    "margin": 0.1451
+   },
+   {
+    "topic": "Cookies and consent",
+    "query": "what are cookies",
+    "rank": 1,
+    "top1": "Cookies and consent",
+    "own_score": 0.4139,
+    "margin": 0.1019
+   },
+   {
+    "topic": "Cookies and consent",
+    "query": "why does every site ask about cookies",
+    "rank": 1,
+    "top1": "Cookies and consent",
+    "own_score": 0.5161,
+    "margin": 0.1033
+   },
+   {
+    "topic": "Cookies and consent",
+    "query": "cookie consent pop-up",
+    "rank": 1,
+    "top1": "Cookies and consent",
+    "own_score": 0.5442,
+    "margin": 0.1268
+   },
+   {
+    "topic": "Cookies and consent",
+    "query": "are cookies bad",
+    "rank": 1,
+    "top1": "Cookies and consent",
+    "own_score": 0.3161,
+    "margin": 0.0282
+   },
+   {
+    "topic": "Cookies and consent",
+    "query": "what happens if I accept all cookies",
+    "rank": 1,
+    "top1": "Cookies and consent",
+    "own_score": 0.3378,
+    "margin": 0.0967
+   },
+   {
+    "topic": "Cookies and consent",
+    "query": "how many trackers are on this site",
+    "rank": 1,
+    "top1": "Cookies and consent",
+    "own_score": 0.3548,
+    "margin": 0.0499
+   },
+   {
+    "topic": "Defaults and choice",
+    "query": "why is Google the default search engine on my phone",
+    "rank": 1,
+    "top1": "Defaults and choice",
+    "own_score": 0.595,
+    "margin": 0.0775
+   },
+   {
+    "topic": "Defaults and choice",
+    "query": "how to change my default search engine",
+    "rank": 1,
+    "top1": "Defaults and choice",
+    "own_score": 0.51,
+    "margin": 0.0207
+   },
+   {
+    "topic": "Defaults and choice",
+    "query": "who decides which search engine my device uses",
+    "rank": 1,
+    "top1": "Defaults and choice",
+    "own_score": 0.5759,
+    "margin": 0.077
+   },
+   {
+    "topic": "Defaults and choice",
+    "query": "how much does Google pay Apple",
+    "rank": 3,
+    "top1": "Artificial Intelligence and Search Engines",
+    "own_score": 0.1972,
+    "margin": -0.0592
+   },
+   {
+    "topic": "Defaults and choice",
+    "query": "default browser search settings",
+    "rank": 2,
+    "top1": "Concentration and defaults",
+    "own_score": 0.5249,
+    "margin": -0.0383
+   },
+   {
+    "topic": "Defaults and choice",
+    "query": "search engine choice screen",
+    "rank": 1,
+    "top1": "Defaults and choice",
+    "own_score": 0.4645,
+    "margin": 0.0769
+   },
+   {
+    "topic": "The attention economy and engagement ranking",
+    "query": "attention economy",
+    "rank": 1,
+    "top1": "The attention economy and engagement ranking",
+    "own_score": 0.5447,
+    "margin": 0.1425
+   },
+   {
+    "topic": "The attention economy and engagement ranking",
+    "query": "why does the algorithm show me this",
+    "rank": 11,
+    "top1": "Algorithmic bias in news feeds",
+    "own_score": 0.1544,
+    "margin": -0.172
+   },
+   {
+    "topic": "The attention economy and engagement ranking",
+    "query": "how do apps keep you scrolling",
+    "rank": 1,
+    "top1": "The attention economy and engagement ranking",
+    "own_score": 0.3763,
+    "margin": 0.0855
+   },
+   {
+    "topic": "The attention economy and engagement ranking",
+    "query": "why is my feed so angry",
+    "rank": 5,
+    "top1": "Algorithmic bias in news feeds",
+    "own_score": 0.2955,
+    "margin": -0.1498
+   },
+   {
+    "topic": "The attention economy and engagement ranking",
+    "query": "engagement based ranking",
+    "rank": 1,
+    "top1": "The attention economy and engagement ranking",
+    "own_score": 0.4762,
+    "margin": 0.1607
+   },
+   {
+    "topic": "The attention economy and engagement ranking",
+    "query": "doomscrolling",
+    "rank": 1,
+    "top1": "The attention economy and engagement ranking",
+    "own_score": 0.1963,
+    "margin": 0.0202
+   },
+   {
+    "topic": "Concentration and defaults",
+    "query": "why does everyone use Google",
+    "rank": 4,
+    "top1": "The Google effect on memory",
+    "own_score": 0.4128,
+    "margin": -0.0411
+   },
+   {
+    "topic": "Concentration and defaults",
+    "query": "how much of search does Google control",
+    "rank": 5,
+    "top1": "Children and search",
+    "own_score": 0.415,
+    "margin": -0.0644
+   },
+   {
+    "topic": "Concentration and defaults",
+    "query": "why is Google the default search engine",
+    "rank": 1,
+    "top1": "Concentration and defaults",
+    "own_score": 0.5831,
+    "margin": 0.0193
+   },
+   {
+    "topic": "Concentration and defaults",
+    "query": "are a few companies controlling how we search",
+    "rank": 7,
+    "top1": "Artificial Intelligence and Search Engines",
+    "own_score": 0.4519,
+    "margin": -0.0868
+   },
+   {
+    "topic": "Concentration and defaults",
+    "query": "what are the alternatives to the big tech defaults",
+    "rank": 1,
+    "top1": "Concentration and defaults",
+    "own_score": 0.5705,
+    "margin": 0.0918
+   },
+   {
+    "topic": "Training data and the open web",
+    "query": "where do AI models get their training data",
+    "rank": 1,
+    "top1": "Training data and the open web",
+    "own_score": 0.6335,
+    "margin": 0.1429
+   },
+   {
+    "topic": "Training data and the open web",
+    "query": "did AI scrape my website",
+    "rank": 1,
+    "top1": "Training data and the open web",
+    "own_score": 0.4903,
+    "margin": 0.047
+   },
+   {
+    "topic": "Training data and the open web",
+    "query": "do AI answers reduce website traffic",
+    "rank": 1,
+    "top1": "Training data and the open web",
+    "own_score": 0.6722,
+    "margin": 0.1246
+   },
+   {
+    "topic": "Training data and the open web",
+    "query": "is AI trained on copyrighted content",
+    "rank": 1,
+    "top1": "Training data and the open web",
+    "own_score": 0.6229,
+    "margin": 0.0155
+   },
+   {
+    "topic": "Training data and the open web",
+    "query": "what happens to the open web when AI answers everything",
+    "rank": 1,
+    "top1": "Training data and the open web",
+    "own_score": 0.7684,
+    "margin": 0.2613
+   },
+   {
+    "topic": "Wikipedia and how online knowledge is made",
+    "query": "how reliable is Wikipedia",
+    "rank": 1,
+    "top1": "Wikipedia and how online knowledge is made",
+    "own_score": 0.6413,
+    "margin": 0.3332
+   },
+   {
+    "topic": "Wikipedia and how online knowledge is made",
+    "query": "who actually writes Wikipedia",
+    "rank": 1,
+    "top1": "Wikipedia and how online knowledge is made",
+    "own_score": 0.5699,
+    "margin": 0.2752
+   },
+   {
+    "topic": "Wikipedia and how online knowledge is made",
+    "query": "what is a Wikipedia talk page",
+    "rank": 1,
+    "top1": "Wikipedia and how online knowledge is made",
+    "own_score": 0.5281,
+    "margin": 0.2322
+   },
+   {
+    "topic": "Wikipedia and how online knowledge is made",
+    "query": "can I trust Wikipedia for facts",
+    "rank": 1,
+    "top1": "Wikipedia and how online knowledge is made",
+    "own_score": 0.6503,
+    "margin": 0.2122
+   },
+   {
+    "topic": "Wikipedia and how online knowledge is made",
+    "query": "how do Wikipedia edit wars work",
+    "rank": 1,
+    "top1": "Wikipedia and how online knowledge is made",
+    "own_score": 0.5047,
+    "margin": 0.2338
+   }
+  ],
+  "summary": [
+   {
+    "topic": "Surveillance AI",
+    "queries": 4,
+    "failures": 3,
+    "passes": false
+   },
+   {
+    "topic": "Algorithmic bias and how audits find it",
+    "queries": 6,
+    "failures": 3,
+    "passes": false
+   },
+   {
+    "topic": "Language inequality in search",
+    "queries": 6,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "The search engine manipulation effect",
+    "queries": 6,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Whose world the results represent",
+    "queries": 6,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "5G and mind control",
+    "queries": 3,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "COVID-19",
+    "queries": 4,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "Flat earth theories",
+    "queries": 4,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Moon landing",
+    "queries": 4,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Detox diets",
+    "queries": 4,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "Keto diet risks",
+    "queries": 4,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Cryptocurrency regulation",
+    "queries": 4,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "Privacy-focused and alternative engines",
+    "queries": 6,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "Search literacy",
+    "queries": 6,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "The right to be forgotten",
+    "queries": 6,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Who governs search",
+    "queries": 6,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "Covid",
+    "queries": 5,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "Vaccination",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Accessibility of search",
+    "queries": 6,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "Children and search",
+    "queries": 6,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Dark patterns and the design of consent",
+    "queries": 5,
+    "failures": 3,
+    "passes": false
+   },
+   {
+    "topic": "Filter bubbles, the evidence and the myth",
+    "queries": 5,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "The Google effect on memory",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "AI Overviews and generative search",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Autocomplete and query suggestions",
+    "queries": 5,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "Data voids",
+    "queries": 6,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "How results are ranked",
+    "queries": 5,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "Knowledge panels and featured snippets",
+    "queries": 6,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Personalisation and why your results differ",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Search engine optimisation",
+    "queries": 6,
+    "failures": 5,
+    "passes": false
+   },
+   {
+    "topic": "Fact-checking",
+    "queries": 4,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "Health misinformation",
+    "queries": 4,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "Asking a chatbot instead of searching",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Generative engine optimisation",
+    "queries": 5,
+    "failures": 3,
+    "passes": false
+   },
+   {
+    "topic": "Image search and reverse image search",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Maps as search",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Recommendation systems",
+    "queries": 5,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "Trending and what counts as trending",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Voice assistants and the single spoken answer",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Donald Trump's 2016 presidential campaign",
+    "queries": 4,
+    "failures": 1,
+    "passes": false
+   },
+   {
+    "topic": "Government surveillance",
+    "queries": 4,
+    "failures": 4,
+    "passes": false
+   },
+   {
+    "topic": "U.S. Election 2024",
+    "queries": 4,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Right to digital privacy",
+    "queries": 4,
+    "failures": 3,
+    "passes": false
+   },
+   {
+    "topic": "Impact of 5G on health",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Ad tracking and what you reveal by searching",
+    "queries": 5,
+    "failures": 3,
+    "passes": false
+   },
+   {
+    "topic": "Advertising and sponsored results",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Cookies and consent",
+    "queries": 6,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Defaults and choice",
+    "queries": 6,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "The attention economy and engagement ranking",
+    "queries": 6,
+    "failures": 2,
+    "passes": false
+   },
+   {
+    "topic": "Concentration and defaults",
+    "queries": 5,
+    "failures": 3,
+    "passes": false
+   },
+   {
+    "topic": "Training data and the open web",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   },
+   {
+    "topic": "Wikipedia and how online knowledge is made",
+    "queries": 5,
+    "failures": 0,
+    "passes": true
+   }
+  ]
+ },
+ "out_of_domain": [
+  {
+   "query": "weather tomorrow",
+   "max_similarity": 0.2292,
+   "nearest_topic": "HAARP weather manipulation"
+  },
+  {
+   "query": "pizza near me",
+   "max_similarity": 0.1981,
+   "nearest_topic": "Food safety"
+  },
+  {
+   "query": "gmail login",
+   "max_similarity": 0.2017,
+   "nearest_topic": "Privacy-focused and alternative engines"
+  },
+  {
+   "query": "bbc news",
+   "max_similarity": 0.5177,
+   "nearest_topic": "Fake news"
+  },
+  {
+   "query": "train times to london",
+   "max_similarity": 0.2231,
+   "nearest_topic": "Time travel"
+  }
+ ]
+}
