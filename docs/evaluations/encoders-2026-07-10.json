@@ -1,0 +1,245 @@
+{
+ "encoders": {
+  "current multi-qa-MiniLM-L6 int8": {
+   "pooling": "mean",
+   "file_mb": 23.0,
+   "accuracy_at_1": 0.7955,
+   "accuracy_at_1_raw": 0.75,
+   "coverage": 0.9773,
+   "fp_neg": 0.0,
+   "fp_unc": 0.0,
+   "mrr": 0.8168,
+   "index_build_seconds": 2.84,
+   "per_query_seconds": 0.0013,
+   "peak_rss_mb": 170.5
+  },
+  "all-MiniLM-L12-v2 fp32": {
+   "pooling": "mean",
+   "file_mb": 133.1,
+   "accuracy_at_1": 0.8182,
+   "accuracy_at_1_raw": 0.7727,
+   "coverage": 1.0,
+   "fp_neg": 0.0,
+   "fp_unc": 0.0,
+   "mrr": 0.857,
+   "index_build_seconds": 13.14,
+   "per_query_seconds": 0.0057,
+   "peak_rss_mb": 296.9
+  },
+  "bge-small-en-v1.5 fp32": {
+   "pooling": "cls",
+   "file_mb": 133.1,
+   "accuracy_at_1": 0.75,
+   "accuracy_at_1_raw": 0.7273,
+   "coverage": 1.0,
+   "fp_neg": 0.6,
+   "fp_unc": 0.0,
+   "mrr": 0.8311,
+   "index_build_seconds": 14.17,
+   "per_query_seconds": 0.0063,
+   "peak_rss_mb": 313.2
+  },
+  "gte-small fp32": {
+   "pooling": "mean",
+   "file_mb": 133.1,
+   "accuracy_at_1": 0.7955,
+   "accuracy_at_1_raw": 0.7273,
+   "coverage": 1.0,
+   "fp_neg": 0.5,
+   "fp_unc": 0.0,
+   "mrr": 0.8354,
+   "index_build_seconds": 13.97,
+   "per_query_seconds": 0.0063,
+   "peak_rss_mb": 311.9
+  },
+  "paraphrase-multilingual-MiniLM-L12 int8": {
+   "pooling": "mean",
+   "file_mb": 118.5,
+   "accuracy_at_1": 0.7727,
+   "accuracy_at_1_raw": 0.6364,
+   "coverage": 0.9773,
+   "fp_neg": 0.1,
+   "fp_unc": 1.0,
+   "mrr": 0.765,
+   "index_build_seconds": 6.28,
+   "per_query_seconds": 0.0026,
+   "peak_rss_mb": 565.2
+  }
+ },
+ "multilingual": {
+  "current multi-qa-MiniLM-L6 int8": {
+   "rows": [
+    {
+     "query": "pourquoi tout le monde utilise Google",
+     "lang": "fr",
+     "expected": "Concentration and defaults",
+     "top1": "Language inequality in search",
+     "score": 0.5034,
+     "above_threshold": true,
+     "correct": false
+    },
+    {
+     "query": "comment savoir si un site web est fiable",
+     "lang": "fr",
+     "expected": "Search literacy",
+     "top1": "Internet censorship",
+     "score": 0.3128,
+     "above_threshold": false,
+     "correct": false
+    },
+    {
+     "query": "peut-on faire confiance au resume IA de Google",
+     "lang": "fr",
+     "expected": "AI Overviews and generative search",
+     "top1": "Privacy-focused and alternative engines",
+     "score": 0.2856,
+     "above_threshold": false,
+     "correct": false
+    },
+    {
+     "query": "buscador que no te rastrea",
+     "lang": "es",
+     "expected": "Privacy-focused and alternative engines",
+     "top1": "Accessibility of search",
+     "score": 0.1715,
+     "above_threshold": false,
+     "correct": false
+    },
+    {
+     "query": "ejemplos de sesgo algoritmico",
+     "lang": "es",
+     "expected": "Algorithmic bias and how audits find it",
+     "top1": "Ukraine war",
+     "score": 0.2274,
+     "above_threshold": false,
+     "correct": false
+    },
+    {
+     "query": "por que todos usan Google",
+     "lang": "es",
+     "expected": "Concentration and defaults",
+     "top1": "Language inequality in search",
+     "score": 0.4027,
+     "above_threshold": true,
+     "correct": false
+    },
+    {
+     "query": "os resultados do Google sao confiaveis",
+     "lang": "pt",
+     "expected": "Search literacy",
+     "top1": "Language inequality in search",
+     "score": 0.3494,
+     "above_threshold": false,
+     "correct": false
+    },
+    {
+     "query": "motor de busca que nao rastreia",
+     "lang": "pt",
+     "expected": "Privacy-focused and alternative engines",
+     "top1": "Van life",
+     "score": 0.2025,
+     "above_threshold": false,
+     "correct": false
+    }
+   ],
+   "top1_accuracy": 0.0
+  },
+  "paraphrase-multilingual-MiniLM-L12 int8": {
+   "rows": [
+    {
+     "query": "pourquoi tout le monde utilise Google",
+     "lang": "fr",
+     "expected": "Concentration and defaults",
+     "top1": "Concentration and defaults",
+     "score": 0.7726,
+     "above_threshold": true,
+     "correct": true
+    },
+    {
+     "query": "comment savoir si un site web est fiable",
+     "lang": "fr",
+     "expected": "Search literacy",
+     "top1": "Search literacy",
+     "score": 0.7588,
+     "above_threshold": true,
+     "correct": true
+    },
+    {
+     "query": "peut-on faire confiance au resume IA de Google",
+     "lang": "fr",
+     "expected": "AI Overviews and generative search",
+     "top1": "AI bias in hiring",
+     "score": 0.6179,
+     "above_threshold": true,
+     "correct": false
+    },
+    {
+     "query": "buscador que no te rastrea",
+     "lang": "es",
+     "expected": "Privacy-focused and alternative engines",
+     "top1": "Privacy-focused and alternative engines",
+     "score": 0.5734,
+     "above_threshold": true,
+     "correct": true
+    },
+    {
+     "query": "ejemplos de sesgo algoritmico",
+     "lang": "es",
+     "expected": "Algorithmic bias and how audits find it",
+     "top1": "Artificial Intelligence General",
+     "score": 0.6442,
+     "above_threshold": true,
+     "correct": false
+    },
+    {
+     "query": "por que todos usan Google",
+     "lang": "es",
+     "expected": "Concentration and defaults",
+     "top1": "Concentration and defaults",
+     "score": 0.7736,
+     "above_threshold": true,
+     "correct": true
+    },
+    {
+     "query": "os resultados do Google sao confiaveis",
+     "lang": "pt",
+     "expected": "Search literacy",
+     "top1": "The search engine manipulation effect",
+     "score": 0.6677,
+     "above_threshold": true,
+     "correct": false
+    },
+    {
+     "query": "motor de busca que nao rastreia",
+     "lang": "pt",
+     "expected": "Privacy-focused and alternative engines",
+     "top1": "Privacy-focused and alternative engines",
+     "score": 0.6622,
+     "above_threshold": true,
+     "correct": true
+    }
+   ],
+   "top1_accuracy": 0.625
+  }
+ },
+ "fp_zero_matched": {
+  "bge-small": [
+   0.59,
+   0.75,
+   1.0,
+   0.8311
+  ],
+  "gte-small": null
+ },
+ "provenance": {
+  "runtime": "onnxruntime 1.23.2; aarch64; python 3.10.12",
+  "git_sha": "4bdbbe69d6f2bb9134359881f743b9320cbcc837",
+  "note": "English candidate corpora embedded with each encoder's own tokenizer and canonical pooling; bge evaluated without its retrieval instruction prefix (symmetric question-to-question use). fp32 candidate latencies are upper bounds: int8 quantisation would roughly halve them, as it does for the current model."
+ },
+ "verdicts": {
+  "all-MiniLM-L12-v2": "acc 0.818 vs 0.795, coverage 1.0, FP clean at t=0.35; 2 to 4x query latency; the only candidate that beats the current model, by 2 points",
+  "bge-small-en-v1.5": "needs t=0.59 for FP zero; acc 0.75 there; no win",
+  "gte-small": "no threshold up to 0.75 reaches FP zero on the negative controls; disqualified",
+  "paraphrase-multilingual-MiniLM-L12": "multilingual 5/8 vs 0/8 current, but peak RSS 565MB exceeds the 512MB instance and English acc drops 2 points with FP regressions"
+ }
+}

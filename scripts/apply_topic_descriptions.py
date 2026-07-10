@@ -33,6 +33,8 @@ def main():
         sys.exit(f'File not found: {path}')
     data = json.loads(path.read_text(encoding='utf-8'))
 
+    from researchdata.description_blob import split_blob
+
     applied, missing = 0, []
     for key, description in data.items():
         if key.startswith('_'):
@@ -41,8 +43,13 @@ def main():
         if not topic:
             missing.append(key)
             continue
-        topic.description = description.strip()
-        topic.save(update_fields=['description'])
+        # Descriptions are drafted as full blobs; store them split so the
+        # contrasts are never embedded and example queries index separately.
+        prose, example_queries, contrasts = split_blob(description)
+        topic.description = prose
+        topic.example_queries = example_queries
+        topic.contrasts = contrasts
+        topic.save(update_fields=['description', 'example_queries', 'contrasts'])
         applied += 1
 
     total = Topic.objects.count()

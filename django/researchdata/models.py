@@ -43,11 +43,33 @@ class Topic(models.Model):
         blank=True,
         null=True,
         help_text=(
-            "A rich semantic description used by the vector classifier. Recommended format: "
-            "'This content covers topics related to [topic]: [key concepts], [example user "
-            "queries], [contrast with adjacent topics].' The better this captures how users "
-            "actually phrase queries, the better the matching. Topics without a description "
-            "fall back to '[group]: [name]' for matching, which is much weaker."
+            "Clean prose describing the topic, used by the vector classifier. "
+            "Prose ONLY: example queries live in their own field below, and "
+            "contrasts ('Distinct from ...') in theirs. The better this prose "
+            "captures what the topic is about, the better the matching. Topics "
+            "without a description fall back to '[group]: [name]' for matching, "
+            "which is much weaker."
+        )
+    )
+    example_queries = models.JSONField(
+        default=list,
+        blank=True,
+        help_text=(
+            "Real query phrasings this topic should catch, as a JSON list of "
+            "strings. Each is embedded as its own vector and blended with the "
+            "description score. One careless entry here can capture other "
+            "topics' traffic, so the content pipeline self-retrieval check "
+            "must pass before these ship."
+        )
+    )
+    contrasts = models.TextField(
+        blank=True,
+        default="",
+        help_text=(
+            "Editorial notes on adjacent topics ('Distinct from X (...), from "
+            "Y (...)'). NEVER embedded: this text exists to keep human editors "
+            "from writing overlapping topics, and embedding it injects the "
+            "competitors' vocabulary into this topic's vector."
         )
     )
 
@@ -58,7 +80,7 @@ class Topic(models.Model):
 
     @property
     def embedding_text(self):
-        """The text representation embedded by the classifier."""
+        """The description text embedded by the classifier (prose only)."""
         if self.description and self.description.strip():
             return self.description.strip()
         return f'{self.topic_group.name}: {self.name}'
@@ -277,6 +299,48 @@ class ContentApply(models.Model):
         ordering = ('-created_datetime',)
         verbose_name = "content apply"
         verbose_name_plural = "content applies"
+
+
+class MatchingEvaluation(models.Model):
+    """
+    One run of the matching evaluation harness against a labelled query set.
+
+    A time series, not a moment: every run persists its full provenance
+    (code version, model artifact hash, runtime and architecture, index
+    fingerprint, decision rule) plus metrics and per-row results, so any
+    number quoted in a report or a paper can be traced to the exact system
+    state that produced it. Runtime and artifact matter because int8 encoder
+    scores differ measurably across CPU architectures; two runs are only
+    comparable when these fields say they are.
+    """
+
+    created_datetime = models.DateTimeField(auto_now_add=True, verbose_name="created")
+    git_sha = models.CharField(max_length=40, blank=True)
+    model_id = models.CharField(max_length=255, blank=True)
+    model_artifact = models.CharField(
+        max_length=120, blank=True,
+        help_text="Hash and size of the ONNX file actually loaded (the filename is always model.onnx).")
+    runtime = models.CharField(
+        max_length=120, blank=True,
+        help_text="onnxruntime version, CPU architecture and Python version that produced the scores.")
+    index_fingerprint = models.CharField(max_length=64, blank=True)
+    labelled_file = models.CharField(max_length=255, blank=True)
+    scorer = models.CharField(
+        max_length=64, default="production",
+        help_text="Which ranking function produced the scores (production, or a named ablation).")
+    threshold = models.FloatField()
+    margin = models.FloatField(default=0.0)
+    metrics = models.JSONField(default=dict)
+    results = models.JSONField(default=list)
+    notes = models.TextField(blank=True)
+
+    def __str__(self):
+        acc = self.metrics.get("accuracy_at_1")
+        return (f"Evaluation @ {self.created_datetime:%Y-%m-%d %H:%M} "
+                f"(t={self.threshold}, m={self.margin}, acc@1={acc})")
+
+    class Meta:
+        ordering = ("-created_datetime",)
 
 
 class DataInsert(models.Model):

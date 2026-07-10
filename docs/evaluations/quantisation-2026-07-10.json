@@ -1,0 +1,91 @@
+{
+ "corpus_rows": 489,
+ "topics": 228,
+ "n_queries": 56,
+ "reference_artifact": "model.onnx",
+ "per_artifact": {
+  "model_qint8_avx512_vnni.onnx": {
+   "file_mb": 23.0,
+   "load_seconds": 0.24,
+   "corpus_embed_seconds": 2.79,
+   "per_query_seconds": 0.0013,
+   "peak_rss_mb": 169.4
+  },
+  "model_quint8_avx2.onnx": {
+   "file_mb": 23.0,
+   "load_seconds": 0.18,
+   "corpus_embed_seconds": 2.84,
+   "per_query_seconds": 0.0012,
+   "peak_rss_mb": 208.0
+  },
+  "model_qint8_arm64.onnx": {
+   "file_mb": 23.0,
+   "load_seconds": 0.21,
+   "corpus_embed_seconds": 2.85,
+   "per_query_seconds": 0.0012,
+   "peak_rss_mb": 239.4
+  },
+  "model_O2.onnx": {
+   "file_mb": 90.3,
+   "load_seconds": 0.86,
+   "corpus_embed_seconds": 6.86,
+   "per_query_seconds": 0.003,
+   "peak_rss_mb": 328.8
+  },
+  "model.onnx": {
+   "file_mb": 90.4,
+   "load_seconds": 0.58,
+   "corpus_embed_seconds": 7.28,
+   "per_query_seconds": 0.003,
+   "peak_rss_mb": 394.3
+  }
+ },
+ "comparisons_vs_fp32": {
+  "model_qint8_avx512_vnni.onnx": {
+   "delta_mean": -0.0015,
+   "delta_sd": 0.0115,
+   "delta_max_abs": 0.0465,
+   "top1_flips": 8,
+   "top3_set_changes": 19,
+   "n_queries": 56
+  },
+  "model_quint8_avx2.onnx": {
+   "delta_mean": -0.0017,
+   "delta_sd": 0.0115,
+   "delta_max_abs": 0.0519,
+   "top1_flips": 3,
+   "top3_set_changes": 24,
+   "n_queries": 56
+  },
+  "model_qint8_arm64.onnx": {
+   "delta_mean": -0.0015,
+   "delta_sd": 0.0115,
+   "delta_max_abs": 0.0465,
+   "top1_flips": 8,
+   "top3_set_changes": 19,
+   "n_queries": 56
+  },
+  "model_O2.onnx": {
+   "delta_mean": 0.0,
+   "delta_sd": 0.0,
+   "delta_max_abs": 0.0,
+   "top1_flips": 0,
+   "top3_set_changes": 0,
+   "n_queries": 56
+  }
+ },
+ "margin_distribution_fp32": {
+  "min": 0.0007,
+  "p25": 0.0291,
+  "median": 0.0567,
+  "p75": 0.1585,
+  "share_below_0.02": 0.1964,
+  "share_below_0.05": 0.4464
+ },
+ "cross_runtime_note": "Independently measured on 2026-07-10: identical weights and corpus on aarch64 vs the x86 live service disagree by sd 0.014 (max 0.06) per score, flipping 8 of 51 labelled top-1s, all at margins below 0.033.",
+ "provenance": {
+  "runtime": "onnxruntime 1.23.2; aarch64; python 3.10.12",
+  "git_sha": "4dbfba588f248b74561da99b3886093ff1cedb8f",
+  "blend_alpha": 0.35
+ }
+}

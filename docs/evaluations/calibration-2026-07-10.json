@@ -1,0 +1,162 @@
+{
+ "n_pairs_probe": 56,
+ "n_pairs_total": 107,
+ "note": "Fitted on the paraphrase probe only: the 2026-07-09 set's positives are verbatim example queries and would teach the calibrator that high scores are always right.",
+ "reliability_raw": [
+  {
+   "lo": 0.1703,
+   "hi": 0.277,
+   "n": 7,
+   "mean_score": 0.2267,
+   "empirical_accuracy": 0.0
+  },
+  {
+   "lo": 0.277,
+   "hi": 0.3837,
+   "n": 3,
+   "mean_score": 0.306,
+   "empirical_accuracy": 0.0
+  },
+  {
+   "lo": 0.3837,
+   "hi": 0.4904,
+   "n": 9,
+   "mean_score": 0.4317,
+   "empirical_accuracy": 0.5556
+  },
+  {
+   "lo": 0.4904,
+   "hi": 0.5971,
+   "n": 24,
+   "mean_score": 0.5469,
+   "empirical_accuracy": 0.7083
+  },
+  {
+   "lo": 0.5971,
+   "hi": 0.7038,
+   "n": 8,
+   "mean_score": 0.6359,
+   "empirical_accuracy": 0.875
+  },
+  {
+   "lo": 0.7038,
+   "hi": 0.8105,
+   "n": 5,
+   "mean_score": 0.7605,
+   "empirical_accuracy": 0.8
+  }
+ ],
+ "ece_raw_as_displayed": 0.1715,
+ "platt": {
+  "a": 11.5301,
+  "b": -5.417,
+  "ece": 0.0667
+ },
+ "isotonic": {
+  "knots": [
+   {
+    "score_lo": 0.1703,
+    "score_hi": 0.1703,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.2182,
+    "score_hi": 0.2182,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.2258,
+    "score_hi": 0.2258,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.229,
+    "score_hi": 0.229,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.2404,
+    "score_hi": 0.2404,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.247,
+    "score_hi": 0.247,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.256,
+    "score_hi": 0.256,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.2855,
+    "score_hi": 0.2855,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.3131,
+    "score_hi": 0.3131,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.3193,
+    "score_hi": 0.3193,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.384,
+    "score_hi": 0.384,
+    "prob": 0.0
+   },
+   {
+    "score_lo": 0.3929,
+    "score_hi": 0.434,
+    "prob": 0.25
+   },
+   {
+    "score_lo": 0.4358,
+    "score_hi": 0.5553,
+    "prob": 0.6111
+   },
+   {
+    "score_lo": 0.5607,
+    "score_hi": 0.7232,
+    "prob": 0.8947
+   },
+   {
+    "score_lo": 0.7311,
+    "score_hi": 0.7311,
+    "prob": 1.0
+   },
+   {
+    "score_lo": 0.7659,
+    "score_hi": 0.7659,
+    "prob": 1.0
+   },
+   {
+    "score_lo": 0.7719,
+    "score_hi": 0.7719,
+    "prob": 1.0
+   },
+   {
+    "score_lo": 0.8105,
+    "score_hi": 0.8105,
+    "prob": 1.0
+   }
+  ],
+  "ece": 0.0
+ },
+ "display_examples_raw": {
+  "0.35": 0.35,
+  "0.45": 0.45,
+  "0.55": 0.55,
+  "0.65": 0.65
+ },
+ "display_examples_platt": {
+  "0.35": 0.201,
+  "0.45": 0.443,
+  "0.55": 0.716,
+  "0.65": 0.889
+ }
+}

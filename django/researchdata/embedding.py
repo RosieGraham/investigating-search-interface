@@ -50,8 +50,16 @@ _lock = threading.Lock()
 _session = None          # onnxruntime.InferenceSession
 _tokenizer = None        # tokenizers.Tokenizer
 _input_names = None      # model input names, detected from the session
-_index_matrix = None     # np.ndarray (n_topics, 384), L2-normalised
-_index_topic_ids = None  # list[int], row-aligned with _index_matrix
+
+# Topic index, multi-vector (INDEX_VERSION 2):
+# each topic contributes one description-prose row plus one row per example
+# query. Scoring blends them: alpha * desc + (1 - alpha) * max(example).
+# A topic with no example queries scores on its description alone.
+INDEX_VERSION = 2
+_index_matrix = None     # np.ndarray (n_rows, 384), L2-normalised
+_index_topic_ids = None  # list[int], UNIQUE topic ids in index order
+_row_topic_pos = None    # np.ndarray (n_rows,), row -> position in _index_topic_ids
+_row_is_example = None   # np.ndarray (n_rows,) bool, True for example-query rows
 _index_dirty = True
 # If WEB_CONCURRENCY is ever raised above 1, this process-global dirty flag
 # will not propagate across gunicorn workers. Replace it with shared state
@@ -148,7 +156,12 @@ def encode(texts, batch_size=16):
 
 
 def _topics_fingerprint(rows, model_id):
-    payload = json.dumps([(r[0], r[1]) for r in rows], ensure_ascii=False) + '|' + model_id
+    """Hash everything the index is built from: description prose AND
+    example queries (a stale on-disk index reused after an example-query
+    edit would silently serve old matching), plus the index schema version
+    so an old single-vector cache can never satisfy a multi-vector reader."""
+    payload = (json.dumps([(r[0], r[1], r[2]) for r in rows], ensure_ascii=False)
+               + f'|{model_id}|v{INDEX_VERSION}')
     return hashlib.sha256(payload.encode('utf-8')).hexdigest()
 
 
@@ -166,15 +179,22 @@ def mark_prompt_index_dirty(*args, **kwargs):
 
 def build_topic_index(force=False):
     """
-    Embed all topics and cache the matrix in memory + on disk.
-    Returns (matrix, topic_ids). Raises ClassifierUnavailable if no runtime.
+    Embed all topics as multiple vectors each and cache in memory + on disk.
+
+    Per topic: one row for the description prose (or "group: name" when
+    undescribed), plus one row per example query. Returns
+    (matrix, topic_ids). Raises ClassifierUnavailable if no runtime.
     """
-    global _index_matrix, _index_topic_ids, _index_dirty
+    global _index_matrix, _index_topic_ids, _row_topic_pos, _row_is_example, _index_dirty
     from .models import Topic
 
-    rows = [(t.id, t.embedding_text) for t in Topic.objects.select_related('topic_group').all()]
+    rows = [
+        (t.id, t.embedding_text, list(t.example_queries or []))
+        for t in Topic.objects.select_related('topic_group').all()
+    ]
     if not rows:
         _index_matrix, _index_topic_ids, _index_dirty = None, [], False
+        _row_topic_pos, _row_is_example = None, None
         return None, []
 
     fingerprint = _topics_fingerprint(rows, settings.EMBEDDING_MODEL_ID)
@@ -185,26 +205,57 @@ def build_topic_index(force=False):
     if not force and index_path.exists() and meta_path.exists():
         try:
             meta = json.loads(meta_path.read_text())
-            if meta.get('fingerprint') == fingerprint:
+            if meta.get('fingerprint') == fingerprint and meta.get('version') == INDEX_VERSION:
                 data = np.load(index_path)
                 _index_matrix = data['matrix']
                 _index_topic_ids = data['topic_ids'].tolist()
+                _row_topic_pos = data['row_topic_pos']
+                _row_is_example = data['row_is_example'].astype(bool)
                 _index_dirty = False
-                logger.info('Topic index loaded from disk (%d topics).', len(_index_topic_ids))
+                logger.info('Topic index loaded from disk (%d topics, %d rows).',
+                            len(_index_topic_ids), _index_matrix.shape[0])
                 return _index_matrix, _index_topic_ids
         except Exception as e:  # corrupt cache: rebuild
             logger.warning('Could not reuse topic index cache (%s); rebuilding.', e)
 
-    logger.info('Building topic index: embedding %d topics...', len(rows))
-    matrix = encode([r[1] for r in rows])
-    topic_ids = [r[0] for r in rows]
+    texts, row_topic_pos, row_is_example = [], [], []
+    topic_ids = []
+    for pos, (topic_id, desc_text, examples) in enumerate(rows):
+        topic_ids.append(topic_id)
+        texts.append(desc_text)
+        row_topic_pos.append(pos)
+        row_is_example.append(False)
+        for query in examples:
+            if query and str(query).strip():
+                texts.append(str(query).strip())
+                row_topic_pos.append(pos)
+                row_is_example.append(True)
+
+    logger.info('Building topic index: embedding %d rows for %d topics...',
+                len(texts), len(topic_ids))
+    matrix = encode(texts)
+    row_topic_pos = np.array(row_topic_pos, dtype=np.int64)
+    row_is_example = np.array(row_is_example, dtype=bool)
     try:
-        np.savez(index_path, matrix=matrix, topic_ids=np.array(topic_ids, dtype=np.int64))
-        meta_path.write_text(json.dumps({'fingerprint': fingerprint, 'count': len(topic_ids)}))
+        np.savez(
+            index_path,
+            matrix=matrix,
+            topic_ids=np.array(topic_ids, dtype=np.int64),
+            row_topic_pos=row_topic_pos,
+            row_is_example=row_is_example.astype(np.int8),
+        )
+        meta_path.write_text(json.dumps({
+            'fingerprint': fingerprint,
+            'version': INDEX_VERSION,
+            'topics': len(topic_ids),
+            'rows': int(matrix.shape[0]),
+        }))
     except OSError as e:
         logger.warning('Topic index not persisted (%s); in-memory only.', e)
-    _index_matrix, _index_topic_ids, _index_dirty = matrix, topic_ids, False
-    logger.info('Topic index built (%d topics).', len(topic_ids))
+    _index_matrix, _index_topic_ids = matrix, topic_ids
+    _row_topic_pos, _row_is_example = row_topic_pos, row_is_example
+    _index_dirty = False
+    logger.info('Topic index built (%d topics, %d rows).', len(topic_ids), matrix.shape[0])
     return matrix, topic_ids
 
 
@@ -215,6 +266,41 @@ def _ensure_index():
             if _index_dirty or _index_matrix is None:
                 build_topic_index()
     return _index_matrix, _index_topic_ids
+
+
+def _blended_topic_scores(query_vec):
+    """Scores for every topic: alpha * desc + (1 - alpha) * max(example).
+
+    Topics without example queries score on their description alone. The
+    blend keeps the description as an anchor so a single stray example
+    query cannot capture a neighbourhood on its own, which pure max-pooling
+    measurably does (it fires on negative controls; see the ablation tables
+    in docs/matching-quality-report.md).
+    """
+    from .classifier_config import get_classifier_blend_alpha
+
+    matrix, topic_ids = _ensure_index()
+    if matrix is None or not topic_ids:
+        return None, []
+    alpha = get_classifier_blend_alpha()
+
+    row_scores = matrix @ query_vec
+    n_topics = len(topic_ids)
+
+    desc_scores = np.empty(n_topics, dtype=np.float32)
+    desc_rows = ~_row_is_example
+    desc_scores[_row_topic_pos[desc_rows]] = row_scores[desc_rows]
+
+    example_max = np.full(n_topics, -1.0, dtype=np.float32)
+    if _row_is_example.any():
+        np.maximum.at(example_max, _row_topic_pos[_row_is_example],
+                      row_scores[_row_is_example])
+
+    has_examples = example_max > -1.0
+    blended = desc_scores.copy()
+    blended[has_examples] = (alpha * desc_scores[has_examples]
+                             + (1.0 - alpha) * example_max[has_examples])
+    return blended, topic_ids
 
 
 def embed_query(query_text):
@@ -230,12 +316,20 @@ def embed_query(query_text):
     return encode([text])[0]
 
 
-def classify_query(query_text, threshold=None, top_k=None, _query_vec=None):
+def classify_query(query_text, threshold=None, top_k=None, margin=None, _query_vec=None):
     """
     Return up to top_k (topic_id, confidence) pairs for a query, best first,
     all with confidence >= threshold. Empty list = no confident match.
     Raises ClassifierUnavailable when the model cannot run; callers are
     expected to catch it and use the trigger fallback.
+
+    margin: required gap between the best and second-best topic before any
+    match is returned. When the gap is smaller, the classifier abstains:
+    scores that close are inside the pipeline's own numerical noise (int8
+    quantisation and kernel differences move scores by more than 0.01), so
+    the ranking between them is a coin toss, not a judgement. None reads
+    the configured value; pass 0.0 to disable explicitly (the debug
+    endpoint does, so editors can always see what the index thinks).
 
     _query_vec: optional pre-computed L2-normalised query embedding (384,).
     Pass the result of embed_query() to avoid re-encoding the same text.
@@ -243,6 +337,9 @@ def classify_query(query_text, threshold=None, top_k=None, _query_vec=None):
     if threshold is None:
         from .classifier_config import get_classifier_threshold
         threshold = get_classifier_threshold()
+    if margin is None:
+        from .classifier_config import get_classifier_margin
+        margin = get_classifier_margin()
     if top_k is None:
         top_k = settings.CLASSIFIER_TOP_K
 
@@ -250,16 +347,19 @@ def classify_query(query_text, threshold=None, top_k=None, _query_vec=None):
     if not query_text:
         return []
 
-    matrix, topic_ids = _ensure_index()
-    if matrix is None or not len(topic_ids):
+    q = _query_vec if _query_vec is not None else encode([query_text])[0]
+    scores, topic_ids = _blended_topic_scores(q)
+    if scores is None:
         return []
 
-    q = _query_vec if _query_vec is not None else encode([query_text])[0]
-    scores = matrix @ q                  # cosine similarity via dot product
-    order = np.argsort(-scores)[:max(top_k, 1)]
+    order = np.argsort(-scores)
+    if margin > 0 and len(order) > 1:
+        gap = float(scores[order[0]]) - float(scores[order[1]])
+        if gap < margin:
+            return []
     return [
         (topic_ids[int(i)], float(scores[int(i)]))
-        for i in order
+        for i in order[:max(top_k, 1)]
         if float(scores[int(i)]) >= threshold
     ]
 
@@ -354,7 +454,11 @@ def rank_prompts(query_vec, candidate_ids):
 
 def classifier_status():
     """Lightweight status dict for health checks and the admin."""
-    from .classifier_config import get_classifier_threshold
+    from .classifier_config import (
+        get_classifier_blend_alpha,
+        get_classifier_margin,
+        get_classifier_threshold,
+    )
 
     model_present = (_model_dir() / MODEL_FILENAME).exists()
     return {
@@ -363,6 +467,10 @@ def classifier_status():
         'model_present': model_present,
         'loaded': _session is not None,
         'index_topics': len(_index_topic_ids) if _index_topic_ids else 0,
+        'index_rows': int(_index_matrix.shape[0]) if _index_matrix is not None else 0,
+        'index_version': INDEX_VERSION,
         'index_dirty': _index_dirty,
         'threshold': get_classifier_threshold(),
+        'margin': get_classifier_margin(),
+        'blend_alpha': get_classifier_blend_alpha(),
     }

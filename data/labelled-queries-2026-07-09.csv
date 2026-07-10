@@ -1,0 +1,52 @@
+query,expected_topic,expected_card,category
+why is Google the default search engine on my phone,Defaults and choice,yes,collision-defaults
+how much does Google pay Apple,Defaults and choice,yes,collision-defaults
+how to change my default search engine,Defaults and choice,yes,collision-defaults
+why does everyone use Google,Concentration and defaults,yes,collision-defaults
+how much of search does Google control,Concentration and defaults,yes,collision-defaults
+what is SEO,Search engine optimisation,yes,collision-seo
+how to rank higher on Google,Search engine optimisation,yes,collision-seo
+why are product review sites all the same,Search engine optimisation,yes,collision-seo
+what is generative engine optimisation,Generative engine optimisation,yes,collision-seo
+GEO versus SEO,Generative engine optimisation,yes,collision-seo
+who regulates Google,Who governs search,yes,attractor-regression
+EU Digital Markets Act,Who governs search,yes,attractor-regression
+data void search,Data voids,yes,attractor-regression
+what is a data void,Data voids,yes,attractor-regression
+why are search results bad for breaking news,Data voids,yes,attractor-regression
+how do I know if a website is reliable,Search literacy,yes,attractor-regression
+teaching search literacy,Search literacy,yes,attractor-regression
+lateral reading,Search literacy,yes,attractor-regression
+right to be forgotten,The right to be forgotten,yes,attractor-regression
+how to remove my name from Google,The right to be forgotten,yes,attractor-regression
+is Google accessible for screen readers,Accessibility of search,yes,former-attractor
+does the results page work with a screen reader,Accessibility of search,yes,former-attractor
+is Google safe for kids,Children and search,yes,former-attractor
+safe search for children,Children and search,yes,former-attractor
+algorithmic bias examples,Algorithmic bias and how audits find it,yes,set3-topic
+do search results discriminate,Algorithmic bias and how audits find it,yes,set3-topic
+non-English search results,Language inequality in search,yes,set3-topic
+English dominance on the internet,Language inequality in search,yes,set3-topic
+can Google influence an election,The search engine manipulation effect,yes,set3-topic
+search results and elections,The search engine manipulation effect,yes,set3-topic
+western bias in search results,Whose world the results represent,yes,set3-topic
+whose perspective does Google show,Whose world the results represent,yes,set3-topic
+DuckDuckGo versus Google,Privacy-focused and alternative engines,yes,set3-topic
+best private search engine,Privacy-focused and alternative engines,yes,set3-topic
+what is a featured snippet,Knowledge panels and featured snippets,yes,set3-topic
+why does one answer appear at the top,Knowledge panels and featured snippets,yes,set3-topic
+what are cookies,Cookies and consent,yes,set3-topic
+why does every site ask about cookies,Cookies and consent,yes,set3-topic
+why does the algorithm show me this,The attention economy and engagement ranking,yes,set3-topic
+how do apps keep you scrolling,The attention economy and engagement ranking,yes,set3-topic
+is the AI summary at the top accurate,AI Overviews and generative search,yes,edited-prompt
+why is reject all so hard to find,Dark patterns and the design of consent,yes,edited-prompt
+how does reverse image search work,Image search and reverse image search,yes,edited-prompt
+are filter bubbles real,"Filter bubbles, the evidence and the myth",yes,edited-prompt
+are vaccines safe,Vaccination,no,ordinary-no-prompts
+best multivitamin reddit,NONE,no,ordinary-uncovered
+weather tomorrow,NONE,no,negative-control
+pizza near me,NONE,no,negative-control
+gmail login,NONE,no,negative-control
+bbc news,NONE,no,negative-control
+train times to london,NONE,no,negative-control

@@ -1,0 +1,57 @@
+query,expected_topic,expected_card,category,query_shape,source_query
+why does my phone come with Google built in,Defaults and choice,yes,collision-defaults,paraphrase,why is Google the default search engine on my phone
+google apple search deal billions,Defaults and choice,yes,collision-defaults,paraphrase,how much does Google pay Apple
+switch my browser to a different search engine,Defaults and choice,yes,collision-defaults,paraphrase,how to change my default search engine
+how did one company end up running all web search,Concentration and defaults,yes,collision-defaults,paraphrase,why does everyone use Google
+google market share search percentage,Concentration and defaults,yes,collision-defaults,paraphrase,how much of search does Google control
+meaning of search engine optimisation,Search engine optimisation,yes,collision-seo,paraphrase,what is SEO
+get my website to the top of search results,Search engine optimisation,yes,collision-seo,paraphrase,how to rank higher on Google
+why do all best-of review articles look identical,Search engine optimisation,yes,collision-seo,paraphrase,why are product review sites all the same
+companies trying to appear inside chatbot recommendations,Generative engine optimisation,yes,collision-seo,paraphrase,what is generative engine optimisation
+optimising for AI answers compared with optimising for search rankings,Generative engine optimisation,yes,collision-seo,paraphrase,GEO versus SEO
+which authority oversees search companies,Who governs search,yes,attractor-regression,paraphrase,who regulates Google
+european law forcing big tech to open up,Who governs search,yes,attractor-regression,paraphrase,EU Digital Markets Act
+searches with no good results get filled with junk,Data voids,yes,attractor-regression,paraphrase,data void search
+term for when nobody has written about a search topic,Data voids,yes,attractor-regression,paraphrase,what is a data void
+why does searching a just-happened event show rubbish,Data voids,yes,attractor-regression,paraphrase,why are search results bad for breaking news
+ways to tell whether a site is trustworthy,Search literacy,yes,attractor-regression,paraphrase,how do I know if a website is reliable
+lesson plan evaluating online sources,Search literacy,yes,attractor-regression,paraphrase,teaching search literacy
+checking other sites to verify a claim,Search literacy,yes,attractor-regression,paraphrase,lateral reading
+ask google to delist old articles about me,The right to be forgotten,yes,attractor-regression,paraphrase,right to be forgotten
+delete search results about myself,The right to be forgotten,yes,attractor-regression,paraphrase,how to remove my name from Google
+using search when you are blind,Accessibility of search,yes,former-attractor,paraphrase,is Google accessible for screen readers
+voiceover reads google results badly,Accessibility of search,yes,former-attractor,paraphrase,does the results page work with a screen reader
+should I let my eight year old search the web,Children and search,yes,former-attractor,paraphrase,is Google safe for kids
+child friendly search settings,Children and search,yes,former-attractor,paraphrase,safe search for children
+cases where algorithms treated groups unfairly,Algorithmic bias and how audits find it,yes,set3-topic,paraphrase,algorithmic bias examples
+search engines unfair to minorities study,Algorithmic bias and how audits find it,yes,set3-topic,paraphrase,do search results discriminate
+searching in languages other than English quality,Language inequality in search,yes,set3-topic,paraphrase,non-English search results
+most of the web is in English problem,Language inequality in search,yes,set3-topic,paraphrase,English dominance on the internet
+search rankings swinging votes,The search engine manipulation effect,yes,set3-topic,paraphrase,can Google influence an election
+do result orderings change voter opinions,The search engine manipulation effect,yes,set3-topic,paraphrase,search results and elections
+results skewed toward rich countries,Whose world the results represent,yes,set3-topic,paraphrase,western bias in search results
+whose viewpoint do search engines present,Whose world the results represent,yes,set3-topic,paraphrase,whose perspective does Google show
+comparing duckduckgo with google,Privacy-focused and alternative engines,yes,set3-topic,paraphrase,DuckDuckGo versus Google
+search engine that does not track you,Privacy-focused and alternative engines,yes,set3-topic,paraphrase,best private search engine
+the answer box at the top of google,Knowledge panels and featured snippets,yes,set3-topic,paraphrase,what is a featured snippet
+why does google pick a single answer to highlight,Knowledge panels and featured snippets,yes,set3-topic,paraphrase,why does one answer appear at the top
+what do websites store on my computer when I visit,Cookies and consent,yes,set3-topic,paraphrase,what are cookies
+constant consent pop ups on websites,Cookies and consent,yes,set3-topic,paraphrase,why does every site ask about cookies
+why am I being shown this content,The attention economy and engagement ranking,yes,set3-topic,paraphrase,why does the algorithm show me this
+design tricks that keep people on the feed,The attention economy and engagement ranking,yes,set3-topic,paraphrase,how do apps keep you scrolling
+can I trust googles AI generated answer,AI Overviews and generative search,yes,edited-prompt,paraphrase,is the AI summary at the top accurate
+cookie banners hide the decline button,Dark patterns and the design of consent,yes,edited-prompt,paraphrase,why is reject all so hard to find
+find where a photo came from online,Image search and reverse image search,yes,edited-prompt,paraphrase,how does reverse image search work
+does personalisation trap people in echo chambers evidence,"Filter bubbles, the evidence and the myth",yes,edited-prompt,paraphrase,are filter bubbles real
+worried about vaccine side effects,Vaccination,no,ordinary-no-prompts,paraphrase,are vaccines safe
+top supplement recommendations forum,NONE,no,ordinary-uncovered,paraphrase,best multivitamin reddit
+weather tomorrow,NONE,no,negative-control,original,weather tomorrow
+pizza near me,NONE,no,negative-control,original,pizza near me
+gmail login,NONE,no,negative-control,original,gmail login
+bbc news,NONE,no,negative-control,original,bbc news
+train times to london,NONE,no,negative-control,original,train times to london
+amazon prime login,NONE,no,negative-control,fresh-negative,
+football scores today,NONE,no,negative-control,fresh-negative,
+how to boil an egg,NONE,no,negative-control,fresh-negative,
+cheap flights to spain,NONE,no,negative-control,fresh-negative,
+screwdriver set argos,NONE,no,negative-control,fresh-negative,

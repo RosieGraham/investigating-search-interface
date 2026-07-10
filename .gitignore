@@ -18,6 +18,8 @@ django/model_cache/
 data/*
 !data/content-package-*.json
 !data/spot-check-queries-*.txt
+!data/labelled-queries-*.csv
+!data/paraphrase-probe-*.csv
 
 # Local environment
 .env

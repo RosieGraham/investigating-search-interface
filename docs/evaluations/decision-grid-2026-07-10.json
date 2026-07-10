@@ -1,0 +1,1992 @@
+{
+ "thresholds": [
+  0.3,
+  0.325,
+  0.35,
+  0.375,
+  0.4,
+  0.425,
+  0.45,
+  0.475,
+  0.5,
+  0.525,
+  0.55
+ ],
+ "margins": [
+  0.0,
+  0.01,
+  0.02,
+  0.03,
+  0.05,
+  0.08
+ ],
+ "sets": {
+  "labelled-2026-07-09": {
+   "grid": [
+    {
+     "threshold": 0.3,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.2,
+     "fp_unc": 0.0,
+     "abstention": 0.1176
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.2,
+     "fp_unc": 0.0,
+     "abstention": 0.1176
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.2,
+     "fp_unc": 0.0,
+     "abstention": 0.1176
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.2,
+     "fp_unc": 0.0,
+     "abstention": 0.1176
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.2,
+     "fp_unc": 0.0,
+     "abstention": 0.1176
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.0,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.01,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.02,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.03,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.05,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.08,
+     "accuracy_at_1": 1.0,
+     "coverage": 1.0,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.1373
+    }
+   ],
+   "normalised_study": {
+    "rows": [
+     {
+      "query": "why is Google the default search engine on my phone",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8689,
+      "normalised": 0.7933
+     },
+     {
+      "query": "how much does Google pay Apple",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7225,
+      "normalised": 0.6673
+     },
+     {
+      "query": "how to change my default search engine",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8363,
+      "normalised": 0.7983
+     },
+     {
+      "query": "why does everyone use Google",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7529,
+      "normalised": 0.6147
+     },
+     {
+      "query": "how much of search does Google control",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7701,
+      "normalised": 0.6541
+     },
+     {
+      "query": "what is SEO",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8062,
+      "normalised": 0.7306
+     },
+     {
+      "query": "how to rank higher on Google",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7541,
+      "normalised": 0.6638
+     },
+     {
+      "query": "why are product review sites all the same",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.6798,
+      "normalised": 0.5978
+     },
+     {
+      "query": "what is generative engine optimisation",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8349,
+      "normalised": 0.7977
+     },
+     {
+      "query": "GEO versus SEO",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7343,
+      "normalised": 0.639
+     },
+     {
+      "query": "who regulates Google",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8245,
+      "normalised": 0.7005
+     },
+     {
+      "query": "EU Digital Markets Act",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.74,
+      "normalised": 0.6493
+     },
+     {
+      "query": "data void search",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.6336,
+      "normalised": 0.5712
+     },
+     {
+      "query": "what is a data void",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8414,
+      "normalised": 0.7952
+     },
+     {
+      "query": "why are search results bad for breaking news",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7873,
+      "normalised": 0.6397
+     },
+     {
+      "query": "how do I know if a website is reliable",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7066,
+      "normalised": 0.618
+     },
+     {
+      "query": "teaching search literacy",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8919,
+      "normalised": 0.7977
+     },
+     {
+      "query": "lateral reading",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7214,
+      "normalised": 0.6993
+     },
+     {
+      "query": "right to be forgotten",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7915,
+      "normalised": 0.7503
+     },
+     {
+      "query": "how to remove my name from Google",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7554,
+      "normalised": 0.7143
+     },
+     {
+      "query": "is Google accessible for screen readers",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8195,
+      "normalised": 0.7251
+     },
+     {
+      "query": "does the results page work with a screen reader",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7767,
+      "normalised": 0.7258
+     },
+     {
+      "query": "is Google safe for kids",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8297,
+      "normalised": 0.6918
+     },
+     {
+      "query": "safe search for children",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8967,
+      "normalised": 0.7853
+     },
+     {
+      "query": "algorithmic bias examples",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.888,
+      "normalised": 0.7919
+     },
+     {
+      "query": "do search results discriminate",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7953,
+      "normalised": 0.6961
+     },
+     {
+      "query": "non-English search results",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8196,
+      "normalised": 0.7314
+     },
+     {
+      "query": "English dominance on the internet",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8201,
+      "normalised": 0.7005
+     },
+     {
+      "query": "can Google influence an election",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8174,
+      "normalised": 0.6906
+     },
+     {
+      "query": "search results and elections",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8387,
+      "normalised": 0.7056
+     },
+     {
+      "query": "western bias in search results",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8303,
+      "normalised": 0.7156
+     },
+     {
+      "query": "whose perspective does Google show",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.745,
+      "normalised": 0.6185
+     },
+     {
+      "query": "DuckDuckGo versus Google",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8374,
+      "normalised": 0.7427
+     },
+     {
+      "query": "best private search engine",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8281,
+      "normalised": 0.7022
+     },
+     {
+      "query": "what is a featured snippet",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7247,
+      "normalised": 0.7103
+     },
+     {
+      "query": "why does one answer appear at the top",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7911,
+      "normalised": 0.7625
+     },
+     {
+      "query": "what are cookies",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7775,
+      "normalised": 0.7389
+     },
+     {
+      "query": "why does every site ask about cookies",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8055,
+      "normalised": 0.722
+     },
+     {
+      "query": "why does the algorithm show me this",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.6417,
+      "normalised": 0.6143
+     },
+     {
+      "query": "how do apps keep you scrolling",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7399,
+      "normalised": 0.7047
+     },
+     {
+      "query": "is the AI summary at the top accurate",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8608,
+      "normalised": 0.7409
+     },
+     {
+      "query": "why is reject all so hard to find",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7063,
+      "normalised": 0.6424
+     },
+     {
+      "query": "how does reverse image search work",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8821,
+      "normalised": 0.8158
+     },
+     {
+      "query": "are filter bubbles real",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8824,
+      "normalised": 0.809
+     },
+     {
+      "query": "are vaccines safe",
+      "positive": false,
+      "negative_control": false,
+      "top1": 0.7991,
+      "normalised": 0.7221
+     },
+     {
+      "query": "best multivitamin reddit",
+      "positive": false,
+      "negative_control": false,
+      "top1": 0.3935,
+      "normalised": 0.34
+     },
+     {
+      "query": "weather tomorrow",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.3131,
+      "normalised": 0.2757
+     },
+     {
+      "query": "pizza near me",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.2258,
+      "normalised": 0.1894
+     },
+     {
+      "query": "gmail login",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.2855,
+      "normalised": 0.2626
+     },
+     {
+      "query": "bbc news",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.5385,
+      "normalised": 0.4273
+     },
+     {
+      "query": "train times to london",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.229,
+      "normalised": 0.2517
+     }
+    ],
+    "top1_neg_max": 0.5385,
+    "top1_coverage_at_fp0": 1.0,
+    "normalised_neg_max": 0.4273,
+    "normalised_coverage_at_fp0": 1.0
+   }
+  },
+  "paraphrase-probe-2026-07-10": {
+   "grid": [
+    {
+     "threshold": 0.3,
+     "margin": 0.0,
+     "accuracy_at_1": 0.7955,
+     "coverage": 1.0,
+     "fp_neg": 0.1,
+     "fp_unc": 0.0,
+     "abstention": 0.1964
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.01,
+     "accuracy_at_1": 0.7273,
+     "coverage": 0.8636,
+     "fp_neg": 0.1,
+     "fp_unc": 0.0,
+     "abstention": 0.3036
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.02,
+     "accuracy_at_1": 0.6818,
+     "coverage": 0.7955,
+     "fp_neg": 0.1,
+     "fp_unc": 0.0,
+     "abstention": 0.3571
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.03,
+     "accuracy_at_1": 0.6364,
+     "coverage": 0.7045,
+     "fp_neg": 0.1,
+     "fp_unc": 0.0,
+     "abstention": 0.4286
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.05,
+     "accuracy_at_1": 0.5227,
+     "coverage": 0.5682,
+     "fp_neg": 0.1,
+     "fp_unc": 0.0,
+     "abstention": 0.5357
+    },
+    {
+     "threshold": 0.3,
+     "margin": 0.08,
+     "accuracy_at_1": 0.4318,
+     "coverage": 0.4773,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.625
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.0,
+     "accuracy_at_1": 0.7955,
+     "coverage": 0.9773,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.2321
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.01,
+     "accuracy_at_1": 0.7273,
+     "coverage": 0.8636,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.3214
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.02,
+     "accuracy_at_1": 0.6818,
+     "coverage": 0.7955,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.375
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.03,
+     "accuracy_at_1": 0.6364,
+     "coverage": 0.7045,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4464
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.05,
+     "accuracy_at_1": 0.5227,
+     "coverage": 0.5682,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5536
+    },
+    {
+     "threshold": 0.325,
+     "margin": 0.08,
+     "accuracy_at_1": 0.4318,
+     "coverage": 0.4773,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.625
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.0,
+     "accuracy_at_1": 0.7955,
+     "coverage": 0.9773,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.2321
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.01,
+     "accuracy_at_1": 0.7273,
+     "coverage": 0.8636,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.3214
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.02,
+     "accuracy_at_1": 0.6818,
+     "coverage": 0.7955,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.375
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.03,
+     "accuracy_at_1": 0.6364,
+     "coverage": 0.7045,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4464
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.05,
+     "accuracy_at_1": 0.5227,
+     "coverage": 0.5682,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5536
+    },
+    {
+     "threshold": 0.35,
+     "margin": 0.08,
+     "accuracy_at_1": 0.4318,
+     "coverage": 0.4773,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.625
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.0,
+     "accuracy_at_1": 0.7727,
+     "coverage": 0.9545,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.25
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.01,
+     "accuracy_at_1": 0.7045,
+     "coverage": 0.8409,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.3393
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.02,
+     "accuracy_at_1": 0.6591,
+     "coverage": 0.7727,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.3929
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.03,
+     "accuracy_at_1": 0.6136,
+     "coverage": 0.6818,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4643
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.05,
+     "accuracy_at_1": 0.5,
+     "coverage": 0.5455,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5714
+    },
+    {
+     "threshold": 0.375,
+     "margin": 0.08,
+     "accuracy_at_1": 0.4091,
+     "coverage": 0.4545,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6429
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.0,
+     "accuracy_at_1": 0.7273,
+     "coverage": 0.9091,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.2857
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.01,
+     "accuracy_at_1": 0.6818,
+     "coverage": 0.8182,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.3571
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.02,
+     "accuracy_at_1": 0.6364,
+     "coverage": 0.75,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4107
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.03,
+     "accuracy_at_1": 0.5909,
+     "coverage": 0.6591,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4821
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.05,
+     "accuracy_at_1": 0.5,
+     "coverage": 0.5455,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5714
+    },
+    {
+     "threshold": 0.4,
+     "margin": 0.08,
+     "accuracy_at_1": 0.4091,
+     "coverage": 0.4545,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6429
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.0,
+     "accuracy_at_1": 0.7273,
+     "coverage": 0.8864,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.3036
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.01,
+     "accuracy_at_1": 0.6818,
+     "coverage": 0.7955,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.375
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.02,
+     "accuracy_at_1": 0.6364,
+     "coverage": 0.75,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4107
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.03,
+     "accuracy_at_1": 0.5909,
+     "coverage": 0.6591,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4821
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.05,
+     "accuracy_at_1": 0.5,
+     "coverage": 0.5455,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5714
+    },
+    {
+     "threshold": 0.425,
+     "margin": 0.08,
+     "accuracy_at_1": 0.4091,
+     "coverage": 0.4545,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6429
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.0,
+     "accuracy_at_1": 0.6818,
+     "coverage": 0.8182,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.3571
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.01,
+     "accuracy_at_1": 0.6591,
+     "coverage": 0.75,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4107
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.02,
+     "accuracy_at_1": 0.6136,
+     "coverage": 0.7045,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4464
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.03,
+     "accuracy_at_1": 0.5682,
+     "coverage": 0.6136,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5179
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.05,
+     "accuracy_at_1": 0.5,
+     "coverage": 0.5455,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5714
+    },
+    {
+     "threshold": 0.45,
+     "margin": 0.08,
+     "accuracy_at_1": 0.4091,
+     "coverage": 0.4545,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6429
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.0,
+     "accuracy_at_1": 0.6591,
+     "coverage": 0.7955,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.375
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.01,
+     "accuracy_at_1": 0.6364,
+     "coverage": 0.7273,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4286
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.02,
+     "accuracy_at_1": 0.5909,
+     "coverage": 0.6818,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4643
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.03,
+     "accuracy_at_1": 0.5455,
+     "coverage": 0.5909,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5357
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.05,
+     "accuracy_at_1": 0.4773,
+     "coverage": 0.5227,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5893
+    },
+    {
+     "threshold": 0.475,
+     "margin": 0.08,
+     "accuracy_at_1": 0.3864,
+     "coverage": 0.4318,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6607
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.0,
+     "accuracy_at_1": 0.6136,
+     "coverage": 0.75,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4107
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.01,
+     "accuracy_at_1": 0.5909,
+     "coverage": 0.6818,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.4643
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.02,
+     "accuracy_at_1": 0.5455,
+     "coverage": 0.6364,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.03,
+     "accuracy_at_1": 0.5,
+     "coverage": 0.5455,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5714
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.05,
+     "accuracy_at_1": 0.4545,
+     "coverage": 0.5,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6071
+    },
+    {
+     "threshold": 0.5,
+     "margin": 0.08,
+     "accuracy_at_1": 0.3636,
+     "coverage": 0.4091,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6786
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.0,
+     "accuracy_at_1": 0.5,
+     "coverage": 0.5909,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5357
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.01,
+     "accuracy_at_1": 0.4773,
+     "coverage": 0.5227,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5893
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.02,
+     "accuracy_at_1": 0.4545,
+     "coverage": 0.5,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6071
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.03,
+     "accuracy_at_1": 0.4318,
+     "coverage": 0.4545,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6429
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.05,
+     "accuracy_at_1": 0.3864,
+     "coverage": 0.4091,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6786
+    },
+    {
+     "threshold": 0.525,
+     "margin": 0.08,
+     "accuracy_at_1": 0.3182,
+     "coverage": 0.3409,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.7321
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.0,
+     "accuracy_at_1": 0.4773,
+     "coverage": 0.5455,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.5714
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.01,
+     "accuracy_at_1": 0.4773,
+     "coverage": 0.5,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6071
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.02,
+     "accuracy_at_1": 0.4545,
+     "coverage": 0.4773,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.625
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.03,
+     "accuracy_at_1": 0.4318,
+     "coverage": 0.4318,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6607
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.05,
+     "accuracy_at_1": 0.3864,
+     "coverage": 0.3864,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.6964
+    },
+    {
+     "threshold": 0.55,
+     "margin": 0.08,
+     "accuracy_at_1": 0.3182,
+     "coverage": 0.3182,
+     "fp_neg": 0.0,
+     "fp_unc": 0.0,
+     "abstention": 0.75
+    }
+   ],
+   "normalised_study": {
+    "rows": [
+     {
+      "query": "why does my phone come with Google built in",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5607,
+      "normalised": 0.4797
+     },
+     {
+      "query": "google apple search deal billions",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5211,
+      "normalised": 0.4087
+     },
+     {
+      "query": "switch my browser to a different search engine",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.629,
+      "normalised": 0.5738
+     },
+     {
+      "query": "how did one company end up running all web search",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5027,
+      "normalised": 0.4205
+     },
+     {
+      "query": "google market share search percentage",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.4358,
+      "normalised": 0.3526
+     },
+     {
+      "query": "meaning of search engine optimisation",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5983,
+      "normalised": 0.5236
+     },
+     {
+      "query": "get my website to the top of search results",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5112,
+      "normalised": 0.4546
+     },
+     {
+      "query": "why do all best-of review articles look identical",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.4647,
+      "normalised": 0.4116
+     },
+     {
+      "query": "companies trying to appear inside chatbot recommendations",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5265,
+      "normalised": 0.4455
+     },
+     {
+      "query": "optimising for AI answers compared with optimising for search rankings",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5544,
+      "normalised": 0.4529
+     },
+     {
+      "query": "which authority oversees search companies",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.6289,
+      "normalised": 0.536
+     },
+     {
+      "query": "european law forcing big tech to open up",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.434,
+      "normalised": 0.3285
+     },
+     {
+      "query": "searches with no good results get filled with junk",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.6121,
+      "normalised": 0.4876
+     },
+     {
+      "query": "term for when nobody has written about a search topic",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.4892,
+      "normalised": 0.3995
+     },
+     {
+      "query": "why does searching a just-happened event show rubbish",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.4423,
+      "normalised": 0.3519
+     },
+     {
+      "query": "ways to tell whether a site is trustworthy",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5792,
+      "normalised": 0.4587
+     },
+     {
+      "query": "lesson plan evaluating online sources",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.3193,
+      "normalised": 0.226
+     },
+     {
+      "query": "checking other sites to verify a claim",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5553,
+      "normalised": 0.4959
+     },
+     {
+      "query": "ask google to delist old articles about me",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5097,
+      "normalised": 0.399
+     },
+     {
+      "query": "delete search results about myself",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5851,
+      "normalised": 0.4967
+     },
+     {
+      "query": "using search when you are blind",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7719,
+      "normalised": 0.7005
+     },
+     {
+      "query": "voiceover reads google results badly",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.4293,
+      "normalised": 0.3262
+     },
+     {
+      "query": "should I let my eight year old search the web",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5969,
+      "normalised": 0.5248
+     },
+     {
+      "query": "child friendly search settings",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7311,
+      "normalised": 0.6423
+     },
+     {
+      "query": "cases where algorithms treated groups unfairly",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.4957,
+      "normalised": 0.3705
+     },
+     {
+      "query": "search engines unfair to minorities study",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5399,
+      "normalised": 0.3895
+     },
+     {
+      "query": "searching in languages other than English quality",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.6718,
+      "normalised": 0.6176
+     },
+     {
+      "query": "most of the web is in English problem",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5789,
+      "normalised": 0.5059
+     },
+     {
+      "query": "search rankings swinging votes",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5776,
+      "normalised": 0.4982
+     },
+     {
+      "query": "do result orderings change voter opinions",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5626,
+      "normalised": 0.4853
+     },
+     {
+      "query": "results skewed toward rich countries",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5161,
+      "normalised": 0.3947
+     },
+     {
+      "query": "whose viewpoint do search engines present",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.611,
+      "normalised": 0.4607
+     },
+     {
+      "query": "comparing duckduckgo with google",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.7659,
+      "normalised": 0.6918
+     },
+     {
+      "query": "search engine that does not track you",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.8105,
+      "normalised": 0.7254
+     },
+     {
+      "query": "the answer box at the top of google",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5848,
+      "normalised": 0.5224
+     },
+     {
+      "query": "why does google pick a single answer to highlight",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5085,
+      "normalised": 0.4688
+     },
+     {
+      "query": "what do websites store on my computer when I visit",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.4132,
+      "normalised": 0.3687
+     },
+     {
+      "query": "constant consent pop ups on websites",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.6364,
+      "normalised": 0.5436
+     },
+     {
+      "query": "why am I being shown this content",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.3929,
+      "normalised": 0.3379
+     },
+     {
+      "query": "design tricks that keep people on the feed",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5188,
+      "normalised": 0.3942
+     },
+     {
+      "query": "can I trust googles AI generated answer",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5538,
+      "normalised": 0.4198
+     },
+     {
+      "query": "cookie banners hide the decline button",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5773,
+      "normalised": 0.548
+     },
+     {
+      "query": "find where a photo came from online",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.6999,
+      "normalised": 0.6381
+     },
+     {
+      "query": "does personalisation trap people in echo chambers evidence",
+      "positive": true,
+      "negative_control": false,
+      "top1": 0.5694,
+      "normalised": 0.4751
+     },
+     {
+      "query": "worried about vaccine side effects",
+      "positive": false,
+      "negative_control": false,
+      "top1": 0.7232,
+      "normalised": 0.6576
+     },
+     {
+      "query": "top supplement recommendations forum",
+      "positive": false,
+      "negative_control": false,
+      "top1": 0.384,
+      "normalised": 0.2794
+     },
+     {
+      "query": "weather tomorrow",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.3131,
+      "normalised": 0.2757
+     },
+     {
+      "query": "pizza near me",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.2258,
+      "normalised": 0.1894
+     },
+     {
+      "query": "gmail login",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.2855,
+      "normalised": 0.2626
+     },
+     {
+      "query": "bbc news",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.5385,
+      "normalised": 0.4273
+     },
+     {
+      "query": "train times to london",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.229,
+      "normalised": 0.2517
+     },
+     {
+      "query": "amazon prime login",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.2404,
+      "normalised": 0.1827
+     },
+     {
+      "query": "football scores today",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.247,
+      "normalised": 0.2244
+     },
+     {
+      "query": "how to boil an egg",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.1703,
+      "normalised": 0.1876
+     },
+     {
+      "query": "cheap flights to spain",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.256,
+      "normalised": 0.2462
+     },
+     {
+      "query": "screwdriver set argos",
+      "positive": false,
+      "negative_control": true,
+      "top1": 0.2182,
+      "normalised": 0.2345
+     }
+    ],
+    "top1_neg_max": 0.5385,
+    "top1_coverage_at_fp0": 0.5909,
+    "normalised_neg_max": 0.4273,
+    "normalised_coverage_at_fp0": 0.6136
+   }
+  }
+ },
+ "provenance": {
+  "model_artifact": "sha256:89779550529b9077:23026053",
+  "runtime": "onnxruntime 1.23.2; aarch64; python 3.10.12",
+  "git_sha": "5f2c3956adbc716aef4794264396eca71d423954",
+  "scorer": "production blended (alpha 0.35)"
+ }
+}
