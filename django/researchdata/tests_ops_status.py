@@ -73,3 +73,25 @@ class OpsStatusTests(TestCase):
             return [(self.conc.id, 0.46)]
         data = self._get(fake)
         self.assertFalse(data["canaries_pass"])
+
+    def test_classifier_status_is_captured_after_canaries(self):
+        # On a freshly woken worker the canaries are what load the index, so
+        # the classifier block must be read after they run. Simulated here: a
+        # status that reports 0 rows until the first classify_query call.
+        state = {"warmed": False}
+
+        def fake_classify(query, threshold=None, top_k=None, margin=None, _query_vec=None):
+            state["warmed"] = True
+            if query == "what is SEO":
+                return [(self.seo.id, 0.51)]
+            if query == "why does everyone use Google":
+                return [(self.conc.id, 0.46)]
+            return [(self.seo.id, 0.20)]
+
+        def fake_status():
+            return {"index_rows": 228 if state["warmed"] else 0}
+
+        with mock.patch("researchdata.views.classify_query", side_effect=fake_classify), \
+                mock.patch("researchdata.embedding.classifier_status", side_effect=fake_status):
+            data = self.client.get("/data/ops/status/").json()
+        self.assertEqual(data["classifier"]["index_rows"], 228)

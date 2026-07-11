@@ -255,13 +255,10 @@ def ops_status(request):
     status['time'] = datetime.datetime.utcnow().isoformat() + 'Z'
     status['git_commit'] = os.environ.get('RENDER_GIT_COMMIT', 'unknown')[:12]
 
-    try:
-        classifier = embedding.classifier_status()
-    except Exception:
-        classifier = {'error': 'classifier status unavailable'}
-    classifier['model_artifact'] = model_artifact_fingerprint()
-    classifier['runtime'] = runtime_descriptor()
-    status['classifier'] = classifier
+    # NOTE: the classifier block is filled in AFTER the canary loop below.
+    # The canaries load the index on a freshly woken worker, so capturing
+    # classifier_status() here would report index_rows 0 in the same response
+    # whose canaries pass (observed at the 10 July deploy verification).
 
     try:
         last_apply = (models.ContentApply.objects.filter(dry_run=False)
@@ -269,10 +266,10 @@ def ops_status(request):
         last_eval = models.MatchingEvaluation.objects.first()
         status['content'] = {
             'topics': models.Topic.objects.count(),
-            'topics_with_description': models.Topic.objects
-                .exclude(description__isnull=True).exclude(description='').count(),
-            'topics_with_example_queries': models.Topic.objects
-                .exclude(example_queries=[]).count(),
+            'topics_with_description': models.Topic.objects.exclude(
+                description__isnull=True).exclude(description='').count(),
+            'topics_with_example_queries': models.Topic.objects.exclude(
+                example_queries=[]).count(),
             'approved_prompts': models.Prompt.objects.filter(admin_approved=True).count(),
             'last_apply': last_apply.created_datetime.isoformat() if last_apply else None,
             'last_evaluation': {
@@ -321,6 +318,16 @@ def ops_status(request):
         canaries.append(row)
     status['canaries'] = canaries
     status['canaries_pass'] = all_pass
+
+    # Captured after the canaries so a cold worker reports the index the
+    # canaries just loaded, not the empty pre-warm state.
+    try:
+        classifier = embedding.classifier_status()
+    except Exception:
+        classifier = {'error': 'classifier status unavailable'}
+    classifier['model_artifact'] = model_artifact_fingerprint()
+    classifier['runtime'] = runtime_descriptor()
+    status['classifier'] = classifier
 
     return JsonResponse(status)
 

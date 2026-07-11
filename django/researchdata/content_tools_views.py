@@ -170,6 +170,9 @@ def _build_context(request, extra=None):
         "labelled_file_name": labelled.name if labelled else None,
         "classifier_margin": get_classifier_margin(),
         "recent_evaluations": models.MatchingEvaluation.objects.all()[:10],
+        # Template flag: hides write forms from staff editors. Cosmetic only;
+        # the POST gate in content_tools() is the security boundary.
+        "can_manage_content": request.user.is_superuser,
         **_status_context(),
     }
     if extra:
@@ -177,18 +180,27 @@ def _build_context(request, extra=None):
     return context
 
 
+# Actions that change the live system: package upload/apply, index rebuild,
+# decision-rule changes. Staff editors get the READ actions only (spot check,
+# run evaluation). This gate, not template hiding, is the security boundary.
+SUPERUSER_ACTIONS = frozenset({"upload_preview", "apply", "rebuild_index", "set_threshold"})
+
+
 @staff_member_required
 @require_http_methods(["GET", "POST"])
 def content_tools(request):
-    if not request.user.is_superuser:
-        return HttpResponseForbidden("Superuser access required.")
-
     if request.method == "GET":
         return render(request, "researchdata/content_tools.html", _build_context(request))
 
     action = request.POST.get("action")
     if not action and request.FILES.get("package"):
         action = "upload_preview"
+    if action in SUPERUSER_ACTIONS and not request.user.is_superuser:
+        return HttpResponseForbidden(
+            "Superuser access required for this action. Staff accounts may run "
+            "the spot check and the evaluation, but cannot change content or "
+            "the decision rule."
+        )
     if action == "upload_preview":
         return _handle_upload_preview(request)
     if action == "apply":

@@ -25,6 +25,7 @@
     </tbody>
   </table>
 
+  {% if can_manage_content %}
   <form method="post" style="margin-top: 1rem;">
     {% csrf_token %}
     <input type="hidden" name="action" value="set_threshold">
@@ -33,8 +34,13 @@
            id="classifier_threshold" value="{{ classifier_threshold }}" required>
     <input type="submit" value="Save threshold" class="default">
   </form>
+  {% else %}
+  <p style="color: #666;">You have read access. Changing the threshold, uploading packages
+     and rebuilding indexes need a superuser account.</p>
+  {% endif %}
 </section>
 
+{% if can_manage_content %}
 <section class="module" id="upload-panel">
   <h2>Upload and apply</h2>
   <p>Upload a content package JSON. A dry run runs first; nothing is written until you click Apply.</p>
@@ -104,6 +110,7 @@
     <input type="submit" value="Rebuild indexes">
   </form>
 </section>
+{% endif %}
 
 <section class="module" id="spot-check-panel">
   <h2>Spot check</h2>

@@ -15,7 +15,9 @@ Run from `django/` with the environment described below.
 - `python manage.py evaluate_matching` scores the labelled set offline and persists a provenance-stamped `MatchingEvaluation` row. Use `--file ../data/paraphrase-probe-2026-07-10.csv` for the uncontaminated probe. Every quality claim starts here.
 - `python manage.py matching_diagnostics` prints attractor pairs, self-retrieval and out-of-domain scores.
 - `python scripts/decision_grid.py` sweeps threshold and margin on both instruments.
-- `python manage.py test researchdata` runs the suite (63 tests, all passing as of this commit). Nothing ships red.
+- `python manage.py test researchdata` runs the suite (89 tests, all passing as of this commit). Nothing ships red.
+- `python -m flake8 .` from the repo root must exit clean before any handoff: GitHub runs it on every pull request (`.github/workflows/ci-flake8.yml`), and a red check on Rosie's screen costs a round trip. Config in `.flake8` (max line 199).
+- `python manage.py audit_accounts` prints every account with its role. Read-only; run it before and after touching anything account-shaped.
 
 ## Live read-only endpoints (no credentials)
 
@@ -38,6 +40,30 @@ python manage.py import_live_export         # 193 topics, 195 prompts, triggers
 ```
 
 To mirror live content exactly, know this history: live carries the content package PLUS 17 inherited-topic descriptions applied in June from `data/topic-descriptions-draft.json` (the first batch). The 23-topic `topic-descriptions-batch-digital-2026-06-21.json` was never applied. When in doubt, probe `/data/classifier/debug/` per topic name and trust `has_description` over any document, including this one.
+
+## Account roles (July 2026)
+
+Two tiers, enforced in code, not by convention. `account/User.save()` no
+longer forces privileges (it used to make every account a superuser); it
+still rewrites username to the lowercased email, which is load-bearing for
+login. Roles:
+
+- **Superuser** (Rosie): everything, including participant data
+  (EngagementEvent, Response, NotRelevantReport), the Setting table, user
+  management, and the write actions on Content tools (upload, apply,
+  rebuild, threshold).
+- **Staff editor** (`is_staff=True`, `is_superuser=False`; Emilia,
+  collaborators, a SEASON demo login): dashboard login; topics, prompts,
+  groups, triggers and the ContentApply / MatchingEvaluation histories
+  read-only; spot check and evaluation on Content tools. Cannot write
+  content, cannot change the decision rule, cannot see participant data or
+  other accounts. Enforcement lives in `researchdata/admin.py` (permission
+  mixins), `account/admin.py`, and the per-action gate in
+  `researchdata/content_tools_views.py` (`SUPERUSER_ACTIONS`).
+
+The ethics application's data-access section cites this boundary. Loosening
+any of it is an ethics change, not a UI tweak. `manage.py audit_accounts`
+shows who currently holds what.
 
 ## Rules that are not negotiable
 

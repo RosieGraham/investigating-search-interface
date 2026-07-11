@@ -78,7 +78,6 @@ def attractor_pairs(top_n=25):
     described = {t.id: bool(t.description) for t in Topic.objects.only("id", "description")}
 
     sims = matrix @ matrix.T
-    n_topics = len(topic_ids)
     best = {}
     n_rows = matrix.shape[0]
     for i in range(n_rows):
