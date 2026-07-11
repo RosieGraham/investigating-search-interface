@@ -36,13 +36,16 @@ class User(AbstractUser):
         return self.name
 
     def save(self, *args, **kwargs):
-        # Force email and username to be lower case and identical, so users can login with email
+        # Force email and username to be lower case and identical, so users can login with email.
+        # This rewrite is LOAD-BEARING: every login flow and ensure_superuser depend on it.
         if self.email:
             self.email = self.email.strip().lower()
             self.username = self.email
-        # Ensure all accounts are 'staff' and 'superuser' so they can access admin dashboard
-        self.is_staff = True
-        self.is_superuser = True
+        # NOTE (July 2026): this method used to force is_staff and is_superuser True on
+        # every save (inherited from the old bham system so accounts could reach the
+        # dashboard). Removed so non-privileged accounts can exist: staff editors get
+        # is_staff=True only, and participant-data tables stay superuser-only. Privilege
+        # flags are now set explicitly where accounts are created (admin, ensure_superuser).
         # Apply changes to user object
         super().save(*args, **kwargs)
 

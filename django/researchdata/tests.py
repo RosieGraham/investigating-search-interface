@@ -97,7 +97,8 @@ class ClassifierFlowTests(TestCase):
 
     def _stub_classifier(self, classify_return, rank_side_effect=None):
         if rank_side_effect is None:
-            rank_side_effect = lambda _qv, ids: [(pid, 0.9) for pid in ids]
+            def rank_side_effect(_qv, ids):
+                return [(pid, 0.9) for pid in ids]
         return mock.patch.multiple(
             'researchdata.views',
             embed_query=mock.Mock(return_value=[0.0] * 384),

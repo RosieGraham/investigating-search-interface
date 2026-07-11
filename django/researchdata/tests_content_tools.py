@@ -44,8 +44,15 @@ MINIMAL_PACKAGE = {
 }
 
 
-def make_staff_client():
-    user = User.objects.create_user(
+def make_superuser_client():
+    """A logged-in superuser client.
+
+    Until July 2026 User.save() forced every account to superuser, so
+    create_user() alone was enough here. The forcing is gone (account
+    roles work); write actions on the content tools page need an explicit
+    superuser now, which is exactly what these tests exercise.
+    """
+    user = User.objects.create_superuser(
         username="admin@test.com",
         email="admin@test.com",
         password="secret",
@@ -225,20 +232,37 @@ class ApplyPackageTests(TestCase):
 
 
 class ContentToolsViewTests(TestCase):
-    def test_non_staff_gets_403(self):
+    def test_non_staff_cannot_reach_page(self):
+        # No dashboard access at all: staff_member_required sends them to login.
         user = User.objects.create_user(
             username="nostaff@test.com",
             email="nostaff@test.com",
             password="secret",
         )
-        User.objects.filter(pk=user.pk).update(is_staff=True, is_superuser=False)
         client = Client()
         client.force_login(user)
         resp = client.get(reverse("content-tools"))
-        self.assertEqual(resp.status_code, 403)
+        self.assertEqual(resp.status_code, 302)
+        self.assertIn("login", resp["Location"])
+
+    def test_staff_non_superuser_gets_read_only_page(self):
+        # Until July 2026 this was a 403 (blanket superuser gate). Staff
+        # editors now get the page read-only; the per-action POST gate is
+        # pinned in tests_account_roles.py.
+        user = User.objects.create_user(
+            username="editor-ro@test.com",
+            email="editor-ro@test.com",
+            password="secret",
+            is_staff=True,
+        )
+        client = Client()
+        client.force_login(user)
+        resp = client.get(reverse("content-tools"))
+        self.assertEqual(resp.status_code, 200)
+        self.assertFalse(resp.context["can_manage_content"])
 
     def test_upload_invalid_json_rejected(self):
-        client = make_staff_client()
+        client = make_superuser_client()
         before = models.ContentApply.objects.count()
         resp = client.post(
             reverse("content-tools"),
@@ -251,7 +275,7 @@ class ContentToolsViewTests(TestCase):
         self.assertEqual(models.ContentApply.objects.count(), before)
 
     def test_upload_preview_then_apply(self):
-        client = make_staff_client()
+        client = make_superuser_client()
         payload = json.dumps(MINIMAL_PACKAGE).encode("utf-8")
         resp = client.post(
             reverse("content-tools"),
@@ -275,7 +299,7 @@ class ContentToolsViewTests(TestCase):
         self.assertTrue(models.ContentApply.objects.filter(dry_run=False).exists())
 
     def test_apply_rejects_stale_digest(self):
-        client = make_staff_client()
+        client = make_superuser_client()
         payload = json.dumps(MINIMAL_PACKAGE).encode("utf-8")
         client.post(
             reverse("content-tools"),
@@ -295,9 +319,10 @@ class ContentToolsViewTests(TestCase):
         self.assertEqual(
             models.Topic.objects.filter(name="Surveillance capitalism").count(), before
         )
+
     @override_settings(CLASSIFIER_ENABLED=True)
     def test_set_threshold_persists(self):
-        client = make_staff_client()
+        client = make_superuser_client()
         resp = client.post(
             reverse("content-tools"),
             {"action": "set_threshold", "classifier_threshold": "0.42"},
@@ -310,7 +335,7 @@ class ContentToolsViewTests(TestCase):
     def test_spot_check_renders_without_model(self):
         from researchdata.embedding import ClassifierUnavailable
 
-        client = make_staff_client()
+        client = make_superuser_client()
         with mock.patch(
             "researchdata.content_tools_views.classify_query",
             side_effect=ClassifierUnavailable("no model"),

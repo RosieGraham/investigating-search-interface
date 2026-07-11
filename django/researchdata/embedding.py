@@ -65,7 +65,7 @@ _index_dirty = True
 # will not propagate across gunicorn workers. Replace it with shared state
 # (e.g. a Setting row holding a timestamp or fingerprint, compared per request).
 _prompt_matrix = None    # np.ndarray (n_prompts, 384), L2-normalised
-_prompt_index_ids = None # list[int], row-aligned with _prompt_matrix
+_prompt_index_ids = None  # list[int], row-aligned with _prompt_matrix
 _prompt_index_dirty = True
 _unavailable_logged = False
 
@@ -417,7 +417,6 @@ def build_prompt_index(force=False):
 
 
 def _ensure_prompt_index():
-    global _prompt_index_dirty
     if _prompt_index_dirty or _prompt_matrix is None:
         with _lock:
             if _prompt_index_dirty or _prompt_matrix is None:

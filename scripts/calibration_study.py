@@ -115,11 +115,6 @@ def isotonic(scores, labels):
     """Pool-adjacent-violators; returns step function knots."""
     order = np.argsort(scores)
     s, y = scores[order], labels[order].astype(np.float64)
-    level = list(y)
-    weight = [1.0] * len(y)
-    start = list(range(len(y)))
-    i = 0
-    values = level[:]
     # PAVA merge
     blocks = [[y[k], 1.0, s[k], s[k]] for k in range(len(y))]
     merged = []
