@@ -113,3 +113,36 @@ def set_classifier_blend_alpha(value: float) -> None:
         defaults={'value': str(value)},
     )
     cache.delete(_ALPHA_CACHE_KEY)
+
+
+SERVE_PLACEHOLDERS_KEY = 'SERVE_PLACEHOLDERS'
+_SERVE_PLACEHOLDERS_CACHE_KEY = 'researchdata:serve_placeholders'
+
+
+def get_serve_placeholders() -> bool:
+    """Evaluation-scaffold flag: serve a placeholder card (matched_by=
+    'placeholder') for a topic that matched above threshold but has no
+    approved prompt yet, instead of silently skipping it. Default False
+    preserves historical behaviour. See Working Docs/Placeholder-card
+    serving toggle - build spec - 13 July 2026.md."""
+    cached = cache.get(_SERVE_PLACEHOLDERS_CACHE_KEY)
+    if cached is not None:
+        return cached
+
+    from .models import Setting
+
+    row = Setting.objects.filter(key=SERVE_PLACEHOLDERS_KEY).first()
+    value = (row.value.strip().lower() == 'true') if row and row.value is not None else False
+
+    cache.set(_SERVE_PLACEHOLDERS_CACHE_KEY, value, _CACHE_TTL)
+    return value
+
+
+def set_serve_placeholders(on: bool) -> None:
+    from .models import Setting
+
+    Setting.objects.update_or_create(
+        key=SERVE_PLACEHOLDERS_KEY,
+        defaults={'value': 'true' if on else 'false'},
+    )
+    cache.delete(_SERVE_PLACEHOLDERS_CACHE_KEY)

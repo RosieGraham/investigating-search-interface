@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import models
 from .embedding import ClassifierUnavailable, classify_query, embed_query, rank_prompts
-from .classifier_config import get_classifier_margin, get_classifier_threshold
+from .classifier_config import get_classifier_margin, get_classifier_threshold, get_serve_placeholders
 
 logger = logging.getLogger('researchdata')
 
@@ -29,6 +29,33 @@ def _prompt_payload(prompt, confidence=None, matched_by=None):
         'response_required': prompt.response_required,
         'seeed_url': prompt.seeed_url or None,
         'matched_by': matched_by,
+    }
+    if confidence is not None:
+        data['confidence'] = round(confidence, 3)
+    return data
+
+
+def _placeholder_payload(topic_id, confidence):
+    """
+    Same dict shape as _prompt_payload, for a topic that matched above
+    threshold but has no approved prompt to serve yet. Evaluation scaffold
+    only: gated behind SERVE_PLACEHOLDERS (see
+    classifier_config.get_serve_placeholders). Does NOT call
+    _approved_prompts(); it serves regardless of approval state, keyed
+    only on the matched topic already in hand.
+    """
+    topic = models.Topic.objects.filter(id=topic_id).select_related('topic_group').first()
+    data = {
+        'id': None,
+        'topic': str(topic) if topic else None,
+        'topic_id': topic_id,
+        'prompt_content': (
+            'This topic does not have a written prompt yet. '
+            'We are noting what your search matched.'
+        ),
+        'response_required': False,
+        'seeed_url': None,
+        'matched_by': 'placeholder',
     }
     if confidence is not None:
         data['confidence'] = round(confidence, 3)
@@ -110,6 +137,7 @@ def prompt_get(request):
 
     prompts_payload = []
     classifier_state = 'disabled'
+    serve_placeholders = get_serve_placeholders()
 
     # --- Primary path: vector classification ---
     if settings.CLASSIFIER_ENABLED:
@@ -129,6 +157,8 @@ def prompt_get(request):
                     .exclude(topic__topic_group__id__in=topics_exclude)
                 }
                 if not candidate_map:
+                    if serve_placeholders:
+                        prompts_payload.append(_placeholder_payload(topic_id, confidence))
                     continue
                 # Similarity decides WHICH prompts are shown, which is the only
                 # thing it can usefully decide once the cap is smaller than the
