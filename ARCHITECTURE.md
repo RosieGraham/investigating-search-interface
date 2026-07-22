@@ -58,8 +58,11 @@ yet:
 - Cross-browser and multi-engine reach as a market-size decision, not only a
   research-reach one (see the options analysis in
   `Outputs/Technical/Cross-browser and multi-engine options.docx`).
-- App-store billing, pricing tiers, and review constraints (Chrome Web Store
-  paid items, Apple's in-app purchase rules).
+- Distribution and billing constraints: Chrome Web Store native payments were
+  deprecated in February 2021; any commercial model requires free or unlisted
+  store distribution plus external billing and entitlement (e.g. Stripe +
+  licence-key validation). Apple's in-app purchase rules apply if a Safari
+  Web Extension is considered.
 
 This is a lens to apply to future decisions, not a plan. The daily digest now
 also watches for commercialisation-relevant signals (pricing models,
@@ -83,14 +86,16 @@ field) is what gets embedded; topics without one fall back to
 "group: name". First 17 drafted in `data/topic-descriptions-draft.json`;
 measurable effect documented in the decision document.
 
-Threshold: **0.40** at launch (calibrated 2026-06-11 against 500 trigger
-positives + 50 constructed negatives: 79.6% coverage, 14% FP). Re-calibrate
-after each description batch, and switch the negative set to real
-NotRelevantReport rows once they accumulate.
+Threshold: **0.35** (revised 2026-07-10 matching-quality report; launch value
+was 0.40, lowered after the paraphrase-probe evaluation showed the higher
+threshold cost coverage with no FP benefit). Re-calibrate after each
+description batch, and switch the negative set to real NotRelevantReport rows
+once they accumulate.
 
 ## API
 
-`GET /data/prompt/get/` - query in, up to 3 prompts out, with per-prompt
+`POST /data/prompt/get/` (was GET; switched to POST for privacy, see
+privacy notice) - query in, up to 3 prompts out, with per-prompt
 `matched_by` ('classifier'|'trigger'), `confidence`, `seeed_url`. Backward
 compatible with the v1 popup (`prompt` single object preserved).
 `POST /data/response/post/`, `/data/notrelevantreport/post/` - as v1, the

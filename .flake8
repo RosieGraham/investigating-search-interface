@@ -4,5 +4,6 @@ exclude =
 	migrations,
 	__pycache__,
 	venv,
+	.venv,
 	resources/private
 max-line-length = 199

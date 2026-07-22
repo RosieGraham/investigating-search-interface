@@ -32,6 +32,7 @@ when Google shifts its markup.
 
   const STATE = {
     lastKey: null,        // `${query}|${mode}` of the last completed injection
+    pendingKey: null,     // in-flight request key (dedup during API round-trip)
     observer: null,
     settings: { enabled: true, topicsExclude: [], logEvents: true },
   };
@@ -115,6 +116,8 @@ when Google shifts its markup.
 
     const notRelevant = el('button', 'isi-not-relevant', 'Not relevant to my search');
     notRelevant.type = 'button';
+    const disclosure = el('span', 'isi-report-disclosure', 'Reports your query to improve matching');
+    notRelevant.appendChild(disclosure);
     notRelevant.addEventListener('click', async () => {
       notRelevant.disabled = true;
       await send({
@@ -267,13 +270,28 @@ when Google shifts its markup.
 
     const key = `${query}|${mode}`;
     if (STATE.lastKey === key) return; // already handled this query+layout
-    STATE.lastKey = key;
+    if (STATE.pendingKey === key) return; // same request already in flight
+
+    // Capture the key we're about to request; commit lastKey only after the
+    // response is still for the page the user is viewing (stale-response guard).
+    const requestKey = key;
+    STATE.pendingKey = requestKey;
 
     const resp = await send({
       type: 'getPrompts',
       query,
       topicsExclude: STATE.settings.topicsExclude,
     });
+
+    if (STATE.pendingKey === requestKey) STATE.pendingKey = null;
+
+    // User navigated during the API call: discard the stale response.
+    const currentQuery = getQuery();
+    const currentKey = `${currentQuery}|${currentMode()}`;
+    if (currentKey !== requestKey) return;
+
+    STATE.lastKey = requestKey;
+
     if (!resp.ok || !resp.data || !Array.isArray(resp.data.prompts) || resp.data.prompts.length === 0) {
       return; // no confident match (or API asleep/cold-starting): show nothing
     }
@@ -306,6 +324,7 @@ when Google shifts its markup.
       if (location.href === lastHref) return;
       lastHref = location.href;
       STATE.lastKey = null;
+      STATE.pendingKey = null;
       setTimeout(() => {
         run();
         watchForLayout();
@@ -318,16 +337,92 @@ when Google shifts its markup.
     setInterval(onChange, 1500); // belt and braces: some updates skip both APIs
   }
 
-  // ---------- boot ----------
-
-  chrome.storage.local.get(['isi_enabled', 'isi_topics_exclude', 'isi_log_events'], (stored) => {
-    STATE.settings.enabled = stored.isi_enabled !== false;
-    STATE.settings.topicsExclude = stored.isi_topics_exclude || [];
-    STATE.settings.logEvents = stored.isi_log_events !== false;
+  function startAfterConsent() {
     run();
     watchForLayout();
     watchForNavigation();
-  });
+  }
+
+  /** One-time consent interstitial before any query leaves the browser. */
+  function showConsentBanner() {
+    if (document.getElementById('isi-consent-banner')) return;
+
+    const banner = el('div', 'isi-consent-banner');
+    banner.id = 'isi-consent-banner';
+
+    banner.appendChild(el('p', 'isi-consent-title', 'Investigating Search Interface'));
+    banner.appendChild(el(
+      'p',
+      null,
+      'This extension sends your search queries to a University of Birmingham '
+      + 'research server to find relevant reflection prompts. Queries are not stored '
+      + 'unless you click "Not relevant" on a prompt. A pseudonymous installation '
+      + 'identifier links your activity for research purposes.'
+    ));
+
+    const noticeUrl = (typeof ISI_CONFIG !== 'undefined' && ISI_CONFIG.PRIVACY_NOTICE_URL) || '';
+    if (noticeUrl) {
+      const noticePara = el('p', null);
+      const noticeLink = el('a', null, 'Read the full privacy notice');
+      noticeLink.href = noticeUrl;
+      noticeLink.target = '_blank';
+      noticeLink.rel = 'noopener noreferrer';
+      noticePara.appendChild(noticeLink);
+      banner.appendChild(noticePara);
+    }
+
+    const actions = el('div', 'isi-consent-actions');
+    const accept = el('button', 'isi-consent-accept', 'I understand, enable the extension');
+    accept.type = 'button';
+    accept.id = 'isi-consent-accept';
+    const decline = el('button', 'isi-consent-decline', 'No thanks');
+    decline.type = 'button';
+    decline.id = 'isi-consent-decline';
+    actions.appendChild(accept);
+    actions.appendChild(decline);
+    banner.appendChild(actions);
+
+    const rso = document.querySelector(SELECTORS.resultsContainer);
+    const anchor = rso || document.querySelector(SELECTORS.resultsFallback);
+    if (anchor && anchor.parentElement) {
+      anchor.parentElement.insertBefore(banner, anchor);
+    } else {
+      document.body.appendChild(banner);
+    }
+
+    accept.addEventListener('click', () => {
+      chrome.storage.local.set({ isi_consent_given: true, isi_enabled: true });
+      banner.remove();
+      STATE.settings.enabled = true;
+      startAfterConsent();
+    });
+
+    decline.addEventListener('click', () => {
+      chrome.storage.local.set({ isi_enabled: false });
+      banner.remove();
+      STATE.settings.enabled = false;
+    });
+  }
+
+  // ---------- boot ----------
+
+  chrome.storage.local.get(
+    ['isi_enabled', 'isi_topics_exclude', 'isi_log_events', 'isi_consent_given'],
+    (stored) => {
+      STATE.settings.enabled = stored.isi_enabled !== false;
+      STATE.settings.topicsExclude = stored.isi_topics_exclude || [];
+      STATE.settings.logEvents = stored.isi_log_events !== false;
+
+      if (!stored.isi_consent_given) {
+        // Previously declined: stay quiet until they re-enable via the popup.
+        if (stored.isi_enabled === false) return;
+        showConsentBanner();
+        return; // do not call run() until consent is given
+      }
+
+      startAfterConsent();
+    }
+  );
 
   chrome.storage.onChanged.addListener((changes, area) => {
     if (area !== 'local') return;
@@ -336,14 +431,23 @@ when Google shifts its markup.
       if (!STATE.settings.enabled) {
         document.querySelector('#isi-prompts')?.remove();
         document.querySelector('#isi-badge')?.remove();
+        document.querySelector('#isi-consent-banner')?.remove();
       } else {
-        STATE.lastKey = null;
-        run();
+        chrome.storage.local.get(['isi_consent_given'], (s) => {
+          if (!s.isi_consent_given) {
+            showConsentBanner();
+            return;
+          }
+          STATE.lastKey = null;
+          STATE.pendingKey = null;
+          run();
+        });
       }
     }
     if (changes.isi_topics_exclude) {
       STATE.settings.topicsExclude = changes.isi_topics_exclude.newValue || [];
       STATE.lastKey = null;
+      STATE.pendingKey = null;
       run();
     }
     if (changes.isi_log_events) {
