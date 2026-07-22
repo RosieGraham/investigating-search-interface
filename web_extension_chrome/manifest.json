@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Investigating Search Interface",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Surfaces short, expert-authored reflection prompts alongside Google search results. A University of Birmingham research project (formerly the Ethical Interface).",
     "permissions": ["storage"],
     "host_permissions": [
@@ -16,21 +16,7 @@
             "matches": [
                 "https://www.google.com/search*",
                 "https://www.google.co.uk/search*",
-                "https://www.google.de/search*",
-                "https://www.google.fr/search*",
-                "https://www.google.nl/search*",
-                "https://www.google.se/search*",
-                "https://www.google.dk/search*",
-                "https://www.google.no/search*",
-                "https://www.google.fi/search*",
-                "https://www.google.es/search*",
-                "https://www.google.it/search*",
-                "https://www.google.ie/search*",
-                "https://www.google.at/search*",
-                "https://www.google.ch/search*",
-                "https://www.google.be/search*",
-                "https://www.google.pl/search*",
-                "https://www.google.pt/search*"
+                "https://www.google.ie/search*"
             ],
             "js": ["config.js", "content.js"],
             "css": ["content.css"],

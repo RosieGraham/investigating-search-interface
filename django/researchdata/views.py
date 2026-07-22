@@ -100,9 +100,14 @@ def _trigger_match(user_search_query, search_exact, topics_exclude):
     return matched
 
 
+@csrf_exempt
 def prompt_get(request):
     """
     Core API endpoint: given a user's search query, return matching prompt(s).
+
+    Accepts POST (preferred: query stays out of URL-level logs) or GET
+    (legacy / diagnostics). csrf_exempt because the Chrome extension cannot
+    supply a Django CSRF token.
 
     Primary path: vector classification (semantic similarity between the query
     and Topic descriptions). Fallback path: legacy trigger substring matching,
@@ -115,13 +120,14 @@ def prompt_get(request):
         prompts: up to 3 matched prompt objects (new in v2)
         classifier: status string ('matched', 'no_match', 'disabled', 'unavailable')
     """
-    user_search_query = request.GET.get('user_search_query', '').strip()
+    params = request.POST if request.method == 'POST' else request.GET
+    user_search_query = params.get('user_search_query', '').strip()
     try:
-        search_exact = int(request.GET.get('search_exact', '0'))
+        search_exact = int(params.get('search_exact', '0'))
     except ValueError:
         search_exact = 0
     topics_exclude = []
-    for topic in request.GET.get('topics_exclude', '').split(','):
+    for topic in params.get('topics_exclude', '').split(','):
         topic = topic.strip()
         if topic.isdigit():
             topics_exclude.append(int(topic))
@@ -133,7 +139,9 @@ def prompt_get(request):
     ]
 
     if not user_search_query:
-        return JsonResponse({'prompt': False, 'prompts': [], 'topics': topics_data, 'classifier': 'no_query'})
+        response = JsonResponse({'prompt': False, 'prompts': [], 'topics': topics_data, 'classifier': 'no_query'})
+        response['Cache-Control'] = 'no-store'
+        return response
 
     prompts_payload = []
     classifier_state = 'disabled'
@@ -187,12 +195,14 @@ def prompt_get(request):
         for prompt, term in _trigger_match(user_search_query, search_exact, topics_exclude)[:MAX_PROMPTS_RETURNED]:
             prompts_payload.append(_prompt_payload(prompt, matched_by='trigger'))
 
-    return JsonResponse({
+    response = JsonResponse({
         'prompt': prompts_payload[0] if prompts_payload else False,
         'prompts': prompts_payload,
         'topics': topics_data,
         'classifier': classifier_state,
     })
+    response['Cache-Control'] = 'no-store'
+    return response
 
 
 def classifier_debug(request):

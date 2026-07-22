@@ -9,6 +9,9 @@ After deploying the backend, change API_BASE to the Render URL, e.g.
 const ISI_CONFIG = {
   API_BASE: 'https://investigating-search-interface.onrender.com',
   PROJECT_URL: 'https://github.com/bear-rsg/ethical-interface',
+  // Set when the privacy notice is published (draft is in Working Docs).
+  // Consent banner omits the link while this is empty.
+  PRIVACY_NOTICE_URL: '',
   ATTRIBUTION: 'Investigating Search Interface · SEEED',
   MAX_PROMPTS: 4,
   // How long (ms) to keep watching for the results container on dynamic pages
