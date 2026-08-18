@@ -40,21 +40,21 @@ class DecideTests(TestCase):
         served, note = decide([(1, 0.50), (2, 0.4999)], 0.35, 0.0, 3, {1, 2})
         self.assertEqual(served, 1)
 
-    def test_fall_through_to_topic_with_prompts(self):
-        # Top-1 has no approved prompts; top-2 is above threshold and does.
+    def test_promptless_top_does_not_fall_through_to_prompt_rich_second(self):
         served, note = decide([(1, 0.60), (2, 0.40)], 0.35, 0.0, 3, {2})
-        self.assertEqual(served, 2)
+        self.assertIsNone(served)
+        self.assertEqual(note, "no-approved-prompts")
 
     def test_no_fall_through_below_threshold(self):
-        # Top-1 has no prompts, top-2 is below threshold: silence.
         served, note = decide([(1, 0.60), (2, 0.30)], 0.35, 0.0, 3, {2})
         self.assertIsNone(served)
         self.assertEqual(note, "no-approved-prompts")
 
-    def test_top_k_bounds_fall_through(self):
+    def test_later_serveable_topic_is_not_used(self):
         ranked = [(1, 0.60), (2, 0.55), (3, 0.50), (4, 0.45)]
-        served, _ = decide(ranked, 0.35, 0.0, 3, {4})
+        served, note = decide(ranked, 0.35, 0.0, 3, {4})
         self.assertIsNone(served)
+        self.assertEqual(note, "no-approved-prompts")
 
 
 class EvaluateTests(TestCase):
@@ -87,15 +87,13 @@ class EvaluateTests(TestCase):
         self.assertEqual(out["metrics"]["no_card_expected_correct"], 1.0)
         self.assertTrue(out["rows"][0]["correct"])
 
-    def test_fall_through_serves_wrong_topic_and_is_scored_wrong(self):
-        # Expected topic has no prompts; another topic above threshold
-        # catches the card. That is a served card on a no-card row: a false
-        # positive, and exactly the behaviour the harness must expose.
+    def test_promptless_top_is_correct_silence_not_a_lower_topic_card(self):
         self.scores["q3"] = [(self.empty.id, 0.65), (self.other.id, 0.40)]
         rows = [LabelledRow("q3", "Empty topic", False, "ordinary-no-prompts")]
         out = evaluate(rows, threshold=0.35, ranker=self.ranker)
-        self.assertFalse(out["rows"][0]["correct"])
-        self.assertEqual(out["rows"][0]["served_topic"], "Other topic")
+        self.assertTrue(out["rows"][0]["correct"])
+        self.assertEqual(out["rows"][0]["served_topic"], "")
+        self.assertEqual(out["rows"][0]["outcome"], "correct-silence")
 
     def test_negative_control_false_positive_counted(self):
         self.scores["gmail login"] = [(self.covered.id, 0.5), (self.other.id, 0.2)]

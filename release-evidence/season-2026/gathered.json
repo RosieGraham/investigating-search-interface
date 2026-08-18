@@ -1,0 +1,288 @@
+{
+  "schema": "release-evidence/season-2026/schema.json",
+  "schema_sha256": "481db43fa4b24f4afedccc1d26227a3178d176cea78ffd398076de5f8516f378",
+  "gathered_at": "2026-08-15T15:48:19Z",
+  "gatherer": "scripts/gather_release_evidence.py",
+  "python_executable": "/tmp/isi-season-venv/bin/python",
+  "python_version": "3.12.7 (main, Oct 16 2024, 07:12:08) [Clang 18.1.8 ]",
+  "source": {
+    "repository": "https://github.com/RosieGraham/investigating-search-interface",
+    "workspace_root": "/Users/rosiegraham/Documents/Claude/Projects/Academic Research/Investigating Search Interface/interface-rebuild/investigating-search-interface",
+    "branch": "release/season-2026",
+    "head": "4246f79661f44f99f3837cbfce69db6b8b47880d",
+    "origin_main": "4246f79661f44f99f3837cbfce69db6b8b47880d",
+    "origin_main_error": null,
+    "head_equals_origin_main": true,
+    "working_tree_clean": false,
+    "porcelain": [
+      "M .github/workflows/ci-flake8.yml",
+      " M .gitignore",
+      " M AGENTS.md",
+      " M django/core/settings.py",
+      " M django/researchdata/embedding.py",
+      " M django/researchdata/management/commands/download_model.py",
+      " M django/researchdata/tests.py",
+      " M django/researchdata/tests_ops_status.py",
+      " M django/researchdata/tests_priority_order.py",
+      " M django/researchdata/tests_prompt_get_post.py",
+      " M django/researchdata/tests_serve_placeholders.py",
+      " M django/researchdata/urls.py",
+      " M django/researchdata/views.py",
+      " M render-start.sh",
+      " M render.yaml",
+      " M web_extension_chrome/README.md",
+      " M web_extension_chrome/background.js",
+      " M web_extension_chrome/config.js",
+      " M web_extension_chrome/content.js",
+      " M web_extension_chrome/manifest.json",
+      " M web_extension_chrome/popup.html",
+      " M web_extension_chrome/popup.js",
+      "?? django/researchdata/model_pin.py",
+      "?? django/researchdata/release_policy.py",
+      "?? django/researchdata/release_readiness.py",
+      "?? django/researchdata/tests_season_client_scan.py",
+      "?? django/researchdata/tests_season_matching_http.py",
+      "?? django/researchdata/tests_season_model_pin.py",
+      "?? django/researchdata/tests_season_package.py",
+      "?? django/researchdata/tests_season_readiness.py",
+      "?? django/researchdata/tests_season_release_policy.py",
+      "?? django/researchdata/tests_season_research_writes.py",
+      "?? django/researchdata/tests_season_support.py",
+      "?? django/researchdata/tests_season_top_one.py",
+      "?? django/researchdata/tests_season_topic_tiebreak.py",
+      "?? release-evidence/",
+      "?? release-policy/",
+      "?? requirements-release.lock",
+      "?? requirements-release.lock.sha256",
+      "?? scripts/gather_release_evidence.py",
+      "?? scripts/package_workshop.py",
+      "?? scripts/run_release_gates.py",
+      "?? scripts/verify_release_lock.py",
+      "?? web_extension_chrome/lib/",
+      "?? web_extension_chrome/test/"
+    ],
+    "upstream": null,
+    "head_subject": "Merge pull request #5 from RosieGraham/privacy-and-race-fixes",
+    "head_committer_date": "2026-07-22T16:07:23+01:00",
+    "nested_clone_is_workspace": false
+  },
+  "store_item_id": {
+    "value": null,
+    "status": "pending",
+    "owner": "Rosie",
+    "note": "Store item ID is required at Phase 5, not Gate 4. Leave empty until the reviewed ZIP is uploaded to create the item."
+  },
+  "changed_files": {
+    "status": "not_run",
+    "value": null,
+    "reason": "No reviewed target commit yet; list from git diff after implementation."
+  },
+  "model_session_provenance": {
+    "implementer": "Cursor Grok 4.6 High",
+    "role": "Accountable implementer",
+    "reviewers": {
+      "status": "not_run",
+      "value": null,
+      "reason": "Independent review is after Gate 4."
+    }
+  },
+  "data_lifecycle_matrix": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 3/4 network capture."
+  },
+  "commands_and_results": {
+    "python_executable": "/tmp/isi-season-venv/bin/python",
+    "python_version": "3.12.7 (main, Oct 16 2024, 07:12:08) [Clang 18.1.8 ]",
+    "discovered_test_count": 159,
+    "failed_gates": [],
+    "all_exit_zero": true,
+    "check_deploy_output": "System check identified some issues:\n\nWARNINGS:\n?: (security.W004) You have not set a value for the SECURE_HSTS_SECONDS setting. If your entire site is served only over SSL, you may want to consider setting a value and enabling HTTP Strict Transport Security. Be sure to read the documentation first; enabling HSTS carelessly can cause serious, irreversible problems.\n\nSystem check identified 1 issue (0 silenced).\n",
+    "results": [
+      {
+        "name": "flake8",
+        "argv": [
+          "/tmp/isi-season-venv/bin/python",
+          "-m",
+          "flake8",
+          "."
+        ],
+        "cwd": "/private/tmp/isi-season-2026",
+        "exit_code": 0,
+        "discovered_test_count": null,
+        "output": ""
+      },
+      {
+        "name": "django_tests",
+        "argv": [
+          "/tmp/isi-season-venv/bin/python",
+          "manage.py",
+          "test",
+          "researchdata",
+          "-v",
+          "2"
+        ],
+        "cwd": "/private/tmp/isi-season-2026/django",
+        "exit_code": 0,
+        "discovered_test_count": 159,
+        "output": "Found 159 test(s).\nOperations to perform:\n  Synchronize unmigrated apps: general, humanize, messages, staticfiles\n  Apply all migrations: account, admin, auth, contenttypes, debug_toolbar, researchdata, sessions\nSynchronizing apps without migrations:\n  Creating tables...\n    Running deferred SQL...\nRunning migrations:\n  Applying contenttypes.0001_initial... OK\n  Applying contenttypes.0002_remove_content_type_name... OK\n  Applying auth.0001_initial... OK\n  Applying auth.0002_alter_permission_name_max_length... OK\n  Applying auth.0003_alter_user_email_max_length... OK\n  Applying auth.0004_alter_user_username_opts... OK\n  Applying auth.0005_alter_user_last_login_null... OK\n  Applying auth.0006_require_contenttypes_0002... OK\n  Applying auth.0007_alter_validators_add_error_messages... OK\n  Applying auth.0008_alter_user_username_max_length... OK\n  Applying auth.0009_alter_user_last_name_max_length... OK\n  Applying auth.0010_alter_group_name_max_length... OK\n  Applying auth.0011_update_proxy_permissions... OK\n  Applying auth.0012_alter_user_first_name_max_length... OK\n  Applying account.0001_initial... OK\n  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying debug_toolbar.0001_initial... OK\n  Applying researchdata.0001_initial... OK\n  Applying researchdata.0002_datainsert_notrelevantreport... OK\n  Applying researchdata.0003_alter_trigger_options... OK\n  Applying researchdata.0004_vector_classification_and_seeed... OK\n  Applying researchdata.0005_alter_topic_name... OK\n  Applying researchdata.0006_alter_trigger_trigger_text... OK\n  Applying researchdata.0007_content_apply_and_setting... OK\n  Applying researchdata.0008_matchingevaluation... OK\n  Applying researchdata.0009_split_topic_description... OK\n  Applying sessions.0001_initial... OK\nSystem check identified no issues (0 silenced).\nCreating test database for alias 'default' ('file:memorydb_default?mode=memory&cach\n...\nTests.test_package_script_exists) ... ok\ntest_inverted_readiness_must_not_ignore_broken_dependency (researchdata.tests_season_readiness.ReleaseReadinessFailureInjectionTests.test_inverted_readiness_must_not_ignore_broken_dependency) ... ok\ntest_missing_model_is_not_ready (researchdata.tests_season_readiness.ReleaseReadinessFailureInjectionTests.test_missing_model_is_not_ready) ... ok\ntest_research_writes_enabled_is_not_ready (researchdata.tests_season_readiness.ReleaseReadinessFailureInjectionTests.test_research_writes_enabled_is_not_ready) ... ok\ntest_wrong_config_is_not_ready (researchdata.tests_season_readiness.ReleaseReadinessFailureInjectionTests.test_wrong_config_is_not_ready) ... ok\ntest_policy_binds_release_identity (researchdata.tests_season_release_policy.ReleasePolicyFileTests.test_policy_binds_release_identity) ... ok\ntest_policy_file_exists (researchdata.tests_season_release_policy.ReleasePolicyFileTests.test_policy_file_exists) ... ok\ntest_classify_query_source_has_explicit_tie_break (researchdata.tests_season_topic_tiebreak.TopicTieBreakTests.test_classify_query_source_has_explicit_tie_break) ... ok\ntest_select_ranked_topic_ids_exists_and_is_stable (researchdata.tests_season_topic_tiebreak.TopicTieBreakTests.test_select_ranked_topic_ids_exists_and_is_stable) ... ok\n\n----------------------------------------------------------------------\nRan 159 tests in 8.569s\n\nOK\nDestroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\n",
+        "output_truncated": true
+      },
+      {
+        "name": "migration_check",
+        "argv": [
+          "/tmp/isi-season-venv/bin/python",
+          "manage.py",
+          "makemigrations",
+          "--check",
+          "--dry-run",
+          "-v",
+          "1"
+        ],
+        "cwd": "/private/tmp/isi-season-2026/django",
+        "exit_code": 0,
+        "discovered_test_count": null,
+        "output": "No changes detected\n"
+      },
+      {
+        "name": "check_deploy",
+        "argv": [
+          "/tmp/isi-season-venv/bin/python",
+          "manage.py",
+          "check",
+          "--deploy",
+          "-v",
+          "2"
+        ],
+        "cwd": "/private/tmp/isi-season-2026/django",
+        "exit_code": 0,
+        "discovered_test_count": null,
+        "output": "System check identified some issues:\n\nWARNINGS:\n?: (security.W004) You have not set a value for the SECURE_HSTS_SECONDS setting. If your entire site is served only over SSL, you may want to consider setting a value and enabling HTTP Strict Transport Security. Be sure to read the documentation first; enabling HSTS carelessly can cause serious, irreversible problems.\n\nSystem check identified 1 issue (0 silenced).\n"
+      },
+      {
+        "name": "js_syntax",
+        "argv": [
+          "node",
+          "--check",
+          "<web_extension_chrome/*.js>"
+        ],
+        "cwd": "/private/tmp/isi-season-2026",
+        "exit_code": 0,
+        "discovered_test_count": null,
+        "output": "$ node --check /private/tmp/isi-season-2026/web_extension_chrome/background.js\n\n$ node --check /private/tmp/isi-season-2026/web_extension_chrome/config.js\n\n$ node --check /private/tmp/isi-season-2026/web_extension_chrome/content.js\n\n$ node --check /private/tmp/isi-season-2026/web_extension_chrome/local_settings.example.js\n\n$ node --check /private/tmp/isi-season-2026/web_extension_chrome/popup.js\n"
+      },
+      {
+        "name": "js_contract",
+        "argv": [
+          "node",
+          "--test",
+          "web_extension_chrome/test/request_lifecycle.test.mjs",
+          "web_extension_chrome/test/acknowledgement.test.mjs",
+          "web_extension_chrome/test/popup_contract.test.mjs"
+        ],
+        "cwd": "/private/tmp/isi-season-2026",
+        "exit_code": 0,
+        "discovered_test_count": null,
+        "output": "\u2714 acknowledgement module exists (1.135375ms)\n\u2714 no backend request before season-2026-v1 is acknowledged (0.264209ms)\n\u2714 old 2.1 consent does not acknowledge the workshop notice (0.137709ms)\n\u2714 decline persists across reload (0.956667ms)\n\u2714 inverted: pre-acknowledgement send must make the contract fail (0.61225ms)\n\u2714 popup must not send health or empty prompt lookup (0.543375ms)\n\u2714 popup keeps local topic exclusion controls (0.111417ms)\n\u2714 request lifecycle module exists (0.748ms)\n\u2714 at most two attempts, retry only on timeout or 502/503/504 (0.491833ms)\n\u2714 does not retry 4xx or 500 (0.693709ms)\n\u2714 late response cannot render on a later query (0.216417ms)\n\u2139 tests 11\n\u2139 suites 0\n\u2139 pass 11\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 97.586792\n"
+      },
+      {
+        "name": "manifest_parse",
+        "argv": [
+          "/tmp/isi-season-venv/bin/python",
+          "-c",
+          "import json, pathlib, sys; p = pathlib.Path(sys.argv[1]); data = json.loads(p.read_text()); print('parsed_ok=true'); print('name=', data.get('name')); print('version=', data.get('version'))",
+          "/private/tmp/isi-season-2026/web_extension_chrome/manifest.json"
+        ],
+        "cwd": "/private/tmp/isi-season-2026",
+        "exit_code": 0,
+        "discovered_test_count": null,
+        "output": "parsed_ok=true\nname= Investigating Search Interface: SEASON 2026\nversion= 2.2.0\n"
+      },
+      {
+        "name": "package_workshop",
+        "argv": [
+          "/tmp/isi-season-venv/bin/python",
+          "/private/tmp/isi-season-2026/scripts/package_workshop.py",
+          "--verify-double-build",
+          "--out-dir",
+          "/tmp/isi-season-package"
+        ],
+        "cwd": "/private/tmp/isi-season-2026",
+        "exit_code": 0,
+        "discovered_test_count": null,
+        "output": "filename=investigating-search-interface-season-2026-v2.2.0.zip\nsha256=7869a570ffec3b234237d70242c4f1eed43dfb56e8bbf3ac951b2b3c078c0fe1\npath=/tmp/isi-season-package/investigating-search-interface-season-2026-v2.2.0.zip\n"
+      }
+    ]
+  },
+  "contract_tests_red_before_green": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 1."
+  },
+  "readiness_failure_injection": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 2."
+  },
+  "inverted_controls": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 1 planted-fault tests."
+  },
+  "frozen_result_table": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 4; six contaminated queries remain excluded."
+  },
+  "load_test": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 4 isolated, Phase 5 live with Rosie approval."
+  },
+  "release_lock": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 2 hashed lock."
+  },
+  "package": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 4 builder."
+  },
+  "runtime_browser": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 4."
+  },
+  "matching_replay": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 4."
+  },
+  "synthetic_marker_audit": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Phase 4."
+  },
+  "research_use_transition": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Rosie-owned Phase 5 record."
+  },
+  "independent_review": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Fresh-session review after Gate 4."
+  },
+  "frozen_release_manifest": {
+    "status": "not_run",
+    "value": null,
+    "reason": "Gate 4 freeze."
+  },
+  "known_limitations": [
+    "Phase 4 package builder is green (159 tests, deterministic ZIP). Full Gate 4 is not claimed: no Chrome install, network capture, marker audit, serving replay, load test, or independent review.",
+    "Privacy page is linked from the client but not hosted. Do not invent workshop notice copy.",
+    "ZIP sha256 7869a570ffec3b234237d70242c4f1eed43dfb56e8bbf3ac951b2b3c078c0fe1 is from a dirty tree. Rebuild after commit before freeze.",
+    "Do not merge, deploy, or Store-upload. Store item ID remains pending, owner Rosie."
+  ]
+}

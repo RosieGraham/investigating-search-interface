@@ -31,6 +31,7 @@ data/*
 
 # Extension packaging
 web_extension_chrome/*.zip
+release-output/
 
 # Stray nested clone (gitlink removed; folder may remain on disk)
 investigating-search-interface/

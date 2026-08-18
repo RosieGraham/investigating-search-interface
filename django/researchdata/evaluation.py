@@ -14,12 +14,11 @@ Design notes:
   so baseline and experiment always share decision logic and metrics.
 - The decision rule is threshold AND margin. Margin 0 reproduces current
   production behaviour (top1 >= threshold only).
-- Serving is modelled faithfully, including the fall-through: production
-  considers up to CLASSIFIER_TOP_K above-threshold topics in order and serves
-  the first that has an approved prompt. A top-1 topic with no approved
-  prompts (for example Vaccination) therefore does NOT produce a card unless
-  a lower-ranked topic clears the threshold too. The harness must score
-  "correctly silent" rows (expected_card=no) as correct.
+- Serving matches the workshop API: one prompt from the single global top
+  topic, or silence. A promptless, unapproved or excluded top topic does not
+  fall through to a lower-ranked topic. Historical matching-quality tables
+  that assumed fall-through are not comparable to this branch. The harness
+  still scores "correctly silent" rows (expected_card=no) as correct.
 - No HTTP anywhere. Offline, against the local database.
 """
 
@@ -28,8 +27,6 @@ import hashlib
 import platform
 from dataclasses import dataclass
 from pathlib import Path
-
-import numpy as np
 
 
 @dataclass
@@ -96,18 +93,19 @@ def load_labelled_csv(path):
 def production_ranker(query_text):
     """Rank ALL topics for a query exactly as the live scoring path does.
 
-    Same encoder, same cached index, same blended scoring as
-    embedding.classify_query, but unthresholded, margin-free and over the
-    full corpus so the harness can compute ranks and margins itself.
+    Same encoder, same cached index, same blended scoring and the same
+    score-then-id tie-break as embedding.classify_query, but unthresholded
+    and margin-free so the harness can compute ranks and margins itself.
     """
-    from .embedding import _blended_topic_scores, embed_query
+    from .embedding import _blended_topic_scores, embed_query, select_ranked_topic_ids
 
     q = embed_query(query_text)
     scores, topic_ids = _blended_topic_scores(q)
     if scores is None:
         return []
-    order = np.argsort(-scores)
-    return [(topic_ids[int(i)], float(scores[int(i)])) for i in order]
+    ranked_ids = select_ranked_topic_ids(scores, topic_ids)
+    score_by_id = {int(tid): float(score) for tid, score in zip(topic_ids, scores)}
+    return [(int(tid), score_by_id[int(tid)]) for tid in ranked_ids]
 
 
 def topics_with_approved_prompts():
@@ -126,26 +124,25 @@ def topic_names_by_id():
 
 
 def decide(ranked, threshold, margin, top_k, serveable_ids):
-    """Apply the decision rule to a full ranking.
+    """Apply the workshop decision rule to a full ranking.
 
     Returns (served_topic_id_or_None, decision_note).
-    Rule: abstain unless top1 >= threshold and (top1 - top2) >= margin.
-    Then serve the first of the top_k above-threshold topics that has an
-    approved prompt (production fall-through), else nothing.
+    Abstain unless top1 >= threshold and (top1 - top2) >= margin.
+    Then serve the global top topic if it has an approved prompt, else
+    silence. `top_k` is accepted for call-site compatibility and is not
+    used: lower-ranked topics never receive the card.
     """
     if not ranked:
         return None, "empty-ranking"
-    top1_score = ranked[0][1]
+    _ = top_k
+    top1_id, top1_score = ranked[0]
     top2_score = ranked[1][1] if len(ranked) > 1 else 0.0
     if top1_score < threshold:
         return None, "below-threshold"
     if (top1_score - top2_score) < margin:
         return None, "inside-margin"
-    for topic_id, score in ranked[:top_k]:
-        if score < threshold:
-            break
-        if topic_id in serveable_ids:
-            return topic_id, "served"
+    if top1_id in serveable_ids:
+        return top1_id, "served"
     return None, "no-approved-prompts"
 
 

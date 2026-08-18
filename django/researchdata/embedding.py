@@ -352,16 +352,25 @@ def classify_query(query_text, threshold=None, top_k=None, margin=None, _query_v
     if scores is None:
         return []
 
-    order = np.argsort(-scores)
-    if margin > 0 and len(order) > 1:
-        gap = float(scores[order[0]]) - float(scores[order[1]])
+    ranked_ids = select_ranked_topic_ids(scores, topic_ids)
+    score_by_id = {int(tid): float(score) for tid, score in zip(topic_ids, scores)}
+    if margin > 0 and len(ranked_ids) > 1:
+        gap = score_by_id[int(ranked_ids[0])] - score_by_id[int(ranked_ids[1])]
         if gap < margin:
             return []
     return [
-        (topic_ids[int(i)], float(scores[int(i)]))
-        for i in order[:max(top_k, 1)]
-        if float(scores[int(i)]) >= threshold
+        (int(tid), score_by_id[int(tid)])
+        for tid in ranked_ids[:max(top_k, 1)]
+        if score_by_id[int(tid)] >= threshold
     ]
+
+
+def select_ranked_topic_ids(scores, topic_ids):
+    """Topic ids ordered by descending score, then ascending id (stable tie-break)."""
+    scores = np.asarray(scores)
+    topic_ids = np.asarray(topic_ids)
+    order = np.lexsort((topic_ids, -scores))
+    return topic_ids[order]
 
 
 def _prompts_fingerprint(rows, model_id):

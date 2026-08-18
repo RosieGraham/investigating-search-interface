@@ -1,0 +1,29 @@
+{
+  "build_id": "season-2026-workshop-1",
+  "mode": "workshop",
+  "extension_version": "2.2.0",
+  "notice_version": "season-2026-v1",
+  "notice_url": "https://investigating-search-interface.onrender.com/privacy/",
+  "project_url": "https://github.com/RosieGraham/investigating-search-interface",
+  "active_window": {
+    "start": "2026-08-20T00:00:00Z",
+    "end": "2026-09-18T23:59:59Z"
+  },
+  "capabilities": ["matching"],
+  "config": {
+    "threshold": 0.35,
+    "margin": 0.0,
+    "trigger_fallback": false,
+    "placeholders": false,
+    "research_writes_enabled": false
+  },
+  "model": {
+    "id": "sentence-transformers/multi-qa-MiniLM-L6-cos-v1",
+    "revision": "b207367332321f8e44f96e224ef15bc607f4dbf0",
+    "onnx_filename": "onnx/model_qint8_avx512_vnni.onnx",
+    "model_sha256": "89779550529b9077685f44c041cb6d5f5ce394fae8937f91d1b3a8acc675beb6",
+    "tokenizer_sha256": "7fa9272f7ef1ebd1666bb3bfd9d4707660ff0076ca9d1671cd9a9c6e18e03331"
+  },
+  "dependency_lock": "requirements-release.lock",
+  "dependency_lock_sha256": "abc9f11bb99afa2ee2d729d8eba1e55139a275bb3905680e43f523b644edd2dc"
+}

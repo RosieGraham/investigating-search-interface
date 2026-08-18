@@ -2,9 +2,10 @@
 # With this file in the repo root, Render's "New +" -> "Blueprint" flow
 # creates the service automatically; every git push to main then deploys.
 #
-# The database is NOT defined here: it lives on Neon (free tier, persistent).
-# Paste the Neon connection string into the DATABASE_URL variable when Render
-# prompts for it.
+# Do not point this service at the release/season-2026 branch. The workshop
+# backend goes live only after Rosie merges that branch to main. The database
+# is NOT defined here: it lives on Neon (free tier, persistent). Paste the
+# Neon connection string into the DATABASE_URL variable when Render prompts.
 
 services:
   - type: web
@@ -14,7 +15,10 @@ services:
     region: frankfurt  # closest Render region to the UK
     branch: main
     buildCommand: |
-      pip install -r requirements.txt
+      python scripts/verify_release_lock.py
+      python -m pip install --require-hashes -r requirements-release.lock
+      python -c "import sys; print('python', sys.version)"
+      python -m pip freeze --all | sort
       python django/manage.py collectstatic --noinput
       python django/manage.py download_model
     startCommand: bash render-start.sh
@@ -29,13 +33,14 @@ services:
       - key: DATABASE_URL
         sync: false  # paste the Neon postgres:// URL in the Render dashboard
       - key: WEB_CONCURRENCY
-        value: "1"   # single worker: fits the 512MB instance with the ONNX model
+        value: "1"   # single worker: fits the instance with the ONNX model
       - key: CLASSIFIER_ENABLED
         value: "true"
       - key: CLASSIFIER_THRESHOLD
-        value: "0.40"  # calibrated 2026-06-11 on live triggers (79.6% coverage, 14% FP);
-                       # re-run scripts/calibrate_threshold.py after writing topic
-                       # descriptions - expect to lower toward 0.35
-
+        value: "0.35"
+      - key: TRIGGER_FALLBACK_ENABLED
+        value: "false"
+      - key: RESEARCH_WRITES_ENABLED
+        value: "false"
       - key: ADMIN_EMAIL
         value: ""    # set in dashboard if wanted

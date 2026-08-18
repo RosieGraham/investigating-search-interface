@@ -1,0 +1,55 @@
+{
+  "status": "code_derived_not_runtime_capture",
+  "note": "Derived from the workshop client and server on release/season-2026. This is not a Chrome network trace. Runtime capture remains red until a fresh profile install.",
+  "extension_initiated": [
+    {
+      "when": "before_acknowledgement",
+      "requests": [],
+      "evidence": "web_extension_chrome/lib/acknowledgement.js and content.js; inverted test plants allowPreAck"
+    },
+    {
+      "when": "after_decline",
+      "requests": [],
+      "evidence": "decline persists; matching is not called"
+    },
+    {
+      "when": "after_acceptance_on_google_search",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/data/prompt/get/",
+          "origin": "https://investigating-search-interface.onrender.com",
+          "fields": ["user_search_query", "topics_exclude"],
+          "headers": ["X-ISI-Build-ID", "X-ISI-Extension-Version", "Content-Type: application/x-www-form-urlencoded"],
+          "redirect": "error",
+          "max_attempts": 2
+        }
+      ]
+    }
+  ],
+  "not_sent_by_workshop_client": [
+    "/data/event/post/",
+    "/data/notrelevantreport/post/",
+    "/data/response/post/",
+    "/data/classifier/debug/",
+    "/data/release/ready/",
+    "/data/ops/status/",
+    "/healthz",
+    "empty popup lookup",
+    "popup health call"
+  ],
+  "local_storage_keys": {
+    "allowed": ["notice acknowledgement for season-2026-v1", "isi_topics_exclude", "enabled toggle", "isi_topic_groups after a real match"],
+    "prohibited": ["isi_installation_id", "isi_consent_given", "isi_log_events"]
+  },
+  "server_persistence": {
+    "matching_query": "processed in memory for embedding and scoring; not written when RESEARCH_WRITES_ENABLED is false",
+    "research_tables": "POST/GET/HEAD/etc on event, report and response routes return 403 research_writes_disabled before parse",
+    "exclusions": "topics_exclude travels in the matching body only; never stored server-side"
+  },
+  "privacy_page": {
+    "client_url": "https://investigating-search-interface.onrender.com/privacy/",
+    "hosted": false,
+    "note": "Do not invent workshop notice copy. Anonymous 200, zero DB and no third-party scripts remain unproven."
+  }
+}

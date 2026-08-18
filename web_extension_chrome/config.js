@@ -1,26 +1,20 @@
 /*
-Central configuration for the Investigating Search Interface extension.
+Central configuration for the Investigating Search Interface workshop extension.
 Loaded first by the content script, the popup, and the service worker.
-
-After deploying the backend, change API_BASE to the Render URL, e.g.
-  https://investigating-search-interface.onrender.com
 */
 
 const ISI_CONFIG = {
   API_BASE: 'https://investigating-search-interface.onrender.com',
-  PROJECT_URL: 'https://github.com/bear-rsg/ethical-interface',
-  // Set when the privacy notice is published (draft is in Working Docs).
-  // Consent banner omits the link while this is empty.
-  PRIVACY_NOTICE_URL: '',
-  ATTRIBUTION: 'Investigating Search Interface · SEEED',
-  MAX_PROMPTS: 4,
-  // How long (ms) to keep watching for the results container on dynamic pages
+  PROJECT_URL: 'https://github.com/RosieGraham/investigating-search-interface',
+  PRIVACY_NOTICE_URL: 'https://investigating-search-interface.onrender.com/privacy/',
+  ATTRIBUTION: 'Investigating Search Interface · SEASON 2026',
+  BUILD_ID: 'season-2026-workshop-1',
+  EXTENSION_VERSION: '2.2.0',
+  NOTICE_VERSION: 'season-2026-v1',
+  MAX_PROMPTS: 1,
   OBSERVER_TIMEOUT: 12000,
 };
 
-// Make the config visible to the MV3 service worker (importScripts) and to
-// content scripts / popup (plain global). No module system on purpose: this
-// file must work in every extension context.
 if (typeof self !== 'undefined') {
   self.ISI_CONFIG = ISI_CONFIG;
 }

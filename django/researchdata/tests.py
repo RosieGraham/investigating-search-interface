@@ -8,6 +8,7 @@ The classifier itself is stubbed here (no model download needed); the real
 model is exercised by scripts/calibrate_threshold.py instead.
 """
 
+from urllib.parse import urlencode
 from unittest import mock
 
 from django.test import TestCase, override_settings
@@ -15,6 +16,7 @@ from django.urls import reverse
 
 from . import models
 from .embedding import ClassifierUnavailable
+from .tests_season_support import workshop_headers
 
 
 def make_content(topic_group='Politics', topic='Donald Trump 2016 presidential campaign',
@@ -31,14 +33,17 @@ def make_content(topic_group='Politics', topic='Donald Trump 2016 presidential c
     return group, topic_obj, prompt
 
 
-@override_settings(CLASSIFIER_ENABLED=False)
+@override_settings(CLASSIFIER_ENABLED=False, TRIGGER_FALLBACK_ENABLED=True)
 class TriggerFallbackBugFixTests(TestCase):
     """The legacy matching path, with Bugs 1-3 fixed."""
 
     def get(self, query, **params):
-        return self.client.get(
+        fields = {'user_search_query': query, **params}
+        return self.client.post(
             reverse('researchdata:prompt-get'),
-            {'user_search_query': query, **params},
+            data=urlencode(fields),
+            content_type='application/x-www-form-urlencoded',
+            **workshop_headers(),
         ).json()
 
     def test_bug1_second_word_of_query_matches(self):
@@ -90,9 +95,12 @@ class ClassifierFlowTests(TestCase):
     """The classifier-first path, with the classifier stubbed."""
 
     def get(self, query, **params):
-        return self.client.get(
+        fields = {'user_search_query': query, **params}
+        return self.client.post(
             reverse('researchdata:prompt-get'),
-            {'user_search_query': query, **params},
+            data=urlencode(fields),
+            content_type='application/x-www-form-urlencoded',
+            **workshop_headers(),
         ).json()
 
     def _stub_classifier(self, classify_return, rank_side_effect=None):
@@ -144,10 +152,12 @@ class ClassifierFlowTests(TestCase):
             )
         with self._stub_classifier([(topic.id, 0.7)]):
             data = self.get('query')
-        self.assertEqual(len(data['prompts']), 4)
+        self.assertEqual(len(data['prompts']), 1)
+        self.assertEqual(data['prompts'][0]['prompt_content'], 'Extra prompt 3')
         self.assertTrue(all(p['matched_by'] == 'classifier' for p in data['prompts']))
 
 
+@override_settings(RESEARCH_WRITES_ENABLED=True)
 class FeedbackEndpointTests(TestCase):
     def test_notrelevantreport_post_stores_confidence(self):
         _, _, prompt = make_content()
@@ -195,3 +205,12 @@ class HealthzTests(TestCase):
         resp = self.client.get('/healthz')
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.json()['status'], 'ok')
+
+    def test_liveness_is_independent_of_readiness(self):
+        live = self.client.get('/healthz')
+        ready = self.client.get('/data/release/ready/')
+        self.assertEqual(live.status_code, 200)
+        self.assertEqual(live.json()['status'], 'ok')
+        self.assertEqual(ready.status_code, 200)
+        self.assertIn('ready', ready.json())
+        self.assertNotIn('canaries', ready.json())

@@ -9,6 +9,7 @@ still reached on the real-prompt path.
 """
 
 from unittest import mock
+from urllib.parse import urlencode
 
 import numpy as np
 from django.core.cache import cache
@@ -16,6 +17,7 @@ from django.test import TestCase
 
 from .classifier_config import set_serve_placeholders
 from .models import Prompt, Topic, TopicGroup
+from .tests_season_support import MATCH_PATH, workshop_headers
 
 
 class ServePlaceholdersTests(TestCase):
@@ -41,8 +43,12 @@ class ServePlaceholdersTests(TestCase):
                         return_value=[(topic.id, confidence)]), \
              mock.patch("researchdata.views.rank_prompts",
                         return_value=[(self.real_prompt.id, confidence)]):
-            return self.client.get("/data/prompt/get/",
-                                   {"user_search_query": "anything"}).json()
+            return self.client.post(
+                MATCH_PATH,
+                data=urlencode({"user_search_query": "anything"}),
+                content_type="application/x-www-form-urlencoded",
+                **workshop_headers(),
+            ).json()
 
     # --- promptless topic: this is the branch the flag controls ---
 
@@ -93,7 +99,11 @@ class ServePlaceholdersTests(TestCase):
                             return_value=np.zeros(4)), \
                  mock.patch("researchdata.views.classify_query",
                             return_value=[]):
-                data = self.client.get("/data/prompt/get/",
-                                       {"user_search_query": "weather tomorrow"}).json()
+                data = self.client.post(
+                    MATCH_PATH,
+                    data=urlencode({"user_search_query": "weather tomorrow"}),
+                    content_type="application/x-www-form-urlencoded",
+                    **workshop_headers(),
+                ).json()
             self.assertEqual(data["prompts"], [])
             self.assertIs(data["prompt"], False)

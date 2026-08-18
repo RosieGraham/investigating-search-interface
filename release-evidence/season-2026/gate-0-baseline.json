@@ -1,0 +1,90 @@
+{
+  "gate": 0,
+  "recorded_at": "2026-08-15T13:50:00Z",
+  "note": "Baseline was taken on a clean release/season-2026 at origin/main before any Phase 0 file edits. CI and the evidence gatherer were added after this snapshot.",
+  "source": {
+    "fetched_origin_main": "4246f79661f44f99f3837cbfce69db6b8b47880d",
+    "branch": "release/season-2026",
+    "created_from": "origin/main",
+    "head_at_baseline": "4246f79661f44f99f3837cbfce69db6b8b47880d",
+    "head_subject": "Merge pull request #5 from RosieGraham/privacy-and-race-fixes",
+    "head_committer_date": "2026-07-22T16:07:23+01:00",
+    "working_tree_clean_at_baseline": true,
+    "nested_clone_is_workspace": false,
+    "workspace_root": "/Users/rosiegraham/Documents/Claude/Projects/Academic Research/Investigating Search Interface/interface-rebuild/investigating-search-interface",
+    "local_main_at_fetch": "b3e5e805bd01b4697ad5ab83b1986e3f24379cf4",
+    "local_main_behind_origin_main": 2
+  },
+  "runtime": {
+    "python": "3.12.7",
+    "python_path": "/Users/rosiegraham/.local/share/uv/python/cpython-3.12.7-macos-aarch64-none/bin/python3.12",
+    "django": "5.2.17",
+    "node": "v24.14.1",
+    "host_python_on_path": "3.14.4",
+    "onnx_model_present": false
+  },
+  "baseline_commands": [
+    {
+      "name": "flake8",
+      "command": "python -m flake8 .",
+      "cwd": "/tmp/isi-season-2026",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "name": "django_tests",
+      "command": "python manage.py test researchdata -v 2",
+      "cwd": "/tmp/isi-season-2026/django",
+      "exit_code": 0,
+      "discovered_test_count": 98,
+      "summary": "Ran 98 tests in 5.486s\nOK"
+    },
+    {
+      "name": "migration_check",
+      "command": "python manage.py makemigrations --check --dry-run -v 1",
+      "cwd": "/tmp/isi-season-2026/django",
+      "exit_code": 0,
+      "output": "No changes detected"
+    },
+    {
+      "name": "check_deploy",
+      "command": "DEBUG=false SECRET_KEY=<long dummy, not a production secret> ALLOWED_HOSTS=investigating-search-interface.onrender.com python manage.py check --deploy -v 2",
+      "cwd": "/tmp/isi-season-2026/django",
+      "exit_code": 0,
+      "warnings": [
+        "security.W004: You have not set a value for the SECURE_HSTS_SECONDS setting."
+      ],
+      "silenced": 0,
+      "note": "A short dummy SECRET_KEY also raises security.W009. The recorded baseline used a long dummy key so W004 is the only production warning."
+    },
+    {
+      "name": "js_syntax",
+      "command": "node --check web_extension_chrome/{background,config,content,local_settings.example,popup}.js",
+      "exit_code": 0
+    },
+    {
+      "name": "manifest_parse",
+      "command": "json.loads(web_extension_chrome/manifest.json)",
+      "exit_code": 0,
+      "name_field": "Investigating Search Interface",
+      "version": "2.1.0",
+      "host_permissions": [
+        "http://localhost:8000/*",
+        "https://*.onrender.com/*"
+      ],
+      "matches": [
+        "https://www.google.com/search*",
+        "https://www.google.co.uk/search*",
+        "https://www.google.ie/search*"
+      ]
+    }
+  ],
+  "store_item_id": {
+    "value": null,
+    "status": "pending",
+    "owner": "Rosie"
+  },
+  "tests_removed_or_weakened": false,
+  "ci_python": "3.12.7",
+  "ci_workflow": ".github/workflows/ci-flake8.yml"
+}

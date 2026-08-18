@@ -4,26 +4,29 @@ Written 10 July 2026 for whichever model works on this repository next, on the a
 
 ## What this is
 
-A Django service (Render, free tier, Frankfurt) plus a Chrome extension. The extension asks `/data/prompt/get/?user_search_query=...` what to inject above Google's results. The backend embeds the query (ONNX MiniLM encoder, int8), scores it against a multi-vector topic index (one vector per topic description, one per example query, blended `alpha * desc + (1 - alpha) * max(example)`), and serves approved prompts from the best topic above threshold. Threshold, margin and alpha live in the `Setting` table, cached 60 seconds, editable on the Content tools page with an audit trail.
+A Django service (Render, free tier, Frankfurt) plus a Chrome extension. The extension POSTs `/data/prompt/get/` with `user_search_query` and workshop identity headers. The backend embeds the query (ONNX MiniLM encoder, int8, pinned revision), scores it against a multi-vector topic index (one vector per topic description, one per example query, blended `alpha * desc + (1 - alpha) * max(example)`), and serves one approved prompt from the single global top topic above threshold. Threshold, margin and alpha live in the `Setting` table, cached 60 seconds, editable on the Content tools page with an audit trail. `RESEARCH_WRITES_ENABLED` defaults false.
 
-A research participant may be using the live service at any time. Deploys to `main` go live automatically.
+A research participant may be using the live service at any time. Deploys to `main` go live automatically. Do not point Render at `release/season-2026`.
 
 ## The four commands that answer most questions
 
 Run from `django/` with the environment described below.
 
-- `python manage.py evaluate_matching` scores the labelled set offline and persists a provenance-stamped `MatchingEvaluation` row. Use `--file ../data/paraphrase-probe-2026-07-10.csv` for the uncontaminated probe. Every quality claim starts here.
+- `python manage.py evaluate_matching` scores the labelled set offline and persists a provenance-stamped `MatchingEvaluation` row. Use `--file ../data/paraphrase-probe-2026-07-10.csv` for the uncontaminated probe. On this branch the harness serves one prompt from the global top topic, or silence: it does not fall through. Historical matching-quality tables that assumed fall-through are not comparable. Every quality claim starts here.
+- `python manage.py audit_synthetic_marker` prints integer counts only for fields that could persist a synthetic marker. Never lists rows. Use a disposable sqlite database, not production.
 - `python manage.py matching_diagnostics` prints attractor pairs, self-retrieval and out-of-domain scores.
 - `python scripts/decision_grid.py` sweeps threshold and margin on both instruments.
-- `python manage.py test researchdata` runs the suite (89 tests, all passing as of this commit). Nothing ships red.
+- `python manage.py test researchdata` runs the suite. Gate 4 server, baseline, client scan, package, marker audit and frozen table: 164 tests OK on Python 3.12.7 (copy the repo to `/tmp` first). Nothing ships red.
+- `python scripts/package_workshop.py` copies the extension allowlist into a clean directory, inspects it, and writes `investigating-search-interface-season-2026-v2.2.0.zip` plus a sidecar provenance file. It does not zip `web_extension_chrome/` in place. The working tree still fails inspection because of extras (README, tests, extra icons, `local_settings.example.js`). Topic exclusions are not a prohibited path. Store item ID stays pending (Rosie, Phase 5).
 - `python -m flake8 .` from the repo root must exit clean before any handoff: GitHub runs it on every pull request (`.github/workflows/ci-flake8.yml`), and a red check on Rosie's screen costs a round trip. Config in `.flake8` (max line 199).
 - `python manage.py audit_accounts` prints every account with its role. Read-only; run it before and after touching anything account-shaped.
 
 ## Live read-only endpoints (no credentials)
 
-- `/healthz` liveness.
-- `/data/ops/status/` machine-readable operational truth: git commit, model artifact hash, runtime, index fingerprint and dirtiness, content counts, last apply, last evaluation, config flags, and three canary queries with pass flags. **Check this first when anything looks wrong. It exists because this project's expensive failures have all been invisible state.**
-- `/data/classifier/debug/?user_search_query=...` top-5 topics with confidences, the top1-top2 gap, and whether the production margin would abstain. Stores nothing.
+- `/healthz` liveness. Not readiness.
+- `/data/release/ready/` query-free workshop readiness (`ready`, `failures`, policy hash). Does not run canaries.
+- `/data/ops/status/` staff-only operational truth: git commit, model artifact hash, runtime, index fingerprint and dirtiness, content counts, last apply, last evaluation, config flags, and three canary queries with pass flags. Anonymous polling is refused so canaries cannot compete with workshop traffic.
+- `/data/classifier/debug/` is disabled on this workshop branch (403, no query echo).
 
 ## Environment for local work
 
@@ -33,13 +36,17 @@ Copy the repo to local disk first (`/tmp`); the mounted workspace blocks SQLite 
 export DEBUG=true
 export DATABASE_URL=sqlite:////tmp/isi.sqlite3
 export EMBEDDING_MODEL_DIR=/tmp/model_dir   # model.onnx + tokenizer.json
-python manage.py download_model             # fetches the int8 artifact
+# Matching identity is windowed 2026-08-20 to 2026-09-18. Before 20 Aug, freeze the clock:
+# export ISI_RELEASE_CLOCK=2026-09-01T12:00:00+00:00
+python manage.py download_model             # fetches the pinned int8 artifact
 python manage.py migrate
 python manage.py import_live_export         # 193 topics, 195 prompts, triggers
 # then apply data/content-package-*.json via researchdata.services.content_apply
 ```
 
-To mirror live content exactly, know this history: live carries the content package PLUS 17 inherited-topic descriptions applied in June from `data/topic-descriptions-draft.json` (the first batch). The 23-topic `topic-descriptions-batch-digital-2026-06-21.json` was never applied. When in doubt, probe `/data/classifier/debug/` per topic name and trust `has_description` over any document, including this one.
+Django tests freeze that clock automatically. Production never sets `ISI_RELEASE_CLOCK`. Render must install `requirements-release.lock` with `--require-hashes` after `scripts/verify_release_lock.py`.
+
+To mirror live content exactly, know this history: live carries the content package PLUS 17 inherited-topic descriptions applied in June from `data/topic-descriptions-draft.json` (the first batch). The 23-topic `topic-descriptions-batch-digital-2026-06-21.json` was never applied. The workshop debug URL is disabled; staff-only `/data/ops/status/` remains the canary path.
 
 ## Account roles (July 2026)
 

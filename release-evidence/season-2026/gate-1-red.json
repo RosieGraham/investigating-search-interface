@@ -1,0 +1,94 @@
+{
+  "gate": 1,
+  "recorded_at": "2026-08-15T14:24:00Z",
+  "verdict": "red-before-green archived; baseline 98 still pass; no test removed or weakened",
+  "python": "3.12.7",
+  "baseline_modules": {
+    "command": "python django/manage.py test researchdata.tests researchdata.tests_prompt_get_post researchdata.tests_serve_placeholders researchdata.tests_content_tools researchdata.tests_ops_status researchdata.tests_account_roles researchdata.tests_priority_order researchdata.tests_representation researchdata.tests_evaluation -v 1",
+    "exit_code": 0,
+    "discovered_test_count": 98,
+    "summary": "Ran 98 tests in 5.048s OK"
+  },
+  "season_django": {
+    "command": "python django/manage.py test researchdata.tests_season_* -v 2",
+    "exit_code": 1,
+    "ran": 60,
+    "failures": 39,
+    "errors": 11,
+    "passes": 10,
+    "summary": "Ran 60 tests in 0.078s FAILED (failures=39, errors=11)"
+  },
+  "season_js": {
+    "command": "node --test web_extension_chrome/test/*.test.mjs",
+    "exit_code": 1,
+    "ran": 11,
+    "pass": 1,
+    "fail": 10,
+    "green": ["popup keeps local topic exclusion controls"]
+  },
+  "green_on_baseline_documented": [
+    {
+      "test": "test_urlencoded_with_charset_is_accepted",
+      "reason": "Current prompt_get already accepts application/x-www-form-urlencoded including a charset parameter. Identity and field-reject rules are covered by the red tests."
+    },
+    {
+      "test": "test_success_and_silence_preserve_shape_and_no_store",
+      "reason": "Current POST already returns prompt/prompts/topics/classifier and Cache-Control no-store. It does not yet enforce identity or one-prompt top-one."
+    },
+    {
+      "test": "test_exact_path_does_not_redirect",
+      "reason": "POST /data/prompt/get/ already returns a non-redirect status."
+    },
+    {
+      "test": "test_popup_keeps_topic_exclusions",
+      "reason": "Amendment 1: exclusions stay. The current popup already stores isi_topics_exclude."
+    },
+    {
+      "test": "test_content_keeps_topic_exclusions_as_local_preference",
+      "reason": "Amendment 1: content.js already sends topicsExclude."
+    },
+    {
+      "test": "test_helper_fails_while_writes_are_open",
+      "reason": "Inverted control. Green because the defect is present: assert_research_writes_refused raises AssertionError."
+    },
+    {
+      "test": "test_baseline_event_post_still_creates_a_row",
+      "reason": "Documents the live defect. Not a contract pass."
+    },
+    {
+      "test": "test_silence_assertion_fails_while_fall_through_exists",
+      "reason": "Inverted control. Green because promptless top currently falls through to a prompt-rich second topic."
+    },
+    {
+      "test": "test_prohibited_handler_scan_fails_on_baseline_background",
+      "reason": "Inverted control. Green because background.js still contains logEvent and postReport."
+    },
+    {
+      "test": "test_empty_popup_lookup_scan_fails_on_baseline_popup",
+      "reason": "Inverted control. Green because popup.js still sends health and query: ''."
+    },
+    {
+      "test": "popup keeps local topic exclusion controls (JS)",
+      "reason": "Amendment 1. Same as the Django scan."
+    }
+  ],
+  "red_expected_reasons": {
+    "research_writes": "Views still create rows; RESEARCH_WRITES_ENABLED is absent; 403 research_writes_disabled is not returned.",
+    "matching_http": "GET still classifies; missing/unknown/duplicate/oversize fields are not rejected; identity headers are ignored; debug still accepts a query in the URL.",
+    "top_one": "prompt_get still loops above-threshold topics and falls through when the top topic is promptless, unapproved, or excluded.",
+    "tie_break": "classify_query still uses bare np.argsort(-scores); select_ranked_topic_ids does not exist.",
+    "release_policy": "release-policy/season-2026-workshop.json and researchdata.release_policy do not exist.",
+    "readiness": "/data/release/ready/ is 404; evaluate_readiness does not exist.",
+    "model_pin": "download_model.hf_hub_download has no revision=; verify_model_artifacts does not exist.",
+    "client_scan": "Research handlers, old consent key, empty popup lookup, localhost wildcard, lastKey-before-success, and missing season notice/identity remain.",
+    "package": "scripts/package_workshop.py does not exist.",
+    "js_modules": "web_extension_chrome/lib/request_lifecycle.js and acknowledgement.js do not exist."
+  },
+  "inverted_controls_that_proved_detection": [
+    "test_helper_fails_while_writes_are_open",
+    "test_silence_assertion_fails_while_fall_through_exists",
+    "test_prohibited_handler_scan_fails_on_baseline_background",
+    "test_empty_popup_lookup_scan_fails_on_baseline_popup"
+  ],
+  "tests_removed_or_weakened": false
+}

@@ -1,0 +1,49 @@
+{
+  "gate": 2,
+  "date": "2026-08-15",
+  "branch": "release/season-2026",
+  "python": "3.12.7",
+  "python_executable": "/Users/rosiegraham/.local/share/uv/python/cpython-3.12.7-macos-aarch64-none/bin/python3.12",
+  "venv": "/tmp/isi-season-venv",
+  "copy": "/tmp/isi-season-2026",
+  "result": "green",
+  "server_and_baseline": {
+    "discovered_test_count": 142,
+    "exit_code": 0,
+    "note": "All researchdata tests except tests_season_client_scan and tests_season_package."
+  },
+  "flake8": 0,
+  "migration_check": 0,
+  "new_migrations": false,
+  "check_deploy": {
+    "exit_code": 0,
+    "warnings": ["security.W004 SECURE_HSTS_SECONDS unset"],
+    "silenced": 0
+  },
+  "dependency_lock": {
+    "file": "requirements-release.lock",
+    "sha256": "abc9f11bb99afa2ee2d729d8eba1e55139a275bb3905680e43f523b644edd2dc",
+    "verify_exit": 0
+  },
+  "model_pin": {
+    "repo": "sentence-transformers/multi-qa-MiniLM-L6-cos-v1",
+    "revision": "b207367332321f8e44f96e224ef15bc607f4dbf0",
+    "onnx_filename": "onnx/model_qint8_avx512_vnni.onnx",
+    "model_sha256": "89779550529b9077685f44c041cb6d5f5ce394fae8937f91d1b3a8acc675beb6",
+    "tokenizer_sha256": "7fa9272f7ef1ebd1666bb3bfd9d4707660ff0076ca9d1671cd9a9c6e18e03331"
+  },
+  "liveness_vs_readiness": "independent: /healthz stays 200; /data/release/ready/ is query-free and can report ready=false",
+  "later_phases_still_red": {
+    "tests_season_client_scan": "Phase 3",
+    "tests_season_package": "Phase 4",
+    "js_contract": "Phase 3"
+  },
+  "not_done": [
+    "no commit",
+    "no push",
+    "no deploy",
+    "no Store upload",
+    "client not implemented",
+    "package builder not implemented"
+  ]
+}

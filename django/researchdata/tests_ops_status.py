@@ -5,9 +5,12 @@ tests exercise the endpoint's structure and canary logic without ONNX.
 
 from unittest import mock
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from .models import Prompt, Topic, TopicGroup
+
+User = get_user_model()
 
 
 class OpsStatusTests(TestCase):
@@ -21,6 +24,11 @@ class OpsStatusTests(TestCase):
             description="prose")
         Prompt.objects.create(topic=self.seo, prompt_content="p",
                               admin_approved=True)
+        staff = User.objects.create_user(
+            username="ops@test.com", email="ops@test.com", password="pw-test-1234",
+            is_staff=True,
+        )
+        self.client.force_login(staff)
 
     def _get(self, classify_side_effect):
         with mock.patch("researchdata.views.classify_query",

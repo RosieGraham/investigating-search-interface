@@ -1,12 +1,11 @@
 {
     "manifest_version": 3,
-    "name": "Investigating Search Interface",
-    "version": "2.1.0",
-    "description": "Surfaces short, expert-authored reflection prompts alongside Google search results. A University of Birmingham research project (formerly the Ethical Interface).",
+    "name": "Investigating Search Interface: SEASON 2026",
+    "version": "2.2.0",
+    "description": "SEASON 2026 workshop build. Surfaces one expert-authored reflection prompt alongside Google search results. Queries are used only to match a prompt and are not kept.",
     "permissions": ["storage"],
     "host_permissions": [
-        "http://localhost:8000/*",
-        "https://*.onrender.com/*"
+        "https://investigating-search-interface.onrender.com/*"
     ],
     "background": {
         "service_worker": "background.js"
@@ -18,7 +17,12 @@
                 "https://www.google.co.uk/search*",
                 "https://www.google.ie/search*"
             ],
-            "js": ["config.js", "content.js"],
+            "js": [
+                "config.js",
+                "lib/acknowledgement.js",
+                "lib/request_lifecycle.js",
+                "content.js"
+            ],
             "css": ["content.css"],
             "run_at": "document_idle"
         }
@@ -29,7 +33,7 @@
             "48": "icon-isi-48.png",
             "128": "icon-isi-128.png"
         },
-        "default_title": "Investigating Search Interface",
+        "default_title": "Investigating Search Interface: SEASON 2026",
         "default_popup": "popup.html"
     },
     "icons": {

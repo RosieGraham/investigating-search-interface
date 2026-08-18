@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/RosieGraham/investigating-search-interface/release-evidence/season-2026/schema.json",
+  "title": "SEASON 2026 workshop release evidence packet",
+  "description": "Provenance fields for the workshop release. Gatherers must not invent values. Use status not_run or pending when a field cannot yet be observed.",
+  "type": "object",
+  "required": [
+    "schema",
+    "gathered_at",
+    "gatherer",
+    "source",
+    "store_item_id",
+    "commands_and_results"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "schema": { "type": "string" },
+    "schema_sha256": { "type": ["string", "null"] },
+    "gathered_at": { "type": "string" },
+    "gatherer": { "type": "string" },
+    "python_executable": { "type": "string" },
+    "python_version": { "type": "string" },
+    "source": {
+      "type": "object",
+      "required": ["branch", "head", "working_tree_clean"],
+      "properties": {
+        "repository": { "type": "string" },
+        "workspace_root": { "type": "string" },
+        "branch": { "type": "string" },
+        "head": { "type": "string", "minLength": 40 },
+        "origin_main": { "type": ["string", "null"] },
+        "head_equals_origin_main": { "type": "boolean" },
+        "working_tree_clean": { "type": "boolean" },
+        "porcelain": { "type": "array", "items": { "type": "string" } },
+        "upstream": { "type": ["string", "null"] },
+        "nested_clone_is_workspace": { "type": "boolean" }
+      }
+    },
+    "store_item_id": {
+      "type": "object",
+      "required": ["value", "status", "owner"],
+      "properties": {
+        "value": { "type": ["string", "null"] },
+        "status": { "enum": ["pending", "recorded"] },
+        "owner": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "commands_and_results": {
+      "description": "Either a run_release_gates.py JSON object or a not_run record.",
+      "type": "object"
+    },
+    "changed_files": { "type": "object" },
+    "model_session_provenance": { "type": "object" },
+    "data_lifecycle_matrix": { "type": "object" },
+    "contract_tests_red_before_green": { "type": "object" },
+    "readiness_failure_injection": { "type": "object" },
+    "inverted_controls": { "type": "object" },
+    "frozen_result_table": { "type": "object" },
+    "load_test": { "type": "object" },
+    "release_lock": { "type": "object" },
+    "package": { "type": "object" },
+    "runtime_browser": { "type": "object" },
+    "matching_replay": { "type": "object" },
+    "synthetic_marker_audit": { "type": "object" },
+    "research_use_transition": { "type": "object" },
+    "independent_review": { "type": "object" },
+    "frozen_release_manifest": { "type": "object" },
+    "known_limitations": { "type": "array", "items": { "type": "string" } }
+  }
+}

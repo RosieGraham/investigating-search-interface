@@ -8,11 +8,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import models
 from .embedding import ClassifierUnavailable, classify_query, embed_query, rank_prompts
-from .classifier_config import get_classifier_margin, get_classifier_threshold, get_serve_placeholders
+from .classifier_config import get_classifier_threshold, get_serve_placeholders
+from .release_policy import IdentityError, validate_request_identity, workshop_writes_allowed
+from .release_readiness import evaluate_readiness
 
 logger = logging.getLogger('researchdata')
 
-MAX_PROMPTS_RETURNED = 4
+MAX_PROMPTS_RETURNED = 1
+MAX_BODY_BYTES = 8192
+MAX_QUERY_CODEPOINTS = 2048
+ALLOWED_MATCH_FIELDS = frozenset({'user_search_query', 'topics_exclude', 'search_exact'})
 
 
 def _approved_prompts():
@@ -100,98 +105,147 @@ def _trigger_match(user_search_query, search_exact, topics_exclude):
     return matched
 
 
+def json_error(status, error, allow=None):
+    response = JsonResponse({'error': error}, status=status)
+    response['Cache-Control'] = 'no-store'
+    if allow:
+        response['Allow'] = allow
+    return response
+
+
+def select_top_topic(matches):
+    """Return the single global top (topic_id, confidence) pair, or None."""
+    if not matches:
+        return None
+    return matches[0]
+
+
+def _research_writes_blocked(request):
+    if not settings.RESEARCH_WRITES_ENABLED:
+        return True
+    build_id = request.headers.get('X-ISI-Build-ID')
+    if build_id and not workshop_writes_allowed(build_id):
+        return True
+    return False
+
+
+def _parse_match_request(request):
+    if request.method != 'POST':
+        raise MatchContractError(405, 'method_not_allowed', allow='POST')
+    content_type = (request.content_type or '').split(';')[0].strip().lower()
+    if content_type and content_type != 'application/x-www-form-urlencoded':
+        raise MatchContractError(415, 'unsupported_media_type')
+    body = request.body or b''
+    if len(body) > MAX_BODY_BYTES:
+        raise MatchContractError(413, 'request_too_large')
+    try:
+        validate_request_identity(
+            build_id=request.headers.get('X-ISI-Build-ID'),
+            extension_version=request.headers.get('X-ISI-Extension-Version'),
+        )
+    except IdentityError:
+        raise MatchContractError(403, 'release_not_allowed')
+    keys = set(request.POST.keys())
+    if keys - ALLOWED_MATCH_FIELDS:
+        raise MatchContractError(400, 'invalid_request')
+    if 'user_search_query' not in keys:
+        raise MatchContractError(400, 'invalid_request')
+    for key in keys:
+        if len(request.POST.getlist(key)) != 1:
+            raise MatchContractError(400, 'invalid_request')
+    user_search_query = request.POST.get('user_search_query', '')
+    if not user_search_query.strip():
+        raise MatchContractError(400, 'invalid_request')
+    if len(user_search_query) > MAX_QUERY_CODEPOINTS:
+        raise MatchContractError(413, 'request_too_large')
+    try:
+        search_exact = int(request.POST.get('search_exact', '0'))
+    except ValueError:
+        search_exact = 0
+    topics_exclude = []
+    for topic in request.POST.get('topics_exclude', '').split(','):
+        topic = topic.strip()
+        if topic.isdigit():
+            topics_exclude.append(int(topic))
+    return user_search_query.strip(), search_exact, topics_exclude
+
+
+class MatchContractError(Exception):
+    def __init__(self, status, error, allow=None):
+        self.status = status
+        self.error = error
+        self.allow = allow
+
+
 @csrf_exempt
 def prompt_get(request):
     """
     Core API endpoint: given a user's search query, return matching prompt(s).
 
-    Accepts POST (preferred: query stays out of URL-level logs) or GET
-    (legacy / diagnostics). csrf_exempt because the Chrome extension cannot
-    supply a Django CSRF token.
-
-    Primary path: vector classification (semantic similarity between the query
-    and Topic descriptions). Fallback path: legacy trigger substring matching,
-    used when the classifier is disabled, unavailable, or finds no confident
-    match. The response reports which path produced each prompt.
+    Workshop contract: POST only, urlencoded body, release identity headers,
+    one prompt from the single global top topic. csrf_exempt because the
+    Chrome extension cannot supply a Django CSRF token.
 
     Response shape (backward compatible with the v1 popup):
         topics:  list of topic groups with excluded flags (for settings UIs)
         prompt:  first matched prompt object, or false
-        prompts: up to 3 matched prompt objects (new in v2)
+        prompts: zero or one matched prompt objects
         classifier: status string ('matched', 'no_match', 'disabled', 'unavailable')
     """
-    params = request.POST if request.method == 'POST' else request.GET
-    user_search_query = params.get('user_search_query', '').strip()
     try:
-        search_exact = int(params.get('search_exact', '0'))
-    except ValueError:
-        search_exact = 0
-    topics_exclude = []
-    for topic in params.get('topics_exclude', '').split(','):
-        topic = topic.strip()
-        if topic.isdigit():
-            topics_exclude.append(int(topic))
+        user_search_query, search_exact, topics_exclude = _parse_match_request(request)
+    except MatchContractError as exc:
+        return json_error(exc.status, exc.error, allow=exc.allow)
 
-    # Topic group list (for settings UIs), with excluded flags
     topics_data = [
         {**model_to_dict(group), **{'excluded': 1 if group.id in topics_exclude else 0}}
         for group in models.TopicGroup.objects.all()
     ]
 
-    if not user_search_query:
-        response = JsonResponse({'prompt': False, 'prompts': [], 'topics': topics_data, 'classifier': 'no_query'})
-        response['Cache-Control'] = 'no-store'
-        return response
-
     prompts_payload = []
     classifier_state = 'disabled'
     serve_placeholders = get_serve_placeholders()
 
-    # --- Primary path: vector classification ---
     if settings.CLASSIFIER_ENABLED:
         try:
-            # Embed once; reuse for both topic classification and prompt ranking.
             query_vec = embed_query(user_search_query)
             matches = classify_query(user_search_query, _query_vec=query_vec)
-            classifier_state = 'matched' if matches else 'no_match'
-            for topic_id, confidence in matches:
-                if len(prompts_payload) >= MAX_PROMPTS_RETURNED:
-                    break
-                # Fetch all candidates for this topic in one query.
-                candidate_map = {
-                    p.id: p
-                    for p in _approved_prompts()
-                    .filter(topic_id=topic_id)
-                    .exclude(topic__topic_group__id__in=topics_exclude)
-                }
-                if not candidate_map:
-                    if serve_placeholders:
-                        prompts_payload.append(_placeholder_payload(topic_id, confidence))
-                    continue
-                # Similarity decides WHICH prompts are shown, which is the only
-                # thing it can usefully decide once the cap is smaller than the
-                # candidate set. Editorial priority decides the ORDER they are
-                # presented in, because within a matched topic every candidate
-                # is on-topic and similarity between the query and each prompt
-                # is close to noise. With a cap of one the sort is a no-op.
-                ranked = rank_prompts(query_vec, list(candidate_map.keys()))
-                n_take = MAX_PROMPTS_RETURNED - len(prompts_payload)
-                chosen = [
-                    candidate_map[pid]
-                    for pid, _score in ranked[:n_take]
-                    if pid in candidate_map
-                ]
-                chosen.sort(key=lambda p: (-(p.priority or 0), p.id))
-                for prompt in chosen:
-                    prompts_payload.append(_prompt_payload(prompt, confidence, matched_by='classifier'))
+            top = select_top_topic(matches)
+            classifier_state = 'matched' if top else 'no_match'
+            if top:
+                topic_id, confidence = top
+                topic = models.Topic.objects.filter(id=topic_id).select_related('topic_group').first()
+                excluded = bool(topic and topic.topic_group_id in topics_exclude)
+                if not excluded:
+                    candidate_map = {
+                        p.id: p
+                        for p in _approved_prompts().filter(topic_id=topic_id)
+                    }
+                    if not candidate_map:
+                        if serve_placeholders:
+                            prompts_payload.append(_placeholder_payload(topic_id, confidence))
+                    else:
+                        ranked = rank_prompts(query_vec, list(candidate_map.keys()))
+                        chosen = [
+                            candidate_map[pid]
+                            for pid, _score in ranked
+                            if pid in candidate_map
+                        ]
+                        chosen.sort(key=lambda p: (-(p.priority or 0), p.id))
+                        prompts_payload.append(
+                            _prompt_payload(chosen[0], confidence, matched_by='classifier')
+                        )
         except ClassifierUnavailable:
             classifier_state = 'unavailable'
         except Exception:
             logger.exception('Classifier error; falling back to triggers.')
             classifier_state = 'error'
 
-    # --- Fallback path: legacy trigger matching ---
-    if not prompts_payload and settings.TRIGGER_FALLBACK_ENABLED:
+    if (
+        not prompts_payload
+        and settings.TRIGGER_FALLBACK_ENABLED
+        and classifier_state in ('disabled', 'unavailable', 'error', 'no_match')
+    ):
         for prompt, term in _trigger_match(user_search_query, search_exact, topics_exclude)[:MAX_PROMPTS_RETURNED]:
             prompts_payload.append(_prompt_payload(prompt, matched_by='trigger'))
 
@@ -206,61 +260,8 @@ def prompt_get(request):
 
 
 def classifier_debug(request):
-    """
-    Read-only diagnostic for editorial spot checks and intern query testing.
-
-    Unlike prompt_get, this reports the classifier's top matches even when the
-    matched topics carry no approved prompt, so description quality can be
-    checked for every topic. Returns topic names, groups, raw confidences,
-    and the active threshold. Stores nothing; returns no prompt text.
-
-        /data/classifier/debug/?user_search_query=...
-    """
-    user_search_query = request.GET.get('user_search_query', '').strip()
-    threshold = get_classifier_threshold()
-    configured_margin = get_classifier_margin()
-    base = {'threshold': threshold, 'margin': configured_margin, 'matches': []}
-    if not user_search_query:
-        return JsonResponse({**base, 'classifier': 'no_query'})
-    if not settings.CLASSIFIER_ENABLED:
-        return JsonResponse({**base, 'classifier': 'disabled'})
-    try:
-        # margin=0.0: the debug view always shows what the index thinks,
-        # including matches the production margin rule would abstain on.
-        raw = classify_query(user_search_query, threshold=0.0, top_k=5, margin=0.0)
-    except ClassifierUnavailable:
-        return JsonResponse({**base, 'classifier': 'unavailable'})
-
-    topic_map = {
-        topic.id: topic
-        for topic in models.Topic.objects.filter(
-            id__in=[topic_id for topic_id, _ in raw]
-        ).select_related('topic_group')
-    }
-    matches = []
-    for topic_id, confidence in raw:
-        topic = topic_map.get(topic_id)
-        if topic is None:
-            continue
-        matches.append({
-            'topic_id': topic_id,
-            'topic': topic.name,
-            'group': topic.topic_group.name if topic.topic_group_id else None,
-            'confidence': round(confidence, 4),
-            'above_threshold': confidence >= threshold,
-            'has_description': bool(topic.description),
-            'example_query_count': len(topic.example_queries or []),
-        })
-    top_gap = (round(raw[0][1] - raw[1][1], 4) if len(raw) > 1 else None)
-    return JsonResponse({
-        **base,
-        'matches': matches,
-        'top1_top2_gap': top_gap,
-        'margin_would_abstain': (top_gap is not None
-                                 and configured_margin > 0
-                                 and top_gap < configured_margin),
-        'classifier': 'ok',
-    })
+    """Workshop mode: do not accept a query in the URL or return query text."""
+    return json_error(403, 'release_not_allowed')
 
 
 CANARY_QUERIES = [
@@ -279,12 +280,11 @@ def ops_status(request):
     Machine-readable operational truth: is what an editor is looking at
     what users are getting?
 
-    Public and read-only, like /healthz: exposes counts, hashes, config and
-    canary matching results. No participant data, no secrets, no prompt
-    text. Most of this project's costly debugging has been invisible state
-    (a stale index, a cached flag, an unapplied file); this endpoint makes
-    the invisible state a URL.
+    Staff-only: canaries embed live queries and must not compete with
+    workshop traffic. Anonymous clients use /data/release/ready/ instead.
     """
+    if not (request.user.is_authenticated and request.user.is_staff):
+        return json_error(403, 'forbidden')
     from django.conf import settings as dj_settings
 
     from . import embedding
@@ -372,11 +372,27 @@ def ops_status(request):
     return JsonResponse(status)
 
 
+def release_ready(request):
+    """Query-free workshop readiness. Never treats /healthz as this check."""
+    result = evaluate_readiness()
+    response = JsonResponse({
+        'ready': result['ready'],
+        'failures': result['failures'],
+        'policy_sha256': result.get('policy_sha256'),
+        'git_commit': result.get('git_commit'),
+        'build_id': result.get('build_id'),
+    })
+    response['Cache-Control'] = 'no-store'
+    return response
+
+
 @csrf_exempt
 def response_post(request):
     """
     Function-based view to create a new Response data object
     """
+    if _research_writes_blocked(request):
+        return json_error(403, 'research_writes_disabled')
 
     user_response_content = request.POST.get('user_response_content', '')
     active_prompt_id = request.POST.get('active_prompt_id', '')
@@ -401,6 +417,8 @@ def notrelevantreport_post(request):
     Each report is a labelled query/topic mismatch used to calibrate the
     classifier threshold.
     """
+    if _research_writes_blocked(request):
+        return json_error(403, 'research_writes_disabled')
 
     active_prompt_id = request.POST.get('active_prompt_id', '')
     user_search_query = request.POST.get('user_search_query', '')
@@ -427,6 +445,9 @@ def event_post(request):
     Accepts: event_type (required), prompt_id, topic_id, session_key,
     serp_mode, classifier_confidence. Never accepts or stores query text.
     """
+    if _research_writes_blocked(request):
+        return json_error(403, 'research_writes_disabled')
+
     event_type = request.POST.get('event_type', '')
     valid_types = {choice[0] for choice in models.EngagementEvent.EVENT_TYPES}
     if event_type not in valid_types:

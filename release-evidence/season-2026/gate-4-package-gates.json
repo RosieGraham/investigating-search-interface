@@ -1,0 +1,123 @@
+{
+  "python_executable": "/tmp/isi-season-venv/bin/python",
+  "python_version": "3.12.7 (main, Oct 16 2024, 07:12:08) [Clang 18.1.8 ]",
+  "discovered_test_count": 159,
+  "failed_gates": [],
+  "all_exit_zero": true,
+  "check_deploy_output": "System check identified some issues:\n\nWARNINGS:\n?: (security.W004) You have not set a value for the SECURE_HSTS_SECONDS setting. If your entire site is served only over SSL, you may want to consider setting a value and enabling HTTP Strict Transport Security. Be sure to read the documentation first; enabling HSTS carelessly can cause serious, irreversible problems.\n\nSystem check identified 1 issue (0 silenced).\n",
+  "results": [
+    {
+      "name": "flake8",
+      "argv": [
+        "/tmp/isi-season-venv/bin/python",
+        "-m",
+        "flake8",
+        "."
+      ],
+      "cwd": "/private/tmp/isi-season-2026",
+      "exit_code": 0,
+      "discovered_test_count": null,
+      "output": ""
+    },
+    {
+      "name": "django_tests",
+      "argv": [
+        "/tmp/isi-season-venv/bin/python",
+        "manage.py",
+        "test",
+        "researchdata",
+        "-v",
+        "2"
+      ],
+      "cwd": "/private/tmp/isi-season-2026/django",
+      "exit_code": 0,
+      "discovered_test_count": 159,
+      "output": "Found 159 test(s).\nOperations to perform:\n  Synchronize unmigrated apps: general, humanize, messages, staticfiles\n  Apply all migrations: account, admin, auth, contenttypes, debug_toolbar, researchdata, sessions\nSynchronizing apps without migrations:\n  Creating tables...\n    Running deferred SQL...\nRunning migrations:\n  Applying contenttypes.0001_initial... OK\n  Applying contenttypes.0002_remove_content_type_name... OK\n  Applying auth.0001_initial... OK\n  Applying auth.0002_alter_permission_name_max_length... OK\n  Applying auth.0003_alter_user_email_max_length... OK\n  Applying auth.0004_alter_user_username_opts... OK\n  Applying auth.0005_alter_user_last_login_null... OK\n  Applying auth.0006_require_contenttypes_0002... OK\n  Applying auth.0007_alter_validators_add_error_messages... OK\n  Applying auth.0008_alter_user_username_max_length... OK\n  Applying auth.0009_alter_user_last_name_max_length... OK\n  Applying auth.0010_alter_group_name_max_length... OK\n  Applying auth.0011_update_proxy_permissions... OK\n  Applying auth.0012_alter_user_first_name_max_length... OK\n  Applying account.0001_initial... OK\n  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying debug_toolbar.0001_initial... OK\n  Applying researchdata.0001_initial... OK\n  Applying researchdata.0002_datainsert_notrelevantreport... OK\n  Applying researchdata.0003_alter_trigger_options... OK\n  Applying researchdata.0004_vector_classification_and_seeed... OK\n  Applying researchdata.0005_alter_topic_name... OK\n  Applying researchdata.0006_alter_trigger_trigger_text... OK\n  Applying researchdata.0007_content_apply_and_setting... OK\n  Applying researchdata.0008_matchingevaluation... OK\n  Applying researchdata.0009_split_topic_description... OK\n  Applying sessions.0001_initial... OK\nSystem check identified no issues (0 silenced).\nCreating test database for alias 'default' ('file:memorydb_default?mode=memory&cach\n...\nTests.test_package_script_exists) ... ok\ntest_inverted_readiness_must_not_ignore_broken_dependency (researchdata.tests_season_readiness.ReleaseReadinessFailureInjectionTests.test_inverted_readiness_must_not_ignore_broken_dependency) ... ok\ntest_missing_model_is_not_ready (researchdata.tests_season_readiness.ReleaseReadinessFailureInjectionTests.test_missing_model_is_not_ready) ... ok\ntest_research_writes_enabled_is_not_ready (researchdata.tests_season_readiness.ReleaseReadinessFailureInjectionTests.test_research_writes_enabled_is_not_ready) ... ok\ntest_wrong_config_is_not_ready (researchdata.tests_season_readiness.ReleaseReadinessFailureInjectionTests.test_wrong_config_is_not_ready) ... ok\ntest_policy_binds_release_identity (researchdata.tests_season_release_policy.ReleasePolicyFileTests.test_policy_binds_release_identity) ... ok\ntest_policy_file_exists (researchdata.tests_season_release_policy.ReleasePolicyFileTests.test_policy_file_exists) ... ok\ntest_classify_query_source_has_explicit_tie_break (researchdata.tests_season_topic_tiebreak.TopicTieBreakTests.test_classify_query_source_has_explicit_tie_break) ... ok\ntest_select_ranked_topic_ids_exists_and_is_stable (researchdata.tests_season_topic_tiebreak.TopicTieBreakTests.test_select_ranked_topic_ids_exists_and_is_stable) ... ok\n\n----------------------------------------------------------------------\nRan 159 tests in 8.569s\n\nOK\nDestroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\n",
+      "output_truncated": true
+    },
+    {
+      "name": "migration_check",
+      "argv": [
+        "/tmp/isi-season-venv/bin/python",
+        "manage.py",
+        "makemigrations",
+        "--check",
+        "--dry-run",
+        "-v",
+        "1"
+      ],
+      "cwd": "/private/tmp/isi-season-2026/django",
+      "exit_code": 0,
+      "discovered_test_count": null,
+      "output": "No changes detected\n"
+    },
+    {
+      "name": "check_deploy",
+      "argv": [
+        "/tmp/isi-season-venv/bin/python",
+        "manage.py",
+        "check",
+        "--deploy",
+        "-v",
+        "2"
+      ],
+      "cwd": "/private/tmp/isi-season-2026/django",
+      "exit_code": 0,
+      "discovered_test_count": null,
+      "output": "System check identified some issues:\n\nWARNINGS:\n?: (security.W004) You have not set a value for the SECURE_HSTS_SECONDS setting. If your entire site is served only over SSL, you may want to consider setting a value and enabling HTTP Strict Transport Security. Be sure to read the documentation first; enabling HSTS carelessly can cause serious, irreversible problems.\n\nSystem check identified 1 issue (0 silenced).\n"
+    },
+    {
+      "name": "js_syntax",
+      "argv": [
+        "node",
+        "--check",
+        "<web_extension_chrome/*.js>"
+      ],
+      "cwd": "/private/tmp/isi-season-2026",
+      "exit_code": 0,
+      "discovered_test_count": null,
+      "output": "$ node --check /private/tmp/isi-season-2026/web_extension_chrome/background.js\n\n$ node --check /private/tmp/isi-season-2026/web_extension_chrome/config.js\n\n$ node --check /private/tmp/isi-season-2026/web_extension_chrome/content.js\n\n$ node --check /private/tmp/isi-season-2026/web_extension_chrome/local_settings.example.js\n\n$ node --check /private/tmp/isi-season-2026/web_extension_chrome/popup.js\n"
+    },
+    {
+      "name": "js_contract",
+      "argv": [
+        "node",
+        "--test",
+        "web_extension_chrome/test/request_lifecycle.test.mjs",
+        "web_extension_chrome/test/acknowledgement.test.mjs",
+        "web_extension_chrome/test/popup_contract.test.mjs"
+      ],
+      "cwd": "/private/tmp/isi-season-2026",
+      "exit_code": 0,
+      "discovered_test_count": null,
+      "output": "\u2714 acknowledgement module exists (1.135375ms)\n\u2714 no backend request before season-2026-v1 is acknowledged (0.264209ms)\n\u2714 old 2.1 consent does not acknowledge the workshop notice (0.137709ms)\n\u2714 decline persists across reload (0.956667ms)\n\u2714 inverted: pre-acknowledgement send must make the contract fail (0.61225ms)\n\u2714 popup must not send health or empty prompt lookup (0.543375ms)\n\u2714 popup keeps local topic exclusion controls (0.111417ms)\n\u2714 request lifecycle module exists (0.748ms)\n\u2714 at most two attempts, retry only on timeout or 502/503/504 (0.491833ms)\n\u2714 does not retry 4xx or 500 (0.693709ms)\n\u2714 late response cannot render on a later query (0.216417ms)\n\u2139 tests 11\n\u2139 suites 0\n\u2139 pass 11\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 97.586792\n"
+    },
+    {
+      "name": "manifest_parse",
+      "argv": [
+        "/tmp/isi-season-venv/bin/python",
+        "-c",
+        "import json, pathlib, sys; p = pathlib.Path(sys.argv[1]); data = json.loads(p.read_text()); print('parsed_ok=true'); print('name=', data.get('name')); print('version=', data.get('version'))",
+        "/private/tmp/isi-season-2026/web_extension_chrome/manifest.json"
+      ],
+      "cwd": "/private/tmp/isi-season-2026",
+      "exit_code": 0,
+      "discovered_test_count": null,
+      "output": "parsed_ok=true\nname= Investigating Search Interface: SEASON 2026\nversion= 2.2.0\n"
+    },
+    {
+      "name": "package_workshop",
+      "argv": [
+        "/tmp/isi-season-venv/bin/python",
+        "/private/tmp/isi-season-2026/scripts/package_workshop.py",
+        "--verify-double-build",
+        "--out-dir",
+        "/tmp/isi-season-package"
+      ],
+      "cwd": "/private/tmp/isi-season-2026",
+      "exit_code": 0,
+      "discovered_test_count": null,
+      "output": "filename=investigating-search-interface-season-2026-v2.2.0.zip\nsha256=7869a570ffec3b234237d70242c4f1eed43dfb56e8bbf3ac951b2b3c078c0fe1\npath=/tmp/isi-season-package/investigating-search-interface-season-2026-v2.2.0.zip\n"
+    }
+  ]
+}

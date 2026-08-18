@@ -17,6 +17,7 @@ Environment variables used in production:
 """
 
 import os
+import sys
 from pathlib import Path
 
 import dj_database_url
@@ -193,9 +194,31 @@ EMBEDDING_MODEL_DIR = Path(os.environ.get('EMBEDDING_MODEL_DIR', BASE_DIR / 'mod
 EMBEDDING_MODEL_ID = os.environ.get(
     'EMBEDDING_MODEL_ID', 'sentence-transformers/multi-qa-MiniLM-L6-cos-v1'
 )
+# Pinned Hugging Face revision and int8 ONNX artifact for the workshop release.
+EMBEDDING_MODEL_REVISION = os.environ.get(
+    'EMBEDDING_MODEL_REVISION', 'b207367332321f8e44f96e224ef15bc607f4dbf0'
+)
+EMBEDDING_ONNX_FILENAME = os.environ.get(
+    'EMBEDDING_ONNX_FILENAME', 'onnx/model_qint8_avx512_vnni.onnx'
+)
+EMBEDDING_MODEL_SHA256 = os.environ.get(
+    'EMBEDDING_MODEL_SHA256',
+    '89779550529b9077685f44c041cb6d5f5ce394fae8937f91d1b3a8acc675beb6',
+)
+EMBEDDING_TOKENIZER_SHA256 = os.environ.get(
+    'EMBEDDING_TOKENIZER_SHA256',
+    '7fa9272f7ef1ebd1666bb3bfd9d4707660ff0076ca9d1671cd9a9c6e18e03331',
+)
 # When the classifier returns nothing above threshold, the legacy trigger
-# (substring) matching is consulted instead.
-TRIGGER_FALLBACK_ENABLED = env_bool('TRIGGER_FALLBACK_ENABLED', True)
+# (substring) matching is consulted instead. False for the workshop release.
+TRIGGER_FALLBACK_ENABLED = env_bool('TRIGGER_FALLBACK_ENABLED', False)
+# Research writes (events, reports, responses) are denied unless explicitly enabled.
+RESEARCH_WRITES_ENABLED = env_bool('RESEARCH_WRITES_ENABLED', False)
+
+# Tests freeze the workshop clock inside the published window. Production never sets this.
+RELEASE_CLOCK_OVERRIDE = os.environ.get('ISI_RELEASE_CLOCK') or None
+if RELEASE_CLOCK_OVERRIDE is None and 'test' in sys.argv:
+    RELEASE_CLOCK_OVERRIDE = '2026-09-01T12:00:00+00:00'
 
 
 # Logging: stream only (platform log drains capture stdout/stderr)

@@ -1,0 +1,27 @@
+{
+  "gate": 3,
+  "date": "2026-08-15",
+  "branch": "release/season-2026",
+  "python": "3.12.7",
+  "result": "green",
+  "django_server_baseline_and_client_scan": {
+    "discovered_test_count": 154,
+    "exit_code": 0
+  },
+  "js_contract": {
+    "ran": 11,
+    "failed": 0
+  },
+  "flake8": 0,
+  "later_phase_still_red": {
+    "tests_season_package": "Phase 4"
+  },
+  "not_done": [
+    "no commit",
+    "no push",
+    "no deploy",
+    "no Store upload",
+    "package builder not implemented",
+    "privacy page at /privacy/ not hosted yet"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "gate": "4-package",
+  "status": "package_green_full_gate_4_not_claimed",
+  "gathered_at": "2026-08-15T15:47:00Z",
+  "python": "3.12.7",
+  "discovered_test_count": 159,
+  "flake8": 0,
+  "js_contract": "11/11",
+  "release_gates": "all exit 0",
+  "package": {
+    "filename": "investigating-search-interface-season-2026-v2.2.0.zip",
+    "sha256": "7869a570ffec3b234237d70242c4f1eed43dfb56e8bbf3ac951b2b3c078c0fe1",
+    "double_build": "identical",
+    "working_tree_inspect": "fails as required (README, tests, extra icons, local_settings.example.js)",
+    "exclusions_not_prohibited": true,
+    "store_item_id": "pending",
+    "source_commit_head": "4246f79661f44f99f3837cbfce69db6b8b47880d",
+    "source_dirty": true,
+    "note": "ZIP hash is of current uncommitted allowlist bytes. It is not a frozen reviewed artefact until Rosie commits and a clean rebuild matches."
+  },
+  "still_red": {
+    "runtime_browser": "not_run",
+    "network_capture": "not_run",
+    "synthetic_marker_audit": "not_run",
+    "matching_replay": "not_run",
+    "load_test": "not_run_do_not_hit_live_production",
+    "independent_review": "not_run_needs_fresh_session",
+    "privacy_page": "linked but not hosted; do not invent copy",
+    "content_index_fingerprint": "not_run",
+    "frozen_release_manifest": "not_claimed"
+  }
+}

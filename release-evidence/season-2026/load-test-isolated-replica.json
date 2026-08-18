@@ -1,0 +1,33 @@
+{
+  "target": "http://127.0.0.1:8765 isolated replica, not live production",
+  "clients": 30,
+  "warm": {
+    "status": 200,
+    "ms": 332.4
+  },
+  "simultaneous_same_query": {
+    "name": "same",
+    "n": 30,
+    "p50_ms": 104.2,
+    "p95_ms": 2013.0,
+    "max_ms": 2014.6,
+    "statuses": {
+      "200": 30
+    },
+    "non_200": 0,
+    "errors": []
+  },
+  "simultaneous_unique_queries": {
+    "name": "unique",
+    "n": 30,
+    "p50_ms": 106.4,
+    "p95_ms": 2014.3,
+    "max_ms": 2015.4,
+    "statuses": {
+      "200": 30
+    },
+    "non_200": 0,
+    "errors": []
+  },
+  "note": "runserver, WEB_CONCURRENCY not applicable. Not a paid Render replica. Hostile write traffic not included."
+}

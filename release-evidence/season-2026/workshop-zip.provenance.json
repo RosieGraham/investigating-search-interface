@@ -1,0 +1,123 @@
+{
+  "artefact": "investigating-search-interface-season-2026-v2.2.0.zip",
+  "zip_sha256": "7869a570ffec3b234237d70242c4f1eed43dfb56e8bbf3ac951b2b3c078c0fe1",
+  "zip_path": "/tmp/isi-season-package/investigating-search-interface-season-2026-v2.2.0.zip",
+  "source_commit": {
+    "head": "4246f79661f44f99f3837cbfce69db6b8b47880d",
+    "branch": "release/season-2026",
+    "tree": "49ce916e21dad25e8a8ef5670c10ea14a3969e44",
+    "dirty": true
+  },
+  "build_id": "season-2026-workshop-1",
+  "extension_version": "2.2.0",
+  "notice_version": "season-2026-v1",
+  "api_origin": "https://investigating-search-interface.onrender.com",
+  "privacy_url": "https://investigating-search-interface.onrender.com/privacy/",
+  "file_inventory": [
+    {
+      "path": "manifest.json",
+      "sha256": "e08df314a35e01aff6f9634d2b5803354a4041c1214e95c20b79775d9c84ca6a",
+      "bytes": 1398
+    },
+    {
+      "path": "config.js",
+      "sha256": "bd215e197d673ab0e527fd7fd6277edc5ad6d2a92649709d6a1f530a805bb853",
+      "bytes": 699
+    },
+    {
+      "path": "background.js",
+      "sha256": "3f877c63713f97890371d07fce3a70807193b916d59db2554ab4e33d2e70997f",
+      "bytes": 2140
+    },
+    {
+      "path": "content.js",
+      "sha256": "b7d9fe623a859786220dccf710f3a6d36f0fd7c0e3d3c3ac69c3220d657ed4f6",
+      "bytes": 13233
+    },
+    {
+      "path": "content.css",
+      "sha256": "a2c3fa4136bccb3eeca2ff8016a279167c1ba026922608fd1ce359dea1e214f5",
+      "bytes": 8554
+    },
+    {
+      "path": "popup.html",
+      "sha256": "a487cf10304b9b54b03fb413a488836fed790f4195b6b661f89b0a41434cddb8",
+      "bytes": 1122
+    },
+    {
+      "path": "popup.js",
+      "sha256": "280afd0518880204cf0f384c0459e4725413f8415a6fffc4b0ecde143579af08",
+      "bytes": 1903
+    },
+    {
+      "path": "popup.css",
+      "sha256": "bc2e10ac5e7e4e501fb0968c4deae23cfc4f4df8e386316fb1b1eabfbefd39e4",
+      "bytes": 1143
+    },
+    {
+      "path": "lib/acknowledgement.js",
+      "sha256": "66ddab3c613e996e6513a8564250aecf784ce3f471bfd6456f939706dabd28db",
+      "bytes": 2726
+    },
+    {
+      "path": "lib/request_lifecycle.js",
+      "sha256": "9e1198f1147fc408063205cde807978ff02a3bcefa280711014af3963f4f726f",
+      "bytes": 4095
+    },
+    {
+      "path": "icon-isi-16.png",
+      "sha256": "fcd9d1becff60d69b9842aa4381fa7bc25d812acbc88192ca17191f673b2134f",
+      "bytes": 576
+    },
+    {
+      "path": "icon-isi-48.png",
+      "sha256": "df2fdc38bcd3063fd53759e6e783e5118ed91f8842b20464b0c61b39aacb4897",
+      "bytes": 1933
+    },
+    {
+      "path": "icon-isi-128.png",
+      "sha256": "08138c687d42552efa539296dd00d0df52f8f159befee71fa53b507adeaa5c4a",
+      "bytes": 5571
+    }
+  ],
+  "allowlist": [
+    "manifest.json",
+    "config.js",
+    "background.js",
+    "content.js",
+    "content.css",
+    "popup.html",
+    "popup.js",
+    "popup.css",
+    "lib/acknowledgement.js",
+    "lib/request_lifecycle.js",
+    "icon-isi-16.png",
+    "icon-isi-48.png",
+    "icon-isi-128.png"
+  ],
+  "model": {
+    "id": "sentence-transformers/multi-qa-MiniLM-L6-cos-v1",
+    "revision": "b207367332321f8e44f96e224ef15bc607f4dbf0",
+    "onnx_filename": "onnx/model_qint8_avx512_vnni.onnx",
+    "model_sha256": "89779550529b9077685f44c041cb6d5f5ce394fae8937f91d1b3a8acc675beb6",
+    "tokenizer_sha256": "7fa9272f7ef1ebd1666bb3bfd9d4707660ff0076ca9d1671cd9a9c6e18e03331"
+  },
+  "dependency_lock": {
+    "actual": "abc9f11bb99afa2ee2d729d8eba1e55139a275bb3905680e43f523b644edd2dc",
+    "expected": "abc9f11bb99afa2ee2d729d8eba1e55139a275bb3905680e43f523b644edd2dc",
+    "matches": true
+  },
+  "release_policy": "release-policy/season-2026-workshop.json",
+  "release_policy_sha256": "d6e41e558c204490ccc34c978f07edafa912248165b70ccf44c2202af11d6714",
+  "effective_configuration": {
+    "threshold": 0.35,
+    "margin": 0.0,
+    "trigger_fallback": false,
+    "placeholders": false,
+    "research_writes_enabled": false
+  },
+  "content_index_fingerprint": {
+    "status": "not_run",
+    "note": "Live content and index fingerprints are recorded from a production-parity apply, not invented at package time."
+  }
+}

@@ -7,11 +7,13 @@ ordering logic directly, without ONNX.
 """
 
 from unittest import mock
+from urllib.parse import urlencode
 
 import numpy as np
 from django.test import TestCase
 
 from .models import Prompt, Topic, TopicGroup
+from .tests_season_support import MATCH_PATH, workshop_headers
 
 
 class PriorityDisplayOrderTests(TestCase):
@@ -43,18 +45,17 @@ class PriorityDisplayOrderTests(TestCase):
                         return_value=[(self.topic.id, 0.6)]), \
              mock.patch("researchdata.views.rank_prompts",
                         return_value=sim_order):
-            return self.client.get("/data/prompt/get/",
-                                   {"user_search_query": "anything"}).json()
+            return self.client.post(
+                MATCH_PATH,
+                data=urlencode({"user_search_query": "anything"}),
+                content_type="application/x-www-form-urlencoded",
+                **workshop_headers(),
+            ).json()
 
     def test_display_order_is_priority_not_similarity(self):
         data = self._get()
         contents = [p["prompt_content"] for p in data["prompts"]]
-        self.assertEqual(contents, [
-            "Mechanism prompt",      # priority 40
-            "Critical question",     # priority 20
-            "Activity prompt",       # priority 10
-            "Watch out",             # priority None -> 0, last
-        ])
+        self.assertEqual(contents, ["Mechanism prompt"])
 
     def test_first_prompt_field_matches_new_order(self):
         data = self._get()
@@ -66,5 +67,4 @@ class PriorityDisplayOrderTests(TestCase):
         data = self._get()
         contents = [p["prompt_content"] for p in data["prompts"]]
         # Equal priority 40: lower id (Mechanism was created before Watch out)
-        self.assertEqual(contents[0], "Mechanism prompt")
-        self.assertEqual(contents[1], "Watch out")
+        self.assertEqual(contents, ["Mechanism prompt"])

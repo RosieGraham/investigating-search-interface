@@ -1,43 +1,72 @@
 /*
-Investigating Search Interface - content script.
+Investigating Search Interface - SEASON 2026 workshop content script.
 
-Injects ethical reflection prompts directly into Google search result pages.
+Injects one reflection prompt into Google search result pages.
 Three page layouts are handled (verified against live Google, June 2026):
 
   1. "classic"  (udm=14 or legacy): #rso holds .MjjYud result wrappers.
-     -> inject the prompt card container immediately before #rso.
   2. "hybrid"   (current default): an AI response block ([data-subtree="aimc"])
-     sits above #rso. Organic results still exist.
-     -> same injection point: before #rso (below the AI block, above results).
-  3. "ai"       (udm=50, conversational AI Mode): no #rso at all.
-     -> graceful fallback: a small persistent badge that expands into the
-        prompt panel. Full inline support for AI Mode is Phase 2.
+     sits above #rso.
+  3. "ai"       (udm=50, conversational AI Mode): no #rso; badge fallback.
 
-Design rules (from the project's evidence base):
-  - inject at the top of results, never hide or rerank anything
-  - show two or three prompts where available, not one
-  - blend with the page but carry clear attribution
-All DOM selectors live in SELECTORS below so they can be updated in one place
-when Google shifts its markup.
+Workshop rules: no research writes, no installation ID, no Not Relevant or
+response box. Matching starts only after notice season-2026-v1 is acknowledged.
 */
 
 (() => {
   'use strict';
 
+  const FIRST_ATTEMPT_TIMEOUT_MS = 5000;
+  const RETRY_DELAY_MS = 350;
+
   const SELECTORS = {
-    resultsContainer: '#rso',          // organic results list (classic + hybrid)
-    resultsFallback: '#search',        // wider results region (anchor of last resort)
-    aiContainer: '[data-subtree="aimc"]', // AI Mode / AI response block
+    resultsContainer: '#rso',
+    resultsFallback: '#search',
+    aiContainer: '[data-subtree="aimc"]',
   };
 
   const STATE = {
-    lastKey: null,        // `${query}|${mode}` of the last completed injection
-    pendingKey: null,     // in-flight request key (dedup during API round-trip)
+    lastKey: null,
+    pendingKey: null,
     observer: null,
-    settings: { enabled: true, topicsExclude: [], logEvents: true },
+    settings: { enabled: true, topicsExclude: [] },
   };
 
-  // ---------- utilities ----------
+  const ack = self.ISIAcknowledgement.createAcknowledgement({
+    noticeVersion: ISI_CONFIG.NOTICE_VERSION,
+    storage: {
+      get: (key) => new Promise((resolve) => {
+        chrome.storage.local.get([key], (items) => resolve(items[key]));
+      }),
+      set: (obj) => new Promise((resolve) => {
+        chrome.storage.local.set(obj, resolve);
+      }),
+    },
+  });
+
+  const machine = self.ISIRequestLifecycle.createRequestMachine({
+    timeoutMs: FIRST_ATTEMPT_TIMEOUT_MS,
+    retryDelayMs: RETRY_DELAY_MS,
+    delay: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+    fetchImpl: async (req) => {
+      const result = await send({
+        type: 'getPrompts',
+        query: req.query,
+        topicsExclude: STATE.settings.topicsExclude,
+        timeoutMs: FIRST_ATTEMPT_TIMEOUT_MS,
+      });
+      if (result && result.aborted) {
+        const err = new Error('timeout');
+        err.name = 'AbortError';
+        throw err;
+      }
+      return {
+        ok: !!(result && result.ok),
+        status: result && result.status,
+        json: async () => result && result.data,
+      };
+    },
+  });
 
   const getQuery = () => new URLSearchParams(location.search).get('q')?.trim() || '';
 
@@ -53,11 +82,6 @@ when Google shifts its markup.
       }
     });
 
-  const logEvent = (event_type, extra = {}) => {
-    if (!STATE.settings.logEvents) return;
-    send({ type: 'logEvent', form: { event_type, serp_mode: currentMode(), ...extra } });
-  };
-
   function currentMode() {
     if (document.querySelector(SELECTORS.resultsContainer)) {
       return document.querySelector(SELECTORS.aiContainer) ? 'hybrid' : 'classic';
@@ -66,14 +90,12 @@ when Google shifts its markup.
     return 'unknown';
   }
 
-  /** Render text that may contain <br> markers, without using innerHTML. */
   function appendContentText(parent, html) {
     const parts = String(html).split(/<br\s*\/?>(?:\s*)/i);
     parts.forEach((part, i) => {
       if (i > 0) parent.appendChild(document.createElement('br'));
-      // Decode the handful of entities Django's escaping may have produced.
       const textarea = document.createElement('textarea');
-      textarea.innerHTML = part.replace(/<[^>]*>/g, ''); // strip any other tags
+      textarea.innerHTML = part.replace(/<[^>]*>/g, '');
       parent.appendChild(document.createTextNode(textarea.value));
     });
   }
@@ -85,9 +107,7 @@ when Google shifts its markup.
     return node;
   }
 
-  // ---------- prompt card UI ----------
-
-  function buildPromptBlock(prompt, query) {
+  function buildPromptBlock(prompt) {
     const block = el('div', 'isi-prompt');
 
     const topicRow = el('div', 'isi-topic-row');
@@ -102,60 +122,14 @@ when Google shifts its markup.
     block.appendChild(content);
 
     const actions = el('div', 'isi-actions');
-
     if (prompt.seeed_url) {
-      const learn = el('a', 'isi-learn-more', 'Learn more in SEEED');
+      const learn = el('a', 'isi-learn-more', 'Learn more');
       learn.href = prompt.seeed_url;
       learn.target = '_blank';
       learn.rel = 'noopener noreferrer';
-      learn.addEventListener('click', () =>
-        logEvent('learn_more_clicked', { prompt_id: prompt.id, topic_id: prompt.topic_id })
-      );
       actions.appendChild(learn);
     }
-
-    const notRelevant = el('button', 'isi-not-relevant', 'Not relevant to my search');
-    notRelevant.type = 'button';
-    const disclosure = el('span', 'isi-report-disclosure', 'Reports your query to improve matching');
-    notRelevant.appendChild(disclosure);
-    notRelevant.addEventListener('click', async () => {
-      notRelevant.disabled = true;
-      await send({
-        type: 'postReport',
-        form: {
-          active_prompt_id: prompt.id,
-          user_search_query: query,
-          classifier_confidence: prompt.confidence ?? '',
-        },
-      });
-      logEvent('not_relevant_reported', { prompt_id: prompt.id, topic_id: prompt.topic_id });
-      block.replaceChildren(el('div', 'isi-thanks', 'Thanks - your report helps tune the matching.'));
-      setTimeout(() => block.remove(), 2500);
-    });
-    actions.appendChild(notRelevant);
-    block.appendChild(actions);
-
-    if (prompt.response_required) {
-      const respWrap = el('div', 'isi-response');
-      const textarea = el('textarea', 'isi-response-text');
-      textarea.placeholder = 'Type your response here...';
-      const submit = el('button', 'isi-response-submit', 'Submit response');
-      submit.type = 'button';
-      submit.addEventListener('click', async () => {
-        if (!textarea.value.trim()) return;
-        submit.disabled = true;
-        await send({
-          type: 'postResponse',
-          form: { active_prompt_id: prompt.id, user_response_content: textarea.value.trim() },
-        });
-        logEvent('response_submitted', { prompt_id: prompt.id, topic_id: prompt.topic_id });
-        respWrap.replaceChildren(el('div', 'isi-thanks', 'Response recorded - thank you.'));
-      });
-      respWrap.appendChild(textarea);
-      respWrap.appendChild(submit);
-      block.appendChild(respWrap);
-    }
-
+    if (actions.childNodes.length) block.appendChild(actions);
     return block;
   }
 
@@ -179,13 +153,12 @@ when Google shifts its markup.
     dismiss.type = 'button';
     dismiss.title = 'Hide for this search';
     dismiss.addEventListener('click', () => {
-      logEvent('prompt_dismissed');
       card.remove();
     });
     header.appendChild(dismiss);
     card.appendChild(header);
 
-    prompts.forEach((p) => card.appendChild(buildPromptBlock(p, query)));
+    prompts.forEach((p) => card.appendChild(buildPromptBlock(p)));
 
     const footer = el('div', 'isi-footer');
     const attribution = el('a', 'isi-attribution', ISI_CONFIG.ATTRIBUTION);
@@ -194,13 +167,11 @@ when Google shifts its markup.
     attribution.rel = 'noopener noreferrer';
     footer.appendChild(attribution);
     footer.appendChild(
-      el('span', 'isi-disclaimer', 'Research project · prompts appear alongside your results and never change them')
+      el('span', 'isi-disclaimer', 'Workshop build · prompts appear alongside your results and never change them')
     );
     card.appendChild(footer);
     return card;
   }
-
-  // ---------- AI Mode badge fallback ----------
 
   function buildBadge(prompts, query) {
     const badge = el('div', null);
@@ -220,15 +191,12 @@ when Google shifts its markup.
     pill.addEventListener('click', () => {
       const open = panel.style.display !== 'none';
       panel.style.display = open ? 'none' : 'block';
-      if (!open) logEvent('badge_opened');
     });
 
     badge.appendChild(panel);
     badge.appendChild(pill);
     return badge;
   }
-
-  // ---------- injection ----------
 
   function injectForResults(prompts, query) {
     const rso = document.querySelector(SELECTORS.resultsContainer);
@@ -238,11 +206,6 @@ when Google shifts its markup.
     document.querySelector('#isi-badge')?.remove();
     const card = buildCard(prompts, query);
     anchor.parentElement.insertBefore(card, anchor);
-    logEvent('prompt_shown', {
-      prompt_id: prompts[0].id,
-      topic_id: prompts[0].topic_id,
-      classifier_confidence: prompts[0].confidence ?? '',
-    });
     return true;
   }
 
@@ -250,58 +213,48 @@ when Google shifts its markup.
     document.querySelector('#isi-prompts')?.remove();
     document.querySelector('#isi-badge')?.remove();
     document.body.appendChild(buildBadge(prompts, query));
-    logEvent('badge_shown', {
-      prompt_id: prompts[0].id,
-      topic_id: prompts[0].topic_id,
-      classifier_confidence: prompts[0].confidence ?? '',
-    });
     return true;
   }
 
-  // ---------- orchestration ----------
-
   async function run() {
     if (!STATE.settings.enabled) return;
+    if (!ack.canSend()) return;
     const query = getQuery();
     if (!query) return;
 
     const mode = currentMode();
-    if (mode === 'unknown') return; // layout not ready yet; observer will re-call
+    if (mode === 'unknown') return;
 
     const key = `${query}|${mode}`;
-    if (STATE.lastKey === key) return; // already handled this query+layout
-    if (STATE.pendingKey === key) return; // same request already in flight
+    if (STATE.lastKey === key) return;
+    if (STATE.pendingKey === key) return;
 
-    // Capture the key we're about to request; commit lastKey only after the
-    // response is still for the page the user is viewing (stale-response guard).
     const requestKey = key;
     STATE.pendingKey = requestKey;
 
-    const resp = await send({
-      type: 'getPrompts',
-      query,
-      topicsExclude: STATE.settings.topicsExclude,
-    });
+    const resp = await machine.requestMatch({ query, navId: requestKey });
 
     if (STATE.pendingKey === requestKey) STATE.pendingKey = null;
 
-    // User navigated during the API call: discard the stale response.
     const currentQuery = getQuery();
     const currentKey = `${currentQuery}|${currentMode()}`;
     if (currentKey !== requestKey) return;
-
+    if (!resp || !resp.ok) return;
     STATE.lastKey = requestKey;
 
-    if (!resp.ok || !resp.data || !Array.isArray(resp.data.prompts) || resp.data.prompts.length === 0) {
-      return; // no confident match (or API asleep/cold-starting): show nothing
+    const data = resp.data || {};
+    if (Array.isArray(data.topics)) {
+      chrome.storage.local.set({ isi_topic_groups: data.topics });
     }
-    const prompts = resp.data.prompts.slice(0, ISI_CONFIG.MAX_PROMPTS);
+    if (!Array.isArray(data.prompts) || data.prompts.length === 0) {
+      return;
+    }
+    const prompts = data.prompts.slice(0, ISI_CONFIG.MAX_PROMPTS);
 
     if (mode === 'ai') injectBadge(prompts, query);
     else injectForResults(prompts, query);
   }
 
-  /** Watch for the results/AI container appearing (dynamic rendering). */
   function watchForLayout() {
     if (STATE.observer) STATE.observer.disconnect();
     const started = Date.now();
@@ -317,7 +270,6 @@ when Google shifts its markup.
     STATE.observer.observe(document.documentElement, { childList: true, subtree: true });
   }
 
-  /** Detect SPA-style navigation (AI Mode updates without full page loads). */
   function watchForNavigation() {
     let lastHref = location.href;
     const onChange = () => {
@@ -325,45 +277,46 @@ when Google shifts its markup.
       lastHref = location.href;
       STATE.lastKey = null;
       STATE.pendingKey = null;
+      machine.abort();
       setTimeout(() => {
         run();
         watchForLayout();
-      }, 400); // give the new view a moment to start rendering
+      }, 400);
     };
     if (typeof navigation !== 'undefined' && navigation.addEventListener) {
       navigation.addEventListener('navigatesuccess', onChange);
     }
     window.addEventListener('popstate', onChange);
-    setInterval(onChange, 1500); // belt and braces: some updates skip both APIs
+    setInterval(onChange, 1500);
   }
 
-  function startAfterConsent() {
+  function startAfterAck() {
+    machine.acknowledge(ISI_CONFIG.NOTICE_VERSION);
     run();
     watchForLayout();
     watchForNavigation();
   }
 
-  /** One-time consent interstitial before any query leaves the browser. */
-  function showConsentBanner() {
-    if (document.getElementById('isi-consent-banner')) return;
+  function showNoticeBanner() {
+    if (document.getElementById('isi-notice-banner')) return;
 
     const banner = el('div', 'isi-consent-banner');
-    banner.id = 'isi-consent-banner';
+    banner.id = 'isi-notice-banner';
 
-    banner.appendChild(el('p', 'isi-consent-title', 'Investigating Search Interface'));
+    banner.appendChild(el('p', 'isi-consent-title', 'Investigating Search Interface · SEASON 2026'));
     banner.appendChild(el(
       'p',
       null,
-      'This extension sends your search queries to a University of Birmingham '
-      + 'research server to find relevant reflection prompts. Queries are not stored '
-      + 'unless you click "Not relevant" on a prompt. A pseudonymous installation '
-      + 'identifier links your activity for research purposes.'
+      'This workshop build sends the search you just typed to a University of Birmingham '
+      + 'server so it can choose at most one reflection prompt. The query is used only for '
+      + 'that match and is not kept. The extension does not log activity, collect responses, '
+      + 'or store an installation identifier.'
     ));
 
-    const noticeUrl = (typeof ISI_CONFIG !== 'undefined' && ISI_CONFIG.PRIVACY_NOTICE_URL) || '';
+    const noticeUrl = ISI_CONFIG.PRIVACY_NOTICE_URL || '';
     if (noticeUrl) {
       const noticePara = el('p', null);
-      const noticeLink = el('a', null, 'Read the full privacy notice');
+      const noticeLink = el('a', null, 'Read the privacy notice');
       noticeLink.href = noticeUrl;
       noticeLink.target = '_blank';
       noticeLink.rel = 'noopener noreferrer';
@@ -372,12 +325,10 @@ when Google shifts its markup.
     }
 
     const actions = el('div', 'isi-consent-actions');
-    const accept = el('button', 'isi-consent-accept', 'I understand, enable the extension');
+    const accept = el('button', 'isi-consent-accept', 'I understand, show prompts');
     accept.type = 'button';
-    accept.id = 'isi-consent-accept';
     const decline = el('button', 'isi-consent-decline', 'No thanks');
     decline.type = 'button';
-    decline.id = 'isi-consent-decline';
     actions.appendChild(accept);
     actions.appendChild(decline);
     banner.appendChild(actions);
@@ -391,36 +342,40 @@ when Google shifts its markup.
     }
 
     accept.addEventListener('click', () => {
-      chrome.storage.local.set({ isi_consent_given: true, isi_enabled: true });
+      ack.acknowledge();
       banner.remove();
       STATE.settings.enabled = true;
-      startAfterConsent();
+      startAfterAck();
     });
 
     decline.addEventListener('click', () => {
-      chrome.storage.local.set({ isi_enabled: false });
+      ack.decline();
+      machine.withdrawAcknowledgement();
       banner.remove();
       STATE.settings.enabled = false;
     });
   }
 
-  // ---------- boot ----------
+  function clearCards() {
+    document.querySelector('#isi-prompts')?.remove();
+    document.querySelector('#isi-badge')?.remove();
+    document.querySelector('#isi-notice-banner')?.remove();
+  }
 
   chrome.storage.local.get(
-    ['isi_enabled', 'isi_topics_exclude', 'isi_log_events', 'isi_consent_given'],
+    ['isi_enabled', 'isi_topics_exclude', ack.ackKey, ack.declineKey],
     (stored) => {
       STATE.settings.enabled = stored.isi_enabled !== false;
       STATE.settings.topicsExclude = stored.isi_topics_exclude || [];
-      STATE.settings.logEvents = stored.isi_log_events !== false;
-
-      if (!stored.isi_consent_given) {
-        // Previously declined: stay quiet until they re-enable via the popup.
-        if (stored.isi_enabled === false) return;
-        showConsentBanner();
-        return; // do not call run() until consent is given
-      }
-
-      startAfterConsent();
+      const bootResult = ack.boot(stored);
+      Promise.resolve(bootResult).then(() => {
+        if (ack.isDeclined() || stored.isi_enabled === false) return;
+        if (!ack.isAcknowledged()) {
+          showNoticeBanner();
+          return;
+        }
+        startAfterAck();
+      });
     }
   );
 
@@ -429,29 +384,28 @@ when Google shifts its markup.
     if (changes.isi_enabled) {
       STATE.settings.enabled = changes.isi_enabled.newValue !== false;
       if (!STATE.settings.enabled) {
-        document.querySelector('#isi-prompts')?.remove();
-        document.querySelector('#isi-badge')?.remove();
-        document.querySelector('#isi-consent-banner')?.remove();
+        machine.abort();
+        clearCards();
+      } else if (ack.isDeclined()) {
+        return;
+      } else if (!ack.isAcknowledged()) {
+        showNoticeBanner();
       } else {
-        chrome.storage.local.get(['isi_consent_given'], (s) => {
-          if (!s.isi_consent_given) {
-            showConsentBanner();
-            return;
-          }
-          STATE.lastKey = null;
-          STATE.pendingKey = null;
-          run();
-        });
+        STATE.lastKey = null;
+        STATE.pendingKey = null;
+        run();
       }
     }
     if (changes.isi_topics_exclude) {
       STATE.settings.topicsExclude = changes.isi_topics_exclude.newValue || [];
       STATE.lastKey = null;
       STATE.pendingKey = null;
+      machine.abort();
       run();
     }
-    if (changes.isi_log_events) {
-      STATE.settings.logEvents = changes.isi_log_events.newValue !== false;
+    if (changes[ack.declineKey] && changes[ack.declineKey].newValue) {
+      machine.withdrawAcknowledgement();
+      clearCards();
     }
   });
 })();
