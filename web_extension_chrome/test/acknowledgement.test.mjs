@@ -12,11 +12,11 @@ test('acknowledgement module exists', () => {
   assert.equal(typeof mod.createAcknowledgement, 'function');
 });
 
-test('no backend request before season-2026-v1 is acknowledged', () => {
+test('no backend request before season-2026-v2 is acknowledged', () => {
   const { createAcknowledgement } = require(path.join(here, '..', 'lib', 'acknowledgement.js'));
   const requests = [];
   const ack = createAcknowledgement({
-    noticeVersion: 'season-2026-v1',
+    noticeVersion: 'season-2026-v2',
     send: (msg) => requests.push(msg),
   });
   ack.boot({ isi_consent_given: true, isi_enabled: true });
@@ -26,8 +26,15 @@ test('no backend request before season-2026-v1 is acknowledged', () => {
 
 test('old 2.1 consent does not acknowledge the workshop notice', () => {
   const { createAcknowledgement } = require(path.join(here, '..', 'lib', 'acknowledgement.js'));
-  const ack = createAcknowledgement({ noticeVersion: 'season-2026-v1' });
+  const ack = createAcknowledgement({ noticeVersion: 'season-2026-v2' });
   ack.boot({ isi_consent_given: true, isi_installation_id: 'old' });
+  assert.equal(ack.isAcknowledged(), false);
+});
+
+test('season-2026-v1 acknowledgement does not satisfy season-2026-v2', () => {
+  const { createAcknowledgement } = require(path.join(here, '..', 'lib', 'acknowledgement.js'));
+  const ack = createAcknowledgement({ noticeVersion: 'season-2026-v2' });
+  ack.boot({ 'isi_notice_season-2026-v1': true });
   assert.equal(ack.isAcknowledged(), false);
 });
 
@@ -35,7 +42,7 @@ test('decline persists across reload', () => {
   const { createAcknowledgement } = require(path.join(here, '..', 'lib', 'acknowledgement.js'));
   const store = {};
   const ack = createAcknowledgement({
-    noticeVersion: 'season-2026-v1',
+    noticeVersion: 'season-2026-v2',
     storage: {
       get: async (k) => store[k],
       set: async (obj) => Object.assign(store, obj),
@@ -43,7 +50,7 @@ test('decline persists across reload', () => {
   });
   ack.decline();
   const again = createAcknowledgement({
-    noticeVersion: 'season-2026-v1',
+    noticeVersion: 'season-2026-v2',
     storage: {
       get: async (k) => store[k],
       set: async (obj) => Object.assign(store, obj),
@@ -59,7 +66,7 @@ test('inverted: pre-acknowledgement send must make the contract fail', () => {
   const { createAcknowledgement } = require(path.join(here, '..', 'lib', 'acknowledgement.js'));
   const requests = [];
   const ack = createAcknowledgement({
-    noticeVersion: 'season-2026-v1',
+    noticeVersion: 'season-2026-v2',
     send: (msg) => requests.push(msg),
     allowPreAck: true,
   });

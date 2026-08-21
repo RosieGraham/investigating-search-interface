@@ -11,7 +11,7 @@ in the extension content script.
     root.ISIRequestLifecycle = api;
   }
 }(typeof self !== 'undefined' ? self : this, function () {
-  var FIRST_ATTEMPT_TIMEOUT_MS = 5000;
+  var FIRST_ATTEMPT_TIMEOUT_MS = 12000;
   var RETRY_DELAY_MS = 350;
   var MAX_ATTEMPTS = 2;
   var RETRY_STATUSES = { 502: true, 503: true, 504: true };
@@ -38,7 +38,7 @@ in the extension content script.
     var abortWaiters = [];
 
     function acknowledge(version) {
-      if (version === 'season-2026-v1') acknowledged = true;
+      if (version === 'season-2026-v2') acknowledged = true;
     }
 
     function withdrawAcknowledgement() {

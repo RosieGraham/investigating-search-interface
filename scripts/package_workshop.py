@@ -25,22 +25,39 @@ POLICY_PATH = REPO_ROOT / "release-policy" / "season-2026-workshop.json"
 LOCK_PATH = REPO_ROOT / "requirements-release.lock"
 LOCK_DIGEST_PATH = REPO_ROOT / "requirements-release.lock.sha256"
 
-ZIP_FILENAME = "investigating-search-interface-season-2026-v2.2.0.zip"
+ZIP_FILENAME = "investigating-search-interface-season-2026-v0.2.1.zip"
 ZIP_DATE = (2026, 8, 20, 0, 0, 0)
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 
-EXPECTED_NAME = "Investigating Search Interface: SEASON 2026"
-EXPECTED_VERSION = "2.2.0"
-EXPECTED_BUILD_ID = "season-2026-workshop-1"
-EXPECTED_NOTICE = "season-2026-v1"
+EXPECTED_NAME = "Investigating Search Interface"
+EXPECTED_VERSION = "0.2.1"
+EXPECTED_VERSION_NAME = "Alpha build 0.2.1"
+EXPECTED_BUILD_ID = "0.2.1-season-2026-1"
+EXPECTED_NOTICE = "season-2026-v2"
 EXPECTED_API = "https://investigating-search-interface.onrender.com"
 EXPECTED_PRIVACY = "https://investigating-search-interface.onrender.com/privacy/"
-EXPECTED_PROJECT = "https://github.com/RosieGraham/investigating-search-interface"
+EXPECTED_PROJECT = "https://investigating-search-interface.onrender.com/"
 EXPECTED_HOST_PERMISSION = "https://investigating-search-interface.onrender.com/*"
 EXPECTED_GOOGLE_MATCHES = (
     "https://www.google.com/search*",
     "https://www.google.co.uk/search*",
     "https://www.google.ie/search*",
+    "https://www.google.at/search*",
+    "https://www.google.be/search*",
+    "https://www.google.ca/search*",
+    "https://www.google.ch/search*",
+    "https://www.google.com.au/search*",
+    "https://www.google.de/search*",
+    "https://www.google.dk/search*",
+    "https://www.google.es/search*",
+    "https://www.google.fi/search*",
+    "https://www.google.fr/search*",
+    "https://www.google.it/search*",
+    "https://www.google.nl/search*",
+    "https://www.google.no/search*",
+    "https://www.google.pl/search*",
+    "https://www.google.pt/search*",
+    "https://www.google.se/search*",
 )
 EXPECTED_ICONS = {
     "16": "icon-isi-16.png",
@@ -93,10 +110,7 @@ URL_RE = re.compile(r"https?://[^\s\"'`<>]+")
 ALLOWED_URL_PREFIXES = (
     EXPECTED_API,
     EXPECTED_PROJECT,
-    "https://www.google.com/search",
-    "https://www.google.co.uk/search",
-    "https://www.google.ie/search",
-)
+) + tuple(match.rstrip("*") for match in EXPECTED_GOOGLE_MATCHES)
 
 FIXTURE_CASES = (
     "undeclared_file",
@@ -144,6 +158,8 @@ def _validate_manifest(data):
         issues.append(f"manifest name {data.get('name')!r} != {EXPECTED_NAME!r}")
     if data.get("version") != EXPECTED_VERSION:
         issues.append(f"manifest version {data.get('version')!r} != {EXPECTED_VERSION!r}")
+    if data.get("version_name") != EXPECTED_VERSION_NAME:
+        issues.append(f"manifest version_name {data.get('version_name')!r} != {EXPECTED_VERSION_NAME!r}")
     hosts = data.get("host_permissions") or []
     if hosts != [EXPECTED_HOST_PERMISSION]:
         issues.append(f"host_permissions {hosts!r} != [{EXPECTED_HOST_PERMISSION!r}]")

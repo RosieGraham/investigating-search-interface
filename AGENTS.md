@@ -16,8 +16,8 @@ Run from `django/` with the environment described below.
 - `python manage.py audit_synthetic_marker` prints integer counts only for fields that could persist a synthetic marker. Never lists rows. Use a disposable sqlite database, not production.
 - `python manage.py matching_diagnostics` prints attractor pairs, self-retrieval and out-of-domain scores.
 - `python scripts/decision_grid.py` sweeps threshold and margin on both instruments.
-- `python manage.py test researchdata` runs the suite. Gate 4 server, baseline, client scan, package, marker audit and frozen table: 164 tests OK on Python 3.12.7 (copy the repo to `/tmp` first). Nothing ships red.
-- `python scripts/package_workshop.py` copies the extension allowlist into a clean directory, inspects it, and writes `investigating-search-interface-season-2026-v2.2.0.zip` plus a sidecar provenance file. It does not zip `web_extension_chrome/` in place. The working tree still fails inspection because of extras (README, tests, extra icons, `local_settings.example.js`). Topic exclusions are not a prohibited path. Store item ID stays pending (Rosie, Phase 5).
+- `python manage.py test researchdata` runs the suite. Gate 4 server, baseline, client scan, package, marker audit, frozen table and public pages: 179 tests OK on Python 3.12.7 (copy the repo to `/tmp` first; interpreter `/tmp/isi-season-venv`). Nothing ships red. JS contract tests: 15 of 15 (`node --test web_extension_chrome/test/*.mjs`).
+- `python scripts/package_workshop.py` copies the extension allowlist into a clean directory, inspects it, and writes `investigating-search-interface-season-2026-v0.2.1.zip` plus a sidecar provenance file. It does not zip `web_extension_chrome/` in place. The working tree still fails inspection because of extras (README, tests, extra icons, `local_settings.example.js`). Topic exclusions are not a prohibited path. Store item ID stays pending (Rosie, Phase 5). Rosie confirmed on 21 August that this developer account has never uploaded an item, so `0.2.1` is a legal first version.
 - `python -m flake8 .` from the repo root must exit clean before any handoff: GitHub runs it on every pull request (`.github/workflows/ci-flake8.yml`), and a red check on Rosie's screen costs a round trip. Config in `.flake8` (max line 199).
 - `python manage.py audit_accounts` prints every account with its role. Read-only; run it before and after touching anything account-shaped.
 
@@ -27,6 +27,20 @@ Run from `django/` with the environment described below.
 - `/data/release/ready/` query-free workshop readiness (`ready`, `failures`, policy hash). Does not run canaries.
 - `/data/ops/status/` staff-only operational truth: git commit, model artifact hash, runtime, index fingerprint and dirtiness, content counts, last apply, last evaluation, config flags, and three canary queries with pass flags. Anonymous polling is refused so canaries cannot compete with workshop traffic.
 - `/data/classifier/debug/` is disabled on this workshop branch (403, no query echo).
+- `/` is the public landing for Store Homepage and Support. Anonymous 200, no database, no third-party scripts or fonts, does not extend `base.html`. Copy is section 5a of the 19 August signed disclosure set, amended and approved the same evening. It still has to be live on Render before upload, because reviewers hit production.
+- `/privacy/` is the workshop notice (anonymous 200, no database, no third-party scripts or fonts). It must not extend `base.html`, which loads Google Fonts. Copy is the 19 August signed set. Contact is `R.Graham@bham.ac.uk`. The version line still reads `Version 1.0, [deploy date]` and is filled with the calendar day the page goes live, not before. Named processors stay generic.
+- `/cookies/` is the same class of page as `/privacy/` (standalone HTML, no `base.html`, no `cookiesmsg.js`). Live `main` still extends `base.html`, loads Google Fonts, and shows a banner that writes `cookieMessageApprove` if accepted. Do not deploy the signed cookies copy while that chrome is still attached.
+- Consent banner in `content.js` is the signed 19 August paragraph. `NOTICE_VERSION` is `season-2026-v2`. `lib/request_lifecycle.js` will only acknowledge that exact key: a leftover `season-2026-v1` check would silently disable matching after consent.
+- Listing `name` is `Investigating Search Interface`. Machine `version` is `0.2.1`, `version_name` is `Alpha build 0.2.1`, `BUILD_ID` is `0.2.1-season-2026-1`. Event year stays in the attribution string and the popup subtitle (`SEASON 2026 workshop`), not in the Store title.
+- Do not package until freeze row 10 (card landing position, unpacked extension) is closed, and `/privacy/` plus `/` are live on Render. Reviewers hit production.
+
+## Client freeze constants (18 August 2026)
+
+These are packaged. Changing any of them after the first Store upload costs a full Chrome review.
+
+- First matching attempt 12000ms, one retry after 350ms. `OBSERVER_TIMEOUT` is 26000 so the layout observer outlives two attempts (12000 + 350 + 12000 = 24350). A 20000ms observer would still expire underneath the retry.
+- Content-script `matches` is an explicit list of 19 Google hosts (European ccTLDs plus `.com.au` and `.ca`), not a TLD wildcard. `www.google.de` homepage 301s to `www.google.com`, but `www.google.de/search` can remain on the country host, so the widening is load-bearing for Hamburg attendees.
+- Layout selectors (`#rso`, `#search`, `[data-subtree="aimc"]`) were verified on live Google on 19 August in classic, hybrid and AI modes; none had drifted and `currentMode()` resolved correctly in each. What remains is whether the card lands in the intended position, which needs the unpacked extension on a headed profile. That still blocks the ZIP.
 
 ## Environment for local work
 

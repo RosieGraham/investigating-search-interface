@@ -10,13 +10,13 @@ Three page layouts are handled (verified against live Google, June 2026):
   3. "ai"       (udm=50, conversational AI Mode): no #rso; badge fallback.
 
 Workshop rules: no research writes, no installation ID, no Not Relevant or
-response box. Matching starts only after notice season-2026-v1 is acknowledged.
+response box. Matching starts only after notice season-2026-v2 is acknowledged.
 */
 
 (() => {
   'use strict';
 
-  const FIRST_ATTEMPT_TIMEOUT_MS = 5000;
+  const FIRST_ATTEMPT_TIMEOUT_MS = 12000;
   const RETRY_DELAY_MS = 350;
 
   const SELECTORS = {
@@ -167,7 +167,7 @@ response box. Matching starts only after notice season-2026-v1 is acknowledged.
     attribution.rel = 'noopener noreferrer';
     footer.appendChild(attribution);
     footer.appendChild(
-      el('span', 'isi-disclaimer', 'Workshop build · prompts appear alongside your results and never change them')
+      el('span', 'isi-disclaimer', 'Alpha build 0.2.1 · prompts appear alongside your results and never change them')
     );
     card.appendChild(footer);
     return card;
@@ -307,10 +307,7 @@ response box. Matching starts only after notice season-2026-v1 is acknowledged.
     banner.appendChild(el(
       'p',
       null,
-      'This workshop build sends the search you just typed to a University of Birmingham '
-      + 'server so it can choose at most one reflection prompt. The query is used only for '
-      + 'that match and is not kept. The extension does not log activity, collect responses, '
-      + 'or store an installation identifier.'
+      "This workshop release sends the text of your search to the project's server so it can select one reflection prompt. If you have excluded any topics, that choice is sent too. Your search is used only to select that prompt and is not kept. This release does not record your activity, collect responses, or give your installation an identifier."
     ));
 
     const noticeUrl = ISI_CONFIG.PRIVACY_NOTICE_URL || '';

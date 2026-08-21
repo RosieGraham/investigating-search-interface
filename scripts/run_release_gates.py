@@ -133,7 +133,8 @@ def run_gates():
         "js_contract",
         ["node", "--test", "web_extension_chrome/test/request_lifecycle.test.mjs",
          "web_extension_chrome/test/acknowledgement.test.mjs",
-         "web_extension_chrome/test/popup_contract.test.mjs"],
+         "web_extension_chrome/test/popup_contract.test.mjs",
+         "web_extension_chrome/test/manifest_matches.test.mjs"],
         REPO_ROOT,
     ))
 

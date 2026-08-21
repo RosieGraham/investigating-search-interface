@@ -37,7 +37,7 @@ class PackageWorkshopTests(SimpleTestCase):
         first = mod.build_zip(source_dir=REPO_ROOT / "web_extension_chrome")
         second = mod.build_zip(source_dir=REPO_ROOT / "web_extension_chrome")
         self.assertEqual(first["sha256"], second["sha256"])
-        self.assertEqual(first["filename"], "investigating-search-interface-season-2026-v2.2.0.zip")
+        self.assertEqual(first["filename"], "investigating-search-interface-season-2026-v0.2.1.zip")
 
 
 class PackageContaminationInvertedTests(SimpleTestCase):

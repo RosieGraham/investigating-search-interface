@@ -1,10 +1,10 @@
 {
-  "build_id": "season-2026-workshop-1",
+  "build_id": "0.2.1-season-2026-1",
   "mode": "workshop",
-  "extension_version": "2.2.0",
-  "notice_version": "season-2026-v1",
+  "extension_version": "0.2.1",
+  "notice_version": "season-2026-v2",
   "notice_url": "https://investigating-search-interface.onrender.com/privacy/",
-  "project_url": "https://github.com/RosieGraham/investigating-search-interface",
+  "project_url": "https://investigating-search-interface.onrender.com/",
   "active_window": {
     "start": "2026-08-20T00:00:00Z",
     "end": "2026-09-18T23:59:59Z"

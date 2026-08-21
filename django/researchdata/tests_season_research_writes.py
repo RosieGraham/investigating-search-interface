@@ -11,6 +11,7 @@ from django.urls import reverse
 
 from .models import EngagementEvent, Prompt, Topic, TopicGroup
 from .tests_season_support import (
+    BUILD_ID,
     MARKER,
     assert_json_error,
     assert_research_writes_enabled_setting_is_false,
@@ -46,7 +47,7 @@ class ResearchWriteKillSwitchTests(TestCase):
             from researchdata.release_policy import workshop_writes_allowed
         except ImportError as exc:
             self.fail(f"release_policy.workshop_writes_allowed is required: {exc}")
-        self.assertFalse(workshop_writes_allowed("season-2026-workshop-1"))
+        self.assertFalse(workshop_writes_allowed(BUILD_ID))
 
 
 class ResearchWriteInvertedControlTests(TestCase):

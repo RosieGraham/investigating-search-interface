@@ -18,7 +18,7 @@ async function matchPost(query, topicsExclude, timeoutMs) {
     body.set('topics_exclude', topicsExclude.join(','));
   }
   const controller = new AbortController();
-  const timer = setTimeout(function () { controller.abort(); }, timeoutMs || 5000);
+  const timer = setTimeout(function () { controller.abort(); }, timeoutMs || 12000);
   try {
     const resp = await fetch(API_BASE + MATCH_PATH, {
       method: 'POST',

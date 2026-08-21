@@ -16,7 +16,7 @@ in the extension (content script and popup).
 
   function createAcknowledgement(opts) {
     opts = opts || {};
-    var noticeVersion = opts.noticeVersion || 'season-2026-v1';
+    var noticeVersion = opts.noticeVersion || 'season-2026-v2';
     var ackKey = ACK_PREFIX + noticeVersion;
     var declineKey = DECLINE_PREFIX + noticeVersion;
     var send = opts.send || function () {};

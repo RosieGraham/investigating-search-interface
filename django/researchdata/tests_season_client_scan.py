@@ -3,6 +3,7 @@ Failing contract: workshop client has no research paths, versioned notice,
 bounded retry, and no empty popup lookup. Topic exclusions stay.
 """
 
+import json
 import re
 from pathlib import Path
 
@@ -45,19 +46,37 @@ class WorkshopClientScanTests(SimpleTestCase):
 
     def test_notice_is_versioned_season_key(self):
         src = _read("content.js") + _read("popup.js") + _read("config.js")
-        self.assertIn("season-2026-v1", src)
+        self.assertIn("season-2026-v2", src)
         self.assertNotIn("isi_consent_given", src)
+
+    def test_consent_and_footer_match_signed_strings(self):
+        src = _read("content.js")
+        self.assertIn(
+            "This workshop release sends the text of your search to the project's server so it can select one reflection prompt.",
+            src,
+        )
+        self.assertIn("If you have excluded any topics, that choice is sent too.", src)
+        self.assertNotIn("University of Birmingham server", src)
+        self.assertIn(
+            "Alpha build 0.2.1 · prompts appear alongside your results and never change them",
+            src,
+        )
+        popup = _read("popup.html")
+        self.assertIn("SEASON 2026 workshop", popup)
+        self.assertNotIn("University of Birmingham", popup)
 
     def test_config_has_workshop_privacy_and_project_urls(self):
         src = _read("config.js")
         self.assertIn("https://investigating-search-interface.onrender.com/privacy/", src)
-        self.assertIn("https://github.com/RosieGraham/investigating-search-interface", src)
+        self.assertIn("https://investigating-search-interface.onrender.com/", src)
+        self.assertNotIn("github.com", src)
         self.assertNotIn("bear-rsg/ethical-interface", src)
 
     def test_manifest_is_season_identity_with_exact_host(self):
         src = _read("manifest.json")
-        self.assertIn("Investigating Search Interface: SEASON 2026", src)
-        self.assertIn('"version": "2.2.0"', src)
+        self.assertIn('"name": "Investigating Search Interface"', src)
+        self.assertIn('"version": "0.2.1"', src)
+        self.assertIn('"version_name": "Alpha build 0.2.1"', src)
         self.assertNotIn("localhost", src)
         self.assertNotIn("*.onrender.com", src)
         self.assertIn("https://investigating-search-interface.onrender.com/*", src)
@@ -66,8 +85,51 @@ class WorkshopClientScanTests(SimpleTestCase):
         src = _read("content.js")
         self.assertIn("350", src)
         self.assertTrue(
-            re.search(r"5000|5\s*\*\s*1000", src),
-            "first attempt must use a five-second timeout",
+            re.search(r"FIRST_ATTEMPT_TIMEOUT_MS = 12000", src),
+            "first attempt must use a twelve-second timeout",
+        )
+
+    def test_observer_timeout_outlives_two_attempt_request_path(self):
+        config = _read("config.js")
+        match = re.search(r"OBSERVER_TIMEOUT:\s*(\d+)", config)
+        self.assertIsNotNone(match, "config.js must set OBSERVER_TIMEOUT")
+        observer_ms = int(match.group(1))
+        two_attempts = 12000 + 350 + 12000
+        self.assertGreaterEqual(
+            observer_ms,
+            two_attempts,
+            "layout observer must outlive 12s + 350ms retry + 12s",
+        )
+
+    def test_manifest_google_matches_include_european_hosts(self):
+        data = json.loads(_read("manifest.json"))
+        matches = data["content_scripts"][0]["matches"]
+        required = [
+            "https://www.google.com/search*",
+            "https://www.google.co.uk/search*",
+            "https://www.google.ie/search*",
+            "https://www.google.de/search*",
+            "https://www.google.fr/search*",
+            "https://www.google.nl/search*",
+            "https://www.google.dk/search*",
+            "https://www.google.se/search*",
+            "https://www.google.no/search*",
+            "https://www.google.fi/search*",
+            "https://www.google.es/search*",
+            "https://www.google.it/search*",
+            "https://www.google.be/search*",
+            "https://www.google.at/search*",
+            "https://www.google.ch/search*",
+            "https://www.google.pl/search*",
+            "https://www.google.pt/search*",
+            "https://www.google.com.au/search*",
+            "https://www.google.ca/search*",
+        ]
+        for pattern in required:
+            self.assertIn(pattern, matches)
+        self.assertFalse(
+            any("google.*" in item or "google.*/" in item for item in matches),
+            "wildcard TLD patterns are not permitted",
         )
 
     def test_last_key_is_not_committed_before_valid_response(self):

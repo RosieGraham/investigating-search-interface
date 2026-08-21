@@ -13,9 +13,9 @@ from django.conf import settings
 
 from .models import EngagementEvent, NotRelevantReport, Response
 
-BUILD_ID = "season-2026-workshop-1"
-EXT_VERSION = "2.2.0"
-NOTICE_VERSION = "season-2026-v1"
+BUILD_ID = "0.2.1-season-2026-1"
+EXT_VERSION = "0.2.1"
+NOTICE_VERSION = "season-2026-v2"
 POLICY_RELATIVE = "release-policy/season-2026-workshop.json"
 MATCH_PATH = "/data/prompt/get/"
 MARKER = "S26GATE1MARKER_synthetic_not_a_person"
