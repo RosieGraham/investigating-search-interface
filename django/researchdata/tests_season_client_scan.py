@@ -88,18 +88,67 @@ class WorkshopClientScanTests(SimpleTestCase):
             re.search(r"FIRST_ATTEMPT_TIMEOUT_MS = 12000", src),
             "first attempt must use a twelve-second timeout",
         )
+        self.assertTrue(
+            re.search(r"RETRY_JITTER_MS = 250", src),
+            "retry delay must carry bounded jitter",
+        )
 
     def test_observer_timeout_outlives_two_attempt_request_path(self):
         config = _read("config.js")
         match = re.search(r"OBSERVER_TIMEOUT:\s*(\d+)", config)
         self.assertIsNotNone(match, "config.js must set OBSERVER_TIMEOUT")
         observer_ms = int(match.group(1))
-        two_attempts = 12000 + 350 + 12000
         self.assertGreaterEqual(
             observer_ms,
-            two_attempts,
-            "layout observer must outlive 12s + 350ms retry + 12s",
+            12000 + 350 + 250 + 12000,
+            "layout observer must outlive 12s + 350ms retry + 250ms jitter + 12s",
         )
+
+    def test_injected_key_is_committed_after_insertion(self):
+        src = _read("content.js")
+        inserted_guard = src.find("if (inserted)")
+        commit = src.find("STATE.injectedKey = requestKey")
+        self.assertNotEqual(inserted_guard, -1)
+        self.assertNotEqual(commit, -1)
+        self.assertLess(
+            inserted_guard,
+            commit,
+            "injectedKey must be committed only after insertion succeeds",
+        )
+
+    def test_silence_key_is_committed_only_after_valid_response(self):
+        src = _read("content.js")
+        error_guard = src.find("if (!resp || !resp.ok)")
+        empty_guard = src.find("!Array.isArray(data.prompts)")
+        commit = src.find("STATE.silenceKey = requestKey")
+        self.assertNotEqual(error_guard, -1)
+        self.assertNotEqual(empty_guard, -1)
+        self.assertNotEqual(commit, -1)
+        self.assertLess(error_guard, commit)
+        self.assertLess(empty_guard, commit)
+        between = src[error_guard:empty_guard]
+        self.assertNotIn(
+            "STATE.silenceKey = requestKey",
+            between,
+            "silenceKey must not be committed on the error path",
+        )
+
+    def test_match_fetch_cap_is_two_per_navigation(self):
+        src = _read("content.js")
+        self.assertTrue(
+            re.search(r"MAX_MATCH_FETCHES_PER_NAV = 2", src),
+            "one navigation may issue at most two fresh match requests",
+        )
+
+    def test_agents_freeze_register_includes_retry_jitter(self):
+        text = (REPO_ROOT / "AGENTS.md").read_text()
+        self.assertIn("12000 + 350 + 250 + 12000 = 24600", text)
+        self.assertNotIn("12000 + 350 + 12000 = 24350", text)
+
+    def test_render_blueprint_plan_is_standard(self):
+        text = (REPO_ROOT / "render.yaml").read_text()
+        self.assertRegex(text, r"(?m)^\s*plan:\s*standard\s*$")
+        self.assertNotRegex(text, r"(?m)^\s*plan:\s*free\s*$")
 
     def test_manifest_google_matches_include_european_hosts(self):
         data = json.loads(_read("manifest.json"))
@@ -130,18 +179,6 @@ class WorkshopClientScanTests(SimpleTestCase):
         self.assertFalse(
             any("google.*" in item or "google.*/" in item for item in matches),
             "wildcard TLD patterns are not permitted",
-        )
-
-    def test_last_key_is_not_committed_before_valid_response(self):
-        src = _read("content.js")
-        commit = src.find("STATE.lastKey = requestKey")
-        self.assertNotEqual(commit, -1, "request lifecycle must commit lastKey")
-        success_check = src.find("resp.ok")
-        self.assertNotEqual(success_check, -1)
-        self.assertLess(
-            success_check,
-            commit,
-            "lastKey must be committed only after a valid response check",
         )
 
 

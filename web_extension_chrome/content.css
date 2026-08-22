@@ -245,6 +245,16 @@
   background: #FFC24B;
   animation: isi-blink 1.05s step-end infinite;
 }
+#isi-badge .isi-pill-dot.isi-blink {
+  animation: isi-blink 1.05s step-end infinite;
+}
+#isi-badge .isi-pill-dot-muted {
+  background: #9B91AB;
+  animation: none;
+}
+#isi-badge .isi-pill-static {
+  cursor: default;
+}
 #isi-badge .isi-pill-text { white-space: nowrap; }
 #isi-badge .isi-panel {
   width: min(420px, calc(100vw - 48px));

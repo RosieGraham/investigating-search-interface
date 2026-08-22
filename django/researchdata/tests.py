@@ -117,14 +117,17 @@ class ClassifierFlowTests(TestCase):
     @override_settings(CLASSIFIER_ENABLED=True)
     def test_classifier_match_returns_prompt_with_confidence(self):
         _, topic, prompt = make_content(triggers=())
-        prompt.seeed_url = 'https://seeed.example.org/entries/election-information'
+        prompt.seeed_url = 'https://investigating-search-interface.onrender.com/seeed/election-information'
         prompt.save()
         with self._stub_classifier([(topic.id, 0.82)]):
             data = self.get('who won the 2016 election')
         self.assertTrue(data['prompt'])
         self.assertEqual(data['prompt']['matched_by'], 'classifier')
         self.assertAlmostEqual(data['prompt']['confidence'], 0.82)
-        self.assertEqual(data['prompt']['seeed_url'], 'https://seeed.example.org/entries/election-information')
+        self.assertEqual(
+            data['prompt']['seeed_url'],
+            'https://investigating-search-interface.onrender.com/seeed/election-information',
+        )
         self.assertEqual(data['classifier'], 'matched')
 
     @override_settings(CLASSIFIER_ENABLED=True)

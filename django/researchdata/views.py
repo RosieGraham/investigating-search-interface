@@ -2,13 +2,13 @@ import logging
 import os
 
 from django.conf import settings
-from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from . import models
 from .embedding import ClassifierUnavailable, classify_query, embed_query, rank_prompts
 from .classifier_config import get_classifier_threshold, get_serve_placeholders
+from .external_links import sanitise_learn_more_url
 from .release_policy import IdentityError, validate_request_identity, workshop_writes_allowed
 from .release_readiness import evaluate_readiness
 
@@ -32,7 +32,7 @@ def _prompt_payload(prompt, confidence=None, matched_by=None):
         'topic_id': prompt.topic_id,
         'prompt_content': prompt.prompt_content.replace('\n', '<br>'),
         'response_required': prompt.response_required,
-        'seeed_url': prompt.seeed_url or None,
+        'seeed_url': sanitise_learn_more_url(prompt.seeed_url),
         'matched_by': matched_by,
     }
     if confidence is not None:
@@ -198,7 +198,11 @@ def prompt_get(request):
         return json_error(exc.status, exc.error, allow=exc.allow)
 
     topics_data = [
-        {**model_to_dict(group), **{'excluded': 1 if group.id in topics_exclude else 0}}
+        {
+            'id': group.id,
+            'name': group.name,
+            'excluded': 1 if group.id in topics_exclude else 0,
+        }
         for group in models.TopicGroup.objects.all()
     ]
 
@@ -237,8 +241,8 @@ def prompt_get(request):
                         )
         except ClassifierUnavailable:
             classifier_state = 'unavailable'
-        except Exception:
-            logger.exception('Classifier error; falling back to triggers.')
+        except Exception as exc:
+            logger.error('classifier_error code=CLS-500 exc=%s', type(exc).__name__)
             classifier_state = 'error'
 
     if (

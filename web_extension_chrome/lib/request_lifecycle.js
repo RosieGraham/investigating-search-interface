@@ -33,6 +33,8 @@ in the extension content script.
     var now = opts.now || function () { return Date.now(); };
     var timeoutMs = opts.timeoutMs || FIRST_ATTEMPT_TIMEOUT_MS;
     var retryDelayMs = opts.retryDelayMs || RETRY_DELAY_MS;
+    var retryJitterMs = opts.retryJitterMs || 0;
+    var onAbort = opts.onAbort || function () {};
     var generation = 0;
     var acknowledged = false;
     var abortWaiters = [];
@@ -49,6 +51,7 @@ in the extension content script.
     function abort() {
       generation += 1;
       abortWaiters.splice(0).forEach(function (wake) { wake(); });
+      onAbort();
     }
 
     function raceAbort(promise, gen) {
@@ -85,7 +88,8 @@ in the extension content script.
       for (var attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
         if (gen !== generation || !acknowledged) return null;
         if (attempt > 0) {
-          await delay(retryDelayMs);
+          var extra = retryJitterMs ? Math.floor(Math.random() * (retryJitterMs + 1)) : 0;
+          await delay(retryDelayMs + extra);
           if (gen !== generation || !acknowledged) return null;
         }
         try {

@@ -165,6 +165,28 @@ class ApplyPackageTests(TestCase):
             apply_package(bad, dry_run=True)
         self.assertEqual(models.Topic.objects.count(), before)
 
+    def test_unapproved_seeed_url_is_rejected(self):
+        bad = {
+            "groups": [{"name": "Tools"}],
+            "topics": [{
+                "name": "Surveillance capitalism",
+                "group": "Tools",
+                "description": "desc",
+                "example_queries": [],
+            }],
+            "prompts": [{
+                "ref": "ISI-T-001",
+                "topic": "Surveillance capitalism",
+                "style": "reflective",
+                "prompt_content": "Reflect.",
+                "admin_approved": True,
+                "seeed_url": "javascript:alert(1)",
+            }],
+        }
+        with self.assertRaises(ValidationError) as ctx:
+            validate_package(bad)
+        self.assertIn("seeed_url", str(ctx.exception))
+
     def test_orphan_topic_group_rejected_before_write(self):
         bad = {
             "groups": [{"name": "OnlyGroup"}],

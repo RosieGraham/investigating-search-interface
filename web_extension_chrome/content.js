@@ -18,6 +18,13 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
 
   const FIRST_ATTEMPT_TIMEOUT_MS = 12000;
   const RETRY_DELAY_MS = 350;
+  const RETRY_JITTER_MS = 250;
+  const MAX_MATCH_FETCHES_PER_NAV = 2;
+  const SIGNPOST = {
+    prompt: 'Reflection prompt for this search',
+    quiet: 'No prompt for this search',
+    error: "Couldn't reach the server",
+  };
 
   const SELECTORS = {
     resultsContainer: '#rso',
@@ -26,9 +33,14 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
   };
 
   const STATE = {
-    lastKey: null,
+    injectedKey: null,
+    dismissedKey: null,
+    silenceKey: null,
     pendingKey: null,
+    lastInject: null,
+    activeRequestId: null,
     observer: null,
+    matchFetchesThisNav: 0,
     settings: { enabled: true, topicsExclude: [] },
   };
 
@@ -47,14 +59,24 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
   const machine = self.ISIRequestLifecycle.createRequestMachine({
     timeoutMs: FIRST_ATTEMPT_TIMEOUT_MS,
     retryDelayMs: RETRY_DELAY_MS,
+    retryJitterMs: RETRY_JITTER_MS,
     delay: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+    onAbort: () => {
+      if (STATE.activeRequestId) {
+        send({ type: 'abortPrompts', requestId: STATE.activeRequestId });
+      }
+    },
     fetchImpl: async (req) => {
+      const requestId = `${req.navId}:${Date.now()}:${Math.random()}`;
+      STATE.activeRequestId = requestId;
       const result = await send({
         type: 'getPrompts',
+        requestId,
         query: req.query,
         topicsExclude: STATE.settings.topicsExclude,
         timeoutMs: FIRST_ATTEMPT_TIMEOUT_MS,
       });
+      if (STATE.activeRequestId === requestId) STATE.activeRequestId = null;
       if (result && result.aborted) {
         const err = new Error('timeout');
         err.name = 'AbortError';
@@ -100,6 +122,19 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
     });
   }
 
+  function allowedLearnMoreUrl(url) {
+    if (!url || typeof url !== 'string') return null;
+    try {
+      const parsed = new URL(url);
+      if (parsed.protocol !== 'https:') return null;
+      const allowed = (ISI_CONFIG.ALLOWED_LEARN_MORE_ORIGINS || []).map((origin) => origin.replace(/\/$/, ''));
+      if (!allowed.includes(parsed.origin)) return null;
+      return parsed.href;
+    } catch (e) {
+      return null;
+    }
+  }
+
   function el(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -123,11 +158,14 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
 
     const actions = el('div', 'isi-actions');
     if (prompt.seeed_url) {
-      const learn = el('a', 'isi-learn-more', 'Learn more');
-      learn.href = prompt.seeed_url;
-      learn.target = '_blank';
-      learn.rel = 'noopener noreferrer';
-      actions.appendChild(learn);
+      const safe = allowedLearnMoreUrl(prompt.seeed_url);
+      if (safe) {
+        const learn = el('a', 'isi-learn-more', 'Learn more');
+        learn.href = safe;
+        learn.target = '_blank';
+        learn.rel = 'noopener noreferrer';
+        actions.appendChild(learn);
+      }
     }
     if (actions.childNodes.length) block.appendChild(actions);
     return block;
@@ -153,6 +191,9 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
     dismiss.type = 'button';
     dismiss.title = 'Hide for this search';
     dismiss.addEventListener('click', () => {
+      STATE.dismissedKey = `${getQuery()}|${currentMode()}`;
+      STATE.injectedKey = null;
+      document.getElementById('isi-badge')?.remove();
       card.remove();
     });
     header.appendChild(dismiss);
@@ -171,6 +212,25 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
     );
     card.appendChild(footer);
     return card;
+  }
+
+  function buildSignpost(kind, onClick) {
+    const badge = el('div', 'isi-signpost');
+    badge.id = 'isi-badge';
+    const interactive = kind === 'prompt' && typeof onClick === 'function';
+    const pill = el(interactive ? 'button' : 'div', interactive ? 'isi-pill' : 'isi-pill isi-pill-static');
+    if (interactive) pill.type = 'button';
+    const dotClass = kind === 'error' ? 'isi-pill-dot isi-pill-dot-muted' : 'isi-pill-dot isi-blink';
+    pill.appendChild(el('span', dotClass));
+    pill.appendChild(el('span', 'isi-pill-text', SIGNPOST[kind]));
+    if (interactive) pill.addEventListener('click', onClick);
+    badge.appendChild(pill);
+    return badge;
+  }
+
+  function mountSignpost(kind, onClick) {
+    document.querySelector('#isi-badge')?.remove();
+    document.body.appendChild(buildSignpost(kind, onClick));
   }
 
   function buildBadge(prompts, query) {
@@ -201,11 +261,17 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
   function injectForResults(prompts, query) {
     const rso = document.querySelector(SELECTORS.resultsContainer);
     const anchor = rso || document.querySelector(SELECTORS.resultsFallback);
-    if (!anchor) return false;
+    if (!anchor || !anchor.parentElement) return false;
     document.querySelector('#isi-prompts')?.remove();
     document.querySelector('#isi-badge')?.remove();
     const card = buildCard(prompts, query);
     anchor.parentElement.insertBefore(card, anchor);
+    mountSignpost('prompt', () => {
+      const live = document.getElementById('isi-prompts');
+      if (live && typeof live.scrollIntoView === 'function') {
+        live.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
     return true;
   }
 
@@ -214,6 +280,15 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
     document.querySelector('#isi-badge')?.remove();
     document.body.appendChild(buildBadge(prompts, query));
     return true;
+  }
+
+  function fallbackBadgeFromStore() {
+    if (!STATE.lastInject) return false;
+    try {
+      return injectBadge(STATE.lastInject.prompts, STATE.lastInject.query);
+    } catch (e) {
+      return false;
+    }
   }
 
   async function run() {
@@ -226,11 +301,34 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
     if (mode === 'unknown') return;
 
     const key = `${query}|${mode}`;
-    if (STATE.lastKey === key) return;
+    if (STATE.dismissedKey === key) return;
+    if (STATE.silenceKey === key) return;
+    const cardPresent = document.querySelector('#isi-prompts');
+    if (STATE.injectedKey === key && cardPresent) return;
+    if (STATE.injectedKey === key && STATE.lastInject) {
+      try {
+        const stored = STATE.lastInject;
+        const restored = stored.mode === 'ai'
+          ? injectBadge(stored.prompts, stored.query)
+          : injectForResults(stored.prompts, stored.query);
+        if (restored) return;
+      } catch (e) {
+        /* reinsertion failed; maybe one more fetch, then the badge panel */
+      }
+      if (STATE.matchFetchesThisNav >= MAX_MATCH_FETCHES_PER_NAV) {
+        if (fallbackBadgeFromStore()) STATE.injectedKey = key;
+        return;
+      }
+    }
     if (STATE.pendingKey === key) return;
+    if (STATE.matchFetchesThisNav >= MAX_MATCH_FETCHES_PER_NAV) {
+      if (STATE.lastInject && fallbackBadgeFromStore()) STATE.injectedKey = key;
+      return;
+    }
 
     const requestKey = key;
     STATE.pendingKey = requestKey;
+    STATE.matchFetchesThisNav += 1;
 
     const resp = await machine.requestMatch({ query, navId: requestKey });
 
@@ -239,20 +337,53 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
     const currentQuery = getQuery();
     const currentKey = `${currentQuery}|${currentMode()}`;
     if (currentKey !== requestKey) return;
-    if (!resp || !resp.ok) return;
-    STATE.lastKey = requestKey;
+    if (!resp || !resp.ok) {
+      document.querySelector('#isi-prompts')?.remove();
+      mountSignpost('error');
+      return;
+    }
 
     const data = resp.data || {};
     if (Array.isArray(data.topics)) {
-      chrome.storage.local.set({ isi_topic_groups: data.topics });
+      chrome.storage.local.set({
+        isi_topic_groups: data.topics.map((group) => ({
+          id: group.id,
+          name: group.name,
+          excluded: group.excluded,
+        })),
+      });
     }
     if (!Array.isArray(data.prompts) || data.prompts.length === 0) {
+      STATE.silenceKey = requestKey;
+      document.querySelector('#isi-prompts')?.remove();
+      mountSignpost('quiet');
       return;
     }
     const prompts = data.prompts.slice(0, ISI_CONFIG.MAX_PROMPTS);
 
-    if (mode === 'ai') injectBadge(prompts, query);
-    else injectForResults(prompts, query);
+    let inserted = false;
+    let missingAnchor = false;
+    try {
+      if (mode === 'ai') {
+        inserted = injectBadge(prompts, query);
+      } else {
+        inserted = injectForResults(prompts, query);
+        missingAnchor = !inserted;
+      }
+    } catch (e) {
+      inserted = false;
+    }
+    if (!inserted && missingAnchor) {
+      try {
+        inserted = injectBadge(prompts, query);
+      } catch (e) {
+        inserted = false;
+      }
+    }
+    if (inserted) {
+      STATE.injectedKey = requestKey;
+      STATE.lastInject = { prompts, query, mode };
+    }
   }
 
   function watchForLayout() {
@@ -275,8 +406,13 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
     const onChange = () => {
       if (location.href === lastHref) return;
       lastHref = location.href;
-      STATE.lastKey = null;
+      STATE.injectedKey = null;
       STATE.pendingKey = null;
+      STATE.silenceKey = null;
+      STATE.dismissedKey = null;
+      STATE.lastInject = null;
+      STATE.matchFetchesThisNav = 0;
+      clearCards();
       machine.abort();
       setTimeout(() => {
         run();
@@ -287,6 +423,15 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
       navigation.addEventListener('navigatesuccess', onChange);
     }
     window.addEventListener('popstate', onChange);
+    window.addEventListener('pageshow', (event) => {
+      if (!event.persisted) return;
+      STATE.injectedKey = null;
+      STATE.pendingKey = null;
+      STATE.silenceKey = null;
+      STATE.dismissedKey = null;
+      STATE.matchFetchesThisNav = 0;
+      run();
+    });
     setInterval(onChange, 1500);
   }
 
@@ -384,19 +529,26 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
         machine.abort();
         clearCards();
       } else if (ack.isDeclined()) {
-        return;
+        ack.clearDecline();
+        showNoticeBanner();
       } else if (!ack.isAcknowledged()) {
         showNoticeBanner();
       } else {
-        STATE.lastKey = null;
+        STATE.injectedKey = null;
         STATE.pendingKey = null;
+        STATE.silenceKey = null;
+        STATE.matchFetchesThisNav = 0;
         run();
       }
     }
     if (changes.isi_topics_exclude) {
       STATE.settings.topicsExclude = changes.isi_topics_exclude.newValue || [];
-      STATE.lastKey = null;
+      STATE.injectedKey = null;
       STATE.pendingKey = null;
+      STATE.silenceKey = null;
+      STATE.dismissedKey = null;
+      STATE.matchFetchesThisNav = 0;
+      clearCards();
       machine.abort();
       run();
     }

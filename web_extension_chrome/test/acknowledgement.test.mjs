@@ -62,6 +62,24 @@ test('decline persists across reload', () => {
   });
 });
 
+test('clearDecline lets the notice be shown again', () => {
+  const { createAcknowledgement } = require(path.join(here, '..', 'lib', 'acknowledgement.js'));
+  const store = {};
+  const ack = createAcknowledgement({
+    noticeVersion: 'season-2026-v2',
+    storage: {
+      get: async (k) => store[k],
+      set: async (obj) => Object.assign(store, obj),
+    },
+  });
+  ack.decline();
+  assert.equal(ack.isDeclined(), true);
+  ack.clearDecline();
+  assert.equal(ack.isDeclined(), false);
+  assert.equal(ack.isAcknowledged(), false);
+  assert.equal(store['isi_notice_declined_season-2026-v2'], false);
+});
+
 test('inverted: pre-acknowledgement send must make the contract fail', () => {
   const { createAcknowledgement } = require(path.join(here, '..', 'lib', 'acknowledgement.js'));
   const requests = [];

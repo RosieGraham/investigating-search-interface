@@ -12,7 +12,10 @@ const ISI_CONFIG = {
   EXTENSION_VERSION: '0.2.1',
   NOTICE_VERSION: 'season-2026-v2',
   MAX_PROMPTS: 1,
-  // Must outlive two matching attempts (12000 + 350 + 12000 = 24350).
+  ALLOWED_LEARN_MORE_ORIGINS: [
+    'https://investigating-search-interface.onrender.com',
+  ],
+  // Must outlive two matching attempts (12000 + 350 + 250 jitter + 12000 = 24600).
   OBSERVER_TIMEOUT: 26000,
 };
 

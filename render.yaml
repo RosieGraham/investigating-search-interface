@@ -11,7 +11,7 @@ services:
   - type: web
     name: investigating-search-interface
     runtime: python
-    plan: free
+    plan: standard
     region: frankfurt  # closest Render region to the UK
     branch: main
     buildCommand: |

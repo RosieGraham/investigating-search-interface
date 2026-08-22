@@ -18,6 +18,7 @@ import sys
 import tempfile
 import zipfile
 from pathlib import Path
+from urllib.parse import urlparse
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE = REPO_ROOT / "web_extension_chrome"
@@ -111,6 +112,7 @@ ALLOWED_URL_PREFIXES = (
     EXPECTED_API,
     EXPECTED_PROJECT,
 ) + tuple(match.rstrip("*") for match in EXPECTED_GOOGLE_MATCHES)
+MAX_MANIFEST_DESCRIPTION = 132
 
 FIXTURE_CASES = (
     "undeclared_file",
@@ -131,6 +133,47 @@ def sha256_file(path):
     return sha256_bytes(Path(path).read_bytes())
 
 
+def _parse_url(url):
+    return urlparse(url.rstrip(".,);]}>*"))
+
+
+def _origin_equal(candidate, allowed):
+    if candidate.scheme != allowed.scheme:
+        return False
+    if (candidate.hostname or "").lower() != (allowed.hostname or "").lower():
+        return False
+
+    def port(parsed):
+        if parsed.port:
+            return parsed.port
+        return 443 if parsed.scheme == "https" else 80
+
+    return port(candidate) == port(allowed)
+
+
+def _path_permitted(candidate_path, allowed_path):
+    allowed_path = allowed_path or ""
+    candidate_path = candidate_path or ""
+    if allowed_path in ("", "/"):
+        return True
+    if candidate_path == allowed_path:
+        return True
+    prefix = allowed_path if allowed_path.endswith("/") else allowed_path + "/"
+    return candidate_path.startswith(prefix)
+
+
+def url_is_allowed(url):
+    """True when scheme, host, port and path match an allowlisted origin, not a prefix."""
+    found = _parse_url(url)
+    if found.scheme not in {"http", "https"} or not found.hostname:
+        return False
+    for prefix in ALLOWED_URL_PREFIXES:
+        allowed = _parse_url(prefix)
+        if _origin_equal(found, allowed) and _path_permitted(found.path, allowed.path):
+            return True
+    return False
+
+
 def inspect_text(text):
     """Return issue labels for a text blob. Exclusion preference keys are allowed."""
     if not text:
@@ -143,7 +186,7 @@ def inspect_text(text):
             issues.append(label)
     for match in URL_RE.finditer(text):
         url = match.group(0).rstrip(".,);]}>")
-        if not any(url.startswith(prefix) for prefix in ALLOWED_URL_PREFIXES):
+        if not url_is_allowed(url):
             issues.append("unexpected_network_path")
     return issues
 
@@ -160,6 +203,11 @@ def _validate_manifest(data):
         issues.append(f"manifest version {data.get('version')!r} != {EXPECTED_VERSION!r}")
     if data.get("version_name") != EXPECTED_VERSION_NAME:
         issues.append(f"manifest version_name {data.get('version_name')!r} != {EXPECTED_VERSION_NAME!r}")
+    description = data.get("description") or ""
+    if len(description) > MAX_MANIFEST_DESCRIPTION:
+        issues.append(
+            f"manifest description length {len(description)} > {MAX_MANIFEST_DESCRIPTION}"
+        )
     hosts = data.get("host_permissions") or []
     if hosts != [EXPECTED_HOST_PERMISSION]:
         issues.append(f"host_permissions {hosts!r} != [{EXPECTED_HOST_PERMISSION!r}]")

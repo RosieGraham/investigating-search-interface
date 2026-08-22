@@ -129,12 +129,13 @@ def run_gates():
         "files": [str(p.relative_to(REPO_ROOT)) for p in js_files()],
     })
 
+    js_tests = sorted(
+        str(p.relative_to(REPO_ROOT))
+        for p in (REPO_ROOT / "web_extension_chrome" / "test").glob("*.mjs")
+    )
     results.append(run_cmd(
         "js_contract",
-        ["node", "--test", "web_extension_chrome/test/request_lifecycle.test.mjs",
-         "web_extension_chrome/test/acknowledgement.test.mjs",
-         "web_extension_chrome/test/popup_contract.test.mjs",
-         "web_extension_chrome/test/manifest_matches.test.mjs"],
+        ["node", "--test", *js_tests],
         REPO_ROOT,
     ))
 

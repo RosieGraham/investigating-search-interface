@@ -21,6 +21,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 
 from researchdata.description_blob import split_blob
+from researchdata.external_links import sanitise_learn_more_url
 from researchdata.models import Prompt, Topic, TopicGroup, Trigger
 
 Change = tuple[str, str, str, Any, Any]
@@ -123,6 +124,11 @@ def validate_package(package: dict) -> None:
         triggers = prompt.get("triggers", [])
         if triggers is not None and not isinstance(triggers, list):
             raise ValidationError(f"prompts[{index}].triggers must be a list.")
+        raw_url = prompt.get("seeed_url")
+        if raw_url and sanitise_learn_more_url(raw_url) is None:
+            raise ValidationError(
+                f"prompts[{index}].seeed_url is not an approved HTTPS origin."
+            )
 
 
 @transaction.atomic
@@ -208,7 +214,7 @@ def apply_package(package: dict, *, dry_run: bool, actor=None) -> ApplyResult:
             priority=prompt_row.get("priority"),
             admin_approved=bool(prompt_row.get("admin_approved")),
             response_required=bool(prompt_row.get("response_required")),
-            seeed_url=prompt_row.get("seeed_url") or None,
+            seeed_url=sanitise_learn_more_url(prompt_row.get("seeed_url")),
             admin_notes=admin_notes,
         )
         if existing is None:

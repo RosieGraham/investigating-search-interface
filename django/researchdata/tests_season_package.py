@@ -64,3 +64,31 @@ class PackageContaminationInvertedTests(SimpleTestCase):
             issues,
             "topic exclusions are a workshop user setting, not a prohibited research path",
         )
+
+    def test_manifest_description_over_132_fails_the_gate(self):
+        mod = load_package_workshop()
+        planted = "x" * 133
+        payload = {
+            "name": mod.EXPECTED_NAME,
+            "version": mod.EXPECTED_VERSION,
+            "version_name": mod.EXPECTED_VERSION_NAME,
+            "description": planted,
+            "host_permissions": [mod.EXPECTED_HOST_PERMISSION],
+            "permissions": ["storage"],
+            "content_scripts": [{"matches": list(mod.EXPECTED_GOOGLE_MATCHES)}],
+            "icons": dict(mod.EXPECTED_ICONS),
+        }
+        issues = mod._validate_manifest(payload)
+        self.assertTrue(any("description length" in item for item in issues))
+        payload["description"] = "x" * 132
+        restored = mod._validate_manifest(payload)
+        self.assertFalse(any("description length" in item for item in restored))
+
+    def test_hostile_suffix_origin_fails_the_gate(self):
+        mod = load_package_workshop()
+        hostile = "https://investigating-search-interface.onrender.com.evil.example/collect"
+        self.assertTrue(hostile.startswith(mod.EXPECTED_API))
+        issues = mod.inspect_text(f"fetch('{hostile}');")
+        self.assertIn("unexpected_network_path", issues)
+        allowed = mod.inspect_text(f"fetch('{mod.EXPECTED_API}/data/prompt/get/');")
+        self.assertNotIn("unexpected_network_path", allowed)

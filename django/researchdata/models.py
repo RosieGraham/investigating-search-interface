@@ -158,6 +158,11 @@ class Prompt(models.Model):
     meta_created_datetime = models.DateTimeField(auto_now_add=True, verbose_name="created")
     meta_lastupdated_datetime = models.DateTimeField(auto_now=True, verbose_name="last updated")
 
+    def save(self, *args, **kwargs):
+        from .external_links import sanitise_learn_more_url
+        self.seeed_url = sanitise_learn_more_url(self.seeed_url)
+        super().save(*args, **kwargs)
+
     @property
     def prompt_content_preview(self):
         return textwrap.shorten(self.prompt_content, width=140, placeholder="...")

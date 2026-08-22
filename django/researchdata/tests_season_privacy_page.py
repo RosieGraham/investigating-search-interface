@@ -100,7 +100,15 @@ class WorkshopPrivacyCopyTests(SimpleTestCase):
         self.assertIn(b"research project of Dr Rosie Graham", resp.content)
         self.assertIn(b"R.Graham@bham.ac.uk", resp.content)
         self.assertNotIn(b"[contact address]", resp.content)
-        self.assertIn(b"[deploy date]", resp.content)
+        self.assertNotIn(b"[deploy date]", resp.content)
+        self.assertRegex(
+            resp.content.decode("utf-8"),
+            r"Version \d+\.\d+, \d{1,2} [A-Za-z]+ 20\d{2}",
+        )
+        self.assertIn(b"Version 1.1, 22 August 2026", resp.content)
+        self.assertIn(b"Chrome Web Store User Data Policy", resp.content)
+        self.assertIn(b"Limited Use", resp.content)
+        self.assertIn(b"hosted by Render", resp.content)
         self.assertNotIn(b"UNSIGNED DRAFT", resp.content)
 
     def test_home_is_approved_landing_copy(self):

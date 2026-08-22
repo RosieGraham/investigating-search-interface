@@ -64,6 +64,11 @@ in the extension (content script and popup).
       persist({ isi_enabled: false, [ackKey]: false, [declineKey]: true });
     }
 
+    function clearDecline() {
+      declined = false;
+      persist({ [declineKey]: false });
+    }
+
     function canSend() {
       if (allowPreAck) return true;
       return acknowledged && !declined;
@@ -87,6 +92,7 @@ in the extension (content script and popup).
       boot: boot,
       acknowledge: acknowledge,
       decline: decline,
+      clearDecline: clearDecline,
       canSend: canSend,
       isAcknowledged: isAcknowledged,
       isDeclined: isDeclined,
