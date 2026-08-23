@@ -230,6 +230,13 @@ class WorkshopPrivacyThirdPartyInvertedTests(SimpleTestCase):
         with self.assertRaises(AssertionError):
             self.assertEqual(hits, [])
 
+    def test_resource_scanner_catches_planted_third_party_script(self):
+        planted = '<script src="https://cdn.example.com/tracker.js"></script>'
+        hits = third_party_resource_hits(planted)
+        self.assertTrue(hits)
+        with self.assertRaises(AssertionError):
+            self.assertEqual(hits, [])
+
     def test_cookie_banner_assertion_catches_hashed_filename(self):
         planted = "/static/js/cookiesmsg.7c86252baa0a.js"
         with self.assertRaises(AssertionError):
