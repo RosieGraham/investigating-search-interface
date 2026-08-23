@@ -92,6 +92,38 @@ class WorkshopPublicPageTests(SimpleTestCase):
                 self.assertNotIn("cookiesmsg.js", html)
 
 
+OLD_BRAND = "Ethical Interface"
+SKIP_DIR_NAMES = {".git", "__pycache__", ".venv", "venv", "node_modules", "migrations"}
+
+
+def _is_excluded_python(path):
+    if any(part in SKIP_DIR_NAMES for part in path.parts):
+        return True
+    name = path.name
+    if name.startswith("test_") or name.startswith("tests_"):
+        return True
+    if name.endswith("_test.py") or name == "tests.py":
+        return True
+    return False
+
+
+def old_brand_source_hits():
+    """Paths under the repo whose templates or non-test Python still name the old brand."""
+    hits = []
+    django_root = REPO_ROOT / "django"
+    for path in django_root.rglob("*.html"):
+        if any(part in SKIP_DIR_NAMES for part in path.parts):
+            continue
+        if OLD_BRAND in path.read_text(encoding="utf-8"):
+            hits.append(str(path.relative_to(REPO_ROOT)))
+    for path in REPO_ROOT.rglob("*.py"):
+        if _is_excluded_python(path):
+            continue
+        if OLD_BRAND in path.read_text(encoding="utf-8"):
+            hits.append(str(path.relative_to(REPO_ROOT)))
+    return hits
+
+
 class WorkshopPrivacyCopyTests(SimpleTestCase):
     def test_privacy_serves_signed_workshop_notice(self):
         resp = self.client.get("/privacy/")
@@ -128,6 +160,14 @@ class WorkshopPrivacyCopyTests(SimpleTestCase):
         self.assertIn(b"If you sign in to the project dashboard", resp.content)
         self.assertNotIn(b"birmingham.ac.uk/privacy/cookies", resp.content)
         self.assertNotIn(b"Ethical Interface website does not use cookies", resp.content)
+
+    def test_old_brand_is_absent_from_templates_and_python_source(self):
+        hits = old_brand_source_hits()
+        self.assertEqual(
+            hits,
+            [],
+            "pre-rebrand name still present in: " + ", ".join(hits),
+        )
 
 
 class WorkshopPrivacyPageQueryTests(TestCase):
