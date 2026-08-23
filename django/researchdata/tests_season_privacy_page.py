@@ -9,7 +9,7 @@ from pathlib import Path
 
 from django.db import connection
 from django.template.loader import render_to_string
-from django.test import SimpleTestCase, TestCase
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.test.utils import CaptureQueriesContext
 
 from researchdata.models import Setting
@@ -28,6 +28,10 @@ THIRD_PARTY_ATTR = re.compile(
 THIRD_PARTY_CSS = re.compile(
     r"""@import\s+(?:url\()?["']?(https?:)?//""",
     re.IGNORECASE,
+)
+THIRD_PARTY_RESOURCE = re.compile(
+    r"""<(?:link|script|img|iframe)\b[^>]*?(?:src|href)\s*=\s*["']((?:https?:)?//[^"']+)["']""",
+    re.IGNORECASE | re.DOTALL,
 )
 LOCAL_HOSTS = (
     "investigating-search-interface.onrender.com",
@@ -53,6 +57,17 @@ def third_party_hits(html):
         hits.append(url)
     for match in THIRD_PARTY_CSS.finditer(html):
         hits.append(match.group(0))
+    return hits
+
+
+def third_party_resource_hits(html):
+    """Remote hosts loaded by link/script/img/iframe. Footer anchors are not loads."""
+    hits = []
+    for url in THIRD_PARTY_RESOURCE.findall(html):
+        lowered = url.lower()
+        if any(host in lowered for host in LOCAL_HOSTS):
+            continue
+        hits.append(url)
     return hits
 
 
@@ -89,7 +104,20 @@ class WorkshopPublicPageTests(SimpleTestCase):
                 self.assertNotIn("settings_value", html)
                 self.assertNotIn("extends", html)
                 self.assertNotIn("fonts.googleapis.com", html)
-                self.assertNotIn("cookiesmsg.js", html)
+                self.assertNotIn("cookiesmsg", html)
+
+    @override_settings(DEBUG=False, SECURE_SSL_REDIRECT=False)
+    def test_404_has_no_third_party_host_or_cookie_banner(self):
+        """Production 404 extends base.html. DEBUG=True would hide that behind Django's technical 404."""
+        resp = self.client.get("/this-path-does-not-exist/")
+        self.assertEqual(resp.status_code, 404)
+        html = resp.content.decode("utf-8")
+        self.assertIn("error code: 404", html)
+        self.assertIn("birmingham.ac.uk", html)
+        self.assertNotIn("fonts.googleapis.com", html)
+        self.assertNotIn("cookiesmsg", html)
+        self.assertEqual(third_party_resource_hits(html), [])
+        self.assertEqual(list(resp.cookies.keys()), [])
 
 
 OLD_BRAND = "Ethical Interface"
@@ -202,12 +230,18 @@ class WorkshopPrivacyThirdPartyInvertedTests(SimpleTestCase):
         with self.assertRaises(AssertionError):
             self.assertEqual(hits, [])
 
-    def test_existing_base_template_is_the_positive_third_party_case(self):
-        """base.html loads Google Fonts. The scanner must flag it, then we keep it off public pages."""
+    def test_cookie_banner_assertion_catches_hashed_filename(self):
+        planted = "/static/js/cookiesmsg.7c86252baa0a.js"
+        with self.assertRaises(AssertionError):
+            self.assertNotIn("cookiesmsg", planted)
+
+    def test_base_template_has_no_third_party_fonts_or_cookie_banner(self):
+        """Error pages extend base.html. It must not load Google Fonts or cookiesmsg."""
         html = BASE_TEMPLATE.read_text(encoding="utf-8")
-        hits = third_party_hits(html)
-        self.assertTrue(hits)
-        self.assertTrue(any("fonts.googleapis.com" in hit for hit in hits))
+        self.assertNotIn("fonts.googleapis.com", html)
+        self.assertNotIn("cookiesmsg", html)
+        self.assertEqual(third_party_resource_hits(html), [])
+        self.assertIn("birmingham.ac.uk", html)
         for template_name in ("general/home.html", "general/privacy.html", "general/cookies.html"):
             with self.subTest(template=template_name):
                 rendered = render_to_string(template_name)
