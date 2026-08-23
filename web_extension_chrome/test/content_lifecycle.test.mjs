@@ -765,6 +765,7 @@ test('clicking the results signpost scrolls to the card and does not duplicate i
   pill.listeners.click.forEach((fn) => fn());
   assert.equal(promptCount(env), 1);
   assert.ok(card.scrollIntoViewCalls && card.scrollIntoViewCalls.length >= 1);
+  assert.equal(card.scrollIntoViewCalls[0].block, 'center');
 });
 
 test('no signpost before acknowledgement', async () => {

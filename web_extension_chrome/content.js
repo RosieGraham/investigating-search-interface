@@ -269,7 +269,7 @@ response box. Matching starts only after notice season-2026-v2 is acknowledged.
     mountSignpost('prompt', () => {
       const live = document.getElementById('isi-prompts');
       if (live && typeof live.scrollIntoView === 'function') {
-        live.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        live.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
     return true;
