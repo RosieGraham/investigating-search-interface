@@ -165,7 +165,7 @@ class WorkshopPrivacyCopyTests(SimpleTestCase):
             resp.content.decode("utf-8"),
             r"Version \d+\.\d+, \d{1,2} [A-Za-z]+ 20\d{2}",
         )
-        self.assertIn(b"Version 1.1, 23 August 2026", resp.content)
+        self.assertIn(b"Version 1.1, 22 August 2026", resp.content)
         self.assertIn(b"Chrome Web Store User Data Policy", resp.content)
         self.assertIn(b"Limited Use", resp.content)
         self.assertIn(b"hosted by Render", resp.content)
