@@ -1,0 +1,68 @@
+name: test-suites
+
+on:
+  pull_request:
+  push:
+    branches:
+      - claude/ecstatic-tesla-7x6sqt
+
+concurrency:
+  group: test-suites-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DEBUG: "true"
+      DATABASE_URL: sqlite:////tmp/isi.sqlite3
+      EMBEDDING_MODEL_DIR: /tmp/model_dir
+    steps:
+      - uses: actions/checkout@v4
+
+      # Same interpreter as render.yaml (PYTHON_VERSION).
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.7"
+
+      - name: Install dependencies (the lock file Render installs)
+        run: |
+          python scripts/verify_release_lock.py
+          python -m pip install --require-hashes -r requirements-release.lock
+
+      # The cache key carries the pinned Hugging Face revision and ONNX
+      # filename from django/core/settings.py, so a change of pin misses the
+      # cache and downloads afresh.
+      - name: Read the pinned model revision
+        id: pin
+        run: |
+          python - >> "$GITHUB_OUTPUT" <<'PY'
+          import re, pathlib
+          text = pathlib.Path("django/core/settings.py").read_text()
+          rev = re.search(r"'EMBEDDING_MODEL_REVISION',\s*'([0-9a-f]{40})'", text).group(1)
+          onnx = re.search(r"'EMBEDDING_ONNX_FILENAME',\s*'([^']+)'", text).group(1)
+          print(f"key={rev}-{onnx.replace('/', '_')}")
+          PY
+
+      - name: Cache the embedding model
+        uses: actions/cache@v4
+        with:
+          path: /tmp/model_dir
+          key: embedding-model-${{ steps.pin.outputs.key }}
+
+      - name: Download the pinned model
+        working-directory: django
+        run: python manage.py download_model
+
+      - name: Django tests
+        working-directory: django
+        run: python manage.py test researchdata
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Extension contract tests
+        run: node --test web_extension_chrome/test/*.mjs
