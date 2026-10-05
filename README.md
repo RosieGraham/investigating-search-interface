@@ -2,8 +2,8 @@
 
 A Chrome extension + Django backend that surfaces short, expert-authored
 ethical reflection prompts alongside Google search results, matched to the
-user's query by semantic vector classification. A University of Birmingham
-research project led by Rosie Graham, connected to the planned SEEED
+user's query by semantic vector classification. It is a research project of
+Dr Rosie Graham, University of Birmingham, connected to the planned SEEED
 encyclopaedia (Search Engine Ethics Encyclopaedia and Database).
 
 Formerly the **Ethical Interface**. The original codebase was developed by
