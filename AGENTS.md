@@ -1,12 +1,21 @@
 # Operating this system as an AI session
 
-Written 10 July 2026 for whichever model works on this repository next, on the assumption that it is cheaper and less patient than the session that wrote it. Everything here was verified on that date. When this file and reality disagree, reality wins; update this file in the same commit.
+Written 10 July 2026 for whichever model works on this repository next, on the assumption that it is cheaper and less patient than the session that wrote it. Everything here was verified on that date. Last updated 5 October 2026 for the post-SEASON state (documentation pass; sections and lines that describe the 20 August to 18 September workshop are marked **Historical** below, and the rest still applies). When this file and reality disagree, reality wins; update this file in the same commit.
+
+## Status on 5 October 2026 (read first)
+
+Source: `docs/state-2026-10-05.md` (the baseline and post-SEASON audit, pull request 7).
+
+- **Historical:** the SEASON 2026 workshop window (`2026-08-20T00:00:00Z` to `2026-09-18T23:59:59Z`) closed on 18 September. Workshop-only procedures below (freeze rows, packaging gates, Store upload gating, the Phase 5 item ID note) record how the release was prepared; they are not current instructions.
+- **Current behaviour:** every `/data/prompt/get/` request now gets 403 `release_not_allowed`, decided in `validate_request_identity` (`release_policy.py`). Production never sets `ISI_RELEASE_CLOCK`, so this happened on its own with no deploy. Anyone with the 0.2.1 extension and an accepted notice sees the `#isi-badge` pill read "Couldn't reach the server", which is misleading (the server is reachable and refusing). Write endpoints return 403 `research_writes_disabled` regardless of date.
+- **Still applies:** the non-negotiable rules, account roles, the evaluation and diagnostic commands, the numbers-not-to-over-read section, and the client freeze constants (a new Store version costs a full Chrome review). Deploys to `main` still go live automatically. The next mode (dormant, private evaluation window, new public build, demo mode) is Rosie's decision; see section 4 of the state document.
+- **Verified 5 October on unchanged `main` (885113b):** flake8 clean, 196 Django tests OK, 50 of 50 JS tests. Without the frozen test clock 34 of 196 tests fail; those are not regressions.
 
 ## What this is
 
 A Django service (Render, Standard, Frankfurt) plus a Chrome extension. The extension POSTs `/data/prompt/get/` with `user_search_query` and workshop identity headers. The backend embeds the query (ONNX MiniLM encoder, int8, pinned revision), scores it against a multi-vector topic index (one vector per topic description, one per example query, blended `alpha * desc + (1 - alpha) * max(example)`), and serves one approved prompt from the single global top topic above threshold. Threshold, margin and alpha live in the `Setting` table, cached 60 seconds, editable on the Content tools page with an audit trail. `RESEARCH_WRITES_ENABLED` defaults false.
 
-A research participant may be using the live service at any time. Deploys to `main` go live automatically. Do not point Render at `release/season-2026`.
+**Historical (workshop window):** "A research participant may be using the live service at any time." Since 18 September no participant can receive a prompt. Still true: deploys to `main` go live automatically. Do not point Render at `release/season-2026`; that branch exists on the remote, whereas `fix/season-2026-adversarial-22aug`, named further down, does not (its fixes are in `main`'s history).
 
 ## The four commands that answer most questions
 
@@ -16,7 +25,7 @@ Run from `django/` with the environment described below.
 - `python manage.py audit_synthetic_marker` prints integer counts only for fields that could persist a synthetic marker. Never lists rows. Use a disposable sqlite database, not production.
 - `python manage.py matching_diagnostics` prints attractor pairs, self-retrieval and out-of-domain scores.
 - `python scripts/decision_grid.py` sweeps threshold and margin on both instruments.
-- `python manage.py test researchdata` runs the suite. Gate 4 server, baseline, client scan, package, marker audit, frozen table and public pages: 196 tests OK on Python 3.12.7 (5 October: same count on 3.12.3; `/tmp/isi-season-venv` does not exist in cloud sessions, so build a fresh venv from `requirements-release.lock`) (copy the repo to `/tmp` first; interpreter `/tmp/isi-season-venv`). Nothing ships red. JS contract tests: 50 of 50 (`node --test web_extension_chrome/test/*.mjs`).
+- `python manage.py test researchdata` runs the suite. Gate 4 server, baseline, client scan, package, marker audit, frozen table and public pages: 196 tests OK on Python 3.12.7 (5 October: same count on 3.12.3; `/tmp/isi-season-venv` does not exist in cloud sessions, so build a fresh venv from `requirements-release.lock`) (5 October: same count on 3.12.3; `/tmp/isi-season-venv` does not exist in cloud sessions, so build a fresh venv from `requirements-release.lock`) (copy the repo to `/tmp` first; interpreter `/tmp/isi-season-venv`). Nothing ships red. JS contract tests: 50 of 50 (`node --test web_extension_chrome/test/*.mjs`).
 - `python scripts/package_workshop.py` copies the extension allowlist into a clean directory, inspects it, and writes `investigating-search-interface-season-2026-v0.2.1.zip` plus a sidecar provenance file. It does not zip `web_extension_chrome/` in place. The working tree still fails inspection because of extras (README, tests, extra icons, `local_settings.example.js`). Topic exclusions are not a prohibited path. Store item ID stays pending (Rosie, Phase 5). Rosie confirmed on 21 August that this developer account has never uploaded an item, so `0.2.1` is a legal first version.
 - `python -m flake8 .` from the repo root must exit clean before any handoff: GitHub runs it on every pull request (`.github/workflows/ci-flake8.yml`), and a red check on Rosie's screen costs a round trip. Config in `.flake8` (max line 199).
 - `python manage.py audit_accounts` prints every account with its role. Read-only; run it before and after touching anything account-shaped.
@@ -24,7 +33,7 @@ Run from `django/` with the environment described below.
 ## Live read-only endpoints (no credentials)
 
 - `/healthz` liveness. Not readiness.
-- `/data/release/ready/` query-free workshop readiness (`ready`, `failures`, policy hash). Does not run canaries.
+- `/data/release/ready/` query-free workshop readiness (`ready`, `failures`, policy hash). Does not run canaries and does not check the active window: on 5 October it reported `ready: true` while every match request was refused.
 - `/data/ops/status/` staff-only operational truth: git commit, model artifact hash, runtime, index fingerprint and dirtiness, content counts, last apply, last evaluation, config flags, and three canary queries with pass flags. Anonymous polling is refused so canaries cannot compete with workshop traffic.
 - `/data/classifier/debug/` is disabled on this workshop branch (403, no query echo).
 - `/` is the public landing for Store Homepage and Support. Anonymous 200, no database, no third-party scripts or fonts, does not extend `base.html`. Copy is section 5a of the 19 August signed disclosure set, amended and approved the same evening. It still has to be live on Render before upload, because reviewers hit production.
@@ -33,9 +42,9 @@ Run from `django/` with the environment described below.
 - The four error templates (400/403/404/500) extend `base.html`. That template must not load Google Fonts or `cookiesmsg`; a 404 rendered under `DEBUG=False` is the assertion. The Birmingham footer stays. Assertions use the substring `cookiesmsg`, not `cookiesmsg.js`, because production serves the hashed filename.
 - Consent banner in `content.js` is the signed 19 August paragraph. `NOTICE_VERSION` is `season-2026-v2`. `lib/request_lifecycle.js` will only acknowledge that exact key: a leftover `season-2026-v1` check would silently disable matching after consent.
 - Listing `name` is `Investigating Search Interface`. Machine `version` is `0.2.1`, `version_name` is `Alpha build 0.2.1`, `BUILD_ID` is `0.2.1-season-2026-1`. Event year stays in the attribution string and the popup subtitle (`SEASON 2026 workshop`), not in the Store title.
-- Freeze row 10 is closed on screen (23 August). Do not package until `/privacy/` plus `/` are live on Render with this notice. Reviewers hit production.
+- **Historical (workshop release gating):** freeze row 10 is closed on screen (23 August). Do not package until `/privacy/` plus `/` are live on Render with this notice. Reviewers hit production.
 
-## Client freeze constants (18 August 2026)
+## Client freeze constants (18 August 2026; still apply to any new Store version)
 
 These are packaged. Changing any of them after the first Store upload costs a full Chrome review.
 
@@ -51,17 +60,18 @@ Copy the repo to local disk first (`/tmp`); the mounted workspace blocks SQLite 
 export DEBUG=true
 export DATABASE_URL=sqlite:////tmp/isi.sqlite3
 export EMBEDDING_MODEL_DIR=/tmp/model_dir   # model.onnx + tokenizer.json
-# Matching identity is windowed 2026-08-20 to 2026-09-18. Before 20 Aug, freeze the clock:
+# Matching identity is windowed 2026-08-20 to 2026-09-18, and that window has closed.
+# For any local run of the matching endpoint, freeze the clock inside the window:
 # export ISI_RELEASE_CLOCK=2026-09-01T12:00:00+00:00
 python manage.py download_model             # fetches the pinned int8 artifact
 python manage.py migrate
-python manage.py import_live_export         # 193 topics, 195 prompts, triggers
+python manage.py import_live_export         # 193 topics, 195 prompts, triggers; needs the gitignored live export file from Rosie, absent from a fresh clone
 # then apply data/content-package-*.json via researchdata.services.content_apply
 ```
 
-Django tests freeze that clock automatically. Production never sets `ISI_RELEASE_CLOCK`. Render must install `requirements-release.lock` with `--require-hashes` after `scripts/verify_release_lock.py`.
+Django tests freeze that clock automatically (1 September 2026) only when `test` is in `sys.argv`, so `manage.py test` is the supported runner; under `pytest` or with `ISI_RELEASE_CLOCK` set after the window, 34 of 196 tests fail. Production never sets `ISI_RELEASE_CLOCK`. Render must install `requirements-release.lock` with `--require-hashes` after `scripts/verify_release_lock.py`.
 
-To mirror live content exactly, know this history: live carries the content package PLUS 17 inherited-topic descriptions applied in June from `data/topic-descriptions-draft.json` (the first batch). Correction (5 October 2026): that file now holds every drafted description, but only its first 17 keys were applied live in June. Applying the whole file does not reproduce live, and the apply script stops on the non-numeric key `NEW_climate_change`. The file is gitignored and absent from a fresh clone. The 23-topic `topic-descriptions-batch-digital-2026-06-21.json` was never applied. The workshop debug URL is disabled; staff-only `/data/ops/status/` remains the canary path.
+To mirror live content exactly, know this history: live carries the content package PLUS 17 inherited-topic descriptions applied in June from `data/topic-descriptions-draft.json` (the first batch). Correction (5 October 2026): that file now holds every drafted description, but only its first 17 keys were applied live in June. Applying the whole file does not reproduce live, and the apply script stops on the non-numeric key `NEW_climate_change`. The file is gitignored and absent from a fresh clone. Correction (5 October 2026): that file now holds every drafted description, but only its first 17 keys were applied live in June. Applying the whole file does not reproduce live, and the apply script stops on the non-numeric key `NEW_climate_change`. The file is gitignored and absent from a fresh clone. The 23-topic `topic-descriptions-batch-digital-2026-06-21.json` was never applied. The workshop debug URL is disabled; staff-only `/data/ops/status/` remains the canary path.
 
 ## Account roles (July 2026)
 
