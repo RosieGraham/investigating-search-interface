@@ -51,7 +51,7 @@ Copy the repo to local disk first (`/tmp`); the mounted workspace blocks SQLite 
 export DEBUG=true
 export DATABASE_URL=sqlite:////tmp/isi.sqlite3
 export EMBEDDING_MODEL_DIR=/tmp/model_dir   # model.onnx + tokenizer.json
-# Matching identity is windowed 2026-08-20 to 2026-09-18. Before 20 Aug, freeze the clock:
+# Matching identity is windowed 2026-08-20 to 2027-10-15 (extended from 2026-09-18 on the post-season-2026 branch). Test runs freeze the clock automatically; to freeze it by hand:
 # export ISI_RELEASE_CLOCK=2026-09-01T12:00:00+00:00
 python manage.py download_model             # fetches the pinned int8 artifact
 python manage.py migrate
