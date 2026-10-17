@@ -32,7 +32,7 @@ class ReleasePolicyFileTests(SimpleTestCase):
             "https://investigating-search-interface.onrender.com/",
         )
         self.assertEqual(data["active_window"]["start"], "2026-08-20T00:00:00Z")
-        self.assertEqual(data["active_window"]["end"], "2026-09-18T23:59:59Z")
+        self.assertEqual(data["active_window"]["end"], "2027-10-15T23:59:59Z")
         self.assertEqual(data["capabilities"], ["matching"])
 
 
